@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Web.Extensions;
 
-namespace StudyONU.Web
+namespace StudyONU.Admin
 {
     public class Startup
     {
@@ -17,10 +16,9 @@ namespace StudyONU.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDatabase(configuration);
             services.AddMvc();
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
