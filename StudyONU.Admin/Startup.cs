@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StudyONU.Admin.Extensions;
+using StudyONU.Logic.Extensions;
 
 namespace StudyONU.Admin
 {
@@ -16,6 +18,9 @@ namespace StudyONU.Admin
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDatabase(configuration);
+            services.AddRepositories();
+
             services.AddMvc();
         }
 

@@ -9,4 +9,11 @@
     <ProjectReference Include="..\StudyONU.Data\StudyONU.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
