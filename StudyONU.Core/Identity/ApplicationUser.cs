@@ -19,5 +19,7 @@ namespace StudyONU.Core.Identity
         public virtual ICollection<StudentEntity> Students { get; set; }
 
         public virtual ICollection<CommentEntity> Comments { get; set; }
+
+        public virtual IEnumerable<AdminEntity> Admins { get; set; }
     }
 }

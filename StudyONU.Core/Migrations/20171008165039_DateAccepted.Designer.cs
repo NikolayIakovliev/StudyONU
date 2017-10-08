@@ -12,9 +12,10 @@ using System;
 namespace StudyONU.Core.Migrations
 {
     [DbContext(typeof(StudyONUDbContext))]
-    partial class StudyONUDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171008165039_DateAccepted")]
+    partial class DateAccepted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,20 +101,6 @@ namespace StudyONU.Core.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("StudyONU.Core.Entities.AdminEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApplicationUserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("StudyONU.Core.Entities.CommentEntity", b =>
@@ -470,14 +457,6 @@ namespace StudyONU.Core.Migrations
                     b.HasOne("StudyONU.Core.Identity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("StudyONU.Core.Entities.AdminEntity", b =>
-                {
-                    b.HasOne("StudyONU.Core.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany("Admins")
-                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

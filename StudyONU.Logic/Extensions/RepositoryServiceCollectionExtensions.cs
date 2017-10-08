@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Core;
 using StudyONU.Data.Contracts;
 using StudyONU.Data.Contracts.Repositories;
 using StudyONU.Data.Infrastructure;
@@ -12,8 +11,6 @@ namespace StudyONU.Logic.Extensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<StudyONUDbContext, StudyONUDbContext>();
-
             services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();

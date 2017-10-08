@@ -10,9 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
     <Folder Include="Contracts\" />
     <Folder Include="Mappings\" />
+    <Folder Include="DTO\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

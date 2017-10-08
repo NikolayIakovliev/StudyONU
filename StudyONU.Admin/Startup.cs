@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StudyONU.Admin.Builder;
 using StudyONU.Admin.Extensions;
 using StudyONU.Logic.Extensions;
 
@@ -30,7 +31,11 @@ namespace StudyONU.Admin
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                // TODO
+                // implement logging
             }
+
+            app.UseDatabaseSeedMiddleware();
 
             app.UseMvc(routes =>
             {

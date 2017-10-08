@@ -8,6 +8,8 @@ namespace StudyONU.Core
 {
     public class StudyONUDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
+        public DbSet<AdminEntity> Admins { get; set; }
+
         public DbSet<CommentEntity> Comments { get; set; }
 
         public DbSet<CourseEntity> Courses { get; set; }
@@ -33,6 +35,7 @@ namespace StudyONU.Core
         {
             base.OnModelCreating(builder);
 
+            builder.ApplyConfiguration(new AdminConfiguration());
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
             builder.ApplyConfiguration(new CommentConfiguration());
             builder.ApplyConfiguration(new CourseConfiguration());

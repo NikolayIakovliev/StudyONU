@@ -19,6 +19,8 @@ namespace StudyONU.Core.Entities
 
         public DateTime DateModified { get; set; }
 
+        public DateTime? DateAccepted { get; set; }
+
         public TaskState State { get; set; }
 
         public decimal? Mark { get; set; }
