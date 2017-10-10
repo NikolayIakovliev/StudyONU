@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudyONU.Admin.Builder;
@@ -31,11 +32,17 @@ namespace StudyONU.Admin
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true,
+                    ReactHotModuleReplacement = true,
+                    ConfigFile = "webpack.config.development.js"
+                });
                 // TODO
                 // implement logging
             }
 
-            app.UseDatabaseSeedMiddleware();
+            app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
@@ -44,6 +51,8 @@ namespace StudyONU.Admin
                     template: "{controller=Home}/{action=Index}/{id?}"
                     );
             });
+
+            app.UseDatabaseSeedMiddleware();
         }
     }
 }

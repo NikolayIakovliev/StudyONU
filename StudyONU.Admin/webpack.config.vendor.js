@@ -1,0 +1,52 @@
+﻿const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+module.exports = (env) => {
+    const extractCSS = new ExtractTextPlugin('vendor.css');
+    const isDevBuild = !(env && env.prod);
+
+    return [{
+        stats: { modules: false },
+        resolve: {
+            extensions: ['.js']
+        },
+        module: {
+            rules: [
+                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' },
+                { test: /\.css(\?|$)/, use: extractCSS.extract([isDevBuild ? 'css-loader' : 'css-loader?minimize']) }
+            ]
+        },
+        entry: {
+            vendor: ['bootstrap', 'bootstrap/dist/css/bootstrap.css', 'react', 'react-dom', 'react-router-dom', 'jquery', 'whatwg-fetch']
+        },
+        output: {
+            path: path.join(__dirname, 'wwwroot', 'dist'),
+            publicPath: '/dist/',
+            filename: '[name].js',
+            library: '[name]_[hash]'
+        },
+        plugins: [
+            extractCSS,
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery'
+            }),
+            new webpack.DllPlugin({
+                name: '[name]_[hash]',
+                path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json')
+            }),
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': isDevBuild ? JSON.stringify('development') : JSON.stringify('production')
+            })
+        ].concat(isDevBuild ? [
+            new webpack.SourceMapDevToolPlugin({
+                filename: '[file].map',
+                moduleFilenameTemplate: path.relative('./wwwroot/dist/', '[resourcePath]')
+            })
+        ] : [
+
+            ])
+    }];
+};
+
