@@ -1,12 +1,16 @@
 ﻿const authorizationKey = 'authorization';
 
 export function isUserLoggedIn() {
-    let authorization = localStorage.getItem(authorizationKey);
-    return authorization != null
+    let authorizationData = localStorage.getItem(authorizationKey);
+    return authorizationData != null
         ? true
         : false;
 }
 
-export function saveAuthorizationData(data) {
-    localStorage.setItem(authorizationKey, data);
+export function saveAuthorizationData(authorizationData) {
+    localStorage.setItem(authorizationKey, authorizationData);
+}
+
+export function clearAuthorizationData() {
+    localStorage.clear();
 }

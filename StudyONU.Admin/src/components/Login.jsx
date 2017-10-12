@@ -10,8 +10,6 @@ export class Login extends React.Component {
             password: '',
             error: ''
         }
-
-
     }
 
     render() {
@@ -43,11 +41,12 @@ export class Login extends React.Component {
     }
 
     send() {
+        let onLoginSuccess = this.props.onLoginSuccess;
         let response = Api.token(this.state, response => {
             let error = '';
 
             if (response.success) {
-                console.log(response.data);
+                onLoginSuccess(response.data);
             } else {
                 error = 'Неверно введена почта или пароль';
             }
