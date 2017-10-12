@@ -5,20 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StudyONU.Core\StudyONU.Core.csproj" />
     <ProjectReference Include="..\StudyONU.Logic\StudyONU.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\components\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

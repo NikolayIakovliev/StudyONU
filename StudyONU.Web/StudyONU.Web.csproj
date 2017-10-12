@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StudyONU.Core\StudyONU.Core.csproj" />
     <ProjectReference Include="..\StudyONU.Logic\StudyONU.Logic.csproj" />
   </ItemGroup>
 

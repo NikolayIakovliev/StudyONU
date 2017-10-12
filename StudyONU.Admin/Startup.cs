@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Builder;
-using StudyONU.Admin.Extensions;
+using StudyONU.Admin.Mappings;
 using StudyONU.Logic.Extensions;
+using System.Text;
 
 namespace StudyONU.Admin
 {
@@ -20,8 +25,21 @@ namespace StudyONU.Admin
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDatabase(configuration);
-            services.AddRepositories();
+            services.AddAutoMapper(config => config.AddProfile<BindingModelProfile>());
+            services.AddLogic(configuration);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(config =>
+                {
+                    config.RequireHttpsMetadata = false;
+                    config.SaveToken = true;
+
+                    config.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = JwtBearerSettings.Issuer,
+                        ValidAudience = JwtBearerSettings.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtBearerSettings.Key))
+                    };
+                });
 
             services.AddMvc();
         }
@@ -44,6 +62,7 @@ namespace StudyONU.Admin
 
             app.UseStaticFiles();
 
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

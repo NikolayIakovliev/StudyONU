@@ -18,7 +18,7 @@ module.exports = (env) => {
             ]
         },
         entry: {
-            vendor: ['bootstrap', 'bootstrap/dist/css/bootstrap.css', 'react', 'react-dom', 'react-router-dom', 'jquery', 'whatwg-fetch']
+            vendor: ['react', 'react-dom', 'react-router-dom']
         },
         output: {
             path: path.join(__dirname, 'wwwroot', 'dist'),
@@ -28,10 +28,6 @@ module.exports = (env) => {
         },
         plugins: [
             extractCSS,
-            new webpack.ProvidePlugin({
-                $: 'jquery',
-                jQuery: 'jquery'
-            }),
             new webpack.DllPlugin({
                 name: '[name]_[hash]',
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json')

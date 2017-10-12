@@ -11,7 +11,7 @@ namespace StudyONU.Data.Repositories
 {
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly StudyONUDbContext context;
+        protected readonly StudyONUDbContext context;
         private readonly DbSet<TEntity> dbSet;
 
         public RepositoryBase(StudyONUDbContext context)

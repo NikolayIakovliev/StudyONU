@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Core;
-using StudyONU.Core.Identity;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using StudyONU.Logic.Contracts.Services;
+using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.Infrastructure;
+using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Middleware
 {
@@ -22,37 +18,20 @@ namespace StudyONU.Admin.Middleware
 
         public async Task Invoke(HttpContext httpContext)
         {
-            StudyONUDbContext context = httpContext.RequestServices.GetService<StudyONUDbContext>();
+            IAccountService service = httpContext.RequestServices.GetService<IAccountService>();
 
-            try
+            RegisterAdminDTO admin = new RegisterAdminDTO
             {
-                bool exists = context.Users.Any(user => user.Email == "nikolay.iakovliev.web@gmail.com");
-                if (!exists)
-                {
-                    ApplicationUser applicationUser = new ApplicationUser
-                    {
-                        FirstName = "Admin",
-                        Patronymic = "Adminovich",
-                        LastName = "Adminov",
-                        Email = "nikolay.iakovliev.web@gmail.com",
-                        PhotoPath = "admin.png"
-                    };
+                FirstName = "Admin",
+                Patronymic = "Adminovich",
+                LastName = "Adminov",
+                Email = "nikolay.iakovliev.web@gmail.com",
+                PhotoPath = "admin.png",
+                Password = "nikolay.iakovliev.web@gmail.com"
+            };
 
-                    await context.Users.AddAsync(applicationUser);
-                    await context.SaveChangesAsync();
-
-                    ApplicationRole applicationRole = await context.Roles.FirstOrDefaultAsync(role => role.Name == Roles.Admin);
-                    IdentityUserRole<int> userRole = new IdentityUserRole<int>
-                    {
-                        UserId = applicationUser.Id,
-                        RoleId = applicationRole.Id
-                    };
-
-                    await context.UserRoles.AddAsync(userRole);
-                    await context.SaveChangesAsync();
-                }
-            }
-            catch
+            ServiceMessage serviceMessage = await service.RegisterAdminAsync(admin);
+            if (serviceMessage.ActionResult == ServiceActionResult.Exception)
             {
                 // TODO
                 // implement logging

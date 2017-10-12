@@ -3,7 +3,7 @@ using System;
 
 namespace StudyONU.Data.Infrastructure
 {
-    public class Lazier<T> : Lazy<T> where T : class
+    public class Lazier<T> : Lazy<T>
     {
         public Lazier(IServiceProvider serviceProvider)
             : base(() => serviceProvider.GetRequiredService<T>()) { }

@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StudyONU.Core.Configurations;
 using StudyONU.Core.Entities;
-using StudyONU.Core.Identity;
 
 namespace StudyONU.Core
 {
-    public class StudyONUDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
+    public class StudyONUDbContext : DbContext
     {
         public DbSet<AdminEntity> Admins { get; set; }
 
@@ -20,6 +18,8 @@ namespace StudyONU.Core
 
         public DbSet<ReportEntity> Reports { get; set; }
 
+        public DbSet<RoleEntity> Roles { get; set; }
+
         public DbSet<SpecialityEntity> Specialities { get; set; }
 
         public DbSet<StudentEntity> Students { get; set; }
@@ -27,6 +27,8 @@ namespace StudyONU.Core
         public DbSet<StudentQueueEntity> StudentQueue { get; set; }
 
         public DbSet<TaskEntity> Tasks { get; set; }
+
+        public DbSet<UserEntity> Users { get; set; }
 
         public StudyONUDbContext(DbContextOptions options)
             : base(options) { }
@@ -36,16 +38,17 @@ namespace StudyONU.Core
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new AdminConfiguration());
-            builder.ApplyConfiguration(new ApplicationUserConfiguration());
             builder.ApplyConfiguration(new CommentConfiguration());
             builder.ApplyConfiguration(new CourseConfiguration());
             builder.ApplyConfiguration(new GuideConfiguration());
             builder.ApplyConfiguration(new LecturerConfiguration());
             builder.ApplyConfiguration(new ReportConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new SpecialityConfiguration());
             builder.ApplyConfiguration(new StudentConfiguration());
             builder.ApplyConfiguration(new StudentQueueConfiguration());
             builder.ApplyConfiguration(new TaskConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }

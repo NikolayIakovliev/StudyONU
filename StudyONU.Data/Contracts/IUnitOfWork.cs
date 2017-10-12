@@ -6,7 +6,7 @@ namespace StudyONU.Data.Contracts
 {
     public interface IUnitOfWork : IDisposable
     {
-        IApplicationUserRepository ApplicationUsers { get; }
+        IAdminRepository Admins { get; }
 
         ICommentRepository Comments { get; }
 
@@ -18,6 +18,8 @@ namespace StudyONU.Data.Contracts
 
         IReportRepository Reports { get; }
 
+        IRoleRepository Roles { get; }
+
         ISpecialityRepository Specialities { get; }
 
         IStudentQueueRepository StudentQueue { get; }
@@ -25,6 +27,8 @@ namespace StudyONU.Data.Contracts
         IStudentRepository Students { get; }
 
         ITaskRepository Tasks { get; }
+
+        IUserRepository Users { get; }
 
         Task CommitAsync();
     }

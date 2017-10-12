@@ -10,9 +10,9 @@ namespace StudyONU.Core.Configurations
         {
             builder.HasKey(entity => entity.Id);
 
-            builder.HasOne(entity => entity.ApplicationUser)
+            builder.HasOne(entity => entity.User)
                 .WithMany(entity => entity.Students)
-                .HasForeignKey(entity => entity.ApplicationUserId);
+                .HasForeignKey(entity => entity.UserId);
             builder.Property(entity => entity.CourseNumber)
                 .HasColumnType("tinyint")
                 .HasMaxLength(1);

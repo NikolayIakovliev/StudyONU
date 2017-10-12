@@ -5,7 +5,7 @@ const bundleOutputDir = './wwwroot/dist';
 module.exports = {
     stats: { modules: false },
     entry: {
-        main: './src/app.js'
+        main: './src/app.jsx'
     },
     resolve: { extensions: ['.js', '.jsx'] },
     output: {

@@ -1,5 +1,4 @@
-﻿using StudyONU.Core.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace StudyONU.Core.Entities
 {
@@ -7,9 +6,9 @@ namespace StudyONU.Core.Entities
     {
         public int Id { get; set; }
 
-        public int ApplicationUserId { get; set; }
+        public int UserId { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual UserEntity User { get; set; }
 
         public virtual ICollection<CourseEntity> Courses { get; set; }
     }

@@ -1,13 +1,11 @@
-﻿using StudyONU.Core.Identity;
-
-namespace StudyONU.Core.Entities
+﻿namespace StudyONU.Core.Entities
 {
     public class AdminEntity
     {
         public int Id { get; set; }
 
-        public int ApplicationUserId { get; set; }
+        public int UserId { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual UserEntity User { get; set; }
     }
 }

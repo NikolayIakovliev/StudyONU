@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Core;
-using StudyONU.Core.Identity;
+using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.Infrastructure;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Middleware
@@ -19,26 +17,10 @@ namespace StudyONU.Admin.Middleware
 
         public async Task Invoke(HttpContext httpContext)
         {
-            StudyONUDbContext context = httpContext.RequestServices.GetService<StudyONUDbContext>();
+            IAccountService service = httpContext.RequestServices.GetService<IAccountService>();
 
-            try
-            {
-                foreach (string roleName in Roles.GetRoles())
-                {
-                    bool exists = context.Roles.Any(applicationRole => applicationRole.Name == roleName);
-                    if (!exists)
-                    {
-                        ApplicationRole applicationRole = new ApplicationRole
-                        {
-                            Name = roleName
-                        };
-                        await context.Roles.AddAsync(applicationRole);
-                    }
-                }
-
-                await context.SaveChangesAsync();
-            }
-            catch
+            ServiceMessage serviceMessage = await service.InitializeRoles();
+            if (serviceMessage.ActionResult == ServiceActionResult.Exception)
             {
                 // TODO
                 // implement logging

@@ -10,9 +10,9 @@ namespace StudyONU.Core.Configurations
         {
             builder.HasKey(entity => entity.Id);
 
-            builder.HasOne(entity => entity.ApplicationUser)
+            builder.HasOne(entity => entity.User)
                 .WithMany(entity => entity.Lecturers)
-                .HasForeignKey(entity => entity.ApplicationUserId);
+                .HasForeignKey(entity => entity.UserId);
         }
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Web.Extensions;
+using StudyONU.Logic.Extensions;
 
 namespace StudyONU.Web
 {

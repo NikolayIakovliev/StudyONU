@@ -1,6 +1,4 @@
-﻿using StudyONU.Core.Identity;
-
-namespace StudyONU.Core.Entities
+﻿namespace StudyONU.Core.Entities
 {
     public class CommentEntity
     {
@@ -10,7 +8,7 @@ namespace StudyONU.Core.Entities
 
         public int SenderId { get; set; }
 
-        public virtual ApplicationUser Sender { get; set; }
+        public virtual UserEntity Sender { get; set; }
 
         public int TaskId { get; set; }
 

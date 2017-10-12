@@ -28,7 +28,7 @@ module.exports = merge(common, {
             {
                 test: /\.scss$/,
                 use: sassExtract.extract({
-                    use: ['css-loader?minimize', 'sass-loader']
+                    use: ['css-loader?minimize']
                 })
             }
         ]

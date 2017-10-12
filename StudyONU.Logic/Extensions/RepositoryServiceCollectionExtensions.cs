@@ -3,7 +3,6 @@ using StudyONU.Data.Contracts;
 using StudyONU.Data.Contracts.Repositories;
 using StudyONU.Data.Infrastructure;
 using StudyONU.Data.Repositories;
-using System;
 
 namespace StudyONU.Logic.Extensions
 {
@@ -11,20 +10,31 @@ namespace StudyONU.Logic.Extensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
-            services.AddTransient<ICommentRepository, CommentRepository>();
-            services.AddTransient<ICourseRepository, CourseRepository>();
-            services.AddTransient<IGuideRepository, GuideRepository>();
-            services.AddTransient<ILecturerRepository, LecturerRepository>();
-            services.AddTransient<IReportRepository, ReportRepository>();
-            services.AddTransient<ISpecialityRepository, SpecialityRepository>();
-            services.AddTransient<IStudentQueueRepository, StudentQueueRepository>();
-            services.AddTransient<IStudentRepository, StudentRepository>();
-            services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddRepository<IAdminRepository, AdminRepository>();
+            services.AddRepository<ICommentRepository, CommentRepository>();
+            services.AddRepository<ICourseRepository, CourseRepository>();
+            services.AddRepository<IGuideRepository, GuideRepository>();
+            services.AddRepository<ILecturerRepository, LecturerRepository>();
+            services.AddRepository<IReportRepository, ReportRepository>();
+            services.AddRepository<IRoleRepository, RoleRepository>();
+            services.AddRepository<ISpecialityRepository, SpecialityRepository>();
+            services.AddRepository<IStudentQueueRepository, StudentQueueRepository>();
+            services.AddRepository<IStudentRepository, StudentRepository>();
+            services.AddRepository<ITaskRepository, TaskRepository>();
+            services.AddRepository<IUserRepository, UserRepository>();
 
-            services.AddTransient(typeof(Lazy<>), typeof(Lazier<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddRepository<TRepository, TImplementation>(this IServiceCollection services)
+            where TRepository : class
+            where TImplementation : class, TRepository
+        {
+            services.AddTransient<TRepository, TImplementation>();
+            services.AddTransient<Lazier<TRepository>>();
+            
             return services;
         }
     }
