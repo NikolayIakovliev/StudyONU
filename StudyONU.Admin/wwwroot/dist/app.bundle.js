@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e771b4f5fd065ed60f52"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "41938f4a223c6304d6f3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -727,6 +727,12 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = (__webpack_require__(5))(7);
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -743,7 +749,7 @@ var root = freeGlobal || freeSelf || Function('return this')();
 module.exports = root;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -775,12 +781,6 @@ module.exports = root;
 var isArray = Array.isArray;
 
 module.exports = isArray;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = (__webpack_require__(5))(7);
 
 /***/ }),
 /* 3 */
@@ -893,7 +893,7 @@ module.exports = baseGetTag;
 "use strict";
 
 
-var root = __webpack_require__(0);
+var root = __webpack_require__(1);
 
 /** Built-in value references. */
 var _Symbol = root.Symbol;
@@ -1254,7 +1254,7 @@ module.exports = toKey;
 
 
 var getNative = __webpack_require__(3),
-    root = __webpack_require__(0);
+    root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
 var Map = getNative(root, 'Map');
@@ -1455,7 +1455,7 @@ module.exports = isLength;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var isArray = __webpack_require__(1),
+var isArray = __webpack_require__(2),
     isSymbol = __webpack_require__(16);
 
 /** Used to match property names within property paths. */
@@ -1551,7 +1551,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var baseMatches = __webpack_require__(65),
     baseMatchesProperty = __webpack_require__(124),
     identity = __webpack_require__(25),
-    isArray = __webpack_require__(1),
+    isArray = __webpack_require__(2),
     property = __webpack_require__(134);
 
 /**
@@ -1951,7 +1951,7 @@ module.exports = arrayPush;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var root = __webpack_require__(0),
+var root = __webpack_require__(1),
     stubFalse = __webpack_require__(112);
 
 /** Detect free variable `exports`. */
@@ -2163,7 +2163,7 @@ module.exports = baseGet;
 "use strict";
 
 
-var isArray = __webpack_require__(1),
+var isArray = __webpack_require__(2),
     isKey = __webpack_require__(24),
     stringToPath = __webpack_require__(126),
     toString = __webpack_require__(129);
@@ -2631,7 +2631,7 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var React = __webpack_require__(2);
+var React = __webpack_require__(0);
 var createProxy = __webpack_require__(61).default;
 var global = __webpack_require__(164);
 
@@ -3809,7 +3809,7 @@ module.exports = isMasked;
 "use strict";
 
 
-var root = __webpack_require__(0);
+var root = __webpack_require__(1);
 
 /** Used to detect overreaching core-js shims. */
 var coreJsData = root['__core-js_shared__'];
@@ -4193,7 +4193,7 @@ var Stack = __webpack_require__(29),
     equalByTag = __webpack_require__(99),
     equalObjects = __webpack_require__(103),
     getTag = __webpack_require__(118),
-    isArray = __webpack_require__(1),
+    isArray = __webpack_require__(2),
     isBuffer = __webpack_require__(39),
     isTypedArray = __webpack_require__(40);
 
@@ -4475,7 +4475,7 @@ module.exports = equalByTag;
 "use strict";
 
 
-var root = __webpack_require__(0);
+var root = __webpack_require__(1);
 
 /** Built-in value references. */
 var Uint8Array = root.Uint8Array;
@@ -4655,7 +4655,7 @@ module.exports = getAllKeys;
 
 
 var arrayPush = __webpack_require__(38),
-    isArray = __webpack_require__(1);
+    isArray = __webpack_require__(2);
 
 /**
  * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -4786,7 +4786,7 @@ module.exports = stubArray;
 
 var baseTimes = __webpack_require__(110),
     isArguments = __webpack_require__(20),
-    isArray = __webpack_require__(1),
+    isArray = __webpack_require__(2),
     isBuffer = __webpack_require__(39),
     isIndex = __webpack_require__(22),
     isTypedArray = __webpack_require__(40);
@@ -5151,7 +5151,7 @@ module.exports = getTag;
 
 
 var getNative = __webpack_require__(3),
-    root = __webpack_require__(0);
+    root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
 var DataView = getNative(root, 'DataView');
@@ -5166,7 +5166,7 @@ module.exports = DataView;
 
 
 var getNative = __webpack_require__(3),
-    root = __webpack_require__(0);
+    root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
 var Promise = getNative(root, 'Promise');
@@ -5181,7 +5181,7 @@ module.exports = Promise;
 
 
 var getNative = __webpack_require__(3),
-    root = __webpack_require__(0);
+    root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
 var Set = getNative(root, 'Set');
@@ -5196,7 +5196,7 @@ module.exports = Set;
 
 
 var getNative = __webpack_require__(3),
-    root = __webpack_require__(0);
+    root = __webpack_require__(1);
 
 /* Built-in method references that are verified to be native. */
 var WeakMap = getNative(root, 'WeakMap');
@@ -5511,7 +5511,7 @@ module.exports = toString;
 
 var _Symbol = __webpack_require__(7),
     arrayMap = __webpack_require__(47),
-    isArray = __webpack_require__(1),
+    isArray = __webpack_require__(2),
     isSymbol = __webpack_require__(16);
 
 /** Used as references for various `Number` constants. */
@@ -5619,7 +5619,7 @@ module.exports = baseHasIn;
 
 var castPath = __webpack_require__(46),
     isArguments = __webpack_require__(20),
-    isArray = __webpack_require__(1),
+    isArray = __webpack_require__(2),
     isIndex = __webpack_require__(22),
     isLength = __webpack_require__(23),
     toKey = __webpack_require__(17);
@@ -6883,7 +6883,7 @@ module.exports = baseFlatten;
 
 var _Symbol = __webpack_require__(7),
     isArguments = __webpack_require__(20),
-    isArray = __webpack_require__(1);
+    isArray = __webpack_require__(2);
 
 /** Built-in value references. */
 var spreadableSymbol = _Symbol ? _Symbol.isConcatSpreadable : undefined;
@@ -8358,7 +8358,7 @@ module.exports = function (hash, moduleMap, options) {
 "use strict";
 
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8374,7 +8374,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var routes = RoutesModule.routes;
 
-(0, _reactDom.render)(React.createElement(_reactRouterDom.BrowserRouter, { children: routes }), document.getElementById('root'));
+var root = document.getElementById('root');
+(0, _reactDom.render)(React.createElement(_reactRouterDom.BrowserRouter, { children: routes }), root);
 
 /***/ }),
 /* 178 */
@@ -8394,7 +8395,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.routes = undefined;
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8408,14 +8409,20 @@ var _Counter = __webpack_require__(183);
 
 var _Uncounter = __webpack_require__(184);
 
+var _Authentication = __webpack_require__(185);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var routes = exports.routes = React.createElement(
-    _Layout.Layout,
+    _Authentication.Authentication,
     null,
-    React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home.Home }),
-    React.createElement(_reactRouterDom.Route, { path: '/counter', component: _Counter.Counter }),
-    React.createElement(_reactRouterDom.Route, { path: '/uncounter', component: _Uncounter.Uncounter })
+    React.createElement(
+        _Layout.Layout,
+        null,
+        React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home.Home }),
+        React.createElement(_reactRouterDom.Route, { path: '/counter', component: _Counter.Counter }),
+        React.createElement(_reactRouterDom.Route, { path: '/uncounter', component: _Uncounter.Uncounter })
+    )
 );
 
 /***/ }),
@@ -8432,7 +8439,7 @@ exports.Layout = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8460,20 +8467,16 @@ var Layout = exports.Layout = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'div',
-                { className: 'container-fluid' },
+                null,
                 React.createElement(
                     'div',
-                    { className: 'row' },
-                    React.createElement(
-                        'div',
-                        { className: 'col-sm-3' },
-                        React.createElement(_NavMenu.NavMenu, null)
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'col-sm-9' },
-                        this.props.children
-                    )
+                    null,
+                    React.createElement(_NavMenu.NavMenu, null)
+                ),
+                React.createElement(
+                    'div',
+                    null,
+                    this.props.children
                 )
             );
         }
@@ -8496,7 +8499,7 @@ exports.NavMenu = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8524,71 +8527,25 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'div',
-                { className: 'main-nav' },
+                null,
                 React.createElement(
-                    'div',
-                    { className: 'navbar navbar-inverse' },
-                    React.createElement(
-                        'div',
-                        { className: 'navbar-header' },
-                        React.createElement(
-                            'button',
-                            { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
-                            React.createElement(
-                                'span',
-                                { className: 'sr-only' },
-                                'Toggle navigation'
-                            ),
-                            React.createElement('span', { className: 'icon-bar' }),
-                            React.createElement('span', { className: 'icon-bar' }),
-                            React.createElement('span', { className: 'icon-bar' })
-                        ),
-                        React.createElement(
-                            _reactRouterDom.Link,
-                            { className: 'navbar-brand', to: '/' },
-                            'Temp_ReactJsTemplate'
-                        )
-                    ),
-                    React.createElement('div', { className: 'clearfix' }),
-                    React.createElement(
-                        'div',
-                        { className: 'navbar-collapse collapse' },
-                        React.createElement(
-                            'ul',
-                            { className: 'nav navbar-nav' },
-                            React.createElement(
-                                'li',
-                                null,
-                                React.createElement(
-                                    _reactRouterDom.NavLink,
-                                    { to: '/', exact: true, activeClassName: 'active' },
-                                    React.createElement('span', { className: 'glyphicon glyphicon-home' }),
-                                    ' Home'
-                                )
-                            ),
-                            React.createElement(
-                                'li',
-                                null,
-                                React.createElement(
-                                    _reactRouterDom.NavLink,
-                                    { to: '/counter', activeClassName: 'active' },
-                                    React.createElement('span', { className: 'glyphicon glyphicon-education' }),
-                                    ' Counter'
-                                )
-                            ),
-                            React.createElement(
-                                'li',
-                                null,
-                                React.createElement(
-                                    _reactRouterDom.NavLink,
-                                    { to: '/uncounter', activeClassName: 'active' },
-                                    React.createElement('span', { className: 'glyphicon glyphicon-education' }),
-                                    ' Uncounter'
-                                )
-                            )
-                        )
-                    )
-                )
+                    _reactRouterDom.NavLink,
+                    { to: '/' },
+                    'home'
+                ),
+                React.createElement('br', null),
+                React.createElement(
+                    _reactRouterDom.NavLink,
+                    { to: '/counter' },
+                    'counter'
+                ),
+                React.createElement('br', null),
+                React.createElement(
+                    _reactRouterDom.NavLink,
+                    { to: '/uncounter' },
+                    'uncounter'
+                ),
+                React.createElement('br', null)
             );
         }
     }]);
@@ -8610,7 +8567,7 @@ exports.Home = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8639,173 +8596,7 @@ var Home = exports.Home = function (_React$Component) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'h1',
-                    null,
-                    'Hello, world!'
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    'Welcome to your new single-page application, built with:'
-                ),
-                React.createElement(
-                    'ul',
-                    null,
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'a',
-                            { href: 'https://get.asp.net/' },
-                            'ASP.NET Core'
-                        ),
-                        ' and ',
-                        React.createElement(
-                            'a',
-                            { href: 'https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx' },
-                            'C#'
-                        ),
-                        ' for cross-platform server-side code'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'a',
-                            { href: 'https://facebook.github.io/react/' },
-                            'React'
-                        ),
-                        ' and ',
-                        React.createElement(
-                            'a',
-                            { href: 'http://www.typescriptlang.org/' },
-                            'TypeScript'
-                        ),
-                        ' for client-side code'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'a',
-                            { href: 'https://webpack.github.io/' },
-                            'Webpack'
-                        ),
-                        ' for building and bundling client-side resources'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'a',
-                            { href: 'http://getbootstrap.com/' },
-                            'Bootstrap'
-                        ),
-                        ' for layout and styling'
-                    )
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    'To help you get started, we\'ve also set up:'
-                ),
-                React.createElement(
-                    'ul',
-                    null,
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'strong',
-                            null,
-                            'Client-side navigation'
-                        ),
-                        '. For example, click ',
-                        React.createElement(
-                            'em',
-                            null,
-                            'Counter'
-                        ),
-                        ' then ',
-                        React.createElement(
-                            'em',
-                            null,
-                            'Back'
-                        ),
-                        ' to return here.'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'strong',
-                            null,
-                            'Webpack dev middleware'
-                        ),
-                        '. In development mode, there\'s no need to run the ',
-                        React.createElement(
-                            'code',
-                            null,
-                            'webpack'
-                        ),
-                        ' build tool. Your client-side resources are dynamically built on demand. Updates are available as soon as you modify any file.'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'strong',
-                            null,
-                            'Hot module replacement'
-                        ),
-                        '. In development mode, you don\'t even need to reload the page after making most changes. Within seconds of saving changes to files, rebuilt React components will be injected directly into your running application, preserving its live state.'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        React.createElement(
-                            'strong',
-                            null,
-                            'Efficient production builds'
-                        ),
-                        '. In production mode, development-time features are disabled, and the ',
-                        React.createElement(
-                            'code',
-                            null,
-                            'webpack'
-                        ),
-                        ' build tool produces minified static CSS and JavaScript files.'
-                    )
-                ),
-                React.createElement(
-                    'h4',
-                    null,
-                    'Going further'
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    'For larger applications, or for server-side prerendering (i.e., for ',
-                    React.createElement(
-                        'em',
-                        null,
-                        'isomorphic'
-                    ),
-                    ' or ',
-                    React.createElement(
-                        'em',
-                        null,
-                        'universal'
-                    ),
-                    ' applications), you should consider using a Flux/Redux-like architecture. You can generate an ASP.NET Core application with React and Redux using ',
-                    React.createElement(
-                        'code',
-                        null,
-                        'dotnet new reactredux'
-                    ),
-                    ' instead of using this template.'
-                )
+                'Home'
             );
         }
     }]);
@@ -8827,7 +8618,7 @@ exports.Counter = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8861,16 +8652,6 @@ var Counter = exports.Counter = function (_React$Component) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'h1',
-                    null,
-                    'Counter'
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    'This is a simple example of a React component.'
-                ),
                 React.createElement(
                     'p',
                     null,
@@ -8916,7 +8697,7 @@ exports.Uncounter = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
@@ -8949,16 +8730,6 @@ var Uncounter = exports.Uncounter = function (_React$Component) {
                 'div',
                 null,
                 React.createElement(
-                    'h1',
-                    null,
-                    'Counter'
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    'This is a simple example of a React component.'
-                ),
-                React.createElement(
                     'p',
                     null,
                     'Current count: ',
@@ -8988,6 +8759,272 @@ var Uncounter = exports.Uncounter = function (_React$Component) {
 
     return Uncounter;
 }(React.Component);
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Authentication = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _Login = __webpack_require__(186);
+
+var _shared = __webpack_require__(188);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Authentication = exports.Authentication = function (_React$Component) {
+    _inherits(Authentication, _React$Component);
+
+    function Authentication(props) {
+        _classCallCheck(this, Authentication);
+
+        return _possibleConstructorReturn(this, (Authentication.__proto__ || Object.getPrototypeOf(Authentication)).call(this, props));
+    }
+
+    _createClass(Authentication, [{
+        key: 'render',
+        value: function render() {
+            return (0, _shared.isUserLoggedIn)() ? this.props.children : React.createElement(_Login.Login, null);
+        }
+    }]);
+
+    return Authentication;
+}(React.Component);
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Login = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _api = __webpack_require__(187);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Login = exports.Login = function (_React$Component) {
+    _inherits(Login, _React$Component);
+
+    function Login(props) {
+        _classCallCheck(this, Login);
+
+        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+        _this.state = {
+            email: '',
+            password: '',
+            error: ''
+        };
+
+        return _this;
+    }
+
+    _createClass(Login, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'h2',
+                    null,
+                    'Login'
+                ),
+                React.createElement(
+                    'label',
+                    null,
+                    'Email: '
+                ),
+                React.createElement('input', { type: 'email', value: this.state.email, onChange: function onChange(e) {
+                        return _this2.handleEmail(e.target.value);
+                    } }),
+                React.createElement(
+                    'label',
+                    null,
+                    'Password: '
+                ),
+                React.createElement('input', { type: 'password', value: this.state.password, onChange: function onChange(e) {
+                        return _this2.handlePassword(e.target.value);
+                    } }),
+                React.createElement(
+                    'button',
+                    { onClick: function onClick(e) {
+                            return _this2.send();
+                        } },
+                    'Send'
+                ),
+                this.state.error && React.createElement(
+                    'span',
+                    null,
+                    this.state.error
+                )
+            );
+        }
+    }, {
+        key: 'handleEmail',
+        value: function handleEmail(value) {
+            this.setState({
+                email: value
+            });
+        }
+    }, {
+        key: 'handlePassword',
+        value: function handlePassword(value) {
+            this.setState({
+                password: value
+            });
+        }
+    }, {
+        key: 'send',
+        value: function send() {
+            var _this3 = this;
+
+            var response = _api.Api.token(this.state, function (response) {
+                var error = '';
+
+                if (response.success) {
+                    console.log(response.data);
+                } else {
+                    error = 'Неверно введена почта или пароль';
+                }
+
+                _this3.setState({
+                    error: error
+                });
+            });
+        }
+    }]);
+
+    return Login;
+}(React.Component);
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var urls = exports.urls = {
+    token: '/api/token'
+};
+
+var checkStatus = function checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+        return response;
+    }
+
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+};
+
+var Api = exports.Api = function () {
+    function Api() {
+        _classCallCheck(this, Api);
+    }
+
+    _createClass(Api, null, [{
+        key: 'get',
+        value: function get(url) {
+            return fetch(url).then(checkStatus).then(function (res) {
+                return res.json();
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        }
+    }, {
+        key: 'token',
+        value: function token(data, onComplete) {
+            var init = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+
+            fetch(urls.token, init).then(checkStatus).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                return onComplete(res);
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        }
+    }]);
+
+    return Api;
+}();
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isUserLoggedIn = isUserLoggedIn;
+exports.saveAuthorizationData = saveAuthorizationData;
+var authorizationKey = 'authorization';
+
+function isUserLoggedIn() {
+    var authorization = localStorage.getItem(authorizationKey);
+    return authorization != null ? true : false;
+}
+
+function saveAuthorizationData(data) {
+    localStorage.setItem(authorizationKey, data);
+}
 
 /***/ })
 /******/ ]);
