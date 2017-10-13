@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StudyONU.Logic.Mappings;
 
 namespace StudyONU.Logic.Extensions
 {
@@ -8,7 +9,10 @@ namespace StudyONU.Logic.Extensions
     {
         public static IServiceCollection AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper();
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile<LecturerProfile>();
+            });
 
             return services;
         }

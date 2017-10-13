@@ -10,9 +10,9 @@ export class NavMenu extends React.Component {
         let _this = this;
         return (
             <div>
-                <NavLink to={'/'}>home</NavLink><br />
-                <NavLink to={'/counter'}>counter</NavLink><br />
-                <NavLink to={'/uncounter'}>uncounter</NavLink><br />
+                {this.props.allowedLinks.map((link, index) => {
+                    return <div key={index}><NavLink to={link.to}>{link.title}</NavLink></div>
+                })}
                 <button onClick={e => _this.props.onLogout()}>Logout</button>
             </div>
         );

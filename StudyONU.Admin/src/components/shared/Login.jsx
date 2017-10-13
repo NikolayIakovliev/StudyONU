@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { Api } from '../api';
+import { Api } from '../../shared/api';
 
 export class Login extends React.Component {
     constructor(props) {
