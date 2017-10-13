@@ -7,6 +7,18 @@ export function isUserLoggedIn() {
         : false;
 }
 
-export function saveAuthorizationData(data) {
-    localStorage.setItem(authorizationKey, data);
+export function getAuthorizationData() {
+    let json = localStorage.getItem(authorizationKey);
+    let authorizationData = JSON.parse(json);
+
+    return authorizationData;
+}
+
+export function saveAuthorizationData(authorizationData) {
+    let json = JSON.stringify(authorizationData);
+    localStorage.setItem(authorizationKey, json);
+}
+
+export function clearAuthorizationData() {
+    localStorage.clear();
 }

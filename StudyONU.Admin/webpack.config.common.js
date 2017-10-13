@@ -19,6 +19,9 @@ module.exports = {
             { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
         ]
     },
+    devServer: {
+        historyApiFallback: true
+    },
     plugins: [
         new webpack.DllReferencePlugin({
             context: __dirname,

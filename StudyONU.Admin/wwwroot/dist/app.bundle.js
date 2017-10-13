@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "41938f4a223c6304d6f3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a6e36b1d77b2e5c5535e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -8366,16 +8366,20 @@ var _reactDom = __webpack_require__(178);
 
 var _reactRouterDom = __webpack_require__(26);
 
-var _routes = __webpack_require__(179);
+var _Authentication = __webpack_require__(179);
 
-var RoutesModule = _interopRequireWildcard(_routes);
+var _Routes = __webpack_require__(183);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var routes = RoutesModule.routes;
+var AuthenticationComponent = (0, _Authentication.Authentication)(_Routes.Routes);
 
 var root = document.getElementById('root');
-(0, _reactDom.render)(React.createElement(_reactRouterDom.BrowserRouter, { children: routes }), root);
+(0, _reactDom.render)(React.createElement(
+  _reactRouterDom.BrowserRouter,
+  null,
+  React.createElement(AuthenticationComponent, null)
+), root);
 
 /***/ }),
 /* 178 */
@@ -8393,7 +8397,324 @@ module.exports = (__webpack_require__(5))(116);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.routes = undefined;
+exports.Authentication = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _Login = __webpack_require__(180);
+
+var _shared = __webpack_require__(182);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Authentication = exports.Authentication = function Authentication(WrappedComponent) {
+    return function (_React$Component) {
+        _inherits(WithAuthentication, _React$Component);
+
+        function WithAuthentication(props) {
+            _classCallCheck(this, WithAuthentication);
+
+            var _this2 = _possibleConstructorReturn(this, (WithAuthentication.__proto__ || Object.getPrototypeOf(WithAuthentication)).call(this, props));
+
+            _this2.state = {
+                userRole: '',
+                token: ''
+            };
+            return _this2;
+        }
+
+        _createClass(WithAuthentication, [{
+            key: 'componentDidMount',
+            value: function componentDidMount() {
+                this.update();
+            }
+        }, {
+            key: 'render',
+            value: function render() {
+                var _this = this;
+
+                var renderedComponent = this.state.userRole ? React.createElement(WrappedComponent, { onLogout: function onLogout() {
+                        (0, _shared.clearAuthorizationData)();
+                        _this.update();
+                    } }) : React.createElement(_Login.Login, { onLoginSuccess: function onLoginSuccess(data) {
+                        (0, _shared.saveAuthorizationData)(data);
+                        _this.update();
+                    } });
+
+                return renderedComponent;
+            }
+        }, {
+            key: 'update',
+            value: function update() {
+                var state = {
+                    userRole: '',
+                    token: ''
+                };
+
+                var userLoggedIn = (0, _shared.isUserLoggedIn)();
+                if (userLoggedIn) {
+                    var authorizationData = (0, _shared.getAuthorizationData)();
+                    state.userRole = authorizationData.userRole;
+                    state.token = authorizationData.token;
+                } else {}
+
+                this.setState(state);
+            }
+        }]);
+
+        return WithAuthentication;
+    }(React.Component);
+};
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Login = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _api = __webpack_require__(181);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Login = exports.Login = function (_React$Component) {
+    _inherits(Login, _React$Component);
+
+    function Login(props) {
+        _classCallCheck(this, Login);
+
+        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+        _this.state = {
+            email: '',
+            password: '',
+            error: ''
+        };
+        return _this;
+    }
+
+    _createClass(Login, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'h2',
+                    null,
+                    'Login'
+                ),
+                React.createElement(
+                    'label',
+                    null,
+                    'Email: '
+                ),
+                React.createElement('input', { type: 'email', value: this.state.email, onChange: function onChange(e) {
+                        return _this2.handleEmail(e.target.value);
+                    } }),
+                React.createElement(
+                    'label',
+                    null,
+                    'Password: '
+                ),
+                React.createElement('input', { type: 'password', value: this.state.password, onChange: function onChange(e) {
+                        return _this2.handlePassword(e.target.value);
+                    } }),
+                React.createElement(
+                    'button',
+                    { onClick: function onClick(e) {
+                            return _this2.send();
+                        } },
+                    'Send'
+                ),
+                this.state.error && React.createElement(
+                    'span',
+                    null,
+                    this.state.error
+                )
+            );
+        }
+    }, {
+        key: 'handleEmail',
+        value: function handleEmail(value) {
+            this.setState({
+                email: value
+            });
+        }
+    }, {
+        key: 'handlePassword',
+        value: function handlePassword(value) {
+            this.setState({
+                password: value
+            });
+        }
+    }, {
+        key: 'send',
+        value: function send() {
+            var _this3 = this;
+
+            var response = _api.Api.token(this.state, function (response) {
+                if (response.success) {
+                    _this3.props.onLoginSuccess(response.data);
+                } else {
+                    _this3.setState({
+                        error: 'Неверно введена почта или пароль'
+                    });
+                }
+            });
+        }
+    }]);
+
+    return Login;
+}(React.Component);
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var urls = exports.urls = {
+    token: '/api/token'
+};
+
+var checkStatus = function checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+        return response;
+    }
+
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+};
+
+var Api = exports.Api = function () {
+    function Api() {
+        _classCallCheck(this, Api);
+    }
+
+    _createClass(Api, null, [{
+        key: 'get',
+        value: function get(url) {
+            return fetch(url).then(checkStatus).then(function (res) {
+                return res.json();
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        }
+    }, {
+        key: 'token',
+        value: function token(data, onComplete) {
+            var init = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+
+            fetch(urls.token, init).then(checkStatus).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                return onComplete(res);
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        }
+    }]);
+
+    return Api;
+}();
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isUserLoggedIn = isUserLoggedIn;
+exports.getAuthorizationData = getAuthorizationData;
+exports.saveAuthorizationData = saveAuthorizationData;
+exports.clearAuthorizationData = clearAuthorizationData;
+var authorizationKey = 'authorization';
+
+function isUserLoggedIn() {
+    var authorization = localStorage.getItem(authorizationKey);
+    return authorization != null ? true : false;
+}
+
+function getAuthorizationData() {
+    var json = localStorage.getItem(authorizationKey);
+    var authorizationData = JSON.parse(json);
+
+    return authorizationData;
+}
+
+function saveAuthorizationData(authorizationData) {
+    var json = JSON.stringify(authorizationData);
+    localStorage.setItem(authorizationKey, json);
+}
+
+function clearAuthorizationData() {
+    localStorage.clear();
+}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Routes = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -8401,32 +8722,49 @@ var React = _interopRequireWildcard(_react);
 
 var _reactRouterDom = __webpack_require__(26);
 
-var _Layout = __webpack_require__(180);
+var _Layout = __webpack_require__(184);
 
-var _Home = __webpack_require__(182);
+var _Home = __webpack_require__(186);
 
-var _Counter = __webpack_require__(183);
+var _Counter = __webpack_require__(187);
 
-var _Uncounter = __webpack_require__(184);
-
-var _Authentication = __webpack_require__(185);
+var _Uncounter = __webpack_require__(188);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var routes = exports.routes = React.createElement(
-    _Authentication.Authentication,
-    null,
-    React.createElement(
-        _Layout.Layout,
-        null,
-        React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home.Home }),
-        React.createElement(_reactRouterDom.Route, { path: '/counter', component: _Counter.Counter }),
-        React.createElement(_reactRouterDom.Route, { path: '/uncounter', component: _Uncounter.Uncounter })
-    )
-);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Routes = exports.Routes = function (_React$Component) {
+    _inherits(Routes, _React$Component);
+
+    function Routes(props) {
+        _classCallCheck(this, Routes);
+
+        return _possibleConstructorReturn(this, (Routes.__proto__ || Object.getPrototypeOf(Routes)).call(this, props));
+    }
+
+    _createClass(Routes, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                _Layout.Layout,
+                this.props,
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home.Home }),
+                React.createElement(_reactRouterDom.Route, { path: '/counter', component: _Counter.Counter }),
+                React.createElement(_reactRouterDom.Route, { path: '/uncounter', component: _Uncounter.Uncounter })
+            );
+        }
+    }]);
+
+    return Routes;
+}(React.Component);
 
 /***/ }),
-/* 180 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8443,7 +8781,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _NavMenu = __webpack_require__(181);
+var _NavMenu = __webpack_require__(185);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -8456,10 +8794,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Layout = exports.Layout = function (_React$Component) {
     _inherits(Layout, _React$Component);
 
-    function Layout() {
+    function Layout(props) {
         _classCallCheck(this, Layout);
 
-        return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
     }
 
     _createClass(Layout, [{
@@ -8471,7 +8809,7 @@ var Layout = exports.Layout = function (_React$Component) {
                 React.createElement(
                     'div',
                     null,
-                    React.createElement(_NavMenu.NavMenu, null)
+                    React.createElement(_NavMenu.NavMenu, this.props)
                 ),
                 React.createElement(
                     'div',
@@ -8486,7 +8824,7 @@ var Layout = exports.Layout = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 181 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8516,15 +8854,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NavMenu = exports.NavMenu = function (_React$Component) {
     _inherits(NavMenu, _React$Component);
 
-    function NavMenu() {
+    function NavMenu(props) {
         _classCallCheck(this, NavMenu);
 
-        return _possibleConstructorReturn(this, (NavMenu.__proto__ || Object.getPrototypeOf(NavMenu)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (NavMenu.__proto__ || Object.getPrototypeOf(NavMenu)).call(this, props));
     }
 
     _createClass(NavMenu, [{
         key: 'render',
         value: function render() {
+            var _this = this;
             return React.createElement(
                 'div',
                 null,
@@ -8545,7 +8884,14 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
                     { to: '/uncounter' },
                     'uncounter'
                 ),
-                React.createElement('br', null)
+                React.createElement('br', null),
+                React.createElement(
+                    'button',
+                    { onClick: function onClick(e) {
+                            return _this.props.onLogout();
+                        } },
+                    'Logout'
+                )
             );
         }
     }]);
@@ -8554,7 +8900,7 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 182 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8605,7 +8951,7 @@ var Home = exports.Home = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 183 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8684,7 +9030,7 @@ var Counter = exports.Counter = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8759,272 +9105,6 @@ var Uncounter = exports.Uncounter = function (_React$Component) {
 
     return Uncounter;
 }(React.Component);
-
-/***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Authentication = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-var _Login = __webpack_require__(186);
-
-var _shared = __webpack_require__(188);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Authentication = exports.Authentication = function (_React$Component) {
-    _inherits(Authentication, _React$Component);
-
-    function Authentication(props) {
-        _classCallCheck(this, Authentication);
-
-        return _possibleConstructorReturn(this, (Authentication.__proto__ || Object.getPrototypeOf(Authentication)).call(this, props));
-    }
-
-    _createClass(Authentication, [{
-        key: 'render',
-        value: function render() {
-            return (0, _shared.isUserLoggedIn)() ? this.props.children : React.createElement(_Login.Login, null);
-        }
-    }]);
-
-    return Authentication;
-}(React.Component);
-
-/***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Login = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-var _api = __webpack_require__(187);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Login = exports.Login = function (_React$Component) {
-    _inherits(Login, _React$Component);
-
-    function Login(props) {
-        _classCallCheck(this, Login);
-
-        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
-
-        _this.state = {
-            email: '',
-            password: '',
-            error: ''
-        };
-
-        return _this;
-    }
-
-    _createClass(Login, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'h2',
-                    null,
-                    'Login'
-                ),
-                React.createElement(
-                    'label',
-                    null,
-                    'Email: '
-                ),
-                React.createElement('input', { type: 'email', value: this.state.email, onChange: function onChange(e) {
-                        return _this2.handleEmail(e.target.value);
-                    } }),
-                React.createElement(
-                    'label',
-                    null,
-                    'Password: '
-                ),
-                React.createElement('input', { type: 'password', value: this.state.password, onChange: function onChange(e) {
-                        return _this2.handlePassword(e.target.value);
-                    } }),
-                React.createElement(
-                    'button',
-                    { onClick: function onClick(e) {
-                            return _this2.send();
-                        } },
-                    'Send'
-                ),
-                this.state.error && React.createElement(
-                    'span',
-                    null,
-                    this.state.error
-                )
-            );
-        }
-    }, {
-        key: 'handleEmail',
-        value: function handleEmail(value) {
-            this.setState({
-                email: value
-            });
-        }
-    }, {
-        key: 'handlePassword',
-        value: function handlePassword(value) {
-            this.setState({
-                password: value
-            });
-        }
-    }, {
-        key: 'send',
-        value: function send() {
-            var _this3 = this;
-
-            var response = _api.Api.token(this.state, function (response) {
-                var error = '';
-
-                if (response.success) {
-                    console.log(response.data);
-                } else {
-                    error = 'Неверно введена почта или пароль';
-                }
-
-                _this3.setState({
-                    error: error
-                });
-            });
-        }
-    }]);
-
-    return Login;
-}(React.Component);
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var urls = exports.urls = {
-    token: '/api/token'
-};
-
-var checkStatus = function checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
-    }
-
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-};
-
-var Api = exports.Api = function () {
-    function Api() {
-        _classCallCheck(this, Api);
-    }
-
-    _createClass(Api, null, [{
-        key: 'get',
-        value: function get(url) {
-            return fetch(url).then(checkStatus).then(function (res) {
-                return res.json();
-            }).catch(function (error) {
-                return console.log(error);
-            });
-        }
-    }, {
-        key: 'token',
-        value: function token(data, onComplete) {
-            var init = {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            };
-
-            fetch(urls.token, init).then(checkStatus).then(function (res) {
-                return res.json();
-            }).then(function (res) {
-                return onComplete(res);
-            }).catch(function (error) {
-                return console.log(error);
-            });
-        }
-    }]);
-
-    return Api;
-}();
-
-/***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.isUserLoggedIn = isUserLoggedIn;
-exports.saveAuthorizationData = saveAuthorizationData;
-var authorizationKey = 'authorization';
-
-function isUserLoggedIn() {
-    var authorization = localStorage.getItem(authorizationKey);
-    return authorization != null ? true : false;
-}
-
-function saveAuthorizationData(data) {
-    localStorage.setItem(authorizationKey, data);
-}
 
 /***/ })
 /******/ ]);
