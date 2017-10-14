@@ -6,7 +6,4 @@ import * as RoutesModule from './routes';
 let routes = RoutesModule.routes;
 
 let root = document.getElementById('root');
-let reactRoot = (
-    <BrowserRouter children={routes} />
-);
-render(reactRoot, root);
+render(<BrowserRouter children={routes} />, root);

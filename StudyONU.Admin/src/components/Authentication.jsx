@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { Login } from './Login';
-import { isUserLoggedIn, saveAuthorizationData } from '../shared/shared';
+import { isUserLoggedIn } from '../shared/shared';
 
 export class Authentication extends React.Component {
     constructor(props) {
@@ -8,14 +8,8 @@ export class Authentication extends React.Component {
     }
 
     render() {
-        let _this = this;
-        let component = isUserLoggedIn()
+        return isUserLoggedIn()
             ? this.props.children
-            : <Login onLoginSuccess={data => {
-                saveAuthorizationData(data);
-                _this.setState({});
-            }} />;
-
-        return component;
+            : <Login />;
     }
 }
