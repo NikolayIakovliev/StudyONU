@@ -40,7 +40,7 @@ namespace StudyONU.Data.Repositories
             return dbSet.FirstOrDefaultAsync(expression);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression = null)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null)
         {
             IQueryable<TEntity> entities = expression != null
                 ? dbSet.Where(expression)
@@ -49,7 +49,7 @@ namespace StudyONU.Data.Repositories
             return await entities.ToListAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAll(int skip, int take, Expression<Func<TEntity, bool>> expression = null)
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int skip, int take, Expression<Func<TEntity, bool>> expression = null)
         {
             IQueryable<TEntity> entities = expression != null
                 ? dbSet.Where(expression)

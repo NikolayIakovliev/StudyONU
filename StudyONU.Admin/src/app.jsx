@@ -1,9 +1,10 @@
 ﻿import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Authentication } from './components/shared/Authentication';
 
-import * as RoutesModule from './routes';
-let routes = RoutesModule.routes;
+import { Routes } from './Routes';
+let AuthenticationComponent = Authentication(Routes);
 
 let root = document.getElementById('root');
-render(<BrowserRouter children={routes} />, root);
+render(<BrowserRouter><AuthenticationComponent /></BrowserRouter>, root);

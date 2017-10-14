@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { Api } from '../api';
+import { Api } from '../../shared/api';
 
 export class Login extends React.Component {
     constructor(props) {
@@ -10,8 +10,6 @@ export class Login extends React.Component {
             password: '',
             error: ''
         }
-
-
     }
 
     render() {
@@ -44,17 +42,13 @@ export class Login extends React.Component {
 
     send() {
         let response = Api.token(this.state, response => {
-            let error = '';
-
             if (response.success) {
-                console.log(response.data);
+                this.props.onLoginSuccess(response.data);
             } else {
-                error = 'Неверно введена почта или пароль';
+                this.setState({
+                    error: 'Неверно введена почта или пароль'
+                });
             }
-
-            this.setState({
-                error: error
-            });
         });
     }
 }

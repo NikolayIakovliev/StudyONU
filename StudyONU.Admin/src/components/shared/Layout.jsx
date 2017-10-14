@@ -2,11 +2,15 @@
 import { NavMenu } from './NavMenu';
 
 export class Layout extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div>
                 <div>
-                    <NavMenu />
+                    <NavMenu {...this.props} />
                 </div>
                 <div>
                     {this.props.children}
