@@ -19,7 +19,7 @@ namespace StudyONU.Data.Repositories
         {
             IQueryable<LecturerEntity> entities = expression != null
                 ? context.Lecturers.Include(lecturer => lecturer.User).Where(expression)
-                : context.Lecturers;
+                : context.Lecturers.Include(lecturer => lecturer.User);
 
             return await entities.ToListAsync();
         }

@@ -29,7 +29,7 @@ export class LecturerList extends React.Component {
         } else if (lecturers.length > 0) {
             render = (
                 <div>
-                    <LecturerForm post={this.createLecturer} />
+                    <LecturerForm createLecturer={data => this.createLecturer(data)} />
                     {lecturers.map((lecturer, index) => {
                         return <LecturerItem key={index} item={lecturer} />
                     })}
@@ -38,7 +38,7 @@ export class LecturerList extends React.Component {
         } else {
             render = (
                 <div>
-                    <LecturerForm post={this.createLecturer} />
+                    <LecturerForm createLecturer={data => this.createLecturer(data)} />
                     <div>Нет преподавателей!</div>
                 </div>
             );
@@ -48,14 +48,24 @@ export class LecturerList extends React.Component {
     }
 
     createLecturer(data) {
-        console.log(data);
+        let reload = () => this.load();
+        this.props.post(urls.lecturers, data, result => {
+            if (result.success === true) {
+                reload();
+            } else {
+                // TODO
+                // implement error display
+                alert('Error');
+            }
+        });
     }
 
     load() {
         let _this = this;
 
         this.props.get(urls.lecturers, response => {
-            if (response.success) {
+            debugger;
+            if (response.success === true) {
                 _this.setState({
                     loaded: true,
                     lecturers: response.data
@@ -63,8 +73,12 @@ export class LecturerList extends React.Component {
             } else {
                 console.error(response.errors);
                 _this.setState({
-                    loaded: true
+                    loaded: true,
+                    lecturers: []
                 });
+                // TODO
+                // implement error display
+                alert('Error');
             }
         });
     }

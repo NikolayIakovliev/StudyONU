@@ -8,6 +8,8 @@ namespace StudyONU.Logic.Contracts.Services
 {
     public interface ILecturerService : IDisposable
     {
+        Task<DataServiceMessage<string>> CreateAsync(LecturerCreateDTO lecturerCreateDTO);
+
         Task<DataServiceMessage<IEnumerable<LecturerListDTO>>> GetAllAsync();
     }
 }

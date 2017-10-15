@@ -19,22 +19,20 @@ export const Authentication = (WrappedComponent) => {
         }
 
         render() {
-            let _this = this;
-
             let renderedComponent = this.state.userRole
                 ? <WrappedComponent
                     userRole={this.state.userRole}
-                    get={(url, callback) => _this.get(url, callback)}
-                    post={(url, callback) => _this.post(url, callback)}
+                    get={(url, callback) => this.get(url, callback)}
+                    post={(url, data, callback) => this.post(url, data, callback)}
                     onLogout={() => {
                         AuthorizationData.clear();
-                        _this.update();
+                        this.update();
                     }}
                 />
                 : <Login
                     onLoginSuccess={data => {
                         AuthorizationData.save(data);
-                        _this.update();
+                        this.update();
                     }}
                 />;
 
@@ -42,31 +40,31 @@ export const Authentication = (WrappedComponent) => {
         }
 
         get(url, callback) {
-            let _this = this;
-
             Api.get(url)
-                .then(_this.checkUnauthorized)
+                .then(response => this.checkUnauthorized(response))
                 .then(result => {
-                    if (result.isAuthOk) {
-                        result.response.json().then(r => callback(r));
-                    } else {
+                    if (!result.isAuthOk) {
                         AuthorizationData.clear();
                         this.update();
+                    } else if (result.exception) {
+                        console.error(result.response);
+                    } else {
+                        result.response.json().then(r => callback(r));
                     }
                 });
         }
 
         post(url, data, callback) {
-            let _this = this;
-
             Api.post(url, data)
-                .then(_this.checkUnauthorized)
+                .then(response => this.checkUnauthorized(response))
                 .then(result => {
-                    if (result.isAuthOk) {
-                        callback(result.response.json());
-                    } else {
+                    if (!result.isAuthOk) {
                         AuthorizationData.clear();
                         this.update();
+                    } else if (result.exception) {
+                        console.error(result.response);
+                    } else {
+                        result.response.json().then(r => callback(r));
                     }
                 });
         }
@@ -82,7 +80,8 @@ export const Authentication = (WrappedComponent) => {
         checkUnauthorized(response) {
             let result = {
                 response: response,
-                isAuthOk: response.status != 401
+                isAuthOk: response.status != 401,
+                exception: response.status != 200 && response.status != 400
             }
 
             return result

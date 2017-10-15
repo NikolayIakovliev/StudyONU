@@ -7,6 +7,12 @@ export class Api {
         return fetch(url, init).catch(error => console.log(error));
     }
 
+    static post(url, data) {
+        let init = initPOST(data);
+
+        return fetch(url, init).catch(error => console.log(error));
+    }
+
     static token(data, onComplete) {
         let init = {
             method: 'POST',
@@ -60,8 +66,8 @@ function initPOST(data) {
 }
 
 const headers = () => {
-    let autherizationData = AuthorizationData.get();
-    let token = autherizationData.token;
+    let authorizationData = AuthorizationData.get();
+    let token = authorizationData.token;
 
     return {
         'Accept': 'application/json',

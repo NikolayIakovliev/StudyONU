@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,10 @@ namespace StudyONU.Admin
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(config => config.AddProfile<BindingModelProfile>());
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile<BindingModelProfile>();
+            });
             services.AddLogic(configuration);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(config =>

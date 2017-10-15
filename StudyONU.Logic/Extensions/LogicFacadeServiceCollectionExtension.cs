@@ -11,6 +11,8 @@ namespace StudyONU.Logic.Extensions
         {
             services.AddTransient<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IExceptionMessageBuilder, ExceptionMessageBuilder>();
+            services.AddTransient<IImageHelper, ImageHelper>();
+            services.AddTransient<IEmailSender, FakeEmailSender>();
 
             services.AddDatabase(configuration);
             services.AddRepositories();
