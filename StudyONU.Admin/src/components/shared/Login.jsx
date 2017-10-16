@@ -1,6 +1,8 @@
 ﻿import * as React from 'react';
 import { Api } from '../../shared/api';
 
+import './login.scss';
+
 export class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -14,33 +16,42 @@ export class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>Login</h2>
-                <label>Email: </label>
-                <input type="email" value={this.state.email} onChange={e => this.handleEmail(e.target.value)} />
-                <label>Password: </label>
-                <input type="password" value={this.state.password} onChange={e => this.handlePassword(e.target.value)} />
-                <button onClick={e => this.send()}>Send</button>
-                {this.state.error &&
-                    <span>{this.state.error}</span>
-                }
+            <div className="login-page">
+                <div className="line-centered">
+                    <div>
+                        <div className="title">
+                            <p>Информационный портал Одесского</p>
+                            <p>национального университета</p>
+                            <p>имени И. И. Мечникова</p>
+                        </div>
+                        <img src="/images/static/logo.png" className="logo" />
+                    </div>
+                    <div className="form-box">
+                        <p className="form-title">Авторизация</p>
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="email" className="form-label">Ваша почта :</label>
+                                <input id="email" type="email" name="email" className="form-input" value={this.state.email} onChange={e => this.setState({ email: e.target.value })} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password" className="form-label">Ваш пароль :</label>
+                                <input id="password" type="password" name="password" className="form-input" value={this.state.password} onChange={e => this.setState({ password: e.target.value })} />
+                            </div>
+                            <button type="submit" className="submit-btn" onClick={e => { e.preventDefault(); this.sendForm(); }}>Войти</button>
+                        </form>
+                        <div className="extra-info">
+                            <a className="forgot-password" href="#">Забыли пароль?</a>
+                            {this.state.error &&
+                                <div className="login-error">{this.state.error}</div>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 
-    handleEmail(value) {
-        this.setState({
-            email: value
-        });
-    }
-
-    handlePassword(value) {
-        this.setState({
-            password: value
-        });
-    }
-
-    send() {
+    sendForm() {
         let response = Api.token(this.state, response => {
             if (response.success) {
                 this.props.onLoginSuccess(response.data);
