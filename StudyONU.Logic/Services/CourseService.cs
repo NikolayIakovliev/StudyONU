@@ -7,6 +7,7 @@ using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services
@@ -15,7 +16,7 @@ namespace StudyONU.Logic.Services
     {
         public CourseService(
             IUnitOfWork unitOfWork,
-            IMapper mapper, 
+            IMapper mapper,
             IExceptionMessageBuilder exceptionMessageBuilder
             ) : base(unitOfWork, mapper, exceptionMessageBuilder) { }
 
@@ -61,6 +62,42 @@ namespace StudyONU.Logic.Services
             {
                 ActionResult = actionResult,
                 Errors = errors
+            };
+        }
+
+        public async Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByLecturerEmailAsync(string email)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+            IEnumerable<CourseListDTO> data = null;
+
+            try
+            {
+                LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetByEmailAsync(email);
+                if (lecturerEntity != null)
+                {
+                    IEnumerable<CourseEntity> courseEntities = await unitOfWork.Courses.GetAllAsync(course => course.LecturerId == lecturerEntity.Id);
+                    data = mapper.Map<IEnumerable<CourseListDTO>>(courseEntities)
+                        .OrderBy(course => course.Name)
+                        .ToList();
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Lecturer was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new DataServiceMessage<IEnumerable<CourseListDTO>>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
             };
         }
     }

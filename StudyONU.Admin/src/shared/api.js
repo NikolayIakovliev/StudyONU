@@ -34,7 +34,8 @@ export class Api {
 export const urls = {
     token: '/api/token',
     lecturers: '/api/lecturers',
-    specialities: '/api/specialities'
+    specialities: '/api/specialities',
+    courses: '/api/courses'
 }
 
 const checkStatus = (response) => {

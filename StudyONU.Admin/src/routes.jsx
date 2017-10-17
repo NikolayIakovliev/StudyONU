@@ -9,12 +9,13 @@ import { LecturerList } from './components/admin/lecturers/LecturerList';
 import { SpecialityList } from './components/admin/specialities/SpecialityList';
 
 import { LecturerHome } from './components/lecturer/home/Home';
+import { CourseList } from './components/lecturer/courses/CourseList';
 
 const adminRole = 'Admin';
 const lecturerRole = 'Lecturer';
 
-const AdminAuthorization = Authorization(['Admin']);
-const LecturerAuthorization = Authorization(['Lecturer']);
+const AdminAuthorization = Authorization([adminRole]);
+const LecturerAuthorization = Authorization([lecturerRole]);
 
 export class Routes extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ export class Routes extends React.Component {
         if (this.props.userRole == adminRole) {
             links = [
                 {
-                    title: 'Home',
+                    title: 'Домашняя страница',
                     to: '/'
                 },
                 {
@@ -52,13 +53,18 @@ export class Routes extends React.Component {
         } else if (this.props.userRole == lecturerRole) {
             links = [
                 {
-                    title: 'Home',
+                    title: 'Домашняя страница',
                     to: '/'
+                },
+                {
+                    title: 'Курсы',
+                    to: '/courses'
                 }
             ];
             routes = (
                 <Switch>
                     <Route exact path='/' component={LecturerAuthorization(LecturerHome, this.props)} />
+                    <Route exact path='/courses' component={LecturerAuthorization(CourseList, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );

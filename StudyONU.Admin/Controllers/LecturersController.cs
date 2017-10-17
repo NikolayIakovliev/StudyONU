@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using StudyONU.Admin.Filters;
 using StudyONU.Admin.Models.Lecturer;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Lecturer;
 using StudyONU.Logic.Infrastructure;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
 {
+    [AdminAuthorize]
     public class LecturersController : ApiController
     {
         private readonly ILecturerService service;

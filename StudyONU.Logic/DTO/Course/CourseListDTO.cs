@@ -1,0 +1,15 @@
+﻿namespace StudyONU.Logic.DTO.Course
+{
+    public class CourseListDTO
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int CourseNumber { get; set; }
+
+        public bool IsPublished { get; set; }
+
+        public string SpecialityName { get; set; }
+    }
+}

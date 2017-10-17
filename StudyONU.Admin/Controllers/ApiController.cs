@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StudyONU.Logic.Infrastructure;
 
 namespace StudyONU.Admin.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [Produces("application/json")]
     public class ApiController : Controller

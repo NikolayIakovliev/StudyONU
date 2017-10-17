@@ -34,22 +34,30 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                string password = passwordHasher.HashPassword(lecturerCreateDTO.Email);
-                string passwordHash = passwordHasher.HashPassword(password);
-
-                UserEntity userEntity = mapper.Map<UserEntity>(lecturerCreateDTO);
-                userEntity.PasswordHash = passwordHash;
-                userEntity.Role = await unitOfWork.Roles.GetAsync(role => role.Name == Roles.Lecturer);
-
-                LecturerEntity lecturerEntity = new LecturerEntity
+                UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(lecturerCreateDTO.Email);
+                if (userEntity == null)
                 {
-                    User = userEntity
-                };
+                    string password = "test@test.ua";// passwordHasher.HashPassword(lecturerCreateDTO.Email);
 
-                await unitOfWork.Lecturers.AddAsync(lecturerEntity);
-                await unitOfWork.CommitAsync();
+                    userEntity = mapper.Map<UserEntity>(lecturerCreateDTO);
+                    userEntity.PasswordHash = passwordHasher.HashPassword(password);
+                    userEntity.Role = await unitOfWork.Roles.GetAsync(role => role.Name == Roles.Lecturer);
 
-                data = password;
+                    LecturerEntity lecturerEntity = new LecturerEntity
+                    {
+                        User = userEntity
+                    };
+
+                    await unitOfWork.Lecturers.AddAsync(lecturerEntity);
+                    await unitOfWork.CommitAsync();
+
+                    data = password;
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.Error;
+                    errors.Add("User with such E-Mail already exists");
+                }
             }
             catch (Exception exception)
             {

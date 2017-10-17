@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudyONU.Admin.Filters;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Speciality;
 using StudyONU.Logic.Infrastructure;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
 {
+    [AdminAuthorize]
     public class SpecialitiesController : ApiController
     {
         private readonly ISpecialityService service;

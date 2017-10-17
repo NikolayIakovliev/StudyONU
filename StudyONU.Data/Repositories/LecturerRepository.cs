@@ -23,5 +23,12 @@ namespace StudyONU.Data.Repositories
 
             return await entities.ToListAsync();
         }
+
+        public Task<LecturerEntity> GetByEmailAsync(string email)
+        {
+            return context.Lecturers
+                .Include(lecturer => lecturer.User)
+                .FirstOrDefaultAsync(lecturer => lecturer.User.Email == email);
+        }
     }
 }
