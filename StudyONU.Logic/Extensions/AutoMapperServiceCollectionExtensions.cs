@@ -12,6 +12,7 @@ namespace StudyONU.Logic.Extensions
             services.AddAutoMapper(config =>
             {
                 config.AddProfile<LecturerProfile>();
+                config.AddProfile<SpecialityProfile>();
             });
 
             return services;

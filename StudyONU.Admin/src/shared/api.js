@@ -33,7 +33,8 @@ export class Api {
 
 export const urls = {
     token: '/api/token',
-    lecturers: '/api/lecturers'
+    lecturers: '/api/lecturers',
+    specialities: '/api/specialities'
 }
 
 const checkStatus = (response) => {
