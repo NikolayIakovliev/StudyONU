@@ -4,7 +4,7 @@ using StudyONU.Logic.DTO.Lecturer;
 
 namespace StudyONU.Logic.Mappings
 {
-    public class LecturerProfile : Profile
+    class LecturerProfile : Profile
     {
         public LecturerProfile()
         {

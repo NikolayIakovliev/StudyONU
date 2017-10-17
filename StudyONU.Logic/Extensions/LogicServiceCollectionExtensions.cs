@@ -14,6 +14,7 @@ namespace StudyONU.Logic.Extensions
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<ILecturerService, LecturerService>();
             services.AddTransient<ISpecialityService, SpecialityService>();
+            services.AddTransient<ICourseService, CourseService>();
 
             return services;
         }
