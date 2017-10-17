@@ -1,9 +1,9 @@
 ﻿import * as React from 'react';
-import { Api, urls } from '../../shared/api';
-import { SpecialityItem } from './SpecialityItem';
-import { SpecialityForm } from './SpecialityForm';
+import { Api, urls } from '../../../shared/api';
+import { LecturerItem } from './LecturerItem';
+import { LecturerForm } from './LecturerForm';
 
-export class SpecialityList extends React.Component {
+export class LecturerList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,17 +29,17 @@ export class SpecialityList extends React.Component {
         } else if (items.length > 0) {
             render = (
                 <div>
-                    <SpecialityForm createItem={data => this.createItem(data)} />
+                    <LecturerForm createItem={data => this.createItem(data)} />
                     {items.map((item, index) => {
-                        return <SpecialityItem key={index} item={item} />
+                        return <LecturerItem key={index} item={item} />
                     })}
                 </div>
             );
         } else {
             render = (
                 <div>
-                    <SpecialityForm createItem={data => this.createItem(data)} />
-                    <div>Нет специальностей!</div>
+                    <LecturerForm createItem={data => this.createItem(data)} />
+                    <div>Нет преподавателей!</div>
                 </div>
             );
         }
@@ -49,7 +49,7 @@ export class SpecialityList extends React.Component {
 
     createItem(data) {
         let reload = () => this.load();
-        this.props.post(urls.specialities, data, result => {
+        this.props.post(urls.lecturers, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -63,7 +63,7 @@ export class SpecialityList extends React.Component {
     load() {
         let _this = this;
 
-        this.props.get(urls.specialities, response => {
+        this.props.get(urls.lecturers, response => {
             if (response.success === true) {
                 _this.setState({
                     loaded: true,

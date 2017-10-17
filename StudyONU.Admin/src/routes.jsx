@@ -4,9 +4,9 @@ import { Layout } from './components/shared/Layout';
 import { NotFound } from './components/shared/NotFound';
 import { Authorization } from './components/shared/Authorization';
 
-import { AdminHome } from './components/admin/Home';
-import { LecturerList } from './components/admin/LecturerList';
-import { SpecialityList } from './components/admin/SpecialityList';
+import { AdminHome } from './components/admin/home/Home';
+import { LecturerList } from './components/admin/lecturers/LecturerList';
+import { SpecialityList } from './components/admin/specialities/SpecialityList';
 
 import { LecturerHome } from './components/lecturer/Home';
 

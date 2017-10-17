@@ -92,7 +92,7 @@ export class LecturerForm extends React.Component {
                 photo: reader.result
             }
             
-            this.props.createLecturer(data);
+            this.props.createItem(data);
         }
 
         reader.readAsDataURL(this.state.photo);
