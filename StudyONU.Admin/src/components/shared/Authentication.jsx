@@ -24,6 +24,7 @@ export const Authentication = (WrappedComponent) => {
                     userRole={this.state.userRole}
                     get={(url, callback) => this.get(url, callback)}
                     post={(url, data, callback) => this.post(url, data, callback)}
+                    postFile={(url, data, callback) => this.post(url, data, callback)}
                     onLogout={() => {
                         AuthorizationData.clear();
                         this.update();
@@ -41,6 +42,21 @@ export const Authentication = (WrappedComponent) => {
 
         get(url, callback) {
             Api.get(url)
+                .then(response => this.checkUnauthorized(response))
+                .then(result => {
+                    if (!result.isAuthOk) {
+                        AuthorizationData.clear();
+                        this.update();
+                    } else if (result.exception) {
+                        console.error(result.response);
+                    } else {
+                        result.response.json().then(r => callback(r));
+                    }
+                });
+        }
+
+        postFile(url, data, callback) {
+            Api.postFile(url, data)
                 .then(response => this.checkUnauthorized(response))
                 .then(result => {
                     if (!result.isAuthOk) {

@@ -15,19 +15,19 @@ namespace StudyONU.Admin.Controllers
     public class LecturersController : ApiController
     {
         private readonly ILecturerService service;
-        private readonly IImageHelper imageHelper;
+        private readonly IFileHelper fileHelper;
         private readonly IEmailSender emailSender;
         private readonly IMapper mapper;
 
         public LecturersController(
             ILecturerService service,
-            IImageHelper imageHelper,
+            IFileHelper fileHelper,
             IEmailSender emailSender,
             IMapper mapper
             )
         {
             this.service = service;
-            this.imageHelper = imageHelper;
+            this.fileHelper = fileHelper;
             this.emailSender = emailSender;
             this.mapper = mapper;
         }
@@ -45,7 +45,7 @@ namespace StudyONU.Admin.Controllers
         {
             string base64Image = model.Photo;
 
-            DataServiceMessage<string> dataServiceMessage = await imageHelper.SaveByBase64Async(base64Image, "images/uploads");
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveByBase64Async(base64Image, "images/uploads");
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 LecturerCreateDTO lecturerCreateDTO = mapper.Map<LecturerCreateDTO>(model, opts =>

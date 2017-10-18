@@ -10,6 +10,7 @@ import { SpecialityList } from './components/admin/specialities/SpecialityList';
 
 import { LecturerHome } from './components/lecturer/home/Home';
 import { CourseList } from './components/lecturer/courses/CourseList';
+import { GuideList } from './components/lecturer/guides/GuideList';
 
 const adminRole = 'Admin';
 const lecturerRole = 'Lecturer';
@@ -59,12 +60,17 @@ export class Routes extends React.Component {
                 {
                     title: 'Курсы',
                     to: '/courses'
+                },
+                {
+                    title: 'Методички',
+                    to: '/guides'
                 }
             ];
             routes = (
                 <Switch>
                     <Route exact path='/' component={LecturerAuthorization(LecturerHome, this.props)} />
                     <Route exact path='/courses' component={LecturerAuthorization(CourseList, this.props)} />
+                    <Route exact path='/guides' component={LecturerAuthorization(GuideList, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Helpers
 {
-    public class ImageHelper : IImageHelper
+    public class FileHelper : IFileHelper
     {
         private const string Jpeg = "jpeg";
         private const string Jpg = "jpg";
@@ -17,7 +17,7 @@ namespace StudyONU.Logic.Helpers
         private readonly IHostingEnvironment env;
         private readonly IExceptionMessageBuilder exceptionMessageBuilder;
 
-        public ImageHelper(IHostingEnvironment env, IExceptionMessageBuilder exceptionMessageBuilder)
+        public FileHelper(IHostingEnvironment env, IExceptionMessageBuilder exceptionMessageBuilder)
         {
             this.env = env;
             this.exceptionMessageBuilder = exceptionMessageBuilder;
@@ -38,14 +38,14 @@ namespace StudyONU.Logic.Helpers
 
                 string uploadPath = Path.Combine(env.WebRootPath, serverFolderPath);
                 string fullPath = Path.Combine(uploadPath, fileName);
-                string imageServerPath = Path.Combine(serverFolderPath, fileName);
+                string fileServerPath = Path.Combine(serverFolderPath, fileName);
 
                 using (Stream stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
                 {
                     await stream.WriteAsync(bytes, 0, bytes.Length);
                 }
 
-                data = imageServerPath;
+                data = fileServerPath;
             }
             catch (Exception exception)
             {

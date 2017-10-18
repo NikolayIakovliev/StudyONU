@@ -2,9 +2,11 @@
 using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Models;
 using StudyONU.Admin.Models.Course;
+using StudyONU.Admin.Models.Guide;
 using StudyONU.Admin.Models.Lecturer;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.DTO.Course;
+using StudyONU.Logic.DTO.Guide;
 using StudyONU.Logic.DTO.Lecturer;
 
 namespace StudyONU.Admin.Mappings
@@ -19,6 +21,7 @@ namespace StudyONU.Admin.Mappings
 
             CreateMap<LecturerCreateBindingModel, LecturerCreateDTO>();
             CreateMap<CourseCreateBindingModel, CourseCreateDTO>();
+            CreateMap<GuideCreateBindingModel, GuideCreateDTO>();
         }
     }
 }

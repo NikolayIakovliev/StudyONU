@@ -13,6 +13,22 @@ export class Api {
         return fetch(url, init).catch(error => console.log(error));
     }
 
+    static postFile(url, data) {
+        let authorizationData = AuthorizationData.get();
+        let token = authorizationData.token;
+        
+        let init = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: data
+        }
+
+        return fetch(url, init).catch(error => console.log(error));
+    }
+
     static token(data, onComplete) {
         let init = {
             method: 'POST',
@@ -35,7 +51,8 @@ export const urls = {
     token: '/api/token',
     lecturers: '/api/lecturers',
     specialities: '/api/specialities',
-    courses: '/api/courses'
+    courses: '/api/courses',
+    guides: '/api/guides'
 }
 
 const checkStatus = (response) => {

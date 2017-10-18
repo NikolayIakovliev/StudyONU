@@ -83,8 +83,9 @@ export class LecturerForm extends React.Component {
 
     sendForm() {
         let reader = new FileReader();
+
         reader.onloadend = (e) => {
-            let data = {
+            const data = {
                 lastName: this.state.lastName,
                 firstName: this.state.firstName,
                 patronymic: this.state.patronymic,
