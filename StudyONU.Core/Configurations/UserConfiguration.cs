@@ -24,7 +24,7 @@ namespace StudyONU.Core.Configurations
                 .HasMaxLength(254);
             builder.Property(entity => entity.PhotoPath)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(200);
 
             builder.HasOne(entity => entity.Role)
                 .WithMany(entity => entity.Users)

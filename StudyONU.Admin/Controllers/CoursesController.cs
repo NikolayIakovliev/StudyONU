@@ -6,8 +6,6 @@ using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.Infrastructure;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -29,7 +27,7 @@ namespace StudyONU.Admin.Controllers
         public async Task<IActionResult> Create([FromBody] CourseCreateBindingModel model)
         {
             CourseCreateDTO courseCreateDTO = mapper.Map<CourseCreateDTO>(model);
-            courseCreateDTO.LecturerEmail = User.FindFirst(JwtRegisteredClaimNames.Email).Value;
+            courseCreateDTO.LecturerEmail = User.FindFirstValue(ClaimTypes.Email);
 
             ServiceMessage serviceMessage = await service.CreateAsync(courseCreateDTO);
 
@@ -39,9 +37,7 @@ namespace StudyONU.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            Claim claim = User.Identities.First().FindFirst(JwtRegisteredClaimNames.Email);
-            string email = claim?.Value;
-
+            string email = User.FindFirstValue(ClaimTypes.Email);
             DataServiceMessage<IEnumerable<CourseListDTO>> serviceMessage = await service.GetByLecturerEmailAsync(email);
 
             return GenerateResponse(serviceMessage);

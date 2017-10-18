@@ -6,7 +6,7 @@ namespace StudyONU.Core.Entities
     {
         public int Id { get; set; }
 
-        public int CourseNumber { get; set; }
+        public byte CourseNumber { get; set; }
 
         public int UserId { get; set; }
 

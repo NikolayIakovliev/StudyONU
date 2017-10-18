@@ -6,7 +6,7 @@
 
         public string Name { get; set; }
 
-        public int CourseNumber { get; set; }
+        public byte CourseNumber { get; set; }
 
         public bool IsPublished { get; set; }
 

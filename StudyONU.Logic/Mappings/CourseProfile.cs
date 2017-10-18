@@ -9,6 +9,8 @@ namespace StudyONU.Logic.Mappings
         public CourseProfile()
         {
             CreateMap<CourseCreateDTO, CourseEntity>();
+            CreateMap<CourseEntity, CourseListDTO>()
+                .ForMember(dest => dest.SpecialityName, opts => opts.MapFrom(src => src.Speciality.Name));
         }
     }
 }

@@ -49,7 +49,7 @@ namespace StudyONU.Logic.Services.Authentication
                     {
                         Claim[] claims = new[]
                         {
-                            new Claim(JwtRegisteredClaimNames.Sub, userEntity.Role.Name),
+                            new Claim(ClaimTypes.Role, userEntity.Role.Name),
                             new Claim(JwtRegisteredClaimNames.Email, loginDTO.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         };

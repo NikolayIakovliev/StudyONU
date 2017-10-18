@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudyONU.Admin.Filters;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Speciality;
@@ -8,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
 {
-    [AdminAuthorize]
     public class SpecialitiesController : ApiController
     {
         private readonly ISpecialityService service;
@@ -19,6 +19,7 @@ namespace StudyONU.Admin.Controllers
         }
 
         [HttpPost]
+        [AdminAuthorize]
         public async Task<IActionResult> Create([FromBody] string name)
         {
             ServiceMessage serviceMessage = await service.CreateAsync(name);
@@ -27,6 +28,7 @@ namespace StudyONU.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> List()
         {
             DataServiceMessage<IEnumerable<SpecialityListDTO>> serviceMessage = await service.GetAllAsync();

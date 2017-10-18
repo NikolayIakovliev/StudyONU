@@ -12,7 +12,7 @@ module.exports = merge(common, {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react']
+                        presets: ['env', 'react', 'es2015', 'stage-0']
                     }
                 }
             },

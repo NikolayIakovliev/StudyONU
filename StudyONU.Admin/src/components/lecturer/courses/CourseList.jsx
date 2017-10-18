@@ -29,7 +29,7 @@ export class CourseList extends React.Component {
         } else if (items.length > 0) {
             render = (
                 <div>
-                    <CourseForm createItem={data => this.createItem(data)} />
+                    <CourseForm getSpecialities={callback => this.getSpecialities(callback)} createItem={data => this.createItem(data)} />
                     {items.map((item, index) => {
                         return <CourseItem key={index} item={item} />
                     })}
@@ -38,13 +38,25 @@ export class CourseList extends React.Component {
         } else {
             render = (
                 <div>
-                    <CourseItem createItem={data => this.createItem(data)} />
+                    <CourseForm getSpecialities={callback => this.getSpecialities(callback)} createItem={data => this.createItem(data)} />
                     <div>Нет Курсов!</div>
                 </div>
             );
         }
 
         return render;
+    }
+
+    getSpecialities(callback) {
+        this.props.get(urls.specialities, result => {
+            if (result.success === true) {
+                callback(result.data);
+            } else {
+                // TODO
+                // implement error display
+                alert('Error');
+            }
+        });
     }
 
     createItem(data) {
