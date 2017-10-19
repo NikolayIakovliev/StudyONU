@@ -24,7 +24,7 @@ export class Login extends React.Component {
                             <p>национального университета</p>
                             <p>имени И. И. Мечникова</p>
                         </div>
-                        <img src="/images/static/logo.png" className="logo" />
+                        <img src="/images/logo.png" className="logo" />
                     </div>
                     <div className="form-box">
                         <p className="form-title">Авторизация</p>

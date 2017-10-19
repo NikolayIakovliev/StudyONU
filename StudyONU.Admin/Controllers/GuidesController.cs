@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudyONU.Admin.Filters;
 using StudyONU.Admin.Models.Guide;
@@ -34,27 +33,22 @@ namespace StudyONU.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] GuideCreateBindingModel model)
         {
-            IFormFile file = model.File;
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, "files/uploads");
+            if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                GuideCreateDTO guideCreateDTO = mapper.Map<GuideCreateDTO>(model, opts =>
+                    opts.AfterMap((src, dest) =>
+                    {
+                        (dest as GuideCreateDTO).FilePath = dataServiceMessage.Data;
+                    })
+                );
 
-            return Ok();
-            //string base64String = "";
+                ServiceMessage serviceMessage = await service.CreateAsync(guideCreateDTO);
 
-            //DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveByBase64Async(base64String, "files/uploads");
-            //if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
-            //{
-            //    GuideCreateDTO guideCreateDTO = mapper.Map<GuideCreateDTO>(model, opts =>
-            //        opts.AfterMap((src, dest) =>
-            //        {
-            //            (dest as GuideCreateDTO).FilePath = "/" + dataServiceMessage.Data;
-            //        })
-            //    );
+                return GenerateResponse(serviceMessage);
+            }
 
-            //    ServiceMessage serviceMessage = await service.CreateAsync(guideCreateDTO);
-
-            //    return GenerateResponse(serviceMessage);
-            //}
-
-            //return GenerateResponse(dataServiceMessage);
+            return GenerateResponse(dataServiceMessage);
         }
 
         [HttpGet]

@@ -13,7 +13,7 @@ export class Api {
         return fetch(url, init).catch(error => console.log(error));
     }
 
-    static postFile(url, data) {
+    static postFormData(url, data) {
         let authorizationData = AuthorizationData.get();
         let token = authorizationData.token;
 

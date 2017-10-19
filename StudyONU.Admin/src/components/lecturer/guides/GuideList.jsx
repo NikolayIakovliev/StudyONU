@@ -61,8 +61,7 @@ export class GuideList extends React.Component {
 
     createItem(data) {
         let reload = () => this.load();
-        this.props.postFile(urls.guides, data, result => {
-            console.log(result);
+        this.props.postFormData(urls.guides, data, result => {
             if (result.success === true) {
                 reload();
             } else {

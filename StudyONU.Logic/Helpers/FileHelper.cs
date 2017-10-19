@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace StudyONU.Logic.Helpers
 {
@@ -21,6 +22,40 @@ namespace StudyONU.Logic.Helpers
         {
             this.env = env;
             this.exceptionMessageBuilder = exceptionMessageBuilder;
+        }
+
+        public async Task<DataServiceMessage<string>> SaveFileAsync(IFormFile file, string serverFolderPath)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+            string data = null;
+
+            try
+            {
+                string fileName = Guid.NewGuid().ToString();
+                string extension = Path.GetExtension(file.FileName);
+                string fullFileName = $"{fileName}{extension}";
+
+                string path = Path.Combine(env.WebRootPath, serverFolderPath, fullFileName);
+                using (Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                data = "/" + Path.Combine(serverFolderPath, fullFileName);
+            }
+            catch (Exception exception)
+            {
+                actionResult = ServiceActionResult.Exception;
+                exceptionMessageBuilder.FillErrors(exception, errors);
+            }
+
+            return new DataServiceMessage<string>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
         }
 
         public async Task<DataServiceMessage<string>> SaveByBase64Async(string base64String, string serverFolderPath)

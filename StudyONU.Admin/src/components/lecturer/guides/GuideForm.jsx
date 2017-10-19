@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
+import { yyyymmdd } from '../../../shared/date';
 import Dropdown from 'react-dropdown';
 import FileInput from 'react-file-input';
 import DatePicker from 'react-date-picker';
@@ -59,7 +60,7 @@ export class GuideForm extends React.Component {
                         className="file-input" />
                 </div>
                 <label>Доступна с</label>
-                <DatePicker value={this.state.dateAvailable} onClickDay={date => this.setState({ dateAvailable: date })} />
+                <DatePicker locale="ru" value={this.state.dateAvailable} onChange={date => this.setState({ dateAvailable: date })} />
                 <div>
                     <button type="submit" onClick={e => { e.preventDefault(); this.sendForm(); }}>Создать</button>
                 </div>
@@ -73,10 +74,12 @@ export class GuideForm extends React.Component {
             const data = {
                 name: this.state.name,
                 file: this.state.file,
-                dateAvailable: this.state.dateAvailable, //TODO date format
+                dateAvailable: this.state.dateAvailable != null
+                    ? yyyymmdd(this.state.dateAvailable, '-')
+                    : null,
                 courseId: this.state.course.value
-            };
-
+            }
+            
             this.props.createItem(data);
         }
     }

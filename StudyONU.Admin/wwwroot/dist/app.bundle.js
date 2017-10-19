@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4aec31fc930c1804a335"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "214186178b6b1bb39f99"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1459,8 +1459,8 @@ var Api = exports.Api = function () {
             });
         }
     }, {
-        key: 'postFile',
-        value: function postFile(url, data) {
+        key: 'postFormData',
+        value: function postFormData(url, data) {
             var authorizationData = _authorizationData.AuthorizationData.get();
             var token = authorizationData.token;
 
@@ -10921,8 +10921,8 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                     post: function post(url, data, callback) {
                         return _this2.post(url, data, callback);
                     },
-                    postFile: function postFile(url, data, callback) {
-                        return _this2.postFile(url, data, callback);
+                    postFormData: function postFormData(url, data, callback) {
+                        return _this2.postFormData(url, data, callback);
                     },
                     onLogout: function onLogout() {
                         _authorizationData.AuthorizationData.clear();
@@ -10958,8 +10958,8 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 });
             }
         }, {
-            key: 'postFile',
-            value: function postFile(url, data, callback) {
+            key: 'postFormData',
+            value: function postFormData(url, data, callback) {
                 var _this4 = this;
 
                 _api.Api.postFile(url, data).then(function (response) {
@@ -11116,7 +11116,7 @@ var Login = exports.Login = function (_React$Component) {
                                 '\u0438\u043C\u0435\u043D\u0438 \u0418. \u0418. \u041C\u0435\u0447\u043D\u0438\u043A\u043E\u0432\u0430'
                             )
                         ),
-                        React.createElement('img', { src: '/images/static/logo.png', className: 'logo' })
+                        React.createElement('img', { src: '/images/logo.png', className: 'logo' })
                     ),
                     React.createElement(
                         'div',
@@ -14302,8 +14302,7 @@ var GuideList = exports.GuideList = function (_React$Component) {
             var reload = function reload() {
                 return _this4.load();
             };
-            this.props.postFile(_api.urls.guides, data, function (result) {
-                console.log(result);
+            this.props.postFormData(_api.urls.guides, data, function (result) {
                 if (result.success === true) {
                     reload();
                 } else {
@@ -14409,6 +14408,8 @@ var _react = __webpack_require__(0);
 var React = _interopRequireWildcard(_react);
 
 var _api = __webpack_require__(6);
+
+var _date = __webpack_require__(252);
 
 var _reactDropdown = __webpack_require__(71);
 
@@ -14523,7 +14524,7 @@ var GuideForm = exports.GuideForm = function (_React$Component) {
                     null,
                     '\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0441'
                 ),
-                React.createElement(_reactDatePicker2.default, { value: this.state.dateAvailable, onClickDay: function onClickDay(date) {
+                React.createElement(_reactDatePicker2.default, { locale: 'ru', value: this.state.dateAvailable, onChange: function onChange(date) {
                         return _this3.setState({ dateAvailable: date });
                     } }),
                 React.createElement(
@@ -14547,11 +14548,11 @@ var GuideForm = exports.GuideForm = function (_React$Component) {
                 var data = {
                     name: this.state.name,
                     file: this.state.file,
-                    dateAvailable: this.state.dateAvailable,
+                    dateAvailable: this.state.dateAvailable != null ? (0, _date.yyyymmdd)(this.state.dateAvailable, '-') : null,
                     courseId: this.state.course.value
                 };
-                console.log(data.dateAvailable);
-                //this.props.createItem(data);
+
+                this.props.createItem(data);
             }
         }
     }, {
@@ -18027,6 +18028,23 @@ if(true) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var yyyymmdd = exports.yyyymmdd = function yyyymmdd(date, divider) {
+    var mm = date.getMonth() + 1;
+    var dd = date.getDate();
+
+    return [date.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join(divider);
+};
 
 /***/ })
 /******/ ]);
