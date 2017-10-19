@@ -56,7 +56,7 @@ export const Authentication = (WrappedComponent) => {
         }
 
         postFormData(url, data, callback) {
-            Api.postFile(url, data)
+            Api.postFormData(url, data)
                 .then(response => this.checkUnauthorized(response))
                 .then(result => {
                     if (!result.isAuthOk) {

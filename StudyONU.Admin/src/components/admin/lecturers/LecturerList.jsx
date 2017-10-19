@@ -49,7 +49,7 @@ export class LecturerList extends React.Component {
 
     createItem(data) {
         let reload = () => this.load();
-        this.props.post(urls.lecturers, data, result => {
+        this.props.postFormData(urls.lecturers, data, result => {
             if (result.success === true) {
                 reload();
             } else {

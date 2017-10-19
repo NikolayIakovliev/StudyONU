@@ -81,6 +81,10 @@ export class GuideForm extends React.Component {
             }
             
             this.props.createItem(data);
+        } else {
+            // TODO
+            // temp implementation
+            console.log('Invalid form');
         }
     }
 

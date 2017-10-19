@@ -12,8 +12,7 @@ export class LecturerForm extends React.Component {
             patronymic: '',
             email: '',
             photo: '/images/lecturer.png',
-            uploadedFile: false,
-            invalidForm: true
+            uploadedFile: false
         }
     }
 
@@ -22,19 +21,19 @@ export class LecturerForm extends React.Component {
             <form>
                 <div>
                     <label>Фамилия</label>
-                    <input type="text" name="lastName" value={this.state.lastName} onChange={e => this.setState({ lastName: e.target.value }, () => this.validateForm())} />
+                    <input type="text" name="lastName" value={this.state.lastName} onChange={e => this.setState({ lastName: e.target.value })} />
                 </div>
                 <div>
                     <label>Имя</label>
-                    <input type="text" name="firstName" value={this.state.firstName} onChange={e => this.setState({ firstName: e.target.value }, () => this.validateForm())} />
+                    <input type="text" name="firstName" value={this.state.firstName} onChange={e => this.setState({ firstName: e.target.value })} />
                 </div>
                 <div>
                     <label>Отчество</label>
-                    <input type="text" name="patronymic" value={this.state.patronymic} onChange={e => this.setState({ patronymic: e.target.value }, () => this.validateForm())} />
+                    <input type="text" name="patronymic" value={this.state.patronymic} onChange={e => this.setState({ patronymic: e.target.value })} />
                 </div>
                 <div>
                     <label>Почта</label>
-                    <input type="email" name="email" value={this.state.email} onChange={e => this.setState({ email: e.target.value }, () => this.validateForm())} />
+                    <input type="email" name="email" value={this.state.email} onChange={e => this.setState({ email: e.target.value })} />
                 </div>
                 <AvatarEditor
                     image={this.state.photo}
@@ -50,13 +49,32 @@ export class LecturerForm extends React.Component {
                         accept=".jpg,.png,.gif"
                         placeholder="Choose avatar"
                         className="inputClass"
-                        onChange={e => this.setState({ photo: e.target.files[0], uploadedFile: true }, () => this.validateForm())} />
+                        onChange={e => this.setState({ photo: e.target.files[0], uploadedFile: true })} />
                 </div>
                 <div>
-                    <button type="submit" onClick={e => { e.preventDefault(); this.sendForm(); }} disabled={this.state.invalidForm}>Создать</button>
+                    <button type="submit" onClick={e => { e.preventDefault(); this.sendForm(); }}>Создать</button>
                 </div>
             </form>
         );
+    }
+
+    sendForm() {
+        let validated = this.validateForm();
+        if (validated) {
+            const data = {
+                lastName: this.state.lastName,
+                firstName: this.state.firstName,
+                patronymic: this.state.patronymic,
+                email: this.state.email,
+                photo: this.state.photo
+            }
+
+            this.props.createItem(data);
+        } else {
+            // TODO
+            // temp implementation
+            console.log('Invalid form');
+        }
     }
 
     validateForm() {
@@ -76,26 +94,6 @@ export class LecturerForm extends React.Component {
             valid = false;
         }
 
-        this.setState({
-            invalidForm: !valid
-        });
-    }
-
-    sendForm() {
-        let reader = new FileReader();
-
-        reader.onloadend = (e) => {
-            const data = {
-                lastName: this.state.lastName,
-                firstName: this.state.firstName,
-                patronymic: this.state.patronymic,
-                email: this.state.email,
-                photo: reader.result
-            }
-            
-            this.props.createItem(data);
-        }
-
-        reader.readAsDataURL(this.state.photo);
+        return valid;
     }
 }

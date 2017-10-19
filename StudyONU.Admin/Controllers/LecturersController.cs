@@ -41,17 +41,15 @@ namespace StudyONU.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] LecturerCreateBindingModel model)
+        public async Task<IActionResult> Create([FromForm] LecturerCreateBindingModel model)
         {
-            string base64Image = model.Photo;
-
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveByBase64Async(base64Image, "images/uploads");
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.Photo, "images/uploads");
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 LecturerCreateDTO lecturerCreateDTO = mapper.Map<LecturerCreateDTO>(model, opts =>
                     opts.AfterMap((src, dest) =>
                     {
-                        (dest as LecturerCreateDTO).PhotoPath = "/" + dataServiceMessage.Data;
+                        (dest as LecturerCreateDTO).PhotoPath = dataServiceMessage.Data;
                     })
                 );
                 dataServiceMessage = await service.CreateAsync(lecturerCreateDTO);

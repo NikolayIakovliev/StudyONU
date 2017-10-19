@@ -1,4 +1,6 @@
-﻿namespace StudyONU.Admin.Models.Lecturer
+﻿using Microsoft.AspNetCore.Http;
+
+namespace StudyONU.Admin.Models.Lecturer
 {
     public class LecturerCreateBindingModel
     {
@@ -10,6 +12,6 @@
 
         public string Email { get; set; }
 
-        public string Photo { get; set; }
+        public IFormFile Photo { get; set; }
     }
 }
