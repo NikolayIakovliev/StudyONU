@@ -32,7 +32,7 @@ namespace StudyONU.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] GuideCreateBindingModel model)
+        public async Task<IActionResult> Create([FromForm] GuideCreateBindingModel model)
         {
             IFormFile file = model.File;
 

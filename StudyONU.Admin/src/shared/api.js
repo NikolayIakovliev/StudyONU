@@ -16,6 +16,12 @@ export class Api {
     static postFile(url, data) {
         let authorizationData = AuthorizationData.get();
         let token = authorizationData.token;
+
+        let formData = new FormData();
+
+        for (let name in data) {
+            formData.append(name, data[name]);
+        }
         
         let init = {
             method: 'POST',
@@ -23,7 +29,7 @@ export class Api {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: data
+            body: formData
         }
 
         return fetch(url, init).catch(error => console.log(error));

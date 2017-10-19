@@ -73,7 +73,7 @@ export class GuideForm extends React.Component {
             const data = {
                 name: this.state.name,
                 file: this.state.file,
-                dateAvailable: this.state.dateAvailable,
+                dateAvailable: this.state.dateAvailable, //TODO date format
                 courseId: this.state.course.value
             };
 

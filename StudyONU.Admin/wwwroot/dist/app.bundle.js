@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f2177465e9346f1c4660"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4aec31fc930c1804a335"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1464,13 +1464,19 @@ var Api = exports.Api = function () {
             var authorizationData = _authorizationData.AuthorizationData.get();
             var token = authorizationData.token;
 
+            var formData = new FormData();
+
+            for (var name in data) {
+                formData.append(name, data[name]);
+            }
+
             var init = {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': 'Bearer ' + token
                 },
-                body: data
+                body: formData
             };
 
             return fetch(url, init).catch(function (error) {
@@ -10916,7 +10922,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                         return _this2.post(url, data, callback);
                     },
                     postFile: function postFile(url, data, callback) {
-                        return _this2.post(url, data, callback);
+                        return _this2.postFile(url, data, callback);
                     },
                     onLogout: function onLogout() {
                         _authorizationData.AuthorizationData.clear();
@@ -14544,8 +14550,8 @@ var GuideForm = exports.GuideForm = function (_React$Component) {
                     dateAvailable: this.state.dateAvailable,
                     courseId: this.state.course.value
                 };
-
-                this.props.createItem(data);
+                console.log(data.dateAvailable);
+                //this.props.createItem(data);
             }
         }
     }, {

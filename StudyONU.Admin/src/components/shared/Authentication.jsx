@@ -24,7 +24,7 @@ export const Authentication = (WrappedComponent) => {
                     userRole={this.state.userRole}
                     get={(url, callback) => this.get(url, callback)}
                     post={(url, data, callback) => this.post(url, data, callback)}
-                    postFile={(url, data, callback) => this.post(url, data, callback)}
+                    postFile={(url, data, callback) => this.postFile(url, data, callback)}
                     onLogout={() => {
                         AuthorizationData.clear();
                         this.update();
