@@ -15,5 +15,7 @@
         public string Email { get; set; }
 
         public int CourseNumber { get; set; }
+
+        public bool? Approved { get; set; }
     }
 }
