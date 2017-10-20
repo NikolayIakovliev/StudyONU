@@ -20,7 +20,15 @@ export class Api {
         let formData = new FormData();
 
         for (let name in data) {
-            formData.append(name, data[name]);
+            let value = data[name];
+
+            if (Array.isArray(value)) {
+                for (let i = 0; i < value.length; i++) {
+                    formData.append(name, value[i]);
+                }
+            } else {
+                formData.append(name, value);
+            }
         }
         
         let init = {
@@ -58,7 +66,8 @@ export const urls = {
     lecturers: '/api/lecturers',
     specialities: '/api/specialities',
     courses: '/api/courses',
-    guides: '/api/guides'
+    guides: '/api/guides',
+    tasks: '/api/tasks'
 }
 
 const checkStatus = (response) => {

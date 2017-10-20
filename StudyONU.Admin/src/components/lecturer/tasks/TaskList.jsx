@@ -1,9 +1,9 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
-import { GuideItem } from './GuideItem';
-import { GuideForm } from './GuideForm';
+import { TaskItem } from './TaskItem';
+import { TaskForm } from './TaskForm';
 
-export class GuideList extends React.Component {
+export class TaskList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,17 +29,17 @@ export class GuideList extends React.Component {
         } else if (items.length > 0) {
             render = (
                 <div>
-                    <GuideForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
+                    <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
                     {items.map((item, index) => {
-                        return <GuideItem key={index} item={item} />
+                        return <TaskItem key={index} item={item} />
                     })}
                 </div>
             );
         } else {
             render = (
                 <div>
-                    <GuideForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
-                    <div>Нет Методичек!</div>
+                    <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
+                    <div>Нет Задач!</div>
                 </div>
             );
         }
@@ -62,7 +62,7 @@ export class GuideList extends React.Component {
 
     createItem(data) {
         let reload = () => this.load();
-        this.props.postFormData(urls.guides, data, result => {
+        this.props.postFormData(urls.tasks, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -77,7 +77,7 @@ export class GuideList extends React.Component {
     load() {
         let _this = this;
 
-        this.props.get(urls.guides, response => {
+        this.props.get(urls.tasks, response => {
             if (response.success === true) {
                 _this.setState({
                     loaded: true,

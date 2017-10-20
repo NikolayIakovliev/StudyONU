@@ -1,6 +1,12 @@
-﻿using StudyONU.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using StudyONU.Core;
 using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace StudyONU.Data.Repositories
 {
@@ -8,5 +14,22 @@ namespace StudyONU.Data.Repositories
     {
         public TaskRepository(StudyONUDbContext context)
             : base(context) { }
+        
+        public async Task<IEnumerable<TaskEntity>> GetAllByLecturerIdAsync(int id)
+        {
+            return await context.Tasks
+                .Include(task => task.Course)
+                .Where(task => task.Course.LecturerId == id)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TaskEntity>> GetAllByLecturerIdOrderedAsync<TKey>(int id, Expression<Func<TaskEntity, TKey>> keySelector)
+        {
+            return await context.Tasks
+                .Include(task => task.Course)
+                .Where(task => task.Course.LecturerId == id)
+                .OrderBy(keySelector)
+                .ToListAsync();
+        }
     }
 }

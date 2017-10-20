@@ -7,7 +7,6 @@ using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Guide;
 using StudyONU.Logic.Infrastructure;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
@@ -33,7 +32,7 @@ namespace StudyONU.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] GuideCreateBindingModel model)
         {
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, "files/uploads");
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, GuidesUploadPath);
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 GuideCreateDTO guideCreateDTO = mapper.Map<GuideCreateDTO>(model, opts =>
@@ -54,7 +53,7 @@ namespace StudyONU.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            string email = User.FindFirstValue(ClaimTypes.Email);
+            string email = GetUserEmail();
             DataServiceMessage<IEnumerable<GuideListDTO>> serviceMessage = await service.GetByLecturerEmailAsync(email);
 
             return GenerateResponse(serviceMessage);

@@ -15,6 +15,7 @@ namespace StudyONU.Logic.Extensions
                 config.AddProfile<SpecialityProfile>();
                 config.AddProfile<CourseProfile>();
                 config.AddProfile<GuideProfile>();
+                config.AddProfile<TaskProfile>();
             });
 
             return services;

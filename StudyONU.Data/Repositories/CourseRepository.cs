@@ -23,5 +23,22 @@ namespace StudyONU.Data.Repositories
 
             return await entities.ToListAsync();
         }
+
+        public async Task<IEnumerable<CourseEntity>> GetAllByLecturerIdAsync(int id)
+        {
+            return await context.Courses
+                .Include(course => course.Speciality)
+                .Where(course => course.LecturerId == id)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CourseEntity>> GetAllByLecturerIdOrderedAsync<TKey>(int id, Expression<Func<CourseEntity, TKey>> keySelector)
+        {
+            return await context.Courses
+                .Include(course => course.Speciality)
+                .Where(course => course.LecturerId == id)
+                .OrderBy(keySelector)
+                .ToListAsync();
+        }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Logic.Contracts;
-using StudyONU.Logic.Helpers;
 
 namespace StudyONU.Logic.Extensions
 {
@@ -9,11 +7,7 @@ namespace StudyONU.Logic.Extensions
     {
         public static IServiceCollection AddLogic(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IPasswordHasher, PasswordHasher>();
-            services.AddTransient<IExceptionMessageBuilder, ExceptionMessageBuilder>();
-            services.AddTransient<IFileHelper, FileHelper>();
-            services.AddTransient<IEmailSender, FakeEmailSender>();
-
+            services.AddHelpers();
             services.AddDatabase(configuration);
             services.AddRepositories();
             services.AddAutoMapper(configuration);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudyONU.Logic.Infrastructure;
+using System.Security.Claims;
 
 namespace StudyONU.Admin.Controllers
 {
@@ -7,6 +8,12 @@ namespace StudyONU.Admin.Controllers
     [Produces("application/json")]
     public class ApiController : Controller
     {
+        protected const string LecturersImageUploadPath = "images/uploads/lecturers";
+        protected const string StudentsImageUploadPath = "images/uploads/students";
+        protected const string QueueImageUploadPath = "images/uploads/queue";
+        protected const string GuidesUploadPath = "files/uploads/guides";
+        protected const string TasksUploadPath = "files/uploads/tasks";
+
         protected IActionResult GenerateResponse<TData>(DataServiceMessage<TData> serviceMessage) where TData : class
         {
             var response = new
@@ -62,6 +69,11 @@ namespace StudyONU.Admin.Controllers
             }
 
             return actionResult;
+        }
+
+        protected string GetUserEmail()
+        {
+            return User.FindFirstValue(ClaimTypes.Email);
         }
     }
 }

@@ -6,7 +6,6 @@ using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.Infrastructure;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
@@ -27,7 +26,7 @@ namespace StudyONU.Admin.Controllers
         public async Task<IActionResult> Create([FromBody] CourseCreateBindingModel model)
         {
             CourseCreateDTO courseCreateDTO = mapper.Map<CourseCreateDTO>(model);
-            courseCreateDTO.LecturerEmail = User.FindFirstValue(ClaimTypes.Email);
+            courseCreateDTO.LecturerEmail = GetUserEmail();
 
             ServiceMessage serviceMessage = await service.CreateAsync(courseCreateDTO);
 
@@ -37,7 +36,7 @@ namespace StudyONU.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            string email = User.FindFirstValue(ClaimTypes.Email);
+            string email = GetUserEmail();
             DataServiceMessage<IEnumerable<CourseListDTO>> serviceMessage = await service.GetByLecturerEmailAsync(email);
 
             return GenerateResponse(serviceMessage);

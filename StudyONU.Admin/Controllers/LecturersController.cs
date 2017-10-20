@@ -43,7 +43,7 @@ namespace StudyONU.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] LecturerCreateBindingModel model)
         {
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.Photo, "images/uploads");
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.Photo, LecturersImageUploadPath);
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 LecturerCreateDTO lecturerCreateDTO = mapper.Map<LecturerCreateDTO>(model, opts =>

@@ -3,53 +3,42 @@ using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
-using StudyONU.Logic.DTO.Course;
+using StudyONU.Logic.DTO.Task;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services
 {
-    public class CourseService : ServiceBase, ICourseService
+    public class TaskService : ServiceBase, ITaskService
     {
-        public CourseService(
+        public TaskService(
             IUnitOfWork unitOfWork,
-            IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder
-            ) : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            IMapper mapper, 
+            IExceptionMessageBuilder exceptionMessageBuilder)
+            : base(unitOfWork, mapper, exceptionMessageBuilder) { }
 
-        public async Task<ServiceMessage> CreateAsync(CourseCreateDTO courseCreateDTO)
+        public async Task<ServiceMessage> CreateAsync(TaskCreateDTO taskCreateDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
 
             try
             {
-                LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetAsync(lecturer => lecturer.User.Email == courseCreateDTO.LecturerEmail);
-                if (lecturerEntity != null)
+                CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(taskCreateDTO.CourseId);
+                if (courseEntity != null)
                 {
-                    SpecialityEntity specialityEntity = await unitOfWork.Specialities.GetAsync(courseCreateDTO.SpecialityId);
-                    if (specialityEntity != null)
-                    {
-                        CourseEntity courseEntity = mapper.Map<CourseEntity>(courseCreateDTO);
-                        courseEntity.Lecturer = lecturerEntity;
-                        courseEntity.Speciality = specialityEntity;
+                    TaskEntity taskEntity = mapper.Map<TaskEntity>(taskCreateDTO);
+                    taskEntity.Course = courseEntity;
 
-                        await unitOfWork.Courses.AddAsync(courseEntity);
-                        await unitOfWork.CommitAsync();
-                    }
-                    else
-                    {
-                        actionResult = ServiceActionResult.NotFound;
-                        errors.Add("Speciality was not found");
-                    }
+                    await unitOfWork.Tasks.AddAsync(taskEntity);
+                    await unitOfWork.CommitAsync();
                 }
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
+                    errors.Add("Course was not found");
                 }
             }
             catch (Exception exception)
@@ -65,19 +54,19 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByLecturerEmailAsync(string email)
+        public async Task<DataServiceMessage<IEnumerable<TaskListDTO>>> GetByLecturerEmailAsync(string email)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
-            IEnumerable<CourseListDTO> data = null;
+            IEnumerable<TaskListDTO> data = null;
 
             try
             {
                 LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetByEmailAsync(email);
                 if (lecturerEntity != null)
                 {
-                    IEnumerable<CourseEntity> courseEntities = await unitOfWork.Courses.GetAllByLecturerIdOrderedAsync(lecturerEntity.Id, course => course.Name);
-                    data = mapper.Map<IEnumerable<CourseListDTO>>(courseEntities);
+                    IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllByLecturerIdOrderedAsync(lecturerEntity.Id, task => task.Title);
+                    data = mapper.Map<IEnumerable<TaskListDTO>>(taskEntities);
                 }
                 else
                 {
@@ -91,7 +80,7 @@ namespace StudyONU.Logic.Services
                 actionResult = ServiceActionResult.Exception;
             }
 
-            return new DataServiceMessage<IEnumerable<CourseListDTO>>
+            return new DataServiceMessage<IEnumerable<TaskListDTO>>
             {
                 ActionResult = actionResult,
                 Errors = errors,

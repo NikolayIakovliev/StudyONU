@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\files\uploads\" />
-    <Folder Include="wwwroot\images\uploads\" />
+    <Folder Include="wwwroot\images\uploads\lecturers\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

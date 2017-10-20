@@ -1,9 +1,11 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
 import { yyyymmdd } from '../../../shared/date';
-import Dropdown from 'react-dropdown';
-import FileInput from 'react-file-input';
 import DatePicker from 'react-date-picker';
+import Dropdown from 'react-dropdown';
+import Dropzone from 'react-dropzone';
+
+import FileInput from 'react-file-input';
 
 import './guideForm.scss';
 
@@ -34,12 +36,26 @@ export class GuideForm extends React.Component {
     }
 
     render() {
+        const { file } = this.state;
+
         let options = this.state.courses.map(course => {
             return {
                 value: course.id,
                 label: course.name
             };
         });
+
+        let dropzoneContent;
+        if (file) {
+            dropzoneContent = (
+                <div>
+                    <p>Загруженный файл:</p>
+                    <p>{file.name}</p>
+                </div>
+            );
+        } else {
+            dropzoneContent = <p>Допустимые расширения: .docx, .doc, .xls, .pdf, .txt</p>;
+        }
 
         return (
             <div>
@@ -52,12 +68,9 @@ export class GuideForm extends React.Component {
                 </div>
                 <div>
                     <label>Файл</label>
-                    <FileInput
-                        name="file"
-                        accept=".docx,.doc,.xls,.pdf,.txt"
-                        placeholder="Attach Document"
-                        onChange={e => this.setState({ file: e.target.files[0] })}
-                        className="file-input" />
+                    <Dropzone multiple={false} onDrop={files => this.setState({ file: files[0] })} accept=".docx,.doc,.xls,.pdf,.txt">
+                        {dropzoneContent}
+                    </Dropzone>
                 </div>
                 <label>Доступна с</label>
                 <DatePicker locale="ru" value={this.state.dateAvailable} onChange={date => this.setState({ dateAvailable: date })} />
