@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import AvatarEditor from 'react-avatar-editor';
-import FileInput from 'react-file-input';
+import Dropzone from 'react-dropzone';
 
 export class LecturerForm extends React.Component {
     constructor(props) {
@@ -17,6 +17,25 @@ export class LecturerForm extends React.Component {
     }
 
     render() {
+        const { photo } = this.state;
+
+        let dropzoneContent;
+        if (typeof photo === 'string') {
+            dropzoneContent = (
+                <div>
+                    <p>Выберите фотографию</p>
+                    <p>Допустимые расширения: .jpg, .png, .gif, .jpeg</p>
+                </div>
+            );
+        } else {
+            dropzoneContent = (
+                <div>
+                    <p>Загруженный файл:</p>
+                    <p>{photo.name}</p>
+                </div>
+            );
+        }
+
         return (
             <form>
                 <div>
@@ -36,7 +55,7 @@ export class LecturerForm extends React.Component {
                     <input type="email" name="email" value={this.state.email} onChange={e => this.setState({ email: e.target.value })} />
                 </div>
                 <AvatarEditor
-                    image={this.state.photo}
+                    image={photo}
                     width={100}
                     height={100}
                     border={1}
@@ -44,12 +63,9 @@ export class LecturerForm extends React.Component {
                     color={[0, 0, 0, 1]}
                 />
                 <div>
-                    <FileInput
-                        name="photo"
-                        accept=".jpg,.png,.gif"
-                        placeholder="Choose avatar"
-                        className="inputClass"
-                        onChange={e => this.setState({ photo: e.target.files[0], uploadedFile: true })} />
+                    <Dropzone multiple={false} onDrop={files => this.setState({ photo: files[0], uploadedFile: true })} accept=".jpg,.png,.gif,.jpeg">
+                        {dropzoneContent}
+                    </Dropzone>
                 </div>
                 <div>
                     <button type="submit" onClick={e => { e.preventDefault(); this.sendForm(); }}>Создать</button>
