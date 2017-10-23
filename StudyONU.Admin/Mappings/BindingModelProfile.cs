@@ -28,6 +28,7 @@ namespace StudyONU.Admin.Mappings
             CreateMap<GuideCreateBindingModel, GuideCreateDTO>();
             CreateMap<TaskCreateBindingModel, TaskCreateDTO>();
             CreateMap<SpecialityBindingModel, SpecialityDTO>();
+            CreateMap<LecturerEditBindingModel, LecturerEditDTO>();
         }
     }
 }

@@ -1,17 +1,10 @@
 ﻿import * as React from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import RaisedButton from 'material-ui/RaisedButton';
+import { FloatButton } from '../../shared/FloatButton';
 
 import './specialityForm.scss';
-
-const Button = (onClick) => (
-    <FloatingActionButton mini={true} className="btn-float-add" onClick={onClick}>
-        <ContentAdd />
-    </FloatingActionButton>
-);
 
 export class SpecialityForm extends React.Component {
     constructor(props) {
@@ -27,9 +20,8 @@ export class SpecialityForm extends React.Component {
     }
 
     render() {
-        let render = !this.state.formOpened
-            ? Button(() => this.setState({ formOpened: true }))
-            : (
+        let render = this.state.formOpened
+            ? (
                 <Paper zDepth={3} className="form">
                     <TextField
                         hintText="Например, ФИТ"
@@ -43,7 +35,8 @@ export class SpecialityForm extends React.Component {
                         <RaisedButton label="Закрыть" className="btn-item" secondary={true} onClick={e => this.setState({ formOpened: false })} />
                     </div>
                 </Paper>
-            );
+            )
+            : FloatButton(() => this.setState({ formOpened: true }));
 
         return render;
 

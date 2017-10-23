@@ -32,14 +32,6 @@ namespace StudyONU.Admin.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> List()
-        {
-            DataServiceMessage<IEnumerable<LecturerListDTO>> serviceMessage = await service.GetAllAsync();
-
-            return GenerateResponse(serviceMessage);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] LecturerCreateBindingModel model)
         {
@@ -60,6 +52,33 @@ namespace StudyONU.Admin.Controllers
             }
 
             return GenerateResponse(dataServiceMessage);
+        }
+
+        [HttpPut]
+        [AdminAuthorize]
+        public async Task<IActionResult> Edit([FromBody] LecturerEditBindingModel model)
+        {
+            LecturerEditDTO lecturerEditDTO = mapper.Map<LecturerEditDTO>(model);
+            ServiceMessage serviceMessage = await service.EditAsync(lecturerEditDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpDelete]
+        [AdminAuthorize]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            ServiceMessage serviceMessage = await service.DeleteAsync(id);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            DataServiceMessage<IEnumerable<LecturerListDTO>> serviceMessage = await service.GetAllAsync();
+
+            return GenerateResponse(serviceMessage);
         }
     }
 }

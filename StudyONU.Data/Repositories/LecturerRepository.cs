@@ -15,6 +15,13 @@ namespace StudyONU.Data.Repositories
         public LecturerRepository(StudyONUDbContext context)
             : base(context) { }
 
+        public override Task<LecturerEntity> GetAsync(int id)
+        {
+            return context.Lecturers
+                .Include(lecturer => lecturer.User)
+                .FirstOrDefaultAsync(lecturer => lecturer.Id == id);
+        }
+
         public override async Task<IEnumerable<LecturerEntity>> GetAllAsync(Expression<Func<LecturerEntity, bool>> expression = null)
         {
             IQueryable<LecturerEntity> entities = expression != null

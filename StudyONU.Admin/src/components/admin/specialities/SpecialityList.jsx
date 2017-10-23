@@ -6,9 +6,9 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
-import { SpecialityEditDialog } from './SpecialityEditDialog';
 import { SpecialityItem } from './SpecialityItem';
 import { SpecialityForm } from './SpecialityForm';
+import { SpecialityEditDialog } from './SpecialityEditDialog';
 
 export class SpecialityList extends React.Component {
     constructor(props) {

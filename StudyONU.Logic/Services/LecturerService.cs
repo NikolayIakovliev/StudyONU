@@ -73,6 +73,73 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public async Task<ServiceMessage> EditAsync(LecturerEditDTO lecturerEditDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetAsync(lecturerEditDTO.Id);
+                if (lecturerEntity != null)
+                {
+                    lecturerEntity.User.FirstName = lecturerEditDTO.FirstName;
+                    lecturerEntity.User.LastName = lecturerEditDTO.LastName;
+                    lecturerEntity.User.Patronymic = lecturerEditDTO.Patronymic;
+
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Lecturer was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> DeleteAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetAsync(id);
+                if (lecturerEntity != null)
+                {
+                    unitOfWork.Lecturers.Remove(lecturerEntity);
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Lecturer was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
         public async Task<DataServiceMessage<IEnumerable<LecturerListDTO>>> GetAllAsync()
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
@@ -83,7 +150,9 @@ namespace StudyONU.Logic.Services
             {
                 IEnumerable<LecturerEntity> lecturerEntities = await unitOfWork.Lecturers.GetAllAsync();
                 data = mapper.Map<IEnumerable<LecturerListDTO>>(lecturerEntities)
-                    .OrderBy(lecturer => lecturer.FullName)
+                    .OrderBy(lecturer => lecturer.LastName)
+                    .ThenBy(lecturer => lecturer.FirstName)
+                    .ThenBy(lecturer => lecturer.Patronymic)
                     .ToList();
             }
             catch (Exception exception)
