@@ -25,53 +25,48 @@ export const Authentication = (WrappedComponent) => {
                     get={(url, callback) => this.get(url, callback)}
                     post={(url, data, callback) => this.post(url, data, callback)}
                     postFormData={(url, data, callback) => this.postFormData(url, data, callback)}
+                    put={(url, data, callback) => this.put(url, data, callback)}
+                    delete={(url, data, callback) => this.delete(url, data, callback)}
                     onLogout={() => {
                         AuthorizationData.clear();
                         this.update();
-                    }}
-                />
+                    }} />
                 : <Login
                     onLoginSuccess={data => {
                         AuthorizationData.save(data);
                         this.update();
-                    }}
-                />;
+                    }} />;
 
             return renderedComponent;
         }
 
         get(url, callback) {
-            Api.get(url)
-                .then(response => this.checkUnauthorized(response))
-                .then(result => {
-                    if (!result.isAuthOk) {
-                        AuthorizationData.clear();
-                        this.update();
-                    } else if (result.exception) {
-                        console.error(result.response);
-                    } else {
-                        result.response.json().then(r => callback(r));
-                    }
-                });
-        }
-
-        postFormData(url, data, callback) {
-            Api.postFormData(url, data)
-                .then(response => this.checkUnauthorized(response))
-                .then(result => {
-                    if (!result.isAuthOk) {
-                        AuthorizationData.clear();
-                        this.update();
-                    } else if (result.exception) {
-                        console.error(result.response);
-                    } else {
-                        result.response.json().then(r => callback(r));
-                    }
-                });
+            const method = () => Api.get(url);
+            this.callApi(method, callback);
         }
 
         post(url, data, callback) {
-            Api.post(url, data)
+            const method = () => Api.post(url, data);
+            this.callApi(method, callback);
+        }
+
+        postFormData(url, data, callback) {
+            const method = () => Api.postFormData(url, data);
+            this.callApi(method, callback);
+        }
+
+        put(url, data, callback) {
+            const method = () => Api.put(url, data);
+            this.callApi(method, callback);
+        }
+
+        delete(url, data, callback) {
+            const method = () => Api.delete(url, data);
+            this.callApi(method, callback);
+        }
+
+        callApi(method, callback) {
+            method()
                 .then(response => this.checkUnauthorized(response))
                 .then(result => {
                     if (!result.isAuthOk) {
@@ -83,14 +78,6 @@ export const Authentication = (WrappedComponent) => {
                         result.response.json().then(r => callback(r));
                     }
                 });
-        }
-
-        put(url, data, callback) {
-
-        }
-
-        delete(url, callback) {
-
         }
 
         checkUnauthorized(response) {

@@ -48,16 +48,80 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<IEnumerable<SpecialityListDTO>>> GetAllAsync()
+        public async Task<ServiceMessage> EditAsync(SpecialityDTO specialityDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
-            IEnumerable<SpecialityListDTO> data = null;
+
+            try
+            {
+                SpecialityEntity specialityEntity = await unitOfWork.Specialities.GetAsync(specialityDTO.Id);
+                if (specialityEntity != null)
+                {
+                    specialityEntity.Name = specialityDTO.Name;
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Speciality was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> DeleteAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                SpecialityEntity specialityEntity = await unitOfWork.Specialities.GetAsync(id);
+                if (specialityEntity != null)
+                {
+                    unitOfWork.Specialities.Remove(specialityEntity);
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Speciality was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<DataServiceMessage<IEnumerable<SpecialityDTO>>> GetAllAsync()
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+            IEnumerable<SpecialityDTO> data = null;
 
             try
             {
                 IEnumerable<SpecialityEntity> speacialityEntities = await unitOfWork.Specialities.GetAllAsync();
-                data = mapper.Map<IEnumerable<SpecialityListDTO>>(speacialityEntities)
+                data = mapper.Map<IEnumerable<SpecialityDTO>>(speacialityEntities)
                     .OrderBy(speaciality => speaciality.Name)
                     .ToList();
             }
@@ -67,7 +131,7 @@ namespace StudyONU.Logic.Services
                 actionResult = ServiceActionResult.Exception;
             }
 
-            return new DataServiceMessage<IEnumerable<SpecialityListDTO>>
+            return new DataServiceMessage<IEnumerable<SpecialityDTO>>
             {
                 ActionResult = actionResult,
                 Errors = errors,

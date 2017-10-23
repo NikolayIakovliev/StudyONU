@@ -2,13 +2,13 @@
 
 export class Api {
     static get(url) {
-        let init = initGET();
+        let init = createInit('GET');
 
         return fetch(url, init).catch(error => console.log(error));
     }
 
     static post(url, data) {
-        let init = initPOST(data);
+        let init = createInit('POST', data);
 
         return fetch(url, init).catch(error => console.log(error));
     }
@@ -39,6 +39,18 @@ export class Api {
             },
             body: formData
         }
+
+        return fetch(url, init).catch(error => console.log(error));
+    }
+
+    static put(url, data) {
+        let init = createInit('PUT', data);
+
+        return fetch(url, init).catch(error => console.log(error));
+    }
+
+    static delete(url, data) {
+        let init = createInit('DELETE', data);
 
         return fetch(url, init).catch(error => console.log(error));
     }
@@ -80,20 +92,11 @@ const checkStatus = (response) => {
     throw error;
 }
 
-function initGET() {
+const createInit = (method, data) => {
     let init = {
-        method: 'GET',
-        headers: headers()
-    }
-
-    return init;
-}
-
-function initPOST(data) {
-    let init = {
-        method: 'POST',
+        method: method,
         headers: headers(),
-        body: JSON.stringify(data)
+        body: data != null ? JSON.stringify(data) : data
     }
 
     return init;

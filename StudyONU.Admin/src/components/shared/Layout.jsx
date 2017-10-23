@@ -1,5 +1,9 @@
 ﻿import * as React from 'react';
-import { NavMenu } from './NavMenu';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Sidebar } from './Sidebar';
+import { Header } from './Header';
+
+import './layout.scss';
 
 export class Layout extends React.Component {
     constructor(props) {
@@ -9,11 +13,14 @@ export class Layout extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <NavMenu {...this.props} />
-                </div>
-                <div>
-                    {this.props.children}
+                <Sidebar navigationLinks={this.props.navigationLinks} />
+                <div className="layout">
+                    <Header logout={this.props.onLogout} />
+                    <MuiThemeProvider>
+                        <div className="layout-content">
+                            {this.props.children}
+                        </div>
+                    </MuiThemeProvider>
                 </div>
             </div>
         );

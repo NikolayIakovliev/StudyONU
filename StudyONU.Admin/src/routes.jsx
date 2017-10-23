@@ -83,7 +83,7 @@ export class Routes extends React.Component {
         }
 
         return (
-            <Layout allowedLinks={links} {...this.props}>
+            <Layout navigationLinks={links} {...this.props}>
                 {routes}
             </Layout>
         );

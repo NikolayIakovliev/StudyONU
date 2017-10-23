@@ -1,0 +1,48 @@
+﻿@import 'variables.scss';
+@import 'shared.scss';
+
+.sidebar {
+    position: fixed;
+    z-index: 1;
+    height: 100vh;
+    width: $sidebar-width;
+    overflow: auto;
+    background-color: $blue-dark;
+
+    .logo-container {
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    .nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .nav-item {
+            text-align: center;
+
+            %nav-link {
+                @extend %no-underline;
+                display: block;
+                color: white;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 20px;
+            }
+
+            .nav-link {
+                @extend %nav-link;
+
+                &:hover {
+                    background-color: #A3AABE;
+                }
+            }
+
+            .nav-link-active {
+                @extend %nav-link;
+                background-color: $blue-light;
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿namespace StudyONU.Logic.DTO.Speciality
 {
-    public class SpecialityListDTO
+    public class SpecialityDTO
     {
         public int Id { get; set; }
 

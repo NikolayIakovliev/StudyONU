@@ -1,0 +1,12 @@
+﻿@import 'variables.scss';
+
+.layout {
+    margin-left: $sidebar-width;
+    height: 100%;
+    background-color: #EBE8E8;
+
+    .layout-content {
+        margin: 30px;
+        min-height: 100%;
+    }
+}

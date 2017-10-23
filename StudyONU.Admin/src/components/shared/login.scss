@@ -1,9 +1,10 @@
-﻿@import '../../variables.scss';
+﻿@import 'variables.scss';
 
 .login-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-family: Georgia;
     align-items: center;
     width: 100%;
     min-height: 100%;

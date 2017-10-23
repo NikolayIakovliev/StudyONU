@@ -8,7 +8,7 @@ namespace StudyONU.Logic.Mappings
     {
         public SpecialityProfile()
         {
-            CreateMap<SpecialityEntity, SpecialityListDTO>();
+            CreateMap<SpecialityEntity, SpecialityDTO>();
         }
     }
 }
