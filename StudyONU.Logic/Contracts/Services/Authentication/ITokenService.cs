@@ -8,6 +8,6 @@ namespace StudyONU.Logic.Contracts.Services.Authentication
 {
     public interface ITokenService : IDisposable
     {
-        Task<DataServiceMessage<TokenDTO>> GenerateTokenAsync(LoginDTO loginDTO);
+        Task<DataServiceMessage<UserInfoDTO>> GenerateTokenAsync(LoginDTO loginDTO);
     }
 }

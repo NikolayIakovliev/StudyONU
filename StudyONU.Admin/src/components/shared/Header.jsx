@@ -9,13 +9,15 @@ export class Header extends React.Component {
     }
 
     render() {
+        const user = this.props.user;
+
         return (
             <div className="header">
                 <div className="user-info">
-                    <p className="fullname">Админ Админович</p>
-                    <p className="role">Администратор</p>
+                    <p className="fullname">{`${user.firstName} ${user.lastName}`}</p>
+                    <p className="role">{user.role}</p>
                 </div>
-                <img src="/images/admin.png" className="user-avatar" />
+                <img src={user.photoPath} className="user-avatar" />
                 <button className="logout-btn" onClick={e => this.props.logout()}>Выйти</button>
             </div>
         );

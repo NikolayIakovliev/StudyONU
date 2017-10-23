@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7357a02ee0f7a79eccb6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e897a1b7c00d385fea20"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4602,7 +4602,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.login-page {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  font-family: Georgia;\n  align-items: center;\n  width: 100%;\n  min-height: 100%; }\n  .login-page .line-centered {\n    display: flex;\n    justify-content: space-around;\n    align-items: center;\n    width: 100%;\n    height: 280px;\n    background-color: #0a1944; }\n    .login-page .line-centered .logo {\n      margin-top: -35px; }\n    .login-page .line-centered .title {\n      font-size: 36px;\n      text-align: center;\n      color: #ffffff;\n      line-height: 0.2; }\n    .login-page .line-centered .form-box {\n      background-color: white;\n      padding: 40px 20px;\n      text-align: center; }\n      .login-page .line-centered .form-box .form-title {\n        font-size: 48px;\n        color: #010000;\n        margin: 0; }\n      .login-page .line-centered .form-box .form-group {\n        margin: 40px 0; }\n        .login-page .line-centered .form-box .form-group .form-label {\n          font-size: 30px;\n          margin-right: 15px; }\n        .login-page .line-centered .form-box .form-group .form-input {\n          border: none;\n          border-bottom: solid 1px black;\n          font-size: 24px;\n          text-align: center;\n          width: 260px; }\n          .login-page .line-centered .form-box .form-group .form-input:focus {\n            outline: none; }\n      .login-page .line-centered .form-box .submit-btn {\n        border-radius: 10px;\n        background-color: #0a1944;\n        border: none;\n        color: white;\n        font-size: 30px;\n        padding: 10px 50px; }\n        .login-page .line-centered .form-box .submit-btn:focus {\n          outline: none; }\n      .login-page .line-centered .form-box .extra-info {\n        margin-top: 15px; }\n        .login-page .line-centered .form-box .extra-info .forgot-password {\n          font-size: 24px;\n          font-style: italic;\n          text-align: center;\n          color: #3c4f6d; }\n        .login-page .line-centered .form-box .extra-info .login-error {\n          margin-top: 20px;\n          font-size: 22px;\n          font-style: italic;\n          color: #ef2626; }\n", ""]);
+exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.login-page {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  font-family: Georgia;\n  align-items: center;\n  width: 100%;\n  min-height: 100%; }\n  .login-page .line-centered {\n    display: flex;\n    justify-content: space-around;\n    align-items: center;\n    width: 100%;\n    height: 280px;\n    background-color: #0a1944; }\n    .login-page .line-centered .logo {\n      margin-top: -35px; }\n    .login-page .line-centered .title {\n      font-size: 36px;\n      text-align: center;\n      color: #ffffff;\n      line-height: 0.2; }\n    .login-page .line-centered .form-box {\n      background-color: white;\n      padding: 40px 20px;\n      text-align: center; }\n      .login-page .line-centered .form-box .form-title {\n        font-size: 48px;\n        color: #010000;\n        margin: 0; }\n      .login-page .line-centered .form-box .form-group {\n        margin: 40px 0; }\n        .login-page .line-centered .form-box .form-group .form-label {\n          font-size: 30px;\n          margin-right: 15px; }\n        .login-page .line-centered .form-box .form-group .form-input {\n          border: none;\n          border-bottom: solid 1px black;\n          font-size: 24px;\n          text-align: center;\n          width: 260px; }\n          .login-page .line-centered .form-box .form-group .form-input:focus {\n            outline: none; }\n      .login-page .line-centered .form-box .submit-btn {\n        border-radius: 10px;\n        background-color: #0a1944;\n        border: none;\n        color: white;\n        font-size: 30px;\n        padding: 10px 50px; }\n        .login-page .line-centered .form-box .submit-btn:hover {\n          background-color: #505F8A; }\n        .login-page .line-centered .form-box .submit-btn:active {\n          background-color: rgba(118, 132, 172, 0.5); }\n        .login-page .line-centered .form-box .submit-btn:focus {\n          outline: none; }\n      .login-page .line-centered .form-box .extra-info {\n        margin-top: 15px; }\n        .login-page .line-centered .form-box .extra-info .forgot-password {\n          font-size: 24px;\n          font-style: italic;\n          text-align: center;\n          color: #3c4f6d; }\n        .login-page .line-centered .form-box .extra-info .login-error {\n          margin-top: 20px;\n          font-size: 22px;\n          font-style: italic;\n          color: #ef2626; }\n", ""]);
 
 // exports
 
@@ -4898,7 +4898,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.header {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  height: 65px;\n  background-color: #9EB3C2; }\n  .header .user-info {\n    padding: 0 18px;\n    text-align: right; }\n    .header .user-info .fullname {\n      font-size: 20px;\n      margin: 0; }\n    .header .user-info .role {\n      font-size: 12px;\n      margin: 0; }\n  .header .user-avatar {\n    height: 40px;\n    border-radius: 50%;\n    border: 2px solid white; }\n  .header .logout-btn {\n    margin: 0 30px;\n    border: none;\n    background-color: transparent;\n    font-size: 16px;\n    cursor: pointer;\n    outline: none; }\n    .header .logout-btn:hover {\n      border-bottom: 1px solid #CCE1EE; }\n", ""]);
+exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.header {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  height: 65px;\n  background-color: #9EB3C2; }\n  .header .user-info {\n    padding: 0 18px;\n    text-align: right; }\n    .header .user-info .fullname {\n      font-size: 20px;\n      margin: 0; }\n    .header .user-info .role {\n      font-size: 12px;\n      margin: 0; }\n  .header .user-avatar {\n    height: 40px;\n    width: 40px;\n    border-radius: 50%;\n    border: 2px solid white; }\n  .header .logout-btn {\n    margin: 0 30px;\n    border: none;\n    background-color: transparent;\n    font-size: 16px;\n    cursor: pointer;\n    outline: none; }\n    .header .logout-btn:hover {\n      border-bottom: 1px solid #CCE1EE; }\n", ""]);
 
 // exports
 
@@ -17471,8 +17471,14 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
             var _this = _possibleConstructorReturn(this, (WithAuthentication.__proto__ || Object.getPrototypeOf(WithAuthentication)).call(this, props));
 
             _this.state = {
-                userRole: '',
-                token: ''
+                user: {
+                    role: '',
+                    token: '',
+                    firstName: '',
+                    lastName: '',
+                    patronymic: '',
+                    photoPath: ''
+                }
             };
             return _this;
         }
@@ -17487,8 +17493,10 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
             value: function render() {
                 var _this2 = this;
 
-                var renderedComponent = this.state.userRole ? React.createElement(WrappedComponent, {
-                    userRole: this.state.userRole,
+                var user = this.state.user;
+
+                var renderedComponent = user.role ? React.createElement(WrappedComponent, {
+                    user: user,
                     get: function get(url, callback) {
                         return _this2.get(url, callback);
                     },
@@ -17589,18 +17597,27 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
         }, {
             key: 'update',
             value: function update() {
-                var state = {
-                    userRole: '',
-                    token: ''
+                var user = {
+                    role: '',
+                    token: '',
+                    firstName: '',
+                    lastName: '',
+                    patronymic: '',
+                    photoPath: ''
                 };
 
                 var userLoggedIn = _authorizationData.AuthorizationData.any();
                 if (userLoggedIn) {
                     var authorizationData = _authorizationData.AuthorizationData.get();
-                    state.userRole = authorizationData.userRole;
-                    state.token = authorizationData.token;
+                    user.role = authorizationData.role;
+                    user.token = authorizationData.token;
+                    user.firstName = authorizationData.firstName;
+                    user.lastName = authorizationData.lastName;
+                    user.patronymic = authorizationData.patronymic;
+                    user.photoPath = authorizationData.photoPath;
                 }
 
+                var state = { user: user };
                 this.setState(state);
             }
         }]);
@@ -17947,8 +17964,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var adminRole = 'Admin';
-var lecturerRole = 'Lecturer';
+var adminRole = 'Админ';
+var lecturerRole = 'Преподаватель';
 
 var AdminAuthorization = (0, _Authorization.Authorization)([adminRole]);
 var LecturerAuthorization = (0, _Authorization.Authorization)([lecturerRole]);
@@ -17965,11 +17982,11 @@ var Routes = exports.Routes = function (_React$Component) {
     _createClass(Routes, [{
         key: 'render',
         value: function render() {
-            var userRole = this.props.userRole;
+            var userRole = this.props.user.role;
             var routes = void 0;
             var links = void 0;
 
-            if (this.props.userRole == adminRole) {
+            if (userRole == adminRole) {
                 links = [{
                     title: 'Домашняя страница',
                     to: '/'
@@ -17988,7 +18005,7 @@ var Routes = exports.Routes = function (_React$Component) {
                     React.createElement(_reactRouterDom.Route, { path: '/specialities', component: AdminAuthorization(_SpecialityList.SpecialityList, this.props) }),
                     React.createElement(_reactRouterDom.Route, { path: '/', component: _NotFound.NotFound })
                 );
-            } else if (this.props.userRole == lecturerRole) {
+            } else if (userRole == lecturerRole) {
                 links = [{
                     title: 'Домашняя страница',
                     to: '/'
@@ -18074,6 +18091,7 @@ var Layout = exports.Layout = function (_React$Component) {
     _createClass(Layout, [{
         key: 'render',
         value: function render() {
+            console.log(this.props.children);
             return React.createElement(
                 'div',
                 null,
@@ -18081,7 +18099,7 @@ var Layout = exports.Layout = function (_React$Component) {
                 React.createElement(
                     'div',
                     { className: 'layout' },
-                    React.createElement(_Header.Header, { logout: this.props.onLogout }),
+                    React.createElement(_Header.Header, { logout: this.props.onLogout, user: this.props.user }),
                     React.createElement(
                         _MuiThemeProvider2.default,
                         null,
@@ -24079,6 +24097,8 @@ var Header = exports.Header = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var user = this.props.user;
+
             return React.createElement(
                 'div',
                 { className: 'header' },
@@ -24088,15 +24108,15 @@ var Header = exports.Header = function (_React$Component) {
                     React.createElement(
                         'p',
                         { className: 'fullname' },
-                        '\u0410\u0434\u043C\u0438\u043D \u0410\u0434\u043C\u0438\u043D\u043E\u0432\u0438\u0447'
+                        user.firstName + ' ' + user.lastName
                     ),
                     React.createElement(
                         'p',
                         { className: 'role' },
-                        '\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440'
+                        user.role
                     )
                 ),
-                React.createElement('img', { src: '/images/admin.png', className: 'user-avatar' }),
+                React.createElement('img', { src: user.photoPath, className: 'user-avatar' }),
                 React.createElement(
                     'button',
                     { className: 'logout-btn', onClick: function onClick(e) {
@@ -24262,7 +24282,7 @@ var Authorization = exports.Authorization = function Authorization(roles) {
             _createClass(WithAuthorization, [{
                 key: 'render',
                 value: function render() {
-                    var component = roles.includes(props.userRole) ? React.createElement(WrappedComponent, props) : null;
+                    var component = roles.includes(props.user.role) ? React.createElement(WrappedComponent, props) : null;
 
                     return component;
                 }

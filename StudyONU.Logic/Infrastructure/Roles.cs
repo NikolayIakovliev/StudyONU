@@ -4,11 +4,11 @@ namespace StudyONU.Logic.Infrastructure
 {
     public static class Roles
     {
-        public static string Admin = "Admin";
+        public static string Admin = "Админ";
 
-        public static string Lecturer = "Lecturer";
+        public static string Lecturer = "Преподаватель";
 
-        public static string Student = "Student";
+        public static string Student = "Студент";
 
         public static IEnumerable<string> GetRoles() => new List<string>
         {

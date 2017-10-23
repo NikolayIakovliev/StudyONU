@@ -27,7 +27,7 @@ namespace StudyONU.Admin.Controllers
         public async Task<IActionResult> GenerateToken([FromBody] LoginBindingModel model)
         {
             LoginDTO loginDTO = mapper.Map<LoginDTO>(model);
-            DataServiceMessage<TokenDTO> serviceMessage = await service.GenerateTokenAsync(loginDTO);
+            DataServiceMessage<UserInfoDTO> serviceMessage = await service.GenerateTokenAsync(loginDTO);
 
             return GenerateResponse(serviceMessage);
         }

@@ -13,8 +13,8 @@ import { CourseList } from './components/lecturer/courses/CourseList';
 import { GuideList } from './components/lecturer/guides/GuideList';
 import { TaskList } from './components/lecturer/tasks/TaskList';
 
-const adminRole = 'Admin';
-const lecturerRole = 'Lecturer';
+const adminRole = 'Админ';
+const lecturerRole = 'Преподаватель';
 
 const AdminAuthorization = Authorization([adminRole]);
 const LecturerAuthorization = Authorization([lecturerRole]);
@@ -25,11 +25,11 @@ export class Routes extends React.Component {
     }
 
     render() {
-        let userRole = this.props.userRole;
+        let userRole = this.props.user.role;
         let routes;
         let links;
 
-        if (this.props.userRole == adminRole) {
+        if (userRole == adminRole) {
             links = [
                 {
                     title: 'Домашняя страница',
@@ -52,7 +52,7 @@ export class Routes extends React.Component {
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
-        } else if (this.props.userRole == lecturerRole) {
+        } else if (userRole == lecturerRole) {
             links = [
                 {
                     title: 'Домашняя страница',

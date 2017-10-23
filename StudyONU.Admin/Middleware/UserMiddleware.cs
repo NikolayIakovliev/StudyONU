@@ -26,7 +26,7 @@ namespace StudyONU.Admin.Middleware
                 Patronymic = "Adminovich",
                 LastName = "Adminov",
                 Email = "nikolay.iakovliev.web@gmail.com",
-                PhotoPath = "admin.png",
+                PhotoPath = "/images/admin.png",
                 Password = "nikolay.iakovliev.web@gmail.com"
             };
 

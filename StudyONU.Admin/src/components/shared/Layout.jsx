@@ -11,11 +11,12 @@ export class Layout extends React.Component {
     }
 
     render() {
+        console.log(this.props.children);
         return (
             <div>
                 <Sidebar navigationLinks={this.props.navigationLinks} />
                 <div className="layout">
-                    <Header logout={this.props.onLogout} />
+                    <Header logout={this.props.onLogout} user={this.props.user} />
                     <MuiThemeProvider>
                         <div className="layout-content">
                             {this.props.children}

@@ -9,8 +9,14 @@ export const Authentication = (WrappedComponent) => {
             super(props);
 
             this.state = {
-                userRole: '',
-                token: ''
+                user: {
+                    role: '',
+                    token: '',
+                    firstName: '',
+                    lastName: '',
+                    patronymic: '',
+                    photoPath: ''
+                }
             }
         }
 
@@ -19,9 +25,11 @@ export const Authentication = (WrappedComponent) => {
         }
 
         render() {
-            let renderedComponent = this.state.userRole
+            const user = this.state.user;
+
+            let renderedComponent = user.role
                 ? <WrappedComponent
-                    userRole={this.state.userRole}
+                    user={user}
                     get={(url, callback) => this.get(url, callback)}
                     post={(url, data, callback) => this.post(url, data, callback)}
                     postFormData={(url, data, callback) => this.postFormData(url, data, callback)}
@@ -91,18 +99,27 @@ export const Authentication = (WrappedComponent) => {
         }
 
         update() {
-            let state = {
-                userRole: '',
-                token: ''
+            let user = {
+                role: '',
+                token: '',
+                firstName: '',
+                lastName: '',
+                patronymic: '',
+                photoPath: ''
             };
 
             let userLoggedIn = AuthorizationData.any();
             if (userLoggedIn) {
                 let authorizationData = AuthorizationData.get();
-                state.userRole = authorizationData.userRole;
-                state.token = authorizationData.token;
+                user.role = authorizationData.role;
+                user.token = authorizationData.token;
+                user.firstName = authorizationData.firstName;
+                user.lastName = authorizationData.lastName;
+                user.patronymic = authorizationData.patronymic;
+                user.photoPath = authorizationData.photoPath;
             }
 
+            let state = { user: user };
             this.setState(state);
         }
     }

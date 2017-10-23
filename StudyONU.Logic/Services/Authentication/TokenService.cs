@@ -31,11 +31,11 @@ namespace StudyONU.Logic.Services.Authentication
             this.passwordHasher = passwordHasher;
         }
 
-        public async Task<DataServiceMessage<TokenDTO>> GenerateTokenAsync(LoginDTO loginDTO)
+        public async Task<DataServiceMessage<UserInfoDTO>> GenerateTokenAsync(LoginDTO loginDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
-            TokenDTO data = null;
+            UserInfoDTO data = null;
 
             try
             {
@@ -66,10 +66,14 @@ namespace StudyONU.Logic.Services.Authentication
                             );
 
                         JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-                        data = new TokenDTO
+                        data = new UserInfoDTO
                         {
                             Token = jwtSecurityTokenHandler.WriteToken(token),
-                            UserRole = userEntity.Role.Name
+                            Role = userEntity.Role.Name,
+                            FirstName = userEntity.FirstName,
+                            LastName = userEntity.LastName,
+                            Patronymic = userEntity.Patronymic,
+                            PhotoPath = userEntity.PhotoPath
                         };
                     }
                 }
@@ -86,7 +90,7 @@ namespace StudyONU.Logic.Services.Authentication
                 actionResult = ServiceActionResult.Exception;
             }
 
-            return new DataServiceMessage<TokenDTO>
+            return new DataServiceMessage<UserInfoDTO>
             {
                 ActionResult = actionResult,
                 Errors = errors,
