@@ -45,7 +45,11 @@ namespace StudyONU.Admin
                     };
                 });
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.Converters.Add();
+                });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
