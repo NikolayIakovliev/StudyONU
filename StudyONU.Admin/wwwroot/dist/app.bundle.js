@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e897a1b7c00d385fea20"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "74c8604b3e4ceb8c0c9d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18091,7 +18091,6 @@ var Layout = exports.Layout = function (_React$Component) {
     _createClass(Layout, [{
         key: 'render',
         value: function render() {
-            console.log(this.props.children);
             return React.createElement(
                 'div',
                 null,
@@ -35731,9 +35730,29 @@ var React = _interopRequireWildcard(_react);
 
 var _api = __webpack_require__(18);
 
+var _List = __webpack_require__(68);
+
+var _Subheader = __webpack_require__(69);
+
+var _Subheader2 = _interopRequireDefault(_Subheader);
+
+var _Divider = __webpack_require__(105);
+
+var _Divider2 = _interopRequireDefault(_Divider);
+
+var _Paper = __webpack_require__(22);
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+var _Dialog = __webpack_require__(178);
+
+var _Loading = __webpack_require__(180);
+
 var _GuideItem = __webpack_require__(488);
 
 var _GuideForm = __webpack_require__(489);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -35749,14 +35768,16 @@ var GuideList = exports.GuideList = function (_React$Component) {
     function GuideList(props) {
         _classCallCheck(this, GuideList);
 
-        var _this2 = _possibleConstructorReturn(this, (GuideList.__proto__ || Object.getPrototypeOf(GuideList)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (GuideList.__proto__ || Object.getPrototypeOf(GuideList)).call(this, props));
 
-        _this2.state = {
+        _this.state = {
             loaded: false,
             items: [],
-            errors: []
+            errors: [],
+            itemEditRequest: null,
+            itemDeleteRequest: null
         };
-        return _this2;
+        return _this;
     }
 
     _createClass(GuideList, [{
@@ -35767,53 +35788,69 @@ var GuideList = exports.GuideList = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this2 = this;
 
             var _state = this.state,
                 loaded = _state.loaded,
                 items = _state.items,
-                errors = _state.errors;
+                errors = _state.errors,
+                itemEditRequest = _state.itemEditRequest,
+                itemDeleteRequest = _state.itemDeleteRequest;
+
 
             var render = void 0;
 
             if (!loaded) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...'
-                );
-            } else if (errors.length > 0) {
+                render = React.createElement(_Loading.Loading, null);
+            } else if (errors.length) {
                 render = React.createElement(
                     'div',
                     null,
                     '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
                 );
-            } else if (items.length > 0) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    React.createElement(_GuideForm.GuideForm, { getCourses: function getCourses(callback) {
-                            return _this3.getCourses(callback);
-                        }, createItem: function createItem(data) {
-                            return _this3.createItem(data);
-                        } }),
-                    items.map(function (item, index) {
-                        return React.createElement(_GuideItem.GuideItem, { key: index, item: item });
-                    })
-                );
             } else {
                 render = React.createElement(
                     'div',
                     null,
-                    React.createElement(_GuideForm.GuideForm, { getCourses: function getCourses(callback) {
-                            return _this3.getCourses(callback);
-                        }, createItem: function createItem(data) {
-                            return _this3.createItem(data);
-                        } }),
-                    React.createElement(
-                        'div',
-                        null,
-                        '\u041D\u0435\u0442 \u041C\u0435\u0442\u043E\u0434\u0438\u0447\u0435\u043A!'
+                    React.createElement(_GuideForm.GuideForm, { createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        }, getCourses: function (_getCourses) {
+                            function getCourses(_x) {
+                                return _getCourses.apply(this, arguments);
+                            }
+
+                            getCourses.toString = function () {
+                                return _getCourses.toString();
+                            };
+
+                            return getCourses;
+                        }(function (callback) {
+                            return getCourses(callback);
+                        }) }),
+                    items.length && React.createElement(
+                        _Paper2.default,
+                        { zDepth: 3 },
+                        React.createElement(
+                            _List.List,
+                            null,
+                            React.createElement(
+                                _Subheader2.default,
+                                null,
+                                '\u041C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438'
+                            ),
+                            React.createElement(_Divider2.default, null),
+                            items.map(function (item, index) {
+                                return React.createElement(_GuideItem.GuideItem, {
+                                    key: item.id,
+                                    item: item,
+                                    onEdit: function onEdit(item) {
+                                        return _this2.setState({ itemEditRequest: item });
+                                    },
+                                    onDelete: function onDelete(item) {
+                                        return _this2.setState({ itemDeleteRequest: item });
+                                    } });
+                            })
+                        )
                     )
                 );
             }
@@ -35835,14 +35872,14 @@ var GuideList = exports.GuideList = function (_React$Component) {
             });
         }
     }, {
-        key: 'createItem',
-        value: function createItem(data) {
-            var _this4 = this;
+        key: 'modifyItem',
+        value: function modifyItem(method, data) {
+            var _this3 = this;
 
             var reload = function reload() {
-                return _this4.load();
+                return _this3.load();
             };
-            this.props.postFormData(_api.urls.guides, data, function (result) {
+            method(_api.urls.guides, data, function (result) {
                 if (result.success === true) {
                     reload();
                 } else {
@@ -35856,25 +35893,24 @@ var GuideList = exports.GuideList = function (_React$Component) {
     }, {
         key: 'load',
         value: function load() {
-            var _this = this;
+            var self = this;
 
             this.props.get(_api.urls.guides, function (response) {
-                if (response.success === true) {
-                    _this.setState({
-                        loaded: true,
-                        items: response.data
-                    });
-                } else {
-                    console.error(response.errors);
-                    _this.setState({
-                        loaded: true,
-                        items: []
-                    });
+                var newState = {
+                    loaded: true,
+                    itemEditRequest: null,
+                    itemDeleteRequest: null,
+                    errors: response.errors,
+                    items: response.success === true ? response.data : []
+                };
+
+                if (response.success != true) {
                     // TODO
                     // implement error display
-                    alert('Error');
                     console.log(result);
                 }
+
+                self.setState(newState);
             });
         }
     }]);
@@ -35900,6 +35936,10 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
+var _List = __webpack_require__(68);
+
+var _RightIcon = __webpack_require__(181);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35920,11 +35960,16 @@ var GuideItem = exports.GuideItem = function (_React$Component) {
     _createClass(GuideItem, [{
         key: 'render',
         value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                this.props.item.name
-            );
+            var _this2 = this;
+
+            var item = this.props.item;
+            var rightIcon = (0, _RightIcon.RightIconMenu)(function () {
+                return _this2.props.onEdit(item);
+            }, function () {
+                return _this2.props.onDelete(item.id);
+            });
+
+            return React.createElement(_List.ListItem, { primaryText: item.name, rightIconButton: rightIcon });
         }
     }]);
 
@@ -36002,7 +36047,7 @@ var GuideForm = exports.GuideForm = function (_React$Component) {
     _createClass(GuideForm, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            this.load();
+            //this.load();
         }
     }, {
         key: 'load',
@@ -36019,6 +36064,7 @@ var GuideForm = exports.GuideForm = function (_React$Component) {
         value: function render() {
             var _this3 = this;
 
+            return null;
             var file = this.state.file;
 
 

@@ -23,7 +23,7 @@ export class GuideForm extends React.Component {
     }
 
     componentWillMount() {
-        this.load();
+        //this.load();
     }
 
     load() {
@@ -36,6 +36,7 @@ export class GuideForm extends React.Component {
     }
 
     render() {
+        return null;
         const { file } = this.state;
 
         let options = this.state.courses.map(course => {

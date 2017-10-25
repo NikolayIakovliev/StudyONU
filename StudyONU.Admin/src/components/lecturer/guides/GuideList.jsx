@@ -1,5 +1,11 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
+import { List } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import { Dialog } from '../../shared/Dialog';
+import { Loading } from '../../shared/Loading';
 import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
 
@@ -10,7 +16,9 @@ export class GuideList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: []
+            errors: [],
+            itemEditRequest: null,
+            itemDeleteRequest: null
         };
     }
 
@@ -19,27 +27,39 @@ export class GuideList extends React.Component {
     }
 
     render() {
-        const { loaded, items, errors } = this.state;
+        const {
+            loaded,
+            items,
+            errors,
+            itemEditRequest,
+            itemDeleteRequest
+        } = this.state;
+
         let render;
 
         if (!loaded) {
-            render = <div>Загрузка...</div>;
-        } else if (errors.length > 0) {
+            render = <Loading />;
+        } else if (errors.length) {
             render = <div>Возникла ошибка!</div>;
-        } else if (items.length > 0) {
-            render = (
-                <div>
-                    <GuideForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
-                    {items.map((item, index) => {
-                        return <GuideItem key={index} item={item} />
-                    })}
-                </div>
-            );
         } else {
             render = (
                 <div>
-                    <GuideForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
-                    <div>Нет Методичек!</div>
+                    <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => getCourses(callback)} />
+                    {items.length &&
+                        <Paper zDepth={3}>
+                            <List>
+                                <Subheader>Методички</Subheader>
+                                <Divider />
+                                {items.map((item, index) => {
+                                    return <GuideItem
+                                        key={item.id}
+                                        item={item}
+                                        onEdit={item => this.setState({ itemEditRequest: item })}
+                                        onDelete={item => this.setState({ itemDeleteRequest: item })} />
+                                })}
+                            </List>
+                        </Paper>
+                    }
                 </div>
             );
         }
@@ -60,9 +80,9 @@ export class GuideList extends React.Component {
         });
     }
 
-    createItem(data) {
+    modifyItem(method, data) {
         let reload = () => this.load();
-        this.props.postFormData(urls.guides, data, result => {
+        method(urls.guides, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -75,25 +95,26 @@ export class GuideList extends React.Component {
     }
 
     load() {
-        let _this = this;
+        let self = this;
 
         this.props.get(urls.guides, response => {
-            if (response.success === true) {
-                _this.setState({
-                    loaded: true,
-                    items: response.data
-                });
-            } else {
-                console.error(response.errors);
-                _this.setState({
-                    loaded: true,
-                    items: []
-                });
+            let newState = {
+                loaded: true,
+                itemEditRequest: null,
+                itemDeleteRequest: null,
+                errors: response.errors,
+                items: response.success === true
+                    ? response.data
+                    : []
+            }
+
+            if (response.success != true) {
                 // TODO
                 // implement error display
-                alert('Error');
                 console.log(result);
             }
+
+            self.setState(newState);
         });
     }
 }

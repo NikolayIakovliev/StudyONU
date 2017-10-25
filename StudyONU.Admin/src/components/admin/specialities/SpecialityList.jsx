@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { Api, urls } from '../../../shared/api';
+import { urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';

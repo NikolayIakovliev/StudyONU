@@ -34,6 +34,8 @@ namespace StudyONU.Admin.Controllers
                     break;
                 case ServiceActionResult.Exception:
                     actionResult = Ok(response);
+                    // TODO
+                    // implement logging
                     break;
                 case ServiceActionResult.NotFound:
                     actionResult = BadRequest(response);
@@ -62,6 +64,8 @@ namespace StudyONU.Admin.Controllers
                     break;
                 case ServiceActionResult.Exception:
                     actionResult = Ok(response);
+                    // TODO
+                    // implement logging
                     break;
                 case ServiceActionResult.NotFound:
                     actionResult = BadRequest(response);
