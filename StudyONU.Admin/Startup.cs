@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Converters;
 using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Builder;
 using StudyONU.Admin.Mappings;
@@ -48,7 +49,11 @@ namespace StudyONU.Admin
             services.AddMvc()
                 .AddJsonOptions(options =>
                 {
-                    options.SerializerSettings.Converters.Add();
+                    IsoDateTimeConverter converter = new IsoDateTimeConverter
+                    {
+                        DateTimeFormat = "yyyy'.'MM'.'dd"
+                    };
+                    options.SerializerSettings.Converters.Add(converter);
                 });
         }
 
@@ -73,6 +78,12 @@ namespace StudyONU.Admin
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "download",
+                    template: "download/{id}",
+                    defaults: new { controller = "File", action = "DownloadGuide" }
+                    );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{*.}",

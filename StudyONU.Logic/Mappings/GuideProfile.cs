@@ -12,6 +12,9 @@ namespace StudyONU.Logic.Mappings
             CreateMap<GuideEntity, GuideListDTO>()
                 .ForMember(dest => dest.CourseName, opts => opts.MapFrom(src => src.Course.Name))
                 .ForMember(dest => dest.CourseNumber, opts => opts.MapFrom(src => src.Course.CourseNumber));
+            CreateMap<GuideEntity, GuideDetailsDTO>()
+                .ForMember(dest => dest.CourseName, opts => opts.MapFrom(src => src.Course.Name))
+                .ForMember(dest => dest.CourseNumber, opts => opts.MapFrom(src => src.Course.CourseNumber));
         }
     }
 }

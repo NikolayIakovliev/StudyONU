@@ -13,9 +13,12 @@ const iconButtonElement = (
     </IconButton>
 );
 
-export const RightIconMenu = (onEditClick, onDeleteClick) => (
+export const RightIconMenu = (onEditClick, onDeleteClick, options) => (
     <IconMenu iconButtonElement={iconButtonElement} touchTapCloseDelay={100}>
         <MenuItem onClick={onEditClick}>Редактировать</MenuItem>
         <MenuItem onClick={onDeleteClick}>Удалить</MenuItem>
+        {options && options.map((option, index) => {
+            return <MenuItem key={index} onClick={option.onClick}>{option.title}</MenuItem>
+        })}
     </IconMenu>
 );

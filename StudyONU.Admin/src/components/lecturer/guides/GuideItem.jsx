@@ -15,7 +15,24 @@ export class GuideItem extends React.Component {
 
     render() {
         const item = this.props.item;
-        const rightIcon = RightIconMenu(() => this.props.onEdit(item), () => this.props.onDelete(item.id));
+
+        const options = [
+            {
+                title: 'Скачать',
+                onClick: () => {
+                    let filePath = item.filePath;
+                    let extension = filePath.substr(filePath.lastIndexOf('.') + 1);
+
+                    let a = document.createElement('a');
+                    a.href = filePath;
+                    a.target = '_blank';
+                    a.download = `${item.name}.${extension}`;
+
+                    a.click();
+                }
+            }
+        ];
+        const rightIcon = RightIconMenu(() => this.props.onEdit(item), () => this.props.onDelete(item.id), options);
 
         const {
             name,
@@ -78,7 +95,7 @@ export class GuideItem extends React.Component {
         }
 
         let now = Date.now();
-        if (dateAvailable && dateAvailable < now) {
+        if (dateAvailable && dateAvailable > now) {
             let format = ddmmyyyy(dateAvailable, '.');
             details.text = `Будет доступна студентам с ${format}`;
             details.leftAvatar = <Avatar icon={<ActionClear />} backgroundColor={red500} />;

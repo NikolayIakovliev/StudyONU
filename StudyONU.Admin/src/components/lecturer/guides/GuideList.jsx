@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
+import { toDate } from '../../../shared/date';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -97,18 +98,24 @@ export class GuideList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.guides, response => {
+        this.props.get(urls.guides, result => {
             let newState = {
                 loaded: true,
                 itemEditRequest: null,
                 itemDeleteRequest: null,
-                errors: response.errors,
-                items: response.success === true
-                    ? response.data
+                errors: result.errors,
+                items: result.success === true
+                    ? result.data
                     : []
             }
 
-            if (response.success != true) {
+            newState.items = newState.items.map(item => {
+                item.dateAvailable = toDate(item.dateAvailable, '.');
+
+                return item;
+            });
+
+            if (result.success != true) {
                 // TODO
                 // implement error display
                 console.log(result);

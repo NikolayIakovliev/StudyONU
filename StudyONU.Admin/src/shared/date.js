@@ -23,3 +23,9 @@ export const ddmmyyyy = (date, divider) => {
     let format = `${dd}${divider}${mm}${divider}${yyyy}`;
     return format;
 }
+
+export const toDate = (yyyyMMdd, divider) => {
+    let parts = yyyyMMdd.split(divider);
+
+    return new Date(parts[0], parts[1] - 1, parts[2]); 
+}
