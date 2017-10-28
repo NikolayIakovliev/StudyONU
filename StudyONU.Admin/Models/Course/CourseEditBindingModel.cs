@@ -1,6 +1,6 @@
-﻿namespace StudyONU.Logic.DTO.Course
+﻿namespace StudyONU.Admin.Models.Course
 {
-    public class CourseListDTO
+    public class CourseEditBindingModel
     {
         public int Id { get; set; }
 
@@ -11,7 +11,5 @@
         public bool IsPublished { get; set; }
 
         public int SpecialityId { get; set; }
-
-        public string SpecialityName { get; set; }
     }
 }

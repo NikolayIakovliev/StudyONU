@@ -55,7 +55,6 @@ export class CourseForm extends React.Component {
         } = this.state;
 
         const courses = [1, 2, 3, 4, 5, 6];
-        //const
 
         return (
             <div>

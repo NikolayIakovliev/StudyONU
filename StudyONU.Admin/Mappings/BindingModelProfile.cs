@@ -23,8 +23,10 @@ namespace StudyONU.Admin.Mappings
                 .ForMember(dest => dest.Issuer, opt => opt.MapFrom(src => JwtBearerSettings.Issuer))
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => JwtBearerSettings.Key));
 
-            CreateMap<LecturerCreateBindingModel, LecturerCreateDTO>();
             CreateMap<CourseCreateBindingModel, CourseCreateDTO>();
+            CreateMap<CourseEditBindingModel, CourseEditDTO>();
+
+            CreateMap<LecturerCreateBindingModel, LecturerCreateDTO>();
             CreateMap<GuideCreateBindingModel, GuideCreateDTO>();
             CreateMap<TaskCreateBindingModel, TaskCreateDTO>();
             CreateMap<SpecialityBindingModel, SpecialityDTO>();

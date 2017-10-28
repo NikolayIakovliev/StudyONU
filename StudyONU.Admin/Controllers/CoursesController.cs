@@ -33,6 +33,23 @@ namespace StudyONU.Admin.Controllers
             return GenerateResponse(serviceMessage);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromBody] CourseEditBindingModel model)
+        {
+            CourseEditDTO specialityDTO = mapper.Map<CourseEditDTO>(model);
+            ServiceMessage serviceMessage = await service.EditAsync(specialityDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            ServiceMessage serviceMessage = await service.DeleteAsync(id);
+
+            return GenerateResponse(serviceMessage);
+        }
+
         [HttpGet]
         public async Task<IActionResult> List()
         {

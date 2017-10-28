@@ -8,6 +8,7 @@ import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
 import { CourseItem } from './CourseItem';
 import { CourseForm } from './CourseForm';
+import { CourseEditDialog } from './CourseEditDialog';
 
 export class CourseList extends React.Component {
     constructor(props) {
@@ -44,6 +45,23 @@ export class CourseList extends React.Component {
         } else {
             render = (
                 <div>
+                    {itemEditRequest != null &&
+                        <CourseEditDialog
+                            title="Редактирование курса"
+                            open={true}
+                            item={itemEditRequest}
+                            onClose={() => this.setState({ itemEditRequest: null })}
+                            onSubmit={item => this.modifyItem(this.props.put, item)} />
+                    }
+                    {itemDeleteRequest != null &&
+                        <Dialog
+                            title="Подтвердите действие"
+                            message="Вы уверены, что хотите удалить курс? Данное действие необратимо"
+                            open={true}
+                            actionLabel="Удалить"
+                            onClose={() => this.setState({ itemDeleteRequest: null })}
+                            onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
+                    }
                     <div className="list-form-container">
                         {items.length &&
                             <Paper zDepth={3} className="flex-grow-1">
