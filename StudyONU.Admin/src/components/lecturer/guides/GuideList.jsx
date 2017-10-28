@@ -45,7 +45,7 @@ export class GuideList extends React.Component {
         } else {
             render = (
                 <div>
-                    <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => getCourses(callback)} />
+                    <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
                     {items.length &&
                         <Paper zDepth={3}>
                             <List>

@@ -1,0 +1,21 @@
+﻿.form-course-container {
+    margin-left: 30px;
+
+    .form-course {
+        padding: 16px;
+
+        .text-field {
+            margin-top: -30px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            padding: 25px 0 0;
+
+            .btn-item {
+                margin-left: 10px;
+            }
+        }
+    }
+}

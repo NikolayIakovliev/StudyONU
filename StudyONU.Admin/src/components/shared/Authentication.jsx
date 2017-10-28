@@ -43,6 +43,7 @@ export const Authentication = (WrappedComponent) => {
                     onLoginSuccess={data => {
                         AuthorizationData.save(data);
                         this.update();
+                        this.props.history.push('/');
                     }} />;
 
             return renderedComponent;

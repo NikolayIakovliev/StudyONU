@@ -49,12 +49,10 @@ export class GuideItem extends React.Component {
 
         return (
             <ListItem
-                onClick={e => { }}
                 leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blueA200} />}
                 primaryText={name}
                 secondaryText={`${courseName}, ${courseNumber} курс`}
                 rightIconButton={rightIcon}
-
                 primaryTogglesNestedList={true}
                 nestedItems={[
                     <ListItem
