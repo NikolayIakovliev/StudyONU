@@ -32,19 +32,7 @@ namespace StudyONU.Admin
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(config =>
-                {
-                    config.RequireHttpsMetadata = false;
-                    config.SaveToken = true;
-
-                    config.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidIssuer = JwtBearerSettings.Issuer,
-                        ValidAudience = JwtBearerSettings.Issuer,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtBearerSettings.Key))
-                    };
-                });
+            services.AddAuthentication(JwtBearerSettings.Issuer, JwtBearerSettings.Key);
 
             services.AddMvc()
                 .AddJsonOptions(options =>
