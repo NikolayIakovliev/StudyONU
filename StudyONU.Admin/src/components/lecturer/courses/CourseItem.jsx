@@ -2,7 +2,6 @@
 import { ListItem } from 'material-ui/List';
 import { RightIconMenu } from '../../shared/RightIcon';
 import Avatar from 'material-ui/Avatar';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionClear from 'material-ui/svg-icons/content/clear';
 import { blueA200, red500, green500 } from 'material-ui/styles/colors';

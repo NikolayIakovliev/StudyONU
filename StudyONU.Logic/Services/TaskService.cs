@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
+using Newtonsoft.Json;
 using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts;
 using StudyONU.Logic.Contracts;
@@ -39,6 +40,107 @@ namespace StudyONU.Logic.Services
                 {
                     actionResult = ServiceActionResult.NotFound;
                     errors.Add("Course was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> EditAsync(TaskEditDTO taskEditDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                TaskEntity taskEntity = await unitOfWork.Tasks.GetAsync(taskEditDTO.Id);
+                if (taskEntity != null)
+                {
+                    taskEntity.Title = taskEditDTO.Title;
+                    taskEntity.Description = taskEditDTO.Description;
+                    taskEntity.DateAvailable = taskEditDTO.DateAvailable;
+                    taskEntity.DateOverdue = taskEditDTO.DateOverdue;
+
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Task was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> EditFilesAsync(int id, IEnumerable<string> filePaths)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                TaskEntity taskEntity = await unitOfWork.Tasks.GetAsync(id);
+                if (taskEntity != null)
+                {
+                    taskEntity.FilePaths = JsonConvert.SerializeObject(filePaths);
+
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Task was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> DeleteAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                TaskEntity taskEntity = await unitOfWork.Tasks.GetAsync(id);
+                if (taskEntity != null)
+                {
+                    unitOfWork.Tasks.Remove(taskEntity);
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Task was not found");
+                    actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)

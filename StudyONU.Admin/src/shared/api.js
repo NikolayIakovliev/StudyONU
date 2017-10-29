@@ -30,7 +30,7 @@ export class Api {
                 formData.append(name, value);
             }
         }
-        
+
         let init = {
             method: 'POST',
             headers: {
@@ -45,6 +45,36 @@ export class Api {
 
     static put(url, data) {
         let init = createInit('PUT', data);
+
+        return fetch(url, init).catch(error => console.log(error));
+    }
+
+    static putFormData(url, data) {
+        let authorizationData = AuthorizationData.get();
+        let token = authorizationData.token;
+
+        let formData = new FormData();
+
+        for (let name in data) {
+            let value = data[name];
+
+            if (Array.isArray(value)) {
+                for (let i = 0; i < value.length; i++) {
+                    formData.append(name, value[i]);
+                }
+            } else {
+                formData.append(name, value);
+            }
+        }
+
+        let init = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        }
 
         return fetch(url, init).catch(error => console.log(error));
     }
@@ -79,7 +109,10 @@ export const urls = {
     specialities: '/api/specialities',
     courses: '/api/courses',
     guides: '/api/guides',
-    tasks: '/api/tasks'
+    tasks: {
+        common: '/api/tasks',
+        files: '/api/tasks/files'
+    }
 }
 
 const checkStatus = (response) => {

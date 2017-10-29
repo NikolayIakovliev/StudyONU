@@ -50,14 +50,53 @@ namespace StudyONU.Admin.Controllers
                 }
             }
 
-            TaskCreateDTO taskCreateDTO = mapper.Map<TaskCreateDTO>(model, opts =>
-                opts.AfterMap((src, dest) =>
-                {
-                    (dest as TaskCreateDTO).FilePaths = filePaths;
-                })
-            );
+            TaskCreateDTO taskCreateDTO = mapper.Map<TaskCreateDTO>(model);
+            taskCreateDTO.FilePaths = filePaths;
 
             ServiceMessage serviceMessage = await service.CreateAsync(taskCreateDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromBody] TaskEditBindingModel model)
+        {
+            TaskEditDTO taskDTO = mapper.Map<TaskEditDTO>(model);
+
+            ServiceMessage serviceMessage = await service.EditAsync(taskDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpPut]
+        [Route("files")]
+        public async Task<IActionResult> EditFiles([FromForm] TaskEditFilesBindingModel model)
+        {
+            IEnumerable<IFormFile> files = model.Files;
+            IEnumerable<string> filePaths = null;
+
+            if (files != null && files.Any())
+            {
+                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, TasksUploadPath);
+                switch (dataServiceMessage.ActionResult)
+                {
+                    case ServiceActionResult.Success:
+                        filePaths = dataServiceMessage.Data;
+                        break;
+                    default:
+                        return GenerateResponse(dataServiceMessage);
+                }
+            }
+
+            ServiceMessage serviceMessage = await service.EditFilesAsync(model.Id, filePaths);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            ServiceMessage serviceMessage = await service.DeleteAsync(id);
 
             return GenerateResponse(serviceMessage);
         }
