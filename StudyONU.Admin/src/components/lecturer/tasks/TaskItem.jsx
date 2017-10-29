@@ -9,6 +9,7 @@ import { ddmmyyyy } from '../../../shared/date';
 import ActionInfoOutline from 'material-ui/svg-icons/action/info-outline';
 import DeviceAccessTime from 'material-ui/svg-icons/device/access-time';
 import ActionViewHeadline from 'material-ui/svg-icons/action/view-headline';
+import Download from 'material-ui/svg-icons/file/file-download';
 
 export class TaskItem extends React.Component {
     constructor(props) {
@@ -34,7 +35,8 @@ export class TaskItem extends React.Component {
 
                         a.click();
                     }
-                }
+                },
+                leftIcon: <Download />
             }
         ] : null;
 

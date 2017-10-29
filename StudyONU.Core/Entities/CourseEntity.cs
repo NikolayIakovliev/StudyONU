@@ -26,10 +26,5 @@ namespace StudyONU.Core.Entities
         public virtual ICollection<GuideEntity> Guides { get; set; }
 
         public virtual ICollection<TaskEntity> Tasks { get; set; }
-
-        public static implicit operator CourseEntity(TaskEntity v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

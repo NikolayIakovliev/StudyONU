@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
+import { EmptyContent } from '../../shared/EmptyContent';
 import { TaskItem } from './TaskItem';
 import { TaskForm } from './TaskForm';
 import { TaskEditDialog } from './TaskEditDialog';
@@ -79,8 +80,14 @@ export class TaskList extends React.Component {
                             onClose={() => this.setState({ itemDeleteRequest: null })}
                             onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
                     }
-                    <div className="list-form-container">
-                        {items.length &&
+                    {items.length == 0 &&
+                        <div>
+                            <EmptyContent title="Задач нет" message="Ещё не создано ни одной задачи" />
+                            <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.modifyItem(this.props.postFormData, data)} />
+                        </div>
+                    }
+                    {items.length > 0 &&
+                        <div className="list-form-container">
                             <Paper zDepth={3} className="flex-grow-1">
                                 <List>
                                     <Subheader>Задачи</Subheader>
@@ -94,9 +101,9 @@ export class TaskList extends React.Component {
                                     })}
                                 </List>
                             </Paper>
-                        }
-                        <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.modifyItem(this.props.postFormData, data)} />
-                    </div>
+                            <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.modifyItem(this.props.postFormData, data)} />
+                        </div>
+                    }
                 </div>
             );
         }

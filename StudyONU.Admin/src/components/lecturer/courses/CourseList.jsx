@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
+import { EmptyContent } from '../../shared/EmptyContent';
 import { CourseItem } from './CourseItem';
 import { CourseForm } from './CourseForm';
 import { CourseEditDialog } from './CourseEditDialog';
@@ -62,8 +63,14 @@ export class CourseList extends React.Component {
                             onClose={() => this.setState({ itemDeleteRequest: null })}
                             onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
                     }
-                    <div className="list-form-container">
-                        {items.length &&
+                    {items.length == 0 &&
+                        <div>
+                            <EmptyContent title="Курсов нет" message="Ещё не создано ни одного курса" />
+                            <CourseForm createItem={data => this.modifyItem(this.props.post, data)} getSpecialities={callback => this.getSpecialities(callback)} />
+                        </div>
+                    }
+                    {items.length > 0 &&
+                        <div className="list-form-container">
                             <Paper zDepth={3} className="flex-grow-1">
                                 <List>
                                     <Subheader>Курсы</Subheader>
@@ -77,9 +84,9 @@ export class CourseList extends React.Component {
                                     })}
                                 </List>
                             </Paper>
-                        }
-                        <CourseForm createItem={data => this.modifyItem(this.props.post, data)} getSpecialities={callback => this.getSpecialities(callback)} />
-                    </div>
+                            <CourseForm createItem={data => this.modifyItem(this.props.post, data)} getSpecialities={callback => this.getSpecialities(callback)} />
+                        </div>
+                    }
                 </div>
             );
         }
