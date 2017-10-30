@@ -8,6 +8,17 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
+                test: /\.(pdf|doc|docx|xls|txt)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]'
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {

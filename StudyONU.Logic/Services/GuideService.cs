@@ -55,6 +55,39 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public async Task<DataServiceMessage<GuideDetailsDTO>> GetByIdAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+            GuideDetailsDTO data = null;
+
+            try
+            {
+                GuideEntity guideEntity = await unitOfWork.Guides.GetAsync(id);
+                if (guideEntity != null)
+                {
+                    data = mapper.Map<GuideDetailsDTO>(guideEntity);
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Guide was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new DataServiceMessage<GuideDetailsDTO>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
+        }
+
         public async Task<DataServiceMessage<IEnumerable<GuideListDTO>>> GetByLecturerEmailAsync(string email)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;

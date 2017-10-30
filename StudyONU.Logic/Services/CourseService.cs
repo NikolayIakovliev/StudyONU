@@ -7,7 +7,6 @@ using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services
@@ -50,6 +49,84 @@ namespace StudyONU.Logic.Services
                 {
                     actionResult = ServiceActionResult.NotFound;
                     errors.Add("Lecturer was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> EditAsync(CourseEditDTO courseEditDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(courseEditDTO.Id);
+                if (courseEntity != null)
+                {
+                    SpecialityEntity specialityEntity = await unitOfWork.Specialities.GetAsync(courseEditDTO.SpecialityId);
+                    if (specialityEntity != null)
+                    {
+                        courseEntity.Name = courseEditDTO.Name;
+                        courseEntity.IsPublished = courseEditDTO.IsPublished;
+                        courseEntity.CourseNumber = courseEditDTO.CourseNumber;
+                        courseEntity.SpecialityId = courseEditDTO.SpecialityId;
+                        courseEntity.Speciality = specialityEntity;
+
+                        await unitOfWork.CommitAsync();
+                    }
+                    else
+                    {
+                        errors.Add("Speciality was not found");
+                        actionResult = ServiceActionResult.NotFound;
+                    }
+                }
+                else
+                {
+                    errors.Add("Course was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> DeleteAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(id);
+                if (courseEntity != null)
+                {
+                    unitOfWork.Courses.Remove(courseEntity);
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Course was not found");
+                    actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)

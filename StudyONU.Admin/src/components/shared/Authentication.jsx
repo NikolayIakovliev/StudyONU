@@ -34,6 +34,7 @@ export const Authentication = (WrappedComponent) => {
                     post={(url, data, callback) => this.post(url, data, callback)}
                     postFormData={(url, data, callback) => this.postFormData(url, data, callback)}
                     put={(url, data, callback) => this.put(url, data, callback)}
+                    putFormData={(url, data, callback) => this.putFormData(url, data, callback)}
                     delete={(url, data, callback) => this.delete(url, data, callback)}
                     onLogout={() => {
                         AuthorizationData.clear();
@@ -43,6 +44,7 @@ export const Authentication = (WrappedComponent) => {
                     onLoginSuccess={data => {
                         AuthorizationData.save(data);
                         this.update();
+                        this.props.history.push('/');
                     }} />;
 
             return renderedComponent;
@@ -65,6 +67,11 @@ export const Authentication = (WrappedComponent) => {
 
         put(url, data, callback) {
             const method = () => Api.put(url, data);
+            this.callApi(method, callback);
+        }
+
+        putFormData(url, data, callback) {
+            const method = () => Api.putFormData(url, data);
             this.callApi(method, callback);
         }
 

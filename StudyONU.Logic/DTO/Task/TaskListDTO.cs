@@ -18,5 +18,7 @@ namespace StudyONU.Logic.DTO.Task
         public DateTime? DateOverdue { get; set; }
 
         public string CourseName { get; set; }
+
+        public string CourseNumber { get; set; }
     }
 }

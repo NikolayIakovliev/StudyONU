@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Converters;
 using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Builder;
 using StudyONU.Admin.Mappings;
@@ -31,21 +32,17 @@ namespace StudyONU.Admin
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(config =>
+            services.AddAuthentication(JwtBearerSettings.Issuer, JwtBearerSettings.Key);
+
+            services.AddMvc()
+                .AddJsonOptions(options =>
                 {
-                    config.RequireHttpsMetadata = false;
-                    config.SaveToken = true;
-
-                    config.TokenValidationParameters = new TokenValidationParameters()
+                    IsoDateTimeConverter converter = new IsoDateTimeConverter
                     {
-                        ValidIssuer = JwtBearerSettings.Issuer,
-                        ValidAudience = JwtBearerSettings.Issuer,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtBearerSettings.Key))
+                        DateTimeFormat = "yyyy'.'MM'.'dd"
                     };
+                    options.SerializerSettings.Converters.Add(converter);
                 });
-
-            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -69,6 +66,12 @@ namespace StudyONU.Admin
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "download",
+                    template: "download/{id}",
+                    defaults: new { controller = "File", action = "DownloadGuide" }
+                    );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{*.}",

@@ -1,9 +1,18 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
 import { yyyymmdd } from '../../../shared/date';
-import Dropdown from 'react-dropdown';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import DatePicker from 'material-ui/DatePicker';
 import Dropzone from 'react-dropzone';
-import DatePicker from 'react-date-picker';
+import RaisedButton from 'material-ui/RaisedButton';
+import { FloatButton } from '../../shared/FloatButton';
+
+import './taskForm.scss';
 
 export class TaskForm extends React.Component {
     constructor(props) {
@@ -16,7 +25,12 @@ export class TaskForm extends React.Component {
             dateOverdue: null,
             course: null,
             files: [],
-            courses: []
+            courses: [],
+            formOpened: false,
+            errors: {
+                title: '',
+                course: ''
+            }
         }
     }
 
@@ -25,71 +39,111 @@ export class TaskForm extends React.Component {
     }
 
     load() {
-        let _this = this;
+        let self = this;
         this.props.getCourses(courses => {
-            _this.setState({
+            self.setState({
                 courses: courses
             });
         });
     }
 
     render() {
-        const { files } = this.state;
+        const {
+            title,
+            description,
+            dateAvailable,
+            dateOverdue,
+            course,
+            files,
+            courses,
+            formOpened,
+            errors
+        } = this.state;
 
-        let options = this.state.courses.map(course => {
-            return {
-                value: course.id,
-                label: course.name
-            };
-        });
-
-        let dropzoneContent;
-        if (files.length) {
-            dropzoneContent = (
-                <div>
-                    <p>Загруженные файлы:</p>
-                    <ul>
-                        {files.map((file, index) => {
-                            return <li key={index}>{file.name}</li>
-                        })
-                        }
-                    </ul>
-                </div>
-            );
-        } else {
-            dropzoneContent = <p>Допустимые расширения: .docx, .doc, .xls, .pdf, .txt</p>;
-        }
+        let dropzoneContent = (
+            <div>
+                {files.length > 0 &&
+                    <div>
+                        <p>Загруженные файлы:</p>
+                        <ul>
+                            {files.map((file, index) => {
+                                return <li key={index}>{file.name}</li>
+                            })
+                            }
+                        </ul>
+                    </div>
+                }
+                {files.length == 0 &&
+                    <div>
+                        <p>Перетащите файлы</p>
+                        <p>Расширения: .docx, .doc, .xls, .pdf, .txt</p>
+                    </div>
+                }
+            </div>
+        );
 
         return (
             <div>
-                <div>
-                    <label>Заголовок</label>
-                    <input type="text" name="title" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} />
-                </div>
-                <div>
-                    <label>Описание</label>
-                    <textarea name="description" value={this.state.description} onChange={e => this.setState({ description: e.target.value })} />
-                </div>
-                <div>
-                    <Dropdown options={options} onChange={option => this.setState({ course: option })} value={this.state.course} placeholder="Выберите курс" />
-                </div>
-                <div>
-                    <label>Доступна с</label>
-                    <DatePicker locale="ru" value={this.state.dateAvailable} onChange={date => this.setState({ dateAvailable: date })} />
-                </div>
-                <div>
-                    <label>Дата окончательной сдачи</label>
-                    <DatePicker locale="ru" value={this.state.dateOverdue} onChange={date => this.setState({ dateOverdue: date })} />
-                </div>
-                <div>
-                    <label>Файлы</label>
-                    <Dropzone onDrop={files => this.setState({ files: files })} accept=".docx,.doc,.xls,.pdf,.txt">
-                        {dropzoneContent}
-                    </Dropzone>
-                </div>
-                <div>
-                    <button type="submit" onClick={e => { e.preventDefault(); this.sendForm(); }}>Создать</button>
-                </div>
+                {!formOpened &&
+                    FloatButton(() => this.setState({ formOpened: true }))
+                }
+                {formOpened &&
+                    <Paper zDepth={3} className="form-task-container">
+                        <Subheader>Новая задача</Subheader>
+                        <Divider />
+                        <div className="form-task">
+                            <TextField
+                                className="text-field"
+                                floatingLabelText="Заголовок задачи"
+                                errorText={errors.title}
+                                onChange={(e, value) => this.setState({ title: value })}
+                                value={title}
+                            /><br />
+                            <TextField
+                                className="text-multiline-field"
+                                floatingLabelText="Описание"
+                                onChange={(e, value) => this.setState({ description: value })}
+                                value={description}
+                                multiLine={true}
+                            /><br /><br />
+                            <SelectField
+                                className="select-field"
+                                floatingLabelText="Курс"
+                                errorText={errors.course}
+                                value={course}
+                                onChange={(event, index, value) => this.setState({ course: value })}>
+                                {courses.map(item => {
+                                    return <MenuItem key={item.id} value={item} primaryText={item.name} />;
+                                })}
+                            </SelectField><br /><br />
+                            <DatePicker
+                                className="date-picker"
+                                hintText="Дата доступа"
+                                mode="landscape"
+                                value={dateAvailable}
+                                onChange={(event, date) => this.setState({ dateAvailable: date })}
+                            /><br />
+                            <DatePicker
+                                className="date-picker"
+                                hintText="Дата необходимой сдачи"
+                                mode="landscape"
+                                value={dateOverdue}
+                                onChange={(event, date) => this.setState({ dateOverdue: date })}
+                            /><br /><br />
+                            <Dropzone
+                                className="dropzone"
+                                multiple={true}
+                                onDrop={files => this.setState({ files: files })}
+                                accept=".docx,.doc,.xls,.pdf,.txt">
+                                {dropzoneContent}
+                            </Dropzone>
+                            <div className="btn-group">
+                                <RaisedButton label="Создать" className="btn-item" primary={true} onClick={e => this.sendForm()} />
+                                <RaisedButton label="Закрыть" className="btn-item" secondary={true} onClick={e => this.setState({ formOpened: false })} />
+                            </div>
+                        </div>
+                    </Paper>
+                }
             </div>
         );
     }
@@ -97,42 +151,76 @@ export class TaskForm extends React.Component {
     sendForm() {
         let validated = this.validateForm();
         if (validated) {
-            const { title, description, course, files } = this.state;
+            const {
+                title,
+                description,
+                dateAvailable,
+                dateOverdue,
+                course,
+                files
+            } = this.state;
 
-            let dateAvailable = null;
-            let dateOverdue = null;
+            let dateAvailableFormat = null;
+            let dateOverdueFormat = null;
 
-            if (this.state.dateAvailable) {
-                dateAvailable = yyyymmdd(this.state.dateAvailable, '-');
+            if (dateAvailable) {
+                dateAvailableFormat = yyyymmdd(dateAvailable, '-');
             }
-            if (this.state.dateOverdue) {
-                dateOverdue = yyyymmdd(this.state.dateOverdue, '-');
+            if (dateOverdue) {
+                dateOverdueFormat = yyyymmdd(dateOverdue, '-');
             }
 
             const data = {
                 title: title,
                 description: description,
-                dateAvailable: dateAvailable,
-                dateOverdue: dateOverdue,
-                courseId: course.value,
+                dateAvailable: dateAvailableFormat,
+                dateOverdue: dateOverdueFormat,
+                courseId: course.id,
                 files: files
             };
             
             this.props.createItem(data);
+            this.resetForm();
         }
     }
 
     validateForm() {
-        const { title, course } = this.state;
+        const {
+            title,
+            course
+        } = this.state;
+        let errors = {
+            title: '',
+            course: ''
+        }
 
         let valid = true;
 
         if (title.length < 1 || title.length > 200) {
             valid = false;
-        } else if (!course) {
+            errors.title = 'От 1 до 200 символов';
+        }
+        if (!course) {
             valid = false;
+            errors.course = 'Выберите курс';
         }
 
+        this.setState({ errors: errors });
         return valid;
+    }
+
+    resetForm() {
+        this.setState({
+            title: '',
+            description: '',
+            dateAvailable: null,
+            dateOverdue: null,
+            course: null,
+            files: [],
+            errors: {
+                title: '',
+                course: ''
+            }
+        });
     }
 }

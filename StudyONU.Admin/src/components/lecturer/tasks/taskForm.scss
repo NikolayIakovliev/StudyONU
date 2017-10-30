@@ -1,0 +1,47 @@
+﻿.form-task-container {
+    margin-left: 30px;
+
+    .form-task {
+        padding: 16px;
+
+        .text-field {
+            margin-top: -30px;
+        }
+
+        .text-multiline-field {
+            margin-top: -5px;
+        }
+
+        .select-field {
+            margin-top: -30px;
+        }
+
+        .date-picker {
+            margin-top: -5px;
+        }
+
+        .dropzone {
+            padding: 16px;
+            border: 2px dashed black;
+            border-radius: 10px;
+
+            p {
+                margin: 0 0 5px 0;
+            }
+
+            .validation-error {
+                color: red;
+            }
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            padding: 25px 0 0;
+
+            .btn-item {
+                margin-left: 10px;
+            }
+        }
+    }
+}

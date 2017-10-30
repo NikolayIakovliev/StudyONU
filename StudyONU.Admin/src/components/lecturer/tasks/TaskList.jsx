@@ -1,7 +1,16 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
+import { toDate } from '../../../shared/date';
+import { List } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import { Dialog } from '../../shared/Dialog';
+import { Loading } from '../../shared/Loading';
+import { EmptyContent } from '../../shared/EmptyContent';
 import { TaskItem } from './TaskItem';
 import { TaskForm } from './TaskForm';
+import { TaskEditDialog } from './TaskEditDialog';
 
 export class TaskList extends React.Component {
     constructor(props) {
@@ -10,7 +19,9 @@ export class TaskList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: []
+            errors: [],
+            itemEditRequest: null,
+            itemDeleteRequest: null
         };
     }
 
@@ -19,27 +30,80 @@ export class TaskList extends React.Component {
     }
 
     render() {
-        const { loaded, items, errors } = this.state;
+        const {
+            loaded,
+            items,
+            errors,
+            itemEditRequest,
+            itemDeleteRequest
+        } = this.state;
+
         let render;
 
         if (!loaded) {
-            render = <div>Загрузка...</div>;
-        } else if (errors.length > 0) {
+            render = <Loading />;
+        } else if (errors.length) {
             render = <div>Возникла ошибка!</div>;
-        } else if (items.length > 0) {
-            render = (
-                <div>
-                    <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
-                    {items.map((item, index) => {
-                        return <TaskItem key={index} item={item} />
-                    })}
-                </div>
-            );
         } else {
             render = (
                 <div>
-                    <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.createItem(data)} />
-                    <div>Нет Задач!</div>
+                    {itemEditRequest != null &&
+                        <TaskEditDialog
+                            title="Редактирование задачи"
+                            open={true}
+                            item={itemEditRequest}
+                            onClose={() => this.setState({ itemEditRequest: null })}
+                            onSubmit={(item, updateFiles) => {
+                                const data = {
+                                    id: item.id,
+                                    title: item.title,
+                                    description: item.description,
+                                    dateAvailable: item.dateAvailable,
+                                    dateOverdue: item.dateOverdue,
+                                };
+                                this.modifyItem(this.props.put, data);
+                                if (updateFiles) {
+                                    const filesData = {
+                                        id: item.id,
+                                        files: item.files
+                                    };
+                                    this.modifyItem(this.props.putFormData, filesData, urls.tasks.files);
+                                }
+                            }} />
+                    }
+                    {itemDeleteRequest != null &&
+                        <Dialog
+                            title="Подтвердите действие"
+                            message="Вы уверены, что хотите удалить задачу? Данное действие необратимо"
+                            open={true}
+                            actionLabel="Удалить"
+                            onClose={() => this.setState({ itemDeleteRequest: null })}
+                            onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
+                    }
+                    {items.length == 0 &&
+                        <div>
+                            <EmptyContent title="Задач нет" message="Ещё не создано ни одной задачи" />
+                            <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.modifyItem(this.props.postFormData, data)} />
+                        </div>
+                    }
+                    {items.length > 0 &&
+                        <div className="list-form-container">
+                            <Paper zDepth={3} className="flex-grow-1">
+                                <List>
+                                    <Subheader>Задачи</Subheader>
+                                    <Divider />
+                                    {items.map((item, index) => {
+                                        return <TaskItem
+                                            key={item.id}
+                                            item={item}
+                                            onEdit={item => this.setState({ itemEditRequest: item })}
+                                            onDelete={item => this.setState({ itemDeleteRequest: item })} />
+                                    })}
+                                </List>
+                            </Paper>
+                            <TaskForm getCourses={callback => this.getCourses(callback)} createItem={data => this.modifyItem(this.props.postFormData, data)} />
+                        </div>
+                    }
                 </div>
             );
         }
@@ -60,9 +124,9 @@ export class TaskList extends React.Component {
         });
     }
 
-    createItem(data) {
+    modifyItem(method, data, url = urls.tasks.common) {
         let reload = () => this.load();
-        this.props.postFormData(urls.tasks, data, result => {
+        method(url, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -75,25 +139,37 @@ export class TaskList extends React.Component {
     }
 
     load() {
-        let _this = this;
+        let self = this;
 
-        this.props.get(urls.tasks, response => {
-            if (response.success === true) {
-                _this.setState({
-                    loaded: true,
-                    items: response.data
-                });
-            } else {
-                console.error(response.errors);
-                _this.setState({
-                    loaded: true,
-                    items: []
-                });
+        this.props.get(urls.tasks.common, result => {
+            let newState = {
+                loaded: true,
+                itemEditRequest: null,
+                itemDeleteRequest: null,
+                errors: result.errors,
+                items: result.success === true
+                    ? result.data
+                    : []
+            }
+
+            newState.items = newState.items.map(item => {
+                if (item.dateAvailable) {
+                    item.dateAvailable = toDate(item.dateAvailable, '.');
+                }
+                if (item.dateOverdue) {
+                    item.dateOverdue = toDate(item.dateOverdue, '.');
+                }
+
+                return item;
+            });
+
+            if (result.success != true) {
                 // TODO
                 // implement error display
-                alert('Error');
                 console.log(result);
             }
+
+            self.setState(newState);
         });
     }
 }

@@ -8,10 +8,10 @@ namespace StudyONU.Logic.Extensions
         public static IServiceCollection AddLogic(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHelpers();
-            services.AddDatabase(configuration);
-            services.AddRepositories();
-            services.AddAutoMapper(configuration);
             services.AddServices();
+            services.AddRepositories();
+            services.AddDatabase(configuration);
+            services.AddAutoMapper(configuration);
 
             return services;
         }

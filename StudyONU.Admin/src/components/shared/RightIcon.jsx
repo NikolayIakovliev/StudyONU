@@ -4,6 +4,9 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
+import Divider from 'material-ui/Divider';
 
 const iconButtonElement = (
     <IconButton
@@ -13,9 +16,13 @@ const iconButtonElement = (
     </IconButton>
 );
 
-export const RightIconMenu = (onEditClick, onDeleteClick) => (
+export const RightIconMenu = (onEditClick, onDeleteClick, options) => (
     <IconMenu iconButtonElement={iconButtonElement} touchTapCloseDelay={100}>
-        <MenuItem onClick={onEditClick}>Редактировать</MenuItem>
-        <MenuItem onClick={onDeleteClick}>Удалить</MenuItem>
+        <MenuItem onClick={onEditClick} leftIcon={<EditorModeEdit />}>Редактировать</MenuItem>
+        <MenuItem onClick={onDeleteClick} leftIcon={<ActionDelete />}>Удалить</MenuItem>
+        {options && <Divider />}
+        {options && options.map((option, index) => {
+            return <MenuItem key={index} onClick={option.onClick} leftIcon={option.leftIcon}>{option.title}</MenuItem>
+        })}
     </IconMenu>
 );

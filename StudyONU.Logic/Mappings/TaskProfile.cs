@@ -14,6 +14,7 @@ namespace StudyONU.Logic.Mappings
                 .ForMember(dest => dest.FilePaths, opts => opts.MapFrom(src => Serialize(src.FilePaths)));
             CreateMap<TaskEntity, TaskListDTO>()
                 .ForMember(dest => dest.CourseName, opts => opts.MapFrom(src => src.Course.Name))
+                .ForMember(dest => dest.CourseNumber, opts => opts.MapFrom(src => src.Course.CourseNumber))
                 .ForMember(dest => dest.FilePaths, opts => opts.MapFrom(src => Deserialize(src.FilePaths)));
         }
 

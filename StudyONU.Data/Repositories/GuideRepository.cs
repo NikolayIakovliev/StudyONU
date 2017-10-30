@@ -15,6 +15,13 @@ namespace StudyONU.Data.Repositories
         public GuideRepository(StudyONUDbContext context)
             : base(context) { }
 
+        public override Task<GuideEntity> GetAsync(int id)
+        {
+            return context.Guides
+                .Include(guide => guide.Course)
+                .FirstOrDefaultAsync(guide => guide.Id == id);
+        }
+
         public override async Task<IEnumerable<GuideEntity>> GetAllAsync(Expression<Func<GuideEntity, bool>> expression = null)
         {
             IQueryable<GuideEntity> entities = expression != null

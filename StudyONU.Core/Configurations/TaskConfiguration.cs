@@ -13,8 +13,6 @@ namespace StudyONU.Core.Configurations
             builder.Property(entity => entity.Title)
                 .IsRequired()
                 .HasMaxLength(200);
-            builder.Property(entity => entity.Description)
-                .IsRequired();
 
             builder.HasOne(entity => entity.Course)
                 .WithMany(entity => entity.Tasks)

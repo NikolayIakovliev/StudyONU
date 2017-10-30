@@ -199,9 +199,13 @@ namespace StudyONU.Core.Migrations
                         .HasColumnType("tinyint")
                         .HasMaxLength(1);
 
+                    b.Property<int>("SpecialityId");
+
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SpecialityId");
 
                     b.HasIndex("UserId");
 
@@ -255,8 +259,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<DateTime?>("DateOverdue");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
                     b.Property<string>("FilePaths");
 
@@ -372,6 +375,11 @@ namespace StudyONU.Core.Migrations
 
             modelBuilder.Entity("StudyONU.Core.Entities.StudentEntity", b =>
                 {
+                    b.HasOne("StudyONU.Core.Entities.SpecialityEntity", "Speciality")
+                        .WithMany("Students")
+                        .HasForeignKey("SpecialityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("StudyONU.Core.Entities.UserEntity", "User")
                         .WithMany("Students")
                         .HasForeignKey("UserId")

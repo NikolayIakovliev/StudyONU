@@ -1,0 +1,19 @@
+﻿.not-found-wrapper {
+    text-align: center;
+
+    .title-wrapper {
+        border-bottom: 1px solid black;
+    }
+
+    .not-found-face-container {
+        width: 100%;
+
+        .not-found-face {
+            width: 50%;
+        }
+    }
+
+    .not-found-text {
+        font-size: 24px !important;
+    }
+}

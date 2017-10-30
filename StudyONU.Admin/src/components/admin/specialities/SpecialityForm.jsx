@@ -60,9 +60,9 @@ export class SpecialityForm extends React.Component {
 
         let valid = true;
 
-        if (name.length < 1 || name.length > 20) {
+        if (name.length < 1 || name.length > 100) {
             valid = false;
-            errors.name = 'От 1 до 20 символов';
+            errors.name = 'От 1 до 100 символов';
         }
 
         this.setState({ errors: errors });
