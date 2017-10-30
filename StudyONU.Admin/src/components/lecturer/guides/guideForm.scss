@@ -1,3 +1,35 @@
-﻿.file-input {
-    z-index: 1 !important;
+﻿.form-guide-container {
+    margin-left: 30px;
+
+    .form-guide {
+        padding: 16px;
+
+        .text-field {
+            margin-top: -30px;
+        }
+
+        .dropzone {
+            padding: 16px;
+            border: 2px dashed black;
+            border-radius: 10px;
+
+            p {
+                margin: 0 0 5px 0;
+            }
+
+            .validation-error {
+                color: red;
+            }
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            padding: 25px 0 0;
+
+            .btn-item {
+                margin-left: 10px;
+            }
+        }
+    }
 }

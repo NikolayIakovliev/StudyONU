@@ -4,13 +4,12 @@ import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
+import { ListFormLayoutWrapper } from '../../shared/ListFormLayoutWrapper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
 import { LecturerItem } from './LecturerItem';
 import { LecturerForm } from './LecturerForm';
 import { LecturerEditDialog } from './LecturerEditDialog';
-
-import './lecturerList.scss';
 
 export class LecturerList extends React.Component {
     constructor(props) {
@@ -30,8 +29,34 @@ export class LecturerList extends React.Component {
     }
 
     render() {
-        const { loaded, items, errors, itemEditRequest, itemDeleteRequest } = this.state;
+        const {
+            loaded,
+            items,
+            errors,
+            itemEditRequest,
+            itemDeleteRequest
+        } = this.state;
+
         let render;
+
+        const list = (
+                items.length &&
+                <Paper zDepth={3} className="flex-grow-1">
+                    <List>
+                        <Subheader>Преподаватели</Subheader>
+                        <Divider />
+                        {items.map((item, index) => {
+                            return <LecturerItem
+                                key={item.id}
+                                item={item}
+                                onEdit={item => this.setState({ itemEditRequest: item })}
+                                onDelete={item => this.setState({ itemDeleteRequest: item })} />
+                        })}
+                    </List>
+                </Paper>
+        );
+        const form = <LecturerForm createItem={data => this.modifyItem(this.props.postFormData, data)} />;
+        const Layout = ListFormLayoutWrapper(list, form);
 
         if (!loaded) {
             render = <Loading />;
@@ -57,24 +82,7 @@ export class LecturerList extends React.Component {
                             onClose={() => this.setState({ itemDeleteRequest: null })}
                             onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
                     }
-                    <div className="list-form-container">
-                        {items.length &&
-                            <Paper zDepth={3} className="flex-grow-1">
-                                <List>
-                                    <Subheader>Преподаватели</Subheader>
-                                    <Divider />
-                                    {items.map((item, index) => {
-                                        return <LecturerItem
-                                            key={item.id}
-                                            item={item}
-                                            onEdit={item => this.setState({ itemEditRequest: item })}
-                                            onDelete={item => this.setState({ itemDeleteRequest: item })} />
-                                    })}
-                                </List>
-                            </Paper>
-                        }
-                        <LecturerForm createItem={data => this.modifyItem(this.props.postFormData, data)} />
-                    </div>
+                    <Layout />
                 </div>
             );
         }

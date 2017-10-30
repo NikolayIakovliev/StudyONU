@@ -1,11 +1,16 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
 import { yyyymmdd } from '../../../shared/date';
-import DatePicker from 'react-date-picker';
-import Dropdown from 'react-dropdown';
 import Dropzone from 'react-dropzone';
-
-import FileInput from 'react-file-input';
+import DatePicker from 'material-ui/DatePicker';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import { FloatButton } from '../../shared/FloatButton';
 
 import './guideForm.scss';
 
@@ -17,67 +22,101 @@ export class GuideForm extends React.Component {
             name: '',
             file: null,
             dateAvailable: null,
-            course: null,
-            courses: []
+            courseId: null,
+            courses: [],
+            formOpened: false,
+            errors: {
+                name: '',
+                file: '',
+                course: ''
+            }
         }
     }
 
     componentWillMount() {
-        //this.load();
+        this.load();
     }
 
     load() {
-        let _this = this;
+        let self = this;
         this.props.getCourses(courses => {
-            _this.setState({
+            self.setState({
                 courses: courses
             });
         });
     }
 
     render() {
-        return null;
-        const { file } = this.state;
+        const {
+            name,
+            file,
+            dateAvailable,
+            courseId,
+            courses,
+            formOpened,
+            errors
+        } = this.state;
 
-        let options = this.state.courses.map(course => {
-            return {
-                value: course.id,
-                label: course.name
-            };
-        });
-
-        let dropzoneContent;
-        if (file) {
-            dropzoneContent = (
-                <div>
-                    <p>Загруженный файл:</p>
-                    <p>{file.name}</p>
-                </div>
-            );
-        } else {
-            dropzoneContent = <p>Допустимые расширения: .docx, .doc, .xls, .pdf, .txt</p>;
-        }
+        const dropzoneContent = (
+            <div>
+                {file &&
+                    <div>
+                        <p>Загруженный файл:</p>
+                        <p>{file.name}</p>
+                    </div>
+                }
+                {!file &&
+                    <div>
+                        <p>Перетащите файл</p>
+                        <p>Расширения: .docx, .doc, .xls, .pdf, .txt</p>
+                    </div>
+                }
+            </div>
+        );
 
         return (
             <div>
-                <div>
-                    <label>Название</label>
-                    <input type="text" name="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
-                </div>
-                <div>
-                    <Dropdown options={options} onChange={option => this.setState({ course: option })} value={this.state.course} placeholder="Выберите специальность" />
-                </div>
-                <div>
-                    <label>Файл</label>
-                    <Dropzone multiple={false} onDrop={files => this.setState({ file: files[0] })} accept=".docx,.doc,.xls,.pdf,.txt">
-                        {dropzoneContent}
-                    </Dropzone>
-                </div>
-                <label>Доступна с</label>
-                <DatePicker locale="ru" value={this.state.dateAvailable} onChange={date => this.setState({ dateAvailable: date })} />
-                <div>
-                    <button type="submit" onClick={e => { e.preventDefault(); this.sendForm(); }}>Создать</button>
-                </div>
+                {!formOpened &&
+                    FloatButton(() => this.setState({ formOpened: true }))
+                }
+                {formOpened &&
+                    <Paper zDepth={3} className="form-guide-container">
+                        <Subheader>Новая методичка</Subheader>
+                        <Divider />
+                        <div className="form-guide">
+                            <TextField
+                                className="text-field"
+                                hintText="Современная математика"
+                                floatingLabelText="Название для отображения"
+                                errorText={errors.name}
+                                onChange={(e, value) => this.setState({ name: value })}
+                                value={name}
+                            /><br /><br />
+                            <Dropzone
+                                className="dropzone"
+                                multiple={false}
+                                onDrop={files => this.setState({ photo: files[0] })}
+                                accept=".jpg,.png,.gif,.jpeg">
+                                {dropzoneContent}
+                                <span className="validation-error">{errors.photo}</span>
+                            </Dropzone>
+                            <DatePicker
+                                hintText="Дата доступа"
+                                mode="landscape"
+                                value={dateAvailable}
+                                onChange={(event, date) => this.setState({ dateAvailable: date })} />
+                            <DropDownMenu value={courseId} onChange={(event, index, value) => this.setState({ courseId: value })}>
+                            {courses.map((course, index) => {
+                                return <MenuItem value={course.id} primaryText={course.name} />;
+                            })}
+                            </DropDownMenu>
+                            <div className="btn-group">
+                                <RaisedButton label="Создать" className="btn-item" primary={true} onClick={e => this.sendForm()} />
+                                <RaisedButton label="Закрыть" className="btn-item" secondary={true} onClick={e => this.setState({ formOpened: false })} />
+                            </div>
+                        </div>
+                    </Paper>
+                }
             </div>
         );
     }
@@ -93,7 +132,7 @@ export class GuideForm extends React.Component {
                     : null,
                 courseId: this.state.course.value
             }
-            
+
             this.props.createItem(data);
         } else {
             // TODO
