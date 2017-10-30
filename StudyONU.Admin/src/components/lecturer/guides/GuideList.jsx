@@ -115,7 +115,9 @@ export class GuideList extends React.Component {
             }
 
             newState.items = newState.items.map(item => {
-                item.dateAvailable = toDate(item.dateAvailable, '.');
+                if (item.dateAvailable) {
+                    item.dateAvailable = toDate(item.dateAvailable, '.');
+                }
 
                 return item;
             });
