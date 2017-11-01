@@ -5,11 +5,11 @@ import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
-import { ListFormLayoutWrapper } from '../../shared/ListFormLayoutWrapper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
 import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
+import { GuideEditDialog } from './GuideEditDialog';
 
 export class GuideList extends React.Component {
     constructor(props) {
@@ -38,25 +38,6 @@ export class GuideList extends React.Component {
         } = this.state;
 
         let render;
-        
-        const list = (
-            items.length &&
-            <Paper zDepth={3} className="flex-grow-1">
-                <List>
-                    <Subheader>Методички</Subheader>
-                    <Divider />
-                    {items.map((item, index) => {
-                        return <GuideItem
-                            key={item.id}
-                            item={item}
-                            onEdit={item => this.setState({ itemEditRequest: item })}
-                            onDelete={item => this.setState({ itemDeleteRequest: item })} />
-                    })}
-                </List>
-            </Paper>
-        );
-        const form = <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />;
-        const Layout = ListFormLayoutWrapper(list, form);
 
         if (!loaded) {
             render = <Loading />;
@@ -65,7 +46,47 @@ export class GuideList extends React.Component {
         } else {
             render = (
                 <div>
-                    <Layout />
+                    {itemEditRequest != null &&
+                        <GuideEditDialog
+                            title="Редактирование методички"
+                            open={true}
+                            item={itemEditRequest}
+                            onClose={() => this.setState({ itemEditRequest: null })}
+                            onSubmit={item => this.modifyItem(this.props.putFormData, item)} />
+                    }
+                    {itemDeleteRequest != null &&
+                        <Dialog
+                            title="Подтвердите действие"
+                            message="Вы уверены, что хотите удалить методичку? Данное действие необратимо"
+                            open={true}
+                            actionLabel="Удалить"
+                            onClose={() => this.setState({ itemDeleteRequest: null })}
+                            onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
+                    }
+                    {items.length == 0 &&
+                        <div>
+                            <EmptyContent title="Методичек нет" message="Ещё не создано ни одной методички" />
+                            <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
+                        </div>
+                    }
+                    {items.length > 0 &&
+                        <div className="list-form-container">
+                            <Paper zDepth={3} className="flex-grow-1">
+                                <List>
+                                    <Subheader>Методички</Subheader>
+                                    <Divider />
+                                    {items.map((item, index) => {
+                                        return <GuideItem
+                                            key={item.id}
+                                            item={item}
+                                            onEdit={item => this.setState({ itemEditRequest: item })}
+                                            onDelete={item => this.setState({ itemDeleteRequest: item })} />
+                                    })}
+                                </List>
+                            </Paper>
+                            <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
+                        </div>
+                    }
                 </div>
             );
         }

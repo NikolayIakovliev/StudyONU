@@ -55,6 +55,76 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public async Task<ServiceMessage> EditAsync(GuideEditDTO guideEditDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                GuideEntity guideEntity = await unitOfWork.Guides.GetAsync(guideEditDTO.Id);
+                if (guideEntity != null)
+                {
+                    guideEntity.Name = guideEditDTO.Name;
+                    guideEntity.DateAvailable = guideEditDTO.DateAvailable;
+                    if (!String.IsNullOrEmpty(guideEditDTO.FilePath))
+                    {
+                        guideEntity.FilePath = guideEditDTO.FilePath;
+                    }
+
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Guide was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> DeleteAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                GuideEntity guideEntity = await unitOfWork.Guides.GetAsync(id);
+                if (guideEntity != null)
+                {
+                    unitOfWork.Guides.Remove(guideEntity);
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    errors.Add("Guide was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
         public async Task<DataServiceMessage<GuideDetailsDTO>> GetByIdAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;

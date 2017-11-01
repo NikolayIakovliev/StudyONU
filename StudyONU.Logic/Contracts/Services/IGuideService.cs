@@ -10,6 +10,10 @@ namespace StudyONU.Logic.Contracts.Services
     {
         Task<ServiceMessage> CreateAsync(GuideCreateDTO guideCreateDTO);
 
+        Task<ServiceMessage> EditAsync(GuideEditDTO guideEditDTO);
+
+        Task<ServiceMessage> DeleteAsync(int id);
+
         Task<DataServiceMessage<GuideDetailsDTO>> GetByIdAsync(int id);
 
         Task<DataServiceMessage<IEnumerable<GuideListDTO>>> GetByLecturerEmailAsync(string email);
