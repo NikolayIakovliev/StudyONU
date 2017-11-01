@@ -107,7 +107,7 @@ export class GuideForm extends React.Component {
                                 onChange={(event, date) => this.setState({ dateAvailable: date })} />
                             <DropDownMenu value={courseId} onChange={(event, index, value) => this.setState({ courseId: value })}>
                             {courses.map((course, index) => {
-                                return <MenuItem value={course.id} primaryText={course.name} />;
+                                return <MenuItem key={course.id} value={course.id} primaryText={course.name} />;
                             })}
                             </DropDownMenu>
                             <div className="btn-group">

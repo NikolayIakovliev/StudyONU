@@ -2,6 +2,6 @@
 
 export class LecturerHome extends React.Component {
     render() {
-        return <div>Lecturer Home</div>;
+        return <div>Домашняя страница Преподавателя</div>;
     }
 }

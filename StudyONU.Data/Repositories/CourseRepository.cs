@@ -24,19 +24,26 @@ namespace StudyONU.Data.Repositories
             return await entities.ToListAsync();
         }
 
-        public async Task<IEnumerable<CourseEntity>> GetAllByLecturerIdAsync(int id)
+        public async Task<IEnumerable<CourseEntity>> GetAllByStudentEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector)
         {
-            return await context.Courses
-                .Include(course => course.Speciality)
-                .Where(course => course.LecturerId == id)
-                .ToListAsync();
+            StudentEntity studentEntity = await context.Students.FirstAsync(student => student.User.Email == email);
+
+            return await GetAllOrderedAsync(course =>
+                course.CourseNumber == studentEntity.CourseNumber &&
+                course.SpecialityId == studentEntity.SpecialityId,
+                keySelector);
         }
 
-        public async Task<IEnumerable<CourseEntity>> GetAllByLecturerIdOrderedAsync<TKey>(int id, Expression<Func<CourseEntity, TKey>> keySelector)
+        public Task<IEnumerable<CourseEntity>> GetAllByLecturerEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector)
+        {
+            return GetAllOrderedAsync(course => course.Lecturer.User.Email == email, keySelector);
+        }
+
+        public async Task<IEnumerable<CourseEntity>> GetAllOrderedAsync<TKey>(Expression<Func<CourseEntity, bool>> expression, Expression<Func<CourseEntity, TKey>> keySelector)
         {
             return await context.Courses
                 .Include(course => course.Speciality)
-                .Where(course => course.LecturerId == id)
+                .Where(expression)
                 .OrderBy(keySelector)
                 .ToListAsync();
         }

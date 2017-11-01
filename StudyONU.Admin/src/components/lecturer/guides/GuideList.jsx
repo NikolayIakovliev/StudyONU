@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper';
 import { ListFormLayoutWrapper } from '../../shared/ListFormLayoutWrapper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
+import { EmptyContent } from '../../shared/EmptyContent';
 import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
 
@@ -38,23 +39,31 @@ export class GuideList extends React.Component {
         } = this.state;
 
         let render;
+
+        let list;
+
+        if (items.length > 0) {
+            list = (
+                <Paper zDepth={3} className="flex-grow-1">
+                    <List>
+                        <Subheader>Методички</Subheader>
+                        <Divider />
+                        {items.map((item, index) => {
+                            return <GuideItem
+                                key={item.id}
+                                item={item}
+                                onEdit={item => this.setState({ itemEditRequest: item })}
+                                onDelete={item => this.setState({ itemDeleteRequest: item })} />
+                        })}
+                    </List>
+                </Paper>
+            );
+        } else {
+            list = (
+                <EmptyContent title="Методичек нет" message="Ещё не создано ни одной методички" />
+            );
+        }
         
-        const list = (
-            items.length &&
-            <Paper zDepth={3} className="flex-grow-1">
-                <List>
-                    <Subheader>Методички</Subheader>
-                    <Divider />
-                    {items.map((item, index) => {
-                        return <GuideItem
-                            key={item.id}
-                            item={item}
-                            onEdit={item => this.setState({ itemEditRequest: item })}
-                            onDelete={item => this.setState({ itemDeleteRequest: item })} />
-                    })}
-                </List>
-            </Paper>
-        );
         const form = <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />;
         const Layout = ListFormLayoutWrapper(list, form);
 

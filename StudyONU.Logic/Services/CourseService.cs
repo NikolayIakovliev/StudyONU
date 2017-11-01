@@ -142,7 +142,31 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByLecturerEmailAsync(string email)
+        public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByLecturerEmailAsync(string email)
+        {
+            Func<Task<IEnumerable<CourseEntity>>> factory =
+                () => unitOfWork.Courses.GetAllByLecturerEmailAsync(email, course => course.Name);
+
+            return GetAllAsync(factory);
+        }
+
+        public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByStudentEmailAsync(string email)
+        {
+            Func<Task<IEnumerable<CourseEntity>>> factory =
+                () => unitOfWork.Courses.GetAllByStudentEmailAsync(email, course => course.Name);
+
+            return GetAllAsync(factory);
+        }
+
+        public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetPublishedAsync()
+        {
+            Func<Task<IEnumerable<CourseEntity>>> factory = 
+                () => unitOfWork.Courses.GetAllOrderedAsync(course => course.IsPublished, course => course.Name);
+
+            return GetAllAsync(factory);
+        }
+
+        private async Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetAllAsync(Func<Task<IEnumerable<CourseEntity>>> factory)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
@@ -150,17 +174,8 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetByEmailAsync(email);
-                if (lecturerEntity != null)
-                {
-                    IEnumerable<CourseEntity> courseEntities = await unitOfWork.Courses.GetAllByLecturerIdOrderedAsync(lecturerEntity.Id, course => course.Name);
-                    data = mapper.Map<IEnumerable<CourseListDTO>>(courseEntities);
-                }
-                else
-                {
-                    actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
-                }
+                IEnumerable<CourseEntity> courseEntities = await factory();
+                data = mapper.Map<IEnumerable<CourseListDTO>>(courseEntities);
             }
             catch (Exception exception)
             {

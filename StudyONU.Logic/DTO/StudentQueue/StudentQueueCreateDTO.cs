@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace StudyONU.Core.Entities
+﻿namespace StudyONU.Logic.DTO.StudentQueue
 {
-    public class StudentQueueEntity
+    public class StudentQueueCreateDTO
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -18,14 +14,6 @@ namespace StudyONU.Core.Entities
 
         public int CourseNumber { get; set; }
 
-        public bool? Approved { get; set; }
-
-        public DateTime DateCreated { get; set; }
-
-        public DateTime? DateApproved { get; set; }
-
         public int SpecialityId { get; set; }
-
-        public virtual SpecialityEntity Speciality { get; set; }
     }
 }
