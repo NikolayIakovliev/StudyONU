@@ -3,7 +3,7 @@ import { urls } from '../../../shared/api';
 import { yyyymmdd } from '../../../shared/date';
 import Dropzone from 'react-dropzone';
 import DatePicker from 'material-ui/DatePicker';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -22,7 +22,7 @@ export class GuideForm extends React.Component {
             name: '',
             file: null,
             dateAvailable: null,
-            courseId: null,
+            course: null,
             courses: [],
             formOpened: false,
             errors: {
@@ -51,7 +51,7 @@ export class GuideForm extends React.Component {
             name,
             file,
             dateAvailable,
-            courseId,
+            course,
             courses,
             formOpened,
             errors
@@ -68,7 +68,7 @@ export class GuideForm extends React.Component {
                 {!file &&
                     <div>
                         <p>Перетащите файл</p>
-                        <p>Расширения: .docx, .doc, .xls, .pdf, .txt</p>
+                        <p>Расширения: .docx, .doc, .xls, .pdf, .txt, .pptx</p>
                     </div>
                 }
             </div>
@@ -95,21 +95,25 @@ export class GuideForm extends React.Component {
                             <Dropzone
                                 className="dropzone"
                                 multiple={false}
-                                onDrop={files => this.setState({ photo: files[0] })}
-                                accept=".jpg,.png,.gif,.jpeg">
+                                onDrop={files => this.setState({ file: files[0] })}
+                                accept=".docx,.doc,.xls,.pdf,.txt,.pptx">
                                 {dropzoneContent}
-                                <span className="validation-error">{errors.photo}</span>
+                                <span className="validation-error">{errors.file}</span>
                             </Dropzone>
                             <DatePicker
                                 hintText="Дата доступа"
                                 mode="landscape"
                                 value={dateAvailable}
                                 onChange={(event, date) => this.setState({ dateAvailable: date })} />
-                            <DropDownMenu value={courseId} onChange={(event, index, value) => this.setState({ courseId: value })}>
-                            {courses.map((course, index) => {
-                                return <MenuItem key={course.id} value={course.id} primaryText={course.name} />;
-                            })}
-                            </DropDownMenu>
+                            <SelectField
+                                floatingLabelText="Выберите курс"
+                                errorText={errors.course}
+                                value={course}
+                                onChange={(event, index, value) => this.setState({ course: value })}>
+                                {courses.map((course, index) => {
+                                    return <MenuItem key={course.id} value={course} primaryText={course.name} />;
+                                })}
+                            </SelectField>
                             <div className="btn-group">
                                 <RaisedButton label="Создать" className="btn-item" primary={true} onClick={e => this.sendForm()} />
                                 <RaisedButton label="Закрыть" className="btn-item" secondary={true} onClick={e => this.setState({ formOpened: false })} />
@@ -130,30 +134,56 @@ export class GuideForm extends React.Component {
                 dateAvailable: this.state.dateAvailable != null
                     ? yyyymmdd(this.state.dateAvailable, '-')
                     : null,
-                courseId: this.state.course.value
+                courseId: this.state.course.id
             }
 
             this.props.createItem(data);
-        } else {
-            // TODO
-            // temp implementation
-            console.log('Invalid form');
+            this.resetForm();
         }
     }
 
     validateForm() {
-        const { name, file, course } = this.state;
+        const {
+            name,
+            file,
+            course
+        } = this.state;
+        let errors = {
+            name: '',
+            file: '',
+            course: ''
+        }
 
         let valid = true;
 
         if (name.length < 1 || name.length > 100) {
             valid = false;
-        } else if (!file) {
+            errors.name = 'От 1 до 100 символов';
+        }
+        if (!file) {
             valid = false;
-        } else if (!course) {
+            errors.file = 'Выберите файл';
+        }
+        if (!course) {
             valid = false;
+            errors.course = 'Выберите курс';
         }
 
+        this.setState({ errors: errors });
         return valid;
+    }
+
+    resetForm() {
+        this.setState({
+            name: '',
+            file: null,
+            dateAvailable: null,
+            course: null,
+            errors: {
+                name: '',
+                file: '',
+                course: ''
+            }
+        });
     }
 }

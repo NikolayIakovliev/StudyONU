@@ -55,7 +55,7 @@ export class TaskEditDialog extends React.Component {
                 {files.length == 0 &&
                     <div>
                         <p>Перетащите файлы</p>
-                        <p>Расширения: .docx, .doc, .xls, .pdf, .txt</p>
+                        <p>Расширения: .docx, .doc, .xls, .pdf, .txt, .pptx</p>
                     </div>
                 }
             </div>
@@ -112,14 +112,14 @@ export class TaskEditDialog extends React.Component {
                         className="dropzone"
                         multiple={true}
                         onDrop={files => this.setState({ files: files })}
-                        accept=".docx,.doc,.xls,.pdf,.txt">
+                        accept=".docx,.doc,.xls,.pdf,.txt,.pptx">
                         {dropzoneContent}
                     </Dropzone>
                 }
             </MaterialDialog>
         );
     }
-    // {dropzoneContent}
+
     sendForm() {
         let validated = this.validateForm();
         if (validated) {

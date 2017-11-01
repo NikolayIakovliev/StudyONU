@@ -17,9 +17,6 @@
                 margin: 0 0 5px 0;
             }
 
-            .validation-error {
-                color: red;
-            }
         }
 
         .btn-group {
@@ -32,4 +29,8 @@
             }
         }
     }
+}
+
+.validation-error {
+    color: red;
 }
