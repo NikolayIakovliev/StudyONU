@@ -107,7 +107,7 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> ChangePassword(ChangePasswordDTO changePasswordDTO)
+        public async Task<ServiceMessage> ChangePasswordAsync(ChangePasswordDTO changePasswordDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
@@ -120,12 +120,13 @@ namespace StudyONU.Logic.Services
                     if (userEntity != null)
                     {
                         string hashPassword = userEntity.PasswordHash;
-                        string password = changePasswordDTO.NewPassword;
+                        string oldPassword = changePasswordDTO.OldPassword;
 
-                        bool verified = passwordHasher.VerifyHashedPassword(hashPassword, password);
+                        bool verified = passwordHasher.VerifyHashedPassword(hashPassword, oldPassword);
                         if (verified)
                         {
-                            userEntity.PasswordHash = passwordHasher.HashPassword(password);
+                            string newPassword = changePasswordDTO.NewPassword;
+                            userEntity.PasswordHash = passwordHasher.HashPassword(newPassword);
 
                             await unitOfWork.CommitAsync();
                         }

@@ -11,6 +11,6 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<ServiceMessage> RegisterAdminAsync(RegisterAdminDTO adminDTO);
 
-        Task<ServiceMessage> ChangePassword(ChangePasswordDTO changePasswordDTO);
+        Task<ServiceMessage> ChangePasswordAsync(ChangePasswordDTO changePasswordDTO);
     }
 }

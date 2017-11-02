@@ -105,6 +105,9 @@ export class Api {
 
 export const urls = {
     token: '/api/token',
+    account: {
+        password: '/api/account/password'
+    },
     lecturers: '/api/lecturers',
     specialities: '/api/specialities',
     courses: '/api/courses',

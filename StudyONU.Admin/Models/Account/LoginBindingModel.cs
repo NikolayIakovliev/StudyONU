@@ -1,4 +1,4 @@
-﻿namespace StudyONU.Admin.Models
+﻿namespace StudyONU.Admin.Models.Account
 {
     public class LoginBindingModel
     {
