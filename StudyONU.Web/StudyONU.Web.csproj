@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="src\shared\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,4 +16,49 @@
     <ProjectReference Include="..\StudyONU.Logic\StudyONU.Logic.csproj" />
   </ItemGroup>
 
+  <Target Name="WebpackBuildVendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+
+    <!-- In development, the dist files won't exist on the first run or when cloning to
+         a different machine, so rebuild them if not already present. -->
+    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
+  </Target>
+
+  <Target Name="DebugBuild" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <Message Importance="high" Text="Building (DEBUG)"></Message>
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.development.js" />
+  </Target>
+
+  <Target Name="ReleaseBuild" BeforeTargets="Build" DependsOnTargets="ReleaseBundle" Condition="'$(Configuration)' != 'Debug'">
+    <Message Importance="high" Text="Building (RELEASE)"></Message>
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish;InstallPackages;ReleaseBundle">
+    <Message Importance="high" Text="Running Publish target"></Message>
+  </Target>
+
+  <Target Name="ReleaseBundle">
+    <Message Importance="high" Text="Bundling webpack modules (RELEASE)"></Message>
+
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.production.js" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="InstallPackages">
+    <Exec Command="npm install" />
+  </Target>
 </Project>

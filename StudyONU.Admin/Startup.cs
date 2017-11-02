@@ -1,18 +1,14 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Converters;
 using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Builder;
 using StudyONU.Admin.Mappings;
 using StudyONU.Logic.Extensions;
-using System.Text;
 
 namespace StudyONU.Admin
 {
