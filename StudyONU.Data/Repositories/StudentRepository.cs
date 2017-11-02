@@ -1,6 +1,8 @@
-﻿using StudyONU.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using StudyONU.Core;
 using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts.Repositories;
+using System.Threading.Tasks;
 
 namespace StudyONU.Data.Repositories
 {
@@ -8,5 +10,12 @@ namespace StudyONU.Data.Repositories
     {
         public StudentRepository(StudyONUDbContext context)
             : base(context) { }
+
+        public Task<StudentEntity> GetByEmailAsync(string email)
+        {
+            return context.Students
+                .Include(student => student.User)
+                .FirstOrDefaultAsync(student => student.User.Email == email);
+        }
     }
 }

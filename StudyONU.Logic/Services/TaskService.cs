@@ -1,4 +1,4 @@
-﻿ using AutoMapper;
+﻿using AutoMapper;
 using Newtonsoft.Json;
 using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts;
@@ -16,7 +16,7 @@ namespace StudyONU.Logic.Services
     {
         public TaskService(
             IUnitOfWork unitOfWork,
-            IMapper mapper, 
+            IMapper mapper,
             IExceptionMessageBuilder exceptionMessageBuilder)
             : base(unitOfWork, mapper, exceptionMessageBuilder) { }
 
@@ -174,6 +174,63 @@ namespace StudyONU.Logic.Services
                 {
                     actionResult = ServiceActionResult.NotFound;
                     errors.Add("Lecturer was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new DataServiceMessage<IEnumerable<TaskListDTO>>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
+        }
+
+        public async Task<DataServiceMessage<IEnumerable<TaskListDTO>>> GetByCourseAndStudentAsync(int courseId, string studentEmail)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+            IEnumerable<TaskListDTO> data = null;
+
+            try
+            {
+                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+                if (studentEntity != null)
+                {
+                    CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(courseId);
+                    if (courseEntity != null)
+                    {
+                        bool hasAccess =
+                            courseEntity.SpecialityId == studentEntity.SpecialityId &&
+                            courseEntity.CourseNumber == studentEntity.CourseNumber;
+                        if (hasAccess)
+                        {
+                            IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllAsync(task =>
+                                task.CourseId == courseId &&
+                                (!task.DateAvailable.HasValue || task.DateAvailable.Value >= DateTime.Now.Date)
+                                );
+                            data = mapper.Map<IEnumerable<TaskListDTO>>(taskEntities);
+                        }
+                        else
+                        {
+                            actionResult = ServiceActionResult.Error;
+                            errors.Add("Student doesn't have an access to course");
+                        }
+                    }
+                    else
+                    {
+                        actionResult = ServiceActionResult.NotFound;
+                        errors.Add("Course was not found");
+                    }
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Student was not found");
                 }
             }
             catch (Exception exception)

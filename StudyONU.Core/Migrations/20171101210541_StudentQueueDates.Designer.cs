@@ -12,9 +12,10 @@ using System;
 namespace StudyONU.Core.Migrations
 {
     [DbContext(typeof(StudyONUDbContext))]
-    partial class StudyONUDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171101210541_StudentQueueDates")]
+    partial class StudentQueueDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,11 +250,7 @@ namespace StudyONU.Core.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int>("SpecialityId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SpecialityId");
 
                     b.ToTable("StudentQueue");
                 });
@@ -393,14 +390,6 @@ namespace StudyONU.Core.Migrations
                     b.HasOne("StudyONU.Core.Entities.UserEntity", "User")
                         .WithMany("Students")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("StudyONU.Core.Entities.StudentQueueEntity", b =>
-                {
-                    b.HasOne("StudyONU.Core.Entities.SpecialityEntity", "Speciality")
-                        .WithMany("StudentQueue")
-                        .HasForeignKey("SpecialityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

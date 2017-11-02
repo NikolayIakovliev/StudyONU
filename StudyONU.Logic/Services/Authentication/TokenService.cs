@@ -18,6 +18,8 @@ namespace StudyONU.Logic.Services.Authentication
 {
     public class TokenService : ServiceBase, ITokenService
     {
+        private const int TokenMinutesExpiration = 30;
+
         private readonly IPasswordHasher passwordHasher;
 
         public TokenService(
@@ -61,7 +63,7 @@ namespace StudyONU.Logic.Services.Authentication
                             loginDTO.Issuer,
                             loginDTO.Issuer,
                             claims,
-                            expires: DateTime.Now.AddMinutes(30),
+                            expires: DateTime.Now.AddMinutes(TokenMinutesExpiration),
                             signingCredentials: credentials
                             );
 

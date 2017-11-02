@@ -8,8 +8,10 @@ namespace StudyONU.Data.Contracts.Repositories
 {
     public interface ICourseRepository : IRepository<CourseEntity>
     {
-        Task<IEnumerable<CourseEntity>> GetAllByLecturerIdAsync(int id);
+        Task<IEnumerable<CourseEntity>> GetAllByLecturerEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector);
 
-        Task<IEnumerable<CourseEntity>> GetAllByLecturerIdOrderedAsync<TKey>(int id, Expression<Func<CourseEntity, TKey>> keySelector);
+        Task<IEnumerable<CourseEntity>> GetAllByStudentEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector);
+
+        Task<IEnumerable<CourseEntity>> GetAllOrderedAsync<TKey>(Expression<Func<CourseEntity, bool>> expression, Expression<Func<CourseEntity, TKey>> keySelector);
     }
 }

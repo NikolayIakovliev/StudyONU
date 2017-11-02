@@ -15,5 +15,9 @@ namespace StudyONU.Logic.Contracts.Services
         Task<ServiceMessage> DeleteAsync(int id);
 
         Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByLecturerEmailAsync(string email);
+
+        Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByStudentEmailAsync(string email);
+
+        Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetPublishedAsync();
     }
 }

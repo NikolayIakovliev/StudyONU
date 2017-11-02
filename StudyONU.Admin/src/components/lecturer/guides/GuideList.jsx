@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
+import { EmptyContent } from '../../shared/EmptyContent';
 import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
 import { GuideEditDialog } from './GuideEditDialog';

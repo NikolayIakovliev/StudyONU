@@ -2,6 +2,6 @@
 
 export class AdminHome extends React.Component {
     render() {
-        return <div>Admin Home</div>;
+        return <div>Домашняя страница Администратора</div>;
     }
 }

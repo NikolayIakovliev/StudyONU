@@ -28,6 +28,13 @@ namespace StudyONU.Core.Configurations
             builder.Property(entity => entity.CourseNumber)
                 .HasColumnType("tinyint")
                 .HasMaxLength(1);
+            builder.Property(entity => entity.DateCreated)
+                .IsRequired()
+                .HasDefaultValueSql("GETDATE()");
+
+            builder.HasOne(entity => entity.Speciality)
+                .WithMany(entity => entity.StudentQueue)
+                .HasForeignKey(entity => entity.SpecialityId);
         }
     }
 }
