@@ -16,7 +16,7 @@ namespace StudyONU.Core.Entities
 
         public string Email { get; set; }
 
-        public int CourseNumber { get; set; }
+        public byte CourseNumber { get; set; }
 
         public bool? Approved { get; set; }
 

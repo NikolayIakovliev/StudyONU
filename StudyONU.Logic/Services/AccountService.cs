@@ -106,5 +106,58 @@ namespace StudyONU.Logic.Services
                 Errors = errors
             };
         }
+
+        public async Task<ServiceMessage> ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            if (changePasswordDTO.NewPassword == changePasswordDTO.Confirm)
+            {
+                try
+                {
+                    UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(changePasswordDTO.Email);
+                    if (userEntity != null)
+                    {
+                        string hashPassword = userEntity.PasswordHash;
+                        string password = changePasswordDTO.NewPassword;
+
+                        bool verified = passwordHasher.VerifyHashedPassword(hashPassword, password);
+                        if (verified)
+                        {
+                            userEntity.PasswordHash = passwordHasher.HashPassword(password);
+
+                            await unitOfWork.CommitAsync();
+                        }
+                        else
+                        {
+                            actionResult = ServiceActionResult.Error;
+                            errors.Add("Old password is incorrect");
+                        }
+                    }
+                    else
+                    {
+                        actionResult = ServiceActionResult.NotFound;
+                        errors.Add("User was not found");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    exceptionMessageBuilder.FillErrors(exception, errors);
+                    actionResult = ServiceActionResult.Exception;
+                }
+            }
+            else
+            {
+                actionResult = ServiceActionResult.Error;
+                errors.Add("Passwords don't match");
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
     }
 }
