@@ -10,7 +10,10 @@ namespace StudyONU.Logic.Mappings
         {
             CreateMap<CourseCreateDTO, CourseEntity>();
             CreateMap<CourseEntity, CourseListDTO>()
-                .ForMember(dest => dest.SpecialityName, opts => opts.MapFrom(src => src.Speciality.Name));
+                .ForMember(dest => dest.SpecialityName, opts => opts.MapFrom(src => src.Speciality.Name))
+                .ForMember(dest => dest.LecturerFullName, opts => opts.MapFrom(src => $"{src.Lecturer.User.Patronymic} {src.Lecturer.User.FirstName} {src.Lecturer.User.LastName}"))
+                .ForMember(dest => dest.LecturerEmail, opts => opts.MapFrom(src => src.Lecturer.User.Email))
+                .ForMember(dest => dest.LecturerPhotoPath, opts => opts.MapFrom(src => src.Lecturer.User.PhotoPath));
         }
     }
 }

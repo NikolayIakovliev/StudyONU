@@ -35,6 +35,7 @@ namespace StudyONU.Data.Repositories
         {
             return context.Lecturers
                 .Include(lecturer => lecturer.User)
+                .ThenInclude(user => user.Role)
                 .FirstOrDefaultAsync(lecturer => lecturer.User.Email == email);
         }
     }

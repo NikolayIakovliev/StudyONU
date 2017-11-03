@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StudyONU.Admin.Models.Account;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.Contracts.Services.Authentication;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.DTO.Authorization;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Web.Models.Account;
 using System.Threading.Tasks;
 
-namespace StudyONU.Admin.Controllers
+namespace StudyONU.Web.Controllers
 {
     [AllowAnonymous]
     public class AccountController : ApiController
@@ -35,7 +35,7 @@ namespace StudyONU.Admin.Controllers
         {
             LoginDTO loginDTO = mapper.Map<LoginDTO>(model);
 
-            DataServiceMessage<UserInfoDTO> serviceMessage = await tokenService.GenerateTokenAsync(loginDTO, LoginSettings.Administration);
+            DataServiceMessage<UserInfoDTO> serviceMessage = await tokenService.GenerateTokenAsync(loginDTO, LoginSettings.Student);
 
             return GenerateResponse(serviceMessage);
         }

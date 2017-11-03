@@ -33,7 +33,7 @@ namespace StudyONU.Logic.Services.Authentication
             this.passwordHasher = passwordHasher;
         }
 
-        public async Task<DataServiceMessage<UserInfoDTO>> GenerateTokenAsync(LoginDTO loginDTO)
+        public async Task<DataServiceMessage<UserInfoDTO>> GenerateTokenAsync(LoginDTO loginDTO, LoginSettings settings)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
@@ -43,7 +43,24 @@ namespace StudyONU.Logic.Services.Authentication
             {
                 bool authorized = false;
 
-                UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(loginDTO.Email);
+                UserEntity userEntity = null;
+                switch (settings)
+                {
+                    case LoginSettings.Administration:
+                        AdminEntity adminEntity = await unitOfWork.Admins.GetByEmailAsync(loginDTO.Email);
+                        LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetByEmailAsync(loginDTO.Email);
+
+                        userEntity = adminEntity?.User ?? lecturerEntity?.User;
+                        break;
+                    case LoginSettings.Student:
+                        StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(loginDTO.Email);
+
+                        userEntity = studentEntity?.User;
+                        break;
+                    default:
+                        break;
+                }
+
                 if (userEntity != null)
                 {
                     authorized = passwordHasher.VerifyHashedPassword(userEntity.PasswordHash, loginDTO.Password);

@@ -1,16 +1,17 @@
 ﻿import { AuthorizationStorage } from './authorizationStorage';
+import { Logger } from './logger';
 
 export class Api {
     static get(url) {
         let init = createInit('GET');
 
-        return fetch(url, init).catch(error => console.log(error));
+        return fetch(url, init).catch(error => Logger.error(error));
     }
 
     static post(url, data) {
         let init = createInit('POST', data);
 
-        return fetch(url, init).catch(error => console.log(error));
+        return fetch(url, init).catch(error => Logger.error(error));
     }
 
     static postFormData(url, data) {
@@ -40,13 +41,13 @@ export class Api {
             body: formData
         }
 
-        return fetch(url, init).catch(error => console.log(error));
+        return fetch(url, init).catch(error => Logger.error(error));
     }
 
     static put(url, data) {
         let init = createInit('PUT', data);
 
-        return fetch(url, init).catch(error => console.log(error));
+        return fetch(url, init).catch(error => Logger.error(error));
     }
 
     static putFormData(url, data) {
@@ -76,13 +77,13 @@ export class Api {
             body: formData
         }
 
-        return fetch(url, init).catch(error => console.log(error));
+        return fetch(url, init).catch(error => Logger.error(error));
     }
 
     static delete(url, data) {
         let init = createInit('DELETE', data);
 
-        return fetch(url, init).catch(error => console.log(error));
+        return fetch(url, init).catch(error => Logger.error(error));
     }
 
     static token(data, onComplete) {
@@ -99,19 +100,15 @@ export class Api {
             .then(checkStatus)
             .then(res => res.json())
             .then(res => onComplete(res))
-            .catch(error => console.log(error));
+            .catch(error => Logger.error(error));
     }
 }
 
 export const urls = {
     token: '/api/token',
-    lecturers: '/api/lecturers',
-    specialities: '/api/specialities',
-    courses: '/api/courses',
-    guides: '/api/guides',
-    tasks: {
-        common: '/api/tasks',
-        files: '/api/tasks/files'
+    courses: {
+        published: '/api/courses/published',
+        my: '/api/courses/my'
     }
 }
 
@@ -136,12 +133,19 @@ const createInit = (method, data) => {
 }
 
 const headers = () => {
-    let authorizationData = AuthorizationStorage.get();
-    let token = authorizationData.token;
+    if (AuthorizationStorage.any()) {
+        let authorizationData = AuthorizationStorage.get();
+        let token = authorizationData.token;
 
-    return {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    } else {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     }
 }

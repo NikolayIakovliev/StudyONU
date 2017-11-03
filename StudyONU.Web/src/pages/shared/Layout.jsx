@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-//import { Sidebar } from './Sidebar';
-//import { Header } from './Header';
+import { Header } from './Header';
+
+import './layout.scss';
 
 export class Layout extends React.Component {
     constructor(props) {
@@ -10,11 +10,12 @@ export class Layout extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider>
-                <div>
-                    {this.props.children}
-                </div>
-            </MuiThemeProvider>
+            <div>
+                <Header {...this.props} />
+                    <div className="layout">
+                        {this.props.children}
+                    </div>
+            </div>
         );
     }
 }

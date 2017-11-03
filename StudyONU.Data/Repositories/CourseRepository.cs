@@ -17,9 +17,15 @@ namespace StudyONU.Data.Repositories
 
         public override async Task<IEnumerable<CourseEntity>> GetAllAsync(Expression<Func<CourseEntity, bool>> expression = null)
         {
-            IQueryable<CourseEntity> entities = expression != null
-                ? context.Courses.Include(course => course.Speciality).Where(expression)
-                : context.Courses.Include(course => course.Speciality);
+            IQueryable<CourseEntity> entities = context.Courses
+                .Include(course => course.Speciality)
+                .Include(course => course.Lecturer)
+                .ThenInclude(lecturer => lecturer.User);
+
+            if (expression != null)
+            {
+                entities = entities.Where(expression);
+            }
 
             return await entities.ToListAsync();
         }
@@ -43,6 +49,8 @@ namespace StudyONU.Data.Repositories
         {
             return await context.Courses
                 .Include(course => course.Speciality)
+                .Include(course => course.Lecturer)
+                .ThenInclude(lecturer => lecturer.User)
                 .Where(expression)
                 .OrderBy(keySelector)
                 .ToListAsync();

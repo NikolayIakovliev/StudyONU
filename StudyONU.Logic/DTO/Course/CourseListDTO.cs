@@ -13,5 +13,11 @@
         public int SpecialityId { get; set; }
 
         public string SpecialityName { get; set; }
+
+        public string LecturerFullName { get; set; }
+
+        public string LecturerEmail { get; set; }
+
+        public string LecturerPhotoPath { get; set; }
     }
 }

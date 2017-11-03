@@ -15,6 +15,7 @@ namespace StudyONU.Data.Repositories
         {
             return context.Students
                 .Include(student => student.User)
+                .ThenInclude(user => user.Role)
                 .FirstOrDefaultAsync(student => student.User.Email == email);
         }
     }

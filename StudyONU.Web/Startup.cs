@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
 using StudyONU.Logic.Extensions;
 using StudyONU.Web.Authentication;
+using StudyONU.Web.Mappings;
 
 namespace StudyONU.Web
 {
@@ -20,6 +22,10 @@ namespace StudyONU.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile<BindingModelProfile>();
+            });
             services.AddLogic(configuration);
             services.AddAuthentication(JwtBearerSettings.Issuer, JwtBearerSettings.Key);
 
