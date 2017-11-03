@@ -32,8 +32,6 @@ export class LoginDialog extends React.Component {
             />,
         ];
 
-        console.log(this.props.error);
-
         return <Dialog
             title="Вход в систему"
             actions={actions}

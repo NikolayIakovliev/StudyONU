@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "78935fa99cc2a98e7d05"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "03a45165f79488b97be9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -12385,8 +12385,6 @@ var LoginDialog = exports.LoginDialog = function (_React$Component) {
                 onClick: this.props.onClose
             })];
 
-            console.log(this.props.error);
-
             return React.createElement(
                 _Dialog2.default,
                 {
@@ -22504,6 +22502,8 @@ var _Layout = __webpack_require__(382);
 
 var _Home = __webpack_require__(387);
 
+var _Registration = __webpack_require__(418);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22530,7 +22530,8 @@ var Routes = exports.Routes = function (_React$Component) {
                 React.createElement(
                     _reactRouterDom.Switch,
                     null,
-                    React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: (0, _PropsWrapper.PropsWrapper)(_Home.Home, this.props) })
+                    React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: (0, _PropsWrapper.PropsWrapper)(_Home.Home, this.props) }),
+                    React.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: (0, _PropsWrapper.PropsWrapper)(_Registration.Registration, this.props) })
                 )
             );
         }
@@ -22604,8 +22605,6 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _Header = __webpack_require__(383);
-
 __webpack_require__(386);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -22630,13 +22629,8 @@ var Layout = exports.Layout = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'div',
-                null,
-                React.createElement(_Header.Header, this.props),
-                React.createElement(
-                    'div',
-                    { className: 'layout' },
-                    this.props.children
-                )
+                { className: 'layout' },
+                this.props.children
             );
         }
     }]);
@@ -22662,6 +22656,8 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
+var _reactRouter = __webpack_require__(419);
+
 __webpack_require__(384);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -22675,19 +22671,41 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Header = exports.Header = function (_React$Component) {
     _inherits(Header, _React$Component);
 
-    function Header() {
+    function Header(props) {
         _classCallCheck(this, Header);
 
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+
+        _this.state = {
+            register: false
+        };
+        return _this;
     }
 
     _createClass(Header, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            if (this.state.register) {
+                return React.createElement(_reactRouter.Redirect, { to: '/register' });
+            }
+
             return React.createElement(
                 'div',
-                { className: 'header', onClick: this.props.onLogin },
-                '\u0412\u043E\u0439\u0442\u0438'
+                { className: 'header' },
+                React.createElement(
+                    'p',
+                    { onClick: this.props.onLogin },
+                    '\u0412\u043E\u0439\u0442\u0438'
+                ),
+                React.createElement(
+                    'p',
+                    { onClick: function onClick() {
+                            return _this2.setState({ register: true });
+                        } },
+                    '\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F'
+                )
             );
         }
     }]);
@@ -22875,6 +22893,8 @@ var _api = __webpack_require__(117);
 var _AlertConnection = __webpack_require__(388);
 
 var _Card = __webpack_require__(394);
+
+var _Header = __webpack_require__(383);
 
 var _Divider = __webpack_require__(414);
 
@@ -26633,6 +26653,61 @@ if(true) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Registration = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Registration = exports.Registration = function (_React$Component) {
+    _inherits(Registration, _React$Component);
+
+    function Registration() {
+        _classCallCheck(this, Registration);
+
+        return _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).apply(this, arguments));
+    }
+
+    _createClass(Registration, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                'Register'
+            );
+        }
+    }]);
+
+    return Registration;
+}(React.Component);
+
+/***/ }),
+/* 419 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(22))(10);
 
 /***/ })
 /******/ ]);
