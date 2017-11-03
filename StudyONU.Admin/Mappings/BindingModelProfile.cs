@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using StudyONU.Admin.Authentication;
-using StudyONU.Admin.Models;
+using StudyONU.Admin.Models.Account;
 using StudyONU.Admin.Models.Course;
 using StudyONU.Admin.Models.Guide;
 using StudyONU.Admin.Models.Lecturer;
@@ -35,6 +35,8 @@ namespace StudyONU.Admin.Mappings
             CreateMap<LecturerCreateBindingModel, LecturerCreateDTO>();
             CreateMap<SpecialityBindingModel, SpecialityDTO>();
             CreateMap<LecturerEditBindingModel, LecturerEditDTO>();
+
+            CreateMap<ChangePasswordBindingModel, ChangePasswordDTO>();
         }
     }
 }

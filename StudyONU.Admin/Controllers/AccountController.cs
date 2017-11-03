@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StudyONU.Admin.Models;
+using StudyONU.Admin.Models.Account;
+using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.Contracts.Services.Authentication;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.DTO.Authorization;
@@ -13,12 +14,18 @@ namespace StudyONU.Admin.Controllers
     [AllowAnonymous]
     public class AccountController : ApiController
     {
-        private readonly ITokenService service;
+        private readonly ITokenService tokenService;
+        private readonly IAccountService accountService;
         private readonly IMapper mapper;
 
-        public AccountController(ITokenService service, IMapper mapper)
+        public AccountController(
+            ITokenService tokenService,
+            IAccountService accountService,
+            IMapper mapper
+            )
         {
-            this.service = service;
+            this.tokenService = tokenService;
+            this.accountService = accountService;
             this.mapper = mapper;
         }
 
@@ -27,7 +34,21 @@ namespace StudyONU.Admin.Controllers
         public async Task<IActionResult> GenerateToken([FromBody] LoginBindingModel model)
         {
             LoginDTO loginDTO = mapper.Map<LoginDTO>(model);
-            DataServiceMessage<UserInfoDTO> serviceMessage = await service.GenerateTokenAsync(loginDTO);
+
+            DataServiceMessage<UserInfoDTO> serviceMessage = await tokenService.GenerateTokenAsync(loginDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("/api/account/password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordBindingModel model)
+        {
+            ChangePasswordDTO changePasswordDTO = mapper.Map<ChangePasswordDTO>(model);
+            changePasswordDTO.Email = GetUserEmail();
+
+            ServiceMessage serviceMessage = await accountService.ChangePasswordAsync(changePasswordDTO);
 
             return GenerateResponse(serviceMessage);
         }

@@ -4,6 +4,8 @@ import { Layout } from './components/shared/Layout';
 import { NotFound } from './components/shared/NotFound';
 import { Authorization } from './components/shared/Authorization';
 
+import { ChangePassword } from './components/shared/ChangePassword';
+
 import { AdminHome } from './components/admin/home/Home';
 import { LecturerList } from './components/admin/lecturers/LecturerList';
 import { SpecialityList } from './components/admin/specialities/SpecialityList';
@@ -42,6 +44,10 @@ export class Routes extends React.Component {
                 {
                     title: 'Специальности',
                     to: '/specialities'
+                },
+                {
+                    title: 'Сменить пароль',
+                    to: '/account/password'
                 }
             ];
             routes = (
@@ -49,6 +55,7 @@ export class Routes extends React.Component {
                     <Route exact path='/' component={AdminAuthorization(AdminHome, this.props)} />
                     <Route path='/lecturers' component={AdminAuthorization(LecturerList, this.props)} />
                     <Route path='/specialities' component={AdminAuthorization(SpecialityList, this.props)} />
+                    <Route path='/account/password' component={AdminAuthorization(ChangePassword, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
@@ -69,6 +76,10 @@ export class Routes extends React.Component {
                 {
                     title: 'Задачи',
                     to: '/tasks'
+                },
+                {
+                    title: 'Сменить пароль',
+                    to: '/account/password'
                 }
             ];
             routes = (
@@ -77,6 +88,7 @@ export class Routes extends React.Component {
                     <Route exact path='/courses' component={LecturerAuthorization(CourseList, this.props)} />
                     <Route exact path='/guides' component={LecturerAuthorization(GuideList, this.props)} />
                     <Route exact path='/tasks' component={LecturerAuthorization(TaskList, this.props)} />
+                    <Route path='/account/password' component={LecturerAuthorization(ChangePassword, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );

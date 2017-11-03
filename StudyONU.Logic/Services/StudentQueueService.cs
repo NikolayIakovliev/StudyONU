@@ -13,11 +13,17 @@ namespace StudyONU.Logic.Services
 {
     public class StudentQueueService : ServiceBase, IStudentQueueService
     {
+        private readonly IPasswordHasher passwordHasher;
+
         public StudentQueueService(
             IUnitOfWork unitOfWork, 
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder
-            ) : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            IExceptionMessageBuilder exceptionMessageBuilder,
+            IPasswordHasher passwordHasher
+            ) : base(unitOfWork, mapper, exceptionMessageBuilder)
+        {
+            this.passwordHasher = passwordHasher;
+        }
 
         public async Task<ServiceMessage> CreateAsync(StudentQueueCreateDTO studentQueueCreateDTO)
         {
@@ -49,6 +55,93 @@ namespace StudyONU.Logic.Services
                 {
                     actionResult = ServiceActionResult.Error;
                     errors.Add("User with such email already exists");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<DataServiceMessage<string>> ApproveAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+            string data = null;
+
+            try
+            {
+                StudentQueueEntity studentQueueEntity = await unitOfWork.StudentQueue.GetAsync(id);
+                if (studentQueueEntity != null)
+                {
+                    studentQueueEntity.Approved = true;
+                    studentQueueEntity.DateApproved = DateTime.Now;
+
+                    string password = studentQueueEntity.Email;// passwordHasher.HashPassword(studentQueueEntity.Email);
+
+                    UserEntity userEntity = mapper.Map<UserEntity>(studentQueueEntity);
+                    userEntity.PasswordHash = password;
+                    userEntity.Role = await unitOfWork.Roles.GetAsync(role => role.Name == Roles.Student);
+
+                    StudentEntity studentEntity = new StudentEntity
+                    {
+                        CourseNumber = studentQueueEntity.CourseNumber,
+                        SpecialityId = studentQueueEntity.SpecialityId,
+                        Speciality = studentQueueEntity.Speciality,
+                        User = userEntity
+                    };
+
+                    await unitOfWork.Students.AddAsync(studentEntity);
+                    await unitOfWork.CommitAsync();
+
+                    data = password;
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Student was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new DataServiceMessage<string>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
+        }
+
+        public async Task<ServiceMessage> DisapproveAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                StudentQueueEntity studentQueueEntity = await unitOfWork.StudentQueue.GetAsync(id);
+                if (studentQueueEntity != null)
+                {
+                    studentQueueEntity.Approved = false;
+                    studentQueueEntity.DateApproved = DateTime.Now;
+
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.Add("Student was not found");
                 }
             }
             catch (Exception exception)
