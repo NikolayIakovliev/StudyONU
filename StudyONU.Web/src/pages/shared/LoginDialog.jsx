@@ -41,13 +41,13 @@ export class LoginDialog extends React.Component {
             <TextField
                 floatingLabelText="E-Mail"
                 value={email}
-                onChange={value => this.setState({ email: value })}
+                onChange={(e, value) => this.setState({ email: value })}
             /><br />
             <TextField
                 floatingLabelText="Пароль"
                 type="password"
                 value={password}
-                onChange={value => this.setState({ password: value })}
+                onChange={(e, value) => this.setState({ password: value })}
             /><br />
             {this.props.error && <span style={{ fontSize: 14, color: 'red', fontStyle: 'italic'}}>Неверно введёна почта или пароль</span>}
         </Dialog>;

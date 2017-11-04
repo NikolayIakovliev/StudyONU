@@ -5,7 +5,7 @@ import { PropsWrapper } from './pages/shared/PropsWrapper';
 
 import { Layout } from './pages/shared/Layout';
 import { Home } from './pages/home/Home';
-import { Registration } from './pages/shared/Registration';
+import { Registration } from './pages/registration/Registration';
 
 export class Routes extends React.Component {
     constructor(props) {

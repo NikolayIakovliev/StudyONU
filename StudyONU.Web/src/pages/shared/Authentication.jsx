@@ -11,10 +11,10 @@ export const Authentication = (WrappedComponent) => {
             super(props);
 
             this.state = {
-                isLoggedIn: false,
                 openLoginDialog: false,
                 loginError: false,
                 user: {
+                    isLoggedIn: false,
                     role: '',
                     token: '',
                     firstName: '',
@@ -31,7 +31,6 @@ export const Authentication = (WrappedComponent) => {
 
         render() {
             const {
-                isLoggedIn,
                 openLoginDialog,
                 loginError,
                 user
@@ -41,14 +40,14 @@ export const Authentication = (WrappedComponent) => {
                 <MuiThemeProvider>
                     <div>
                         <WrappedComponent
-                            isLoggedIn={isLoggedIn}
+                            history={this.props.history}
                             user={user}
-                            get={(url, callback) => this.get(url, callback)}
-                            post={(url, data, callback) => this.post(url, data, callback)}
-                            postFormData={(url, data, callback) => this.postFormData(url, data, callback)}
-                            put={(url, data, callback) => this.put(url, data, callback)}
-                            putFormData={(url, data, callback) => this.putFormData(url, data, callback)}
-                            delete={(url, data, callback) => this.delete(url, data, callback)}
+                            get={(url, callback) => this.callApi(() => Api.get(url), callback)}
+                            post={(url, data, callback) => this.callApi(() => Api.post(url, data), callback)}
+                            postFormData={(url, data, callback) => this.callApi(() => Api.postFormData(url, data), callback)}
+                            put={(url, data, callback) => this.callApi(() => Api.put(url, data), callback)}
+                            putFormData={(url, data, callback) => this.callApi(() => Api.putFormData(url, data), callback)}
+                            delete={(url, data, callback) => this.callApi(() => Api.delete(url, data), callback)}
                             error={message => Logger.error(message)}
                             onLogin={() => this.setState({ openLoginDialog: true })}
                             onLogout={() => {
@@ -65,36 +64,6 @@ export const Authentication = (WrappedComponent) => {
                     </div>
                 </MuiThemeProvider>
             );
-        }
-
-        get(url, callback) {
-            const method = () => Api.get(url);
-            this.callApi(method, callback);
-        }
-
-        post(url, data, callback) {
-            const method = () => Api.post(url, data);
-            this.callApi(method, callback);
-        }
-
-        postFormData(url, data, callback) {
-            const method = () => Api.postFormData(url, data);
-            this.callApi(method, callback);
-        }
-
-        put(url, data, callback) {
-            const method = () => Api.put(url, data);
-            this.callApi(method, callback);
-        }
-
-        putFormData(url, data, callback) {
-            const method = () => Api.putFormData(url, data);
-            this.callApi(method, callback);
-        }
-
-        delete(url, data, callback) {
-            const method = () => Api.delete(url, data);
-            this.callApi(method, callback);
         }
 
         callApi(method, callback) {
@@ -139,6 +108,7 @@ export const Authentication = (WrappedComponent) => {
 
         update() {
             let user = {
+                isLoggedIn: false,
                 role: '',
                 token: '',
                 firstName: '',
@@ -150,6 +120,7 @@ export const Authentication = (WrappedComponent) => {
             let userLoggedIn = AuthorizationStorage.any();
             if (userLoggedIn) {
                 let authorizationData = AuthorizationStorage.get();
+                user.isLoggedIn = true;
                 user.role = authorizationData.role;
                 user.token = authorizationData.token;
                 user.firstName = authorizationData.firstName;
@@ -159,7 +130,6 @@ export const Authentication = (WrappedComponent) => {
             }
 
             this.setState({
-                isLoggedIn: userLoggedIn,
                 user: user
             });
         }

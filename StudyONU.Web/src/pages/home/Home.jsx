@@ -81,6 +81,7 @@ export class Home extends React.Component {
 
         return (
             <div>
+                <Header {...this.props} />
                 {itemsPublished.length > 0 &&
                     <div className="cards">
                     {itemsPublished.map(item => this.getCard(item, <CardText>Курс является опубликованным и находится в открытом доступе</CardText>))}
