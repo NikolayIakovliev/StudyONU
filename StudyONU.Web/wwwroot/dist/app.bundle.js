@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3085f6f45860e4d8226a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "406c14371583030b2606"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -31251,7 +31251,7 @@ var Registration = exports.Registration = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
 
         _this.state = {
-            registered: null,
+            success: null,
             stepIndex: 0,
             firstName: '',
             lastName: '',
@@ -31295,30 +31295,13 @@ var Registration = exports.Registration = function (_React$Component) {
             var _this2 = this;
 
             var _state = this.state,
-                registered = _state.registered,
+                success = _state.success,
                 stepIndex = _state.stepIndex,
                 allowNextStep = _state.allowNextStep;
 
 
             var handleNext = this.getNextHandler(stepIndex);
-
-            var afterFormSubmitContent = null;
-            if (registered != null) {
-                afterFormSubmitContent = React.createElement(
-                    'div',
-                    { style: { padding: 20, paddingTop: 0 } },
-                    registered && React.createElement(
-                        'p',
-                        null,
-                        '\u0412\u0430\u0448\u0430 \u0437\u0430\u044F\u0432\u043A\u0430 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430!'
-                    ),
-                    !registered && React.createElement(
-                        'p',
-                        null,
-                        '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0435 \u0444\u043E\u0440\u043C\u044B. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435 \u0438\u043B\u0438 \u0441\u043E\u043E\u0431\u0449\u0438\u0442\u0435 \u043E\u0431 \u044D\u0442\u043E\u043C \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044E'
-                    )
-                );
-            }
+            var stepContent = this.getStepContent(stepIndex);
 
             return React.createElement(
                 'div',
@@ -31364,11 +31347,11 @@ var Registration = exports.Registration = function (_React$Component) {
                             )
                         )
                     ),
-                    afterFormSubmitContent || React.createElement(
+                    React.createElement(
                         'div',
                         { style: { padding: 20, paddingTop: 0 } },
-                        this.getStepContent(stepIndex),
-                        React.createElement(
+                        stepContent,
+                        success == null && React.createElement(
                             'div',
                             { style: { paddingTop: 30 } },
                             React.createElement(_FlatButton2.default, {
@@ -31396,6 +31379,7 @@ var Registration = exports.Registration = function (_React$Component) {
             var _this3 = this;
 
             var _state2 = this.state,
+                success = _state2.success,
                 firstName = _state2.firstName,
                 lastName = _state2.lastName,
                 patronymic = _state2.patronymic,
@@ -31560,7 +31544,15 @@ var Registration = exports.Registration = function (_React$Component) {
                         )
                     );
                 default:
-                    return 'You hacked the system. Fill free to drop the server';
+                    return success ? React.createElement(
+                        'p',
+                        null,
+                        '\u0412\u0430\u0448\u0430 \u0437\u0430\u044F\u0432\u043A\u0430 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430!'
+                    ) : React.createElement(
+                        'p',
+                        null,
+                        '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0435 \u0444\u043E\u0440\u043C\u044B. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435 \u0438\u043B\u0438 \u0441\u043E\u043E\u0431\u0449\u0438\u0442\u0435 \u043E\u0431 \u044D\u0442\u043E\u043C \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044E'
+                    );
             }
         }
     }, {
@@ -31654,9 +31646,7 @@ var Registration = exports.Registration = function (_React$Component) {
                         });
                     };
                 default:
-                    return function () {
-                        return alert('You hacked the system. Fill free to drop the server');
-                    };
+                    return function () {};
             }
         }
     }, {
@@ -31685,7 +31675,8 @@ var Registration = exports.Registration = function (_React$Component) {
             var self = this;
             this.props.postFormData(_api.urls.students, data, function (result) {
                 self.setState({
-                    registered: result.success
+                    success: result.success,
+                    stepIndex: self.state.stepIndex + 1
                 });
             });
         }

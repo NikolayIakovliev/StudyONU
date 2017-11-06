@@ -24,7 +24,7 @@ export class Registration extends React.Component {
         super(props);
 
         this.state = {
-            registered: null,
+            success: null,
             stepIndex: 0,
             firstName: '',
             lastName: '',
@@ -61,26 +61,13 @@ export class Registration extends React.Component {
 
     render() {
         const {
-            registered,
+            success,
             stepIndex,
             allowNextStep
         } = this.state;
 
         const handleNext = this.getNextHandler(stepIndex);
-
-        let afterFormSubmitContent = null;
-        if (registered != null) {
-            afterFormSubmitContent = (
-                <div style={{ padding: 20, paddingTop: 0 }}>
-                    {registered &&
-                        <p>Ваша заявка успешно отправлена!</p>
-                    }
-                    {!registered &&
-                        <p>Возникла ошибка при отправке формы. Попробуйте позже или сообщите об этом преподавателю</p>
-                    }
-                </div>
-                );
-        }
+        const stepContent = this.getStepContent(stepIndex);
 
         return (
             <div>
@@ -99,9 +86,9 @@ export class Registration extends React.Component {
                             <StepLabel>Фотография</StepLabel>
                         </Step>
                     </Stepper>
-                    {afterFormSubmitContent ||
-                        <div style={{ padding: 20, paddingTop: 0 }}>
-                            {this.getStepContent(stepIndex)}
+                    <div style={{ padding: 20, paddingTop: 0 }}>
+                        {stepContent}
+                        {success == null &&
                             <div style={{ paddingTop: 30 }}>
                                 <FlatButton
                                     label="Назад"
@@ -116,8 +103,8 @@ export class Registration extends React.Component {
                                     disabled={!allowNextStep}
                                 />
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </Paper>
             </div>
         );
@@ -125,6 +112,7 @@ export class Registration extends React.Component {
 
     getStepContent(stepIndex) {
         const {
+            success,
             firstName,
             lastName,
             patronymic,
@@ -230,7 +218,9 @@ export class Registration extends React.Component {
                     </div>
                 );
             default:
-                return 'You hacked the system. Fill free to drop the server';
+                return success
+                    ? <p>Ваша заявка успешно отправлена!</p>
+                    : <p>Возникла ошибка при отправке формы. Попробуйте позже или сообщите об этом преподавателю</p>;
         }
     }
 
@@ -322,7 +312,7 @@ export class Registration extends React.Component {
                     });
                 }
             default:
-                return () => alert('You hacked the system. Fill free to drop the server')
+                return () => { }
         }
     }
 
@@ -350,7 +340,8 @@ export class Registration extends React.Component {
         let self = this;
         this.props.postFormData(urls.students, data, result => {
             self.setState({
-                registered: result.success
+                success: result.success,
+                stepIndex: self.state.stepIndex + 1
             });
         });
     }
