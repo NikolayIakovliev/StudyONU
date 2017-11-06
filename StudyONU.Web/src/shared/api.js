@@ -109,7 +109,8 @@ export const urls = {
     courses: {
         published: '/api/courses/published',
         my: '/api/courses/my'
-    }
+    },
+    students: '/api/students'
 }
 
 const checkStatus = (response) => {

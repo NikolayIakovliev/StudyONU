@@ -3,9 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import { PropsWrapper } from './pages/shared/PropsWrapper';
 
-import { Layout } from './pages/shared/Layout';
 import { Home } from './pages/home/Home';
-import { Registration } from './pages/registration/Registration';
+import { Registration } from './pages/register/Registration';
 
 export class Routes extends React.Component {
     constructor(props) {
@@ -14,12 +13,10 @@ export class Routes extends React.Component {
 
     render() {
         return (
-            <Layout {...this.props}>
-                <Switch>
-                    <Route exact path='/' component={PropsWrapper(Home, this.props)} />
-                    <Route exact path='/register' component={PropsWrapper(Registration, this.props)} />
-                </Switch>
-            </Layout>
+            <Switch>
+                <Route exact path='/' component={PropsWrapper(Home, this.props)} />
+                <Route exact path='/register' component={PropsWrapper(Registration, this.props)} />
+            </Switch>
         );
     }
 }
