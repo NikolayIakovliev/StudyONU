@@ -5,6 +5,8 @@ import { Logger } from '../../shared/logger';
 import { LoginDialog } from './LoginDialog';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import './shared.scss';
+
 export const Authentication = (WrappedComponent) => {
     return class WithAuthentication extends React.Component {
         constructor(props) {
@@ -76,7 +78,12 @@ export const Authentication = (WrappedComponent) => {
                     } else if (result.exception) {
                         Logger.error(result.response);
                     } else {
-                        result.response.json().then(r => callback(r));
+                        let json = result.response.json();
+                        if (json.errors && json.errors.length > 0) {
+                            Logger.error(errors);
+                        }
+
+                        json.then(r => callback(r));
                     }
                 });
         }

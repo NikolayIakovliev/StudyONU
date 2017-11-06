@@ -15,9 +15,6 @@ export class Api {
     }
 
     static postFormData(url, data) {
-        let authorizationData = AuthorizationStorage.get();
-        let token = authorizationData.token;
-
         let formData = new FormData();
 
         for (let name in data) {
@@ -32,14 +29,7 @@ export class Api {
             }
         }
 
-        let init = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        }
+        let init = createInitFormData('POST', formData);
 
         return fetch(url, init).catch(error => Logger.error(error));
     }
@@ -51,9 +41,6 @@ export class Api {
     }
 
     static putFormData(url, data) {
-        let authorizationData = AuthorizationStorage.get();
-        let token = authorizationData.token;
-
         let formData = new FormData();
 
         for (let name in data) {
@@ -68,14 +55,7 @@ export class Api {
             }
         }
 
-        let init = {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        }
+        let init = createInitFormData('PUT', formData);
 
         return fetch(url, init).catch(error => Logger.error(error));
     }
@@ -106,11 +86,15 @@ export class Api {
 
 export const urls = {
     token: '/api/token',
+    account: {
+        checkEmail: '/api/account/checkemail'
+    },
     courses: {
         published: '/api/courses/published',
         my: '/api/courses/my'
     },
-    students: '/api/students'
+    students: '/api/students',
+    specialities: '/api/specialities'
 }
 
 const checkStatus = (response) => {
@@ -133,6 +117,16 @@ const createInit = (method, data) => {
     return init;
 }
 
+const createInitFormData = (method, data) => {
+    let init = {
+        method: method,
+        headers: headersFormData(),
+        body: data
+    }
+
+    return init;
+}
+
 const headers = () => {
     if (AuthorizationStorage.any()) {
         let authorizationData = AuthorizationStorage.get();
@@ -147,6 +141,22 @@ const headers = () => {
         return {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
+        }
+    }
+}
+
+const headersFormData = () => {
+    if (AuthorizationStorage.any()) {
+        let authorizationData = AuthorizationStorage.get();
+        let token = authorizationData.token;
+
+        return {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    } else {
+        return {
+            'Accept': 'application/json'
         }
     }
 }

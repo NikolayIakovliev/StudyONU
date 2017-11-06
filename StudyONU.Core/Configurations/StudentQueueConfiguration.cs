@@ -24,7 +24,7 @@ namespace StudyONU.Core.Configurations
                 .HasMaxLength(254);
             builder.Property(entity => entity.PhotoPath)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(200);
             builder.Property(entity => entity.CourseNumber)
                 .HasColumnType("tinyint")
                 .HasMaxLength(1);

@@ -42,13 +42,22 @@ namespace StudyONU.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("/api/account/password")]
+        [Route("password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordBindingModel model)
         {
             ChangePasswordDTO changePasswordDTO = mapper.Map<ChangePasswordDTO>(model);
             changePasswordDTO.Email = GetUserEmail();
 
             ServiceMessage serviceMessage = await accountService.ChangePasswordAsync(changePasswordDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpPost]
+        [Route("checkemail")]
+        public async Task<IActionResult> CheckEmail([FromQuery] string email)
+        {
+            ServiceMessage serviceMessage = await accountService.IsUnique(email);
 
             return GenerateResponse(serviceMessage);
         }

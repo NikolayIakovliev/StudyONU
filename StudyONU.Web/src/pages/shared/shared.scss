@@ -1,0 +1,17 @@
+﻿.text-field {
+    margin-top: -20px;
+}
+
+.dropzone {
+    padding: 16px;
+    border: 2px dashed black;
+    border-radius: 10px;
+
+    p {
+        margin: 0 0 5px 0;
+    }
+
+    .validation-error {
+        color: red;
+    }
+}

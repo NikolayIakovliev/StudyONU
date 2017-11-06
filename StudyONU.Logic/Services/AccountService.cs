@@ -160,5 +160,33 @@ namespace StudyONU.Logic.Services
                 Errors = errors
             };
         }
+
+        public async Task<ServiceMessage> IsUnique(string email)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            List<string> errors = new List<string>();
+
+            try
+            {
+                UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(email);
+                StudentQueueEntity studentQueueEntity = await unitOfWork.StudentQueue.GetByEmailAsync(email);
+                if (userEntity != null || studentQueueEntity != null)
+                {
+                    actionResult = ServiceActionResult.Error;
+                    errors.Add("Email is already being used");
+                }
+            }
+            catch (Exception exception)
+            {
+                exceptionMessageBuilder.FillErrors(exception, errors);
+                actionResult = ServiceActionResult.Exception;
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
     }
 }

@@ -13,6 +13,10 @@
     <ProjectReference Include="..\StudyONU.Logic\StudyONU.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\uploads\students\" />
+  </ItemGroup>
+
   <Target Name="WebpackBuildVendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
