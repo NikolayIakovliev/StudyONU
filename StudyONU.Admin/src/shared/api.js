@@ -115,6 +115,11 @@ export const urls = {
     tasks: {
         common: '/api/tasks',
         files: '/api/tasks/files'
+    },
+    studentQueue: {
+        list: '/api/studentQueue',
+        approve: '/api/studentQueue/approve',
+        disapprove: '/api/studentQueue/disapprove'
     }
 }
 

@@ -70,11 +70,11 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<string>> ApproveAsync(int id)
+        public async Task<DataServiceMessage<StudentRegisteredDTO>> ApproveAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
-            string data = null;
+            StudentRegisteredDTO data = null;
 
             try
             {
@@ -101,7 +101,11 @@ namespace StudyONU.Logic.Services
                     await unitOfWork.Students.AddAsync(studentEntity);
                     await unitOfWork.CommitAsync();
 
-                    data = password;
+                    data = new StudentRegisteredDTO
+                    {
+                        Email = studentQueueEntity.Email,
+                        GeneratedPassword = password
+                    };
                 }
                 else
                 {
@@ -115,7 +119,7 @@ namespace StudyONU.Logic.Services
                 actionResult = ServiceActionResult.Exception;
             }
 
-            return new DataServiceMessage<string>
+            return new DataServiceMessage<StudentRegisteredDTO>
             {
                 ActionResult = actionResult,
                 Errors = errors,
@@ -123,10 +127,11 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> DisapproveAsync(int id)
+        public async Task<DataServiceMessage<StudentRegisteredDTO>> DisapproveAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
+            StudentRegisteredDTO data = null;
 
             try
             {
@@ -137,6 +142,11 @@ namespace StudyONU.Logic.Services
                     studentQueueEntity.DateApproved = DateTime.Now;
 
                     await unitOfWork.CommitAsync();
+                    
+                    data = new StudentRegisteredDTO
+                    {
+                        Email = studentQueueEntity.Email
+                    };
                 }
                 else
                 {
@@ -150,10 +160,11 @@ namespace StudyONU.Logic.Services
                 actionResult = ServiceActionResult.Exception;
             }
 
-            return new ServiceMessage
+            return new DataServiceMessage<StudentRegisteredDTO>
             {
                 ActionResult = actionResult,
-                Errors = errors
+                Errors = errors,
+                Data = data
             };
         }
 
