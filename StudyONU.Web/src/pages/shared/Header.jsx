@@ -86,7 +86,7 @@ export class Header extends React.Component {
     getRightAccount(user) {
         return user.isLoggedIn
             ? (
-                <div>
+                <div className="account-container">
                     <div className="user-info">
                         <p className="fullname">{`${user.firstName} ${user.lastName}`}</p>
                         <p className="role">{user.role}</p>

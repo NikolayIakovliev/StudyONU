@@ -9,7 +9,8 @@ namespace StudyONU.Logic.Mappings
         public StudentQueueProfile()
         {
             CreateMap<StudentQueueCreateDTO, StudentQueueEntity>();
-            CreateMap<StudentQueueEntity, UserEntity>();
+            CreateMap<StudentQueueEntity, UserEntity>()
+                .ForMember(dest => dest.Id, opts => opts.Ignore());
             CreateMap<StudentQueueEntity, StudentQueueListDTO>()
                 .ForMember(dest => dest.SpecialityName, opts => opts.MapFrom(src => src.Speciality.Name));
         }

@@ -75,38 +75,47 @@ $background-color: #004d40;
                     }
                 }
 
-                .user-info {
-                    padding: 0 18px;
-                    text-align: right;
+                .account-container {
+                    display: flex;
+                    align-content: center;
 
-                    .fullname {
-                        font-size: 20px;
-                        margin: 0;
+                    .user-info {
+                        padding: 0 18px;
+                        text-align: right;
+                        opacity: 0.8;
+
+                        .fullname {
+                            font-size: 20px;
+                            margin: 0;
+                        }
+
+                        .role {
+                            font-size: 12px;
+                            margin: 0;
+                        }
                     }
 
-                    .role {
-                        font-size: 12px;
-                        margin: 0;
+                    .user-avatar {
+                        height: 40px;
+                        width: 40px;
+                        border-radius: 50%;
+                        border: 2px solid white;
                     }
-                }
 
-                .user-avatar {
-                    height: 40px;
-                    width: 40px;
-                    border-radius: 50%;
-                    border: 2px solid white;
-                }
+                    .logout-btn {
+                        margin: 0 30px;
+                        border: none;
+                        background-color: transparent;
+                        font-size: 16px;
+                        cursor: pointer;
+                        outline: none;
+                        opacity: 0.8;
+                        color: white;
 
-                .logout-btn {
-                    margin: 0 30px;
-                    border: none;
-                    background-color: transparent;
-                    font-size: 16px;
-                    cursor: pointer;
-                    outline: none;
-
-                    &:hover {
-                        border-bottom: 1px solid #CCE1EE;
+                        &:hover {
+                            border-bottom: 1px solid #CCE1EE;
+                            opacity: 1;
+                        }
                     }
                 }
             }

@@ -84,7 +84,9 @@ namespace StudyONU.Logic.Services
                     studentQueueEntity.Approved = true;
                     studentQueueEntity.DateApproved = DateTime.Now;
 
-                    string password = studentQueueEntity.Email;// passwordHasher.HashPassword(studentQueueEntity.Email);
+                    // TODO
+                    // Hash two times
+                    string password = passwordHasher.HashPassword(studentQueueEntity.Email);
 
                     UserEntity userEntity = mapper.Map<UserEntity>(studentQueueEntity);
                     userEntity.PasswordHash = password;

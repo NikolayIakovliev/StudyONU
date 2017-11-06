@@ -40,7 +40,7 @@ export const Authentication = (WrappedComponent) => {
 
             return (
                 <MuiThemeProvider>
-                    <div style={{ padding: 30 }}>
+                    <div style={{ padding: 30, backgroundColor: '#EBE8E8' }}>
                         <WrappedComponent
                             history={this.props.history}
                             user={user}
