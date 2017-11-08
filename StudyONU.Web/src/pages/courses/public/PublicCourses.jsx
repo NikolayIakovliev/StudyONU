@@ -16,7 +16,6 @@ export class PublicCourses extends React.Component {
 
         this.state = {
             items: [],
-            itemsPublished: [],
             loaded: false,
             displayError: false,
         }
@@ -33,7 +32,7 @@ export class PublicCourses extends React.Component {
             let newState = {
                 loaded: true,
                 displayError: result.success !== true,
-                itemsPublished: result.success === true
+                items: result.success === true
                     ? result.data
                     : []
             }
@@ -59,15 +58,9 @@ export class PublicCourses extends React.Component {
         return (
             <div>
                 <Header navigationLinks={navigationLinks} {...this.props} />
-                {itemsPublished.length > 0 &&
-                    <div className="cards">
-                    {itemsPublished.map(item => this.getCard(item, <CardText>Курс является опубликованным и находится в открытом доступе</CardText>))}
-                        <AlertConnection open={displayError} onClose={() => this.setState({ displayError: false })} />
-                    </div>
-                }
                 {items.length > 0 &&
                     <div className="cards">
-                    {items.map(item => this.getCard(item, <CardText color="red">Курс обязателен для прохождения</CardText>))}
+                    {items.map(item => this.getCard(item, <CardText>Курс является опубликованным и находится в открытом доступе</CardText>))}
                         <AlertConnection open={displayError} onClose={() => this.setState({ displayError: false })} />
                     </div>
                 }
@@ -100,6 +93,7 @@ export class PublicCourses extends React.Component {
                     label="Открыть"
                     primary={true}
                     icon={<ActionSubject />}
+                    onClick={() => this.props.history.push(`/courses/${item.id}`)}
                 />
             </CardActions>
         </Card>

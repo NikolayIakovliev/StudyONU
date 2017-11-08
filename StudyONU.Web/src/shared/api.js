@@ -91,7 +91,8 @@ export const urls = {
     },
     courses: {
         published: '/api/courses/published',
-        my: '/api/courses/my'
+        my: '/api/courses/my',
+        taskList: (id) => `/api/courses/${id}/tasks`
     },
     students: '/api/students',
     specialities: '/api/specialities'

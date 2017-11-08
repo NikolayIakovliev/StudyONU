@@ -198,39 +198,35 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
-                if (studentEntity != null)
+                CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(courseId);
+                if (courseEntity != null)
                 {
-                    CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(courseId);
-                    if (courseEntity != null)
+                    StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+
+                    bool hasAccess =
+                        courseEntity.IsPublished ||
+                        (studentEntity != null &&
+                        courseEntity.SpecialityId == studentEntity.SpecialityId &&
+                        courseEntity.CourseNumber == studentEntity.CourseNumber);
+
+                    if (hasAccess)
                     {
-                        bool hasAccess =
-                            courseEntity.SpecialityId == studentEntity.SpecialityId &&
-                            courseEntity.CourseNumber == studentEntity.CourseNumber;
-                        if (hasAccess)
-                        {
-                            IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllAsync(task =>
-                                task.CourseId == courseId &&
-                                (!task.DateAvailable.HasValue || task.DateAvailable.Value >= DateTime.Now.Date)
-                                );
-                            data = mapper.Map<IEnumerable<TaskListDTO>>(taskEntities);
-                        }
-                        else
-                        {
-                            actionResult = ServiceActionResult.Error;
-                            errors.Add("Student doesn't have an access to course");
-                        }
+                        IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllAsync(task =>
+                            task.CourseId == courseId &&
+                            (!task.DateAvailable.HasValue || task.DateAvailable.Value >= DateTime.Now.Date)
+                            );
+                        data = mapper.Map<IEnumerable<TaskListDTO>>(taskEntities);
                     }
                     else
                     {
-                        actionResult = ServiceActionResult.NotFound;
-                        errors.Add("Course was not found");
+                        actionResult = ServiceActionResult.Error;
+                        errors.Add("Student doesn't have an access to course");
                     }
                 }
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Student was not found");
+                    errors.Add("Course was not found");
                 }
             }
             catch (Exception exception)

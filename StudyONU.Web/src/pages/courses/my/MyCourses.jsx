@@ -47,10 +47,6 @@ export class MyCourses extends React.Component {
     }
 
     render() {
-        if (!this.props.user.isLoggedIn) {
-            return <Redirect to="/courses/public" />
-        }
-
         const {
             items,
             itemsPublished,
@@ -98,6 +94,7 @@ export class MyCourses extends React.Component {
                     label="Открыть"
                     primary={true}
                     icon={<ActionSubject />}
+                    onClick={() => this.props.history.push(`/courses/${item.id}`)}
                 />
             </CardActions>
         </Card>
