@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c760476b45e95f18ed51"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0d65a46c6386f63769dc"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4827,7 +4827,7 @@ exports = module.exports = __webpack_require__(93)(undefined);
 
 
 // module
-exports.push([module.i, ".header-wrapper {\n  padding-top: 70px; }\n  .header-wrapper .header {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    height: 70px;\n    background-color: #004d40;\n    color: white;\n    box-shadow: 0px 2px 12px black; }\n    .header-wrapper .header .header-content {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      height: 100%;\n      padding: 0 20px; }\n      .header-wrapper .header .header-content .left-controls {\n        display: flex;\n        align-items: center;\n        height: 100%; }\n      .header-wrapper .header .header-content .navbar-links {\n        display: flex;\n        height: 100%; }\n        .header-wrapper .header .header-content .navbar-links .navbar-link {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          color: white;\n          text-decoration: none;\n          padding: 0 25px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .navbar-links .navbar-link:hover {\n            background-color: rgba(255, 255, 255, 0.3); }\n        .header-wrapper .header .header-content .navbar-links .navbar-link-active {\n          opacity: 1;\n          background-color: #005c4d;\n          border-bottom: 2px solid white; }\n      .header-wrapper .header .header-content .right-account .auth-links {\n        display: flex;\n        justify-content: center;\n        align-items: center; }\n        .header-wrapper .header .header-content .right-account .auth-links .btn {\n          border: none;\n          background-color: transparent;\n          font-size: 16px;\n          cursor: pointer;\n          outline: none;\n          color: white;\n          margin: 0 10px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .right-account .auth-links .btn:hover {\n            border-bottom: 1px solid #CCE1EE;\n            opacity: 1; }\n      .header-wrapper .header .header-content .right-account .account-container {\n        display: flex;\n        align-content: center; }\n        .header-wrapper .header .header-content .right-account .account-container .user-info {\n          padding: 0 18px;\n          text-align: right;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info .fullname {\n            font-size: 20px;\n            margin: 0; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info .role {\n            font-size: 12px;\n            margin: 0; }\n        .header-wrapper .header .header-content .right-account .account-container .user-avatar {\n          height: 40px;\n          width: 40px;\n          border-radius: 50%;\n          border: 2px solid white; }\n        .header-wrapper .header .header-content .right-account .account-container .logout-btn {\n          margin: 0 30px;\n          border: none;\n          background-color: transparent;\n          font-size: 16px;\n          cursor: pointer;\n          outline: none;\n          opacity: 0.8;\n          color: white; }\n          .header-wrapper .header .header-content .right-account .account-container .logout-btn:hover {\n            border-bottom: 1px solid #CCE1EE;\n            opacity: 1; }\n", ""]);
+exports.push([module.i, ".header-wrapper {\n  padding-top: 70px; }\n  .header-wrapper .header {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    height: 70px;\n    background-color: #004d40;\n    color: white;\n    box-shadow: 0px 2px 12px black; }\n    .header-wrapper .header .header-content {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      height: 100%;\n      padding: 0 20px; }\n      .header-wrapper .header .header-content .left-controls {\n        display: flex;\n        align-items: center;\n        height: 100%;\n        flex: 1 1 .1rem; }\n      .header-wrapper .header .header-content .navbar-links {\n        display: flex;\n        height: 100%;\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .navbar-links .navbar-link {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          color: white;\n          text-decoration: none;\n          padding: 0 25px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .navbar-links .navbar-link:hover {\n            background-color: rgba(255, 255, 255, 0.3); }\n        .header-wrapper .header .header-content .navbar-links .navbar-link-active {\n          opacity: 1;\n          background-color: #005c4d;\n          border-bottom: 2px solid white; }\n      .header-wrapper .header .header-content .right-account .auth-links {\n        display: flex;\n        justify-content: center;\n        align-items: center; }\n        .header-wrapper .header .header-content .right-account .auth-links .btn {\n          border: none;\n          background-color: transparent;\n          font-size: 16px;\n          cursor: pointer;\n          outline: none;\n          color: white;\n          margin: 0 10px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .right-account .auth-links .btn:hover {\n            border-bottom: 1px solid #CCE1EE;\n            opacity: 1; }\n      .header-wrapper .header .header-content .right-account .account-container {\n        display: flex;\n        align-content: center; }\n        .header-wrapper .header .header-content .right-account .account-container .user-info {\n          padding: 0 18px;\n          text-align: right;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info .fullname {\n            font-size: 20px;\n            margin: 0; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info .role {\n            font-size: 12px;\n            margin: 0; }\n        .header-wrapper .header .header-content .right-account .account-container .user-avatar {\n          height: 40px;\n          width: 40px;\n          border-radius: 50%;\n          border: 2px solid white; }\n        .header-wrapper .header .header-content .right-account .account-container .logout-btn {\n          margin: 0 30px;\n          border: none;\n          background-color: transparent;\n          font-size: 16px;\n          cursor: pointer;\n          outline: none;\n          opacity: 0.8;\n          color: white; }\n          .header-wrapper .header .header-content .right-account .account-container .logout-btn:hover {\n            border-bottom: 1px solid #CCE1EE;\n            opacity: 1; }\n", ""]);
 
 // exports
 
@@ -5831,6 +5831,11 @@ var AuthorizationStorage = exports.AuthorizationStorage = function () {
     }
 
     _createClass(AuthorizationStorage, null, [{
+        key: 'subscribe',
+        value: function subscribe(subscriber) {
+            AuthorizationStorage.subscribers.push(subscriber);
+        }
+    }, {
         key: 'any',
         value: function any() {
             var authorization = localStorage.getItem(authorizationKey);
@@ -5849,16 +5854,30 @@ var AuthorizationStorage = exports.AuthorizationStorage = function () {
         value: function save(data) {
             var json = JSON.stringify(data);
             localStorage.setItem(authorizationKey, json);
+
+            AuthorizationStorage.notify();
         }
     }, {
         key: 'clear',
         value: function clear() {
             localStorage.clear();
+
+            AuthorizationStorage.notify();
+        }
+    }, {
+        key: 'notify',
+        value: function notify() {
+            for (var i = 0; i < AuthorizationStorage.subscribers.length; i++) {
+                var subscriber = AuthorizationStorage.subscribers[i];
+                subscriber.update();
+            }
         }
     }]);
 
     return AuthorizationStorage;
 }();
+
+AuthorizationStorage.subscribers = [];
 
 /***/ }),
 /* 125 */
@@ -14986,13 +15005,11 @@ var _reactDom = __webpack_require__(11);
 
 var _reactRouterDom = __webpack_require__(71);
 
-var _Authentication = __webpack_require__(289);
-
 var _Routes = __webpack_require__(395);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var Root = (0, _reactRouterDom.withRouter)((0, _Authentication.Authentication)(_Routes.Routes));
+var Root = (0, _reactRouterDom.withRouter)(_Routes.Routes);
 
 var root = document.getElementById('root');
 (0, _reactDom.render)(React.createElement(
@@ -15002,239 +15019,7 @@ var root = document.getElementById('root');
 ), root);
 
 /***/ }),
-/* 289 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Authentication = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-var _authorizationStorage = __webpack_require__(124);
-
-var _api = __webpack_require__(72);
-
-var _logger = __webpack_require__(125);
-
-var _LoginDialog = __webpack_require__(290);
-
-var _MuiThemeProvider = __webpack_require__(358);
-
-var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-__webpack_require__(393);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Authentication = exports.Authentication = function Authentication(WrappedComponent) {
-    return function (_React$Component) {
-        _inherits(WithAuthentication, _React$Component);
-
-        function WithAuthentication(props) {
-            _classCallCheck(this, WithAuthentication);
-
-            var _this = _possibleConstructorReturn(this, (WithAuthentication.__proto__ || Object.getPrototypeOf(WithAuthentication)).call(this, props));
-
-            _this.state = {
-                openLoginDialog: false,
-                loginError: false,
-                user: {
-                    isLoggedIn: false,
-                    role: '',
-                    token: '',
-                    firstName: '',
-                    lastName: '',
-                    patronymic: '',
-                    photoPath: ''
-                }
-            };
-            return _this;
-        }
-
-        _createClass(WithAuthentication, [{
-            key: 'componentDidMount',
-            value: function componentDidMount() {
-                this.update();
-            }
-        }, {
-            key: 'render',
-            value: function render() {
-                var _this2 = this;
-
-                var _state = this.state,
-                    openLoginDialog = _state.openLoginDialog,
-                    loginError = _state.loginError,
-                    user = _state.user;
-
-
-                return React.createElement(
-                    _MuiThemeProvider2.default,
-                    null,
-                    React.createElement(
-                        'div',
-                        { style: { padding: 30, backgroundColor: '#EBE8E8' } },
-                        React.createElement(WrappedComponent, {
-                            history: this.props.history,
-                            user: user,
-                            get: function get(url, callback) {
-                                return _this2.callApi(function () {
-                                    return _api.Api.get(url);
-                                }, callback);
-                            },
-                            post: function post(url, data, callback) {
-                                return _this2.callApi(function () {
-                                    return _api.Api.post(url, data);
-                                }, callback);
-                            },
-                            postFormData: function postFormData(url, data, callback) {
-                                return _this2.callApi(function () {
-                                    return _api.Api.postFormData(url, data);
-                                }, callback);
-                            },
-                            put: function put(url, data, callback) {
-                                return _this2.callApi(function () {
-                                    return _api.Api.put(url, data);
-                                }, callback);
-                            },
-                            putFormData: function putFormData(url, data, callback) {
-                                return _this2.callApi(function () {
-                                    return _api.Api.putFormData(url, data);
-                                }, callback);
-                            },
-                            'delete': function _delete(url, data, callback) {
-                                return _this2.callApi(function () {
-                                    return _api.Api.delete(url, data);
-                                }, callback);
-                            },
-                            error: function error(message) {
-                                return _logger.Logger.error(message);
-                            },
-                            onLogin: function onLogin() {
-                                return _this2.setState({ openLoginDialog: true });
-                            },
-                            onLogout: function onLogout() {
-                                _authorizationStorage.AuthorizationStorage.clear();
-                                _this2.update();
-                            }
-                        }),
-                        React.createElement(_LoginDialog.LoginDialog, {
-                            open: openLoginDialog,
-                            error: loginError,
-                            onClose: function onClose() {
-                                return _this2.setState({ openLoginDialog: false, loginError: false });
-                            },
-                            onSubmit: function onSubmit(data) {
-                                return _this2.login(data);
-                            }
-                        })
-                    )
-                );
-            }
-        }, {
-            key: 'callApi',
-            value: function callApi(method, callback) {
-                var _this3 = this;
-
-                method().then(function (response) {
-                    return _this3.checkUnauthorized(response);
-                }).then(function (result) {
-                    if (!result.isAuthOk) {
-                        _authorizationStorage.AuthorizationStorage.clear();
-                        _this3.update();
-                    } else if (result.exception) {
-                        _logger.Logger.error(result.response);
-                    } else {
-                        var json = result.response.json();
-                        if (json.errors && json.errors.length > 0) {
-                            _logger.Logger.error(errors);
-                        }
-
-                        json.then(function (r) {
-                            return callback(r);
-                        });
-                    }
-                });
-            }
-        }, {
-            key: 'checkUnauthorized',
-            value: function checkUnauthorized(response) {
-                var result = {
-                    response: response,
-                    isAuthOk: response.status != 401,
-                    exception: response.status != 200 && response.status != 400
-                };
-
-                return result;
-            }
-        }, {
-            key: 'login',
-            value: function login(data) {
-                var self = this;
-                _api.Api.token(data, function (result) {
-                    if (result.success === true) {
-                        _authorizationStorage.AuthorizationStorage.save(result.data);
-                        self.update();
-                    }
-
-                    self.setState({
-                        loginError: result.success !== true,
-                        openLoginDialog: result.success !== true
-                    });
-                });
-            }
-        }, {
-            key: 'update',
-            value: function update() {
-                var user = {
-                    isLoggedIn: false,
-                    role: '',
-                    token: '',
-                    firstName: '',
-                    lastName: '',
-                    patronymic: '',
-                    photoPath: ''
-                };
-
-                var userLoggedIn = _authorizationStorage.AuthorizationStorage.any();
-                if (userLoggedIn) {
-                    var authorizationData = _authorizationStorage.AuthorizationStorage.get();
-                    user.isLoggedIn = true;
-                    user.role = authorizationData.role;
-                    user.token = authorizationData.token;
-                    user.firstName = authorizationData.firstName;
-                    user.lastName = authorizationData.lastName;
-                    user.patronymic = authorizationData.patronymic;
-                    user.photoPath = authorizationData.photoPath;
-                }
-
-                this.setState({
-                    user: user
-                });
-            }
-        }]);
-
-        return WithAuthentication;
-    }(React.Component);
-};
-
-/***/ }),
+/* 289 */,
 /* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25170,13 +24955,19 @@ var React = _interopRequireWildcard(_react);
 
 var _reactRouterDom = __webpack_require__(71);
 
-var _PropsWrapper = __webpack_require__(396);
+var _authorizationStorage = __webpack_require__(124);
+
+var _ApiWrapper = __webpack_require__(469);
+
+var _NotFound = __webpack_require__(468);
+
+var _Registration = __webpack_require__(438);
 
 var _PublicCourses = __webpack_require__(397);
 
 var _MyCourses = __webpack_require__(463);
 
-var _Registration = __webpack_require__(438);
+var _Course = __webpack_require__(466);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -25192,22 +24983,78 @@ var Routes = exports.Routes = function (_React$Component) {
     function Routes(props) {
         _classCallCheck(this, Routes);
 
-        return _possibleConstructorReturn(this, (Routes.__proto__ || Object.getPrototypeOf(Routes)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Routes.__proto__ || Object.getPrototypeOf(Routes)).call(this, props));
+
+        _this.state = {
+            user: {
+                isLoggedIn: false,
+                role: '',
+                token: '',
+                firstName: '',
+                lastName: '',
+                patronymic: '',
+                photoPath: ''
+            }
+        };
+        return _this;
     }
 
     _createClass(Routes, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _authorizationStorage.AuthorizationStorage.subscribe(this);
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var user = this.state.user;
+
+            var Api = (0, _ApiWrapper.ApiWrapper)(user, function (data) {
+                return _authorizationStorage.AuthorizationStorage.save(data);
+            }, function () {
+                return _authorizationStorage.AuthorizationStorage.clear();
+            });
+
             return React.createElement(
                 _reactRouterDom.Switch,
                 null,
                 React.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
                         return React.createElement(_reactRouterDom.Redirect, { to: '/courses/public' });
                     } }),
-                React.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: (0, _PropsWrapper.PropsWrapper)(_Registration.Registration, this.props) }),
-                React.createElement(_reactRouterDom.Route, { exact: true, path: '/courses/public', component: (0, _PropsWrapper.PropsWrapper)(_PublicCourses.PublicCourses, this.props) }),
-                React.createElement(_reactRouterDom.Route, { exact: true, path: '/courses/my', component: (0, _PropsWrapper.PropsWrapper)(_MyCourses.MyCourses, this.props) })
+                React.createElement(_reactRouterDom.Route, { path: '/register', component: Api(_Registration.Registration) }),
+                React.createElement(_reactRouterDom.Route, { path: '/courses/public', component: Api(_PublicCourses.PublicCourses) }),
+                user.isLoggedIn && React.createElement(_reactRouterDom.Route, { path: '/courses/my', component: Api(_MyCourses.MyCourses) }),
+                React.createElement(_reactRouterDom.Route, { path: '/course/:id(\\d+)', component: Api(_Course.Course) }),
+                React.createElement(_reactRouterDom.Route, { component: _NotFound.NotFound })
             );
+        }
+    }, {
+        key: 'update',
+        value: function update() {
+            var user = {
+                isLoggedIn: _authorizationStorage.AuthorizationStorage.any(),
+                role: '',
+                token: '',
+                firstName: '',
+                lastName: '',
+                patronymic: '',
+                photoPath: ''
+            };
+
+            if (user.isLoggedIn) {
+                var authorizationData = _authorizationStorage.AuthorizationStorage.get();
+                user.isLoggedIn = true;
+                user.role = authorizationData.role;
+                user.token = authorizationData.token;
+                user.firstName = authorizationData.firstName;
+                user.lastName = authorizationData.lastName;
+                user.patronymic = authorizationData.patronymic;
+                user.photoPath = authorizationData.photoPath;
+            }
+
+            this.setState({
+                user: user
+            });
         }
     }]);
 
@@ -25215,53 +25062,7 @@ var Routes = exports.Routes = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 396 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.PropsWrapper = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PropsWrapper = exports.PropsWrapper = function PropsWrapper(WrappedComponent, props) {
-    return function (_React$Component) {
-        _inherits(WithPropsWrapper, _React$Component);
-
-        function WithPropsWrapper() {
-            _classCallCheck(this, WithPropsWrapper);
-
-            return _possibleConstructorReturn(this, (WithPropsWrapper.__proto__ || Object.getPrototypeOf(WithPropsWrapper)).apply(this, arguments));
-        }
-
-        _createClass(WithPropsWrapper, [{
-            key: 'render',
-            value: function render() {
-                return React.createElement(WrappedComponent, props);
-            }
-        }]);
-
-        return WithPropsWrapper;
-    }(React.Component);
-};
-
-/***/ }),
+/* 396 */,
 /* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35640,6 +35441,293 @@ if(true) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = (__webpack_require__(28))(10);
+
+/***/ }),
+/* 466 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Course = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Course = exports.Course = function (_React$Component) {
+    _inherits(Course, _React$Component);
+
+    function Course(props) {
+        _classCallCheck(this, Course);
+
+        return _possibleConstructorReturn(this, (Course.__proto__ || Object.getPrototypeOf(Course)).call(this, props));
+    }
+
+    _createClass(Course, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                'This is course number ',
+                this.props.match.params.id
+            );
+        }
+    }]);
+
+    return Course;
+}(React.Component);
+
+/***/ }),
+/* 467 */,
+/* 468 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.NotFound = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NotFound = exports.NotFound = function (_React$Component) {
+    _inherits(NotFound, _React$Component);
+
+    function NotFound() {
+        _classCallCheck(this, NotFound);
+
+        return _possibleConstructorReturn(this, (NotFound.__proto__ || Object.getPrototypeOf(NotFound)).apply(this, arguments));
+    }
+
+    _createClass(NotFound, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                'Not found!'
+            );
+        }
+    }]);
+
+    return NotFound;
+}(React.Component);
+
+/***/ }),
+/* 469 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ApiWrapper = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _MuiThemeProvider = __webpack_require__(358);
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _api = __webpack_require__(72);
+
+var _logger = __webpack_require__(125);
+
+var _LoginDialog = __webpack_require__(290);
+
+__webpack_require__(393);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogout) {
+    return function (WrappedComponent) {
+        return function (_React$Component) {
+            _inherits(WithApiWrapper, _React$Component);
+
+            function WithApiWrapper(props) {
+                _classCallCheck(this, WithApiWrapper);
+
+                var _this = _possibleConstructorReturn(this, (WithApiWrapper.__proto__ || Object.getPrototypeOf(WithApiWrapper)).call(this, props));
+
+                _this.state = {
+                    openLoginDialog: false,
+                    loginError: false
+                };
+                return _this;
+            }
+
+            _createClass(WithApiWrapper, [{
+                key: 'render',
+                value: function render() {
+                    var _this2 = this;
+
+                    var _state = this.state,
+                        openLoginDialog = _state.openLoginDialog,
+                        loginError = _state.loginError;
+
+
+                    return React.createElement(
+                        _MuiThemeProvider2.default,
+                        null,
+                        React.createElement(
+                            'div',
+                            { style: { padding: 30, backgroundColor: '#EBE8E8' } },
+                            React.createElement(WrappedComponent, _extends({}, this.props, {
+                                user: user,
+                                get: function get(url, callback) {
+                                    return _this2.callApi(function () {
+                                        return _api.Api.get(url);
+                                    }, callback);
+                                },
+                                post: function post(url, data, callback) {
+                                    return _this2.callApi(function () {
+                                        return _api.Api.post(url, data);
+                                    }, callback);
+                                },
+                                postFormData: function postFormData(url, data, callback) {
+                                    return _this2.callApi(function () {
+                                        return _api.Api.postFormData(url, data);
+                                    }, callback);
+                                },
+                                put: function put(url, data, callback) {
+                                    return _this2.callApi(function () {
+                                        return _api.Api.put(url, data);
+                                    }, callback);
+                                },
+                                putFormData: function putFormData(url, data, callback) {
+                                    return _this2.callApi(function () {
+                                        return _api.Api.putFormData(url, data);
+                                    }, callback);
+                                },
+                                'delete': function _delete(url, data, callback) {
+                                    return _this2.callApi(function () {
+                                        return _api.Api.delete(url, data);
+                                    }, callback);
+                                },
+                                error: function error(message) {
+                                    return _logger.Logger.error(message);
+                                },
+                                onLogin: function onLogin() {
+                                    return _this2.setState({ openLoginDialog: true });
+                                },
+                                onLogout: function onLogout() {
+                                    return _onLogout();
+                                }
+                            })),
+                            React.createElement(_LoginDialog.LoginDialog, {
+                                open: openLoginDialog,
+                                error: loginError,
+                                onClose: function onClose() {
+                                    return _this2.setState({ openLoginDialog: false, loginError: false });
+                                },
+                                onSubmit: function onSubmit(data) {
+                                    return _this2.login(data);
+                                }
+                            })
+                        )
+                    );
+                }
+            }, {
+                key: 'callApi',
+                value: function callApi(method, callback) {
+                    var _this3 = this;
+
+                    method().then(function (response) {
+                        return _this3.checkUnauthorized(response);
+                    }).then(function (result) {
+                        if (!result.isAuthOk) {
+                            _onLogout();
+                        } else if (result.exception) {
+                            _logger.Logger.error(result.response);
+                        } else {
+                            var json = result.response.json();
+                            if (json.errors && json.errors.length > 0) {
+                                _logger.Logger.error(errors);
+                            }
+
+                            json.then(function (r) {
+                                return callback(r);
+                            });
+                        }
+                    });
+                }
+            }, {
+                key: 'checkUnauthorized',
+                value: function checkUnauthorized(response) {
+                    var result = {
+                        response: response,
+                        isAuthOk: response.status != 401,
+                        exception: response.status == 500
+                    };
+
+                    return result;
+                }
+            }, {
+                key: 'login',
+                value: function login(data) {
+                    var self = this;
+                    _api.Api.token(data, function (result) {
+                        if (result.success === true) {
+                            onLogin(result.data);
+                        }
+
+                        self.setState({
+                            loginError: result.success !== true,
+                            openLoginDialog: result.success !== true
+                        });
+                    });
+                }
+            }]);
+
+            return WithApiWrapper;
+        }(React.Component);
+    };
+};
 
 /***/ })
 /******/ ]);

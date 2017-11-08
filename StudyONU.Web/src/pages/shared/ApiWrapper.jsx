@@ -1,48 +1,33 @@
 ﻿import * as React from 'react';
-import { AuthorizationStorage } from '../../shared/authorizationStorage';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import { Api } from '../../shared/api';
 import { Logger } from '../../shared/logger';
 import { LoginDialog } from './LoginDialog';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './shared.scss';
 
-export const Authentication = (WrappedComponent) => {
-    return class WithAuthentication extends React.Component {
+export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
+    return class WithApiWrapper extends React.Component {
         constructor(props) {
             super(props);
 
             this.state = {
                 openLoginDialog: false,
-                loginError: false,
-                user: {
-                    isLoggedIn: false,
-                    role: '',
-                    token: '',
-                    firstName: '',
-                    lastName: '',
-                    patronymic: '',
-                    photoPath: ''
-                }
+                loginError: false
             }
-        }
-
-        componentDidMount() {
-            this.update();
         }
 
         render() {
             const {
                 openLoginDialog,
-                loginError,
-                user
+                loginError
             } = this.state;
 
             return (
                 <MuiThemeProvider>
                     <div style={{ padding: 30, backgroundColor: '#EBE8E8' }}>
-                        <WrappedComponent
-                            history={this.props.history}
+                        <WrappedComponent {...this.props}
                             user={user}
                             get={(url, callback) => this.callApi(() => Api.get(url), callback)}
                             post={(url, data, callback) => this.callApi(() => Api.post(url, data), callback)}
@@ -52,10 +37,7 @@ export const Authentication = (WrappedComponent) => {
                             delete={(url, data, callback) => this.callApi(() => Api.delete(url, data), callback)}
                             error={message => Logger.error(message)}
                             onLogin={() => this.setState({ openLoginDialog: true })}
-                            onLogout={() => {
-                                AuthorizationStorage.clear();
-                                this.update();
-                            }}
+                            onLogout={() => onLogout()}
                         />
                         <LoginDialog
                             open={openLoginDialog}
@@ -73,8 +55,7 @@ export const Authentication = (WrappedComponent) => {
                 .then(response => this.checkUnauthorized(response))
                 .then(result => {
                     if (!result.isAuthOk) {
-                        AuthorizationStorage.clear();
-                        this.update();
+                        onLogout();
                     } else if (result.exception) {
                         Logger.error(result.response);
                     } else {
@@ -92,7 +73,7 @@ export const Authentication = (WrappedComponent) => {
             let result = {
                 response: response,
                 isAuthOk: response.status != 401,
-                exception: response.status != 200 && response.status != 400
+                exception: response.status == 500
             }
 
             return result
@@ -102,42 +83,13 @@ export const Authentication = (WrappedComponent) => {
             let self = this;
             Api.token(data, result => {
                 if (result.success === true) {
-                    AuthorizationStorage.save(result.data);
-                    self.update();
+                    onLogin(result.data);
                 }
 
                 self.setState({
                     loginError: result.success !== true,
                     openLoginDialog: result.success !== true
                 });
-            });
-        }
-
-        update() {
-            let user = {
-                isLoggedIn: false,
-                role: '',
-                token: '',
-                firstName: '',
-                lastName: '',
-                patronymic: '',
-                photoPath: ''
-            };
-
-            let userLoggedIn = AuthorizationStorage.any();
-            if (userLoggedIn) {
-                let authorizationData = AuthorizationStorage.get();
-                user.isLoggedIn = true;
-                user.role = authorizationData.role;
-                user.token = authorizationData.token;
-                user.firstName = authorizationData.firstName;
-                user.lastName = authorizationData.lastName;
-                user.patronymic = authorizationData.patronymic;
-                user.photoPath = authorizationData.photoPath;
-            }
-
-            this.setState({
-                user: user
             });
         }
     }
