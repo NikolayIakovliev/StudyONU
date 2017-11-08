@@ -92,7 +92,7 @@ export class Header extends React.Component {
                         <p className="role">{user.role}</p>
                     </div>
                     <img src={user.photoPath} className="user-avatar" />
-                    <button className="logout-btn" onClick={e => this.props.logout()}>Выйти</button>
+                    <button className="logout-btn" onClick={e => this.props.onLogout()}>Выйти</button>
                 </div>
             )
             : (
@@ -100,6 +100,6 @@ export class Header extends React.Component {
                     <button className="btn" onClick={() => this.props.onLogin()}>Войти</button>
                     <button className="btn" onClick={() => this.props.history.push('/register')}>Регистрация</button>
                 </div>
-                );
+            );
     }
 }

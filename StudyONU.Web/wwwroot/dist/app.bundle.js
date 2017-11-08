@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dad3a05f4ca82ee5225c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c760476b45e95f18ed51"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7183,7 +7183,7 @@ var Header = exports.Header = function (_React$Component) {
                 React.createElement(
                     'button',
                     { className: 'logout-btn', onClick: function onClick(e) {
-                            return _this4.props.logout();
+                            return _this4.props.onLogout();
                         } },
                     '\u0412\u044B\u0439\u0442\u0438'
                 )
@@ -25172,7 +25172,9 @@ var _reactRouterDom = __webpack_require__(71);
 
 var _PropsWrapper = __webpack_require__(396);
 
-var _Home = __webpack_require__(397);
+var _PublicCourses = __webpack_require__(397);
+
+var _MyCourses = __webpack_require__(463);
 
 var _Registration = __webpack_require__(438);
 
@@ -25199,8 +25201,12 @@ var Routes = exports.Routes = function (_React$Component) {
             return React.createElement(
                 _reactRouterDom.Switch,
                 null,
-                React.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: (0, _PropsWrapper.PropsWrapper)(_Home.Home, this.props) }),
-                React.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: (0, _PropsWrapper.PropsWrapper)(_Registration.Registration, this.props) })
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+                        return React.createElement(_reactRouterDom.Redirect, { to: '/courses/public' });
+                    } }),
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: (0, _PropsWrapper.PropsWrapper)(_Registration.Registration, this.props) }),
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/courses/public', component: (0, _PropsWrapper.PropsWrapper)(_PublicCourses.PublicCourses, this.props) }),
+                React.createElement(_reactRouterDom.Route, { exact: true, path: '/courses/my', component: (0, _PropsWrapper.PropsWrapper)(_MyCourses.MyCourses, this.props) })
             );
         }
     }]);
@@ -25265,7 +25271,9 @@ var PropsWrapper = exports.PropsWrapper = function PropsWrapper(WrappedComponent
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Home = undefined;
+exports.PublicCourses = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -25309,13 +25317,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Home = exports.Home = function (_React$Component) {
-    _inherits(Home, _React$Component);
+var PublicCourses = exports.PublicCourses = function (_React$Component) {
+    _inherits(PublicCourses, _React$Component);
 
-    function Home(props) {
-        _classCallCheck(this, Home);
+    function PublicCourses(props) {
+        _classCallCheck(this, PublicCourses);
 
-        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (PublicCourses.__proto__ || Object.getPrototypeOf(PublicCourses)).call(this, props));
 
         _this.state = {
             items: [],
@@ -25326,19 +25334,14 @@ var Home = exports.Home = function (_React$Component) {
         return _this;
     }
 
-    _createClass(Home, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.loadPublic();
-
-            var isLoggedIn = this.props.isLoggedIn;
-            if (isLoggedIn) {
-                this.loadMy();
-            }
+    _createClass(PublicCourses, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.load();
         }
     }, {
-        key: 'loadPublic',
-        value: function loadPublic() {
+        key: 'load',
+        value: function load() {
             var _this2 = this;
 
             var self = this;
@@ -25358,30 +25361,9 @@ var Home = exports.Home = function (_React$Component) {
             });
         }
     }, {
-        key: 'loadMy',
-        value: function loadMy() {
-            var _this3 = this;
-
-            var self = this;
-
-            this.props.get(_api.urls.courses.my, function (result) {
-                var newState = {
-                    loaded: true,
-                    displayError: result.success !== true,
-                    items: result.success === true ? result.data : []
-                };
-
-                if (result.success !== true) {
-                    _this3.props.error(result);
-                }
-
-                self.setState(newState);
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this3 = this;
 
             var _state = this.state,
                 items = _state.items,
@@ -25390,39 +25372,47 @@ var Home = exports.Home = function (_React$Component) {
                 displayError = _state.displayError;
 
 
+            var navigationLinks = this.getNavigationLinks();
+
             return React.createElement(
                 'div',
                 null,
-                React.createElement(_Header.Header, this.props),
+                React.createElement(_Header.Header, _extends({ navigationLinks: navigationLinks }, this.props)),
                 itemsPublished.length > 0 && React.createElement(
                     'div',
                     { className: 'cards' },
                     itemsPublished.map(function (item) {
-                        return _this4.getCard(item, React.createElement(
+                        return _this3.getCard(item, React.createElement(
                             _Card.CardText,
                             null,
                             '\u041A\u0443\u0440\u0441 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D\u043D\u044B\u043C \u0438 \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0441\u044F \u0432 \u043E\u0442\u043A\u0440\u044B\u0442\u043E\u043C \u0434\u043E\u0441\u0442\u0443\u043F\u0435'
                         ));
                     }),
                     React.createElement(_AlertConnection.AlertConnection, { open: displayError, onClose: function onClose() {
-                            return _this4.setState({ displayError: false });
+                            return _this3.setState({ displayError: false });
                         } })
                 ),
                 items.length > 0 && React.createElement(
                     'div',
                     { className: 'cards' },
                     items.map(function (item) {
-                        return _this4.getCard(item, React.createElement(
+                        return _this3.getCard(item, React.createElement(
                             _Card.CardText,
                             { color: 'red' },
                             '\u041A\u0443\u0440\u0441 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u0434\u043B\u044F \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F'
                         ));
                     }),
                     React.createElement(_AlertConnection.AlertConnection, { open: displayError, onClose: function onClose() {
-                            return _this4.setState({ displayError: false });
+                            return _this3.setState({ displayError: false });
                         } })
                 )
             );
+        }
+    }, {
+        key: 'getNavigationLinks',
+        value: function getNavigationLinks() {
+            var user = this.props.user;
+            return user.isLoggedIn ? [{ to: '/courses/public', title: 'Опубликованные курсы' }, { to: '/courses/my', title: 'Мои курсы' }] : null;
         }
     }, {
         key: 'getCard',
@@ -25451,7 +25441,7 @@ var Home = exports.Home = function (_React$Component) {
         }
     }]);
 
-    return Home;
+    return PublicCourses;
 }(React.Component);
 
 /***/ }),
@@ -35425,6 +35415,231 @@ ActionDone.displayName = 'ActionDone';
 ActionDone.muiName = 'SvgIcon';
 
 exports.default = ActionDone;
+
+/***/ }),
+/* 462 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(93)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".cards {\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 30px; }\n  .cards .card {\n    max-width: 300px;\n    margin-right: 30px; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 463 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.MyCourses = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _reactRouter = __webpack_require__(465);
+
+var _api = __webpack_require__(72);
+
+var _AlertConnection = __webpack_require__(398);
+
+var _Card = __webpack_require__(403);
+
+var _Header = __webpack_require__(158);
+
+var _Divider = __webpack_require__(165);
+
+var _Divider2 = _interopRequireDefault(_Divider);
+
+var _FlatButton = __webpack_require__(62);
+
+var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+var _FontIcon = __webpack_require__(156);
+
+var _FontIcon2 = _interopRequireDefault(_FontIcon);
+
+var _subject = __webpack_require__(436);
+
+var _subject2 = _interopRequireDefault(_subject);
+
+__webpack_require__(464);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MyCourses = exports.MyCourses = function (_React$Component) {
+    _inherits(MyCourses, _React$Component);
+
+    function MyCourses(props) {
+        _classCallCheck(this, MyCourses);
+
+        var _this = _possibleConstructorReturn(this, (MyCourses.__proto__ || Object.getPrototypeOf(MyCourses)).call(this, props));
+
+        _this.state = {
+            items: [],
+            loaded: false,
+            displayError: false
+        };
+        return _this;
+    }
+
+    _createClass(MyCourses, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.load();
+        }
+    }, {
+        key: 'load',
+        value: function load() {
+            var _this2 = this;
+
+            var self = this;
+
+            this.props.get(_api.urls.courses.my, function (result) {
+                var newState = {
+                    loaded: true,
+                    displayError: result.success !== true,
+                    items: result.success === true ? result.data : []
+                };
+
+                if (result.success !== true) {
+                    _this2.props.error(result);
+                }
+
+                self.setState(newState);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            if (!this.props.user.isLoggedIn) {
+                return React.createElement(_reactRouter.Redirect, { to: '/courses/public' });
+            }
+
+            var _state = this.state,
+                items = _state.items,
+                itemsPublished = _state.itemsPublished,
+                loaded = _state.loaded,
+                displayError = _state.displayError;
+
+
+            var navigationLinks = this.getNavigationLinks();
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(_Header.Header, _extends({ navigationLinks: navigationLinks }, this.props)),
+                items.length > 0 && React.createElement(
+                    'div',
+                    { className: 'cards' },
+                    items.map(function (item) {
+                        return _this3.getCard(item, React.createElement(
+                            _Card.CardText,
+                            { color: 'red' },
+                            '\u041A\u0443\u0440\u0441 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u0434\u043B\u044F \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F'
+                        ));
+                    }),
+                    React.createElement(_AlertConnection.AlertConnection, { open: displayError, onClose: function onClose() {
+                            return _this3.setState({ displayError: false });
+                        } })
+                )
+            );
+        }
+    }, {
+        key: 'getNavigationLinks',
+        value: function getNavigationLinks() {
+            var user = this.props.user;
+            return user.isLoggedIn ? [{ to: '/courses/public', title: 'Опубликованные курсы' }, { to: '/courses/my', title: 'Мои курсы' }] : null;
+        }
+    }, {
+        key: 'getCard',
+        value: function getCard(item, cardText) {
+            return React.createElement(
+                _Card.Card,
+                { key: item.id, className: 'card' },
+                React.createElement(_Card.CardHeader, {
+                    title: item.lecturerFullName,
+                    subtitle: item.lecturerEmail,
+                    avatar: 'http://localhost:28387' + item.lecturerPhotoPath
+                }),
+                React.createElement(_Divider2.default, null),
+                React.createElement(_Card.CardTitle, { title: item.name, subtitle: item.specialityName + ', ' + item.courseNumber + ' \u043A\u0443\u0440\u0441' }),
+                cardText,
+                React.createElement(
+                    _Card.CardActions,
+                    null,
+                    React.createElement(_FlatButton2.default, {
+                        label: '\u041E\u0442\u043A\u0440\u044B\u0442\u044C',
+                        primary: true,
+                        icon: React.createElement(_subject2.default, null)
+                    })
+                )
+            );
+        }
+    }]);
+
+    return MyCourses;
+}(React.Component);
+
+/***/ }),
+/* 464 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(462);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(94)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(462, function() {
+			var newContent = __webpack_require__(462);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 465 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = (__webpack_require__(28))(10);
 
 /***/ })
 /******/ ]);

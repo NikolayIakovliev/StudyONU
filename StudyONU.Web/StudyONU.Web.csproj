@@ -17,6 +17,15 @@
     <Folder Include="wwwroot\images\uploads\students\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="webpack.config.development.js">
+      <DependentUpon>webpack.config.common.js</DependentUpon>
+    </None>
+    <None Update="webpack.config.production.js">
+      <DependentUpon>webpack.config.common.js</DependentUpon>
+    </None>
+  </ItemGroup>
+
   <Target Name="WebpackBuildVendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

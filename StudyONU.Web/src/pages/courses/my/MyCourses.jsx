@@ -1,57 +1,32 @@
 ﻿import * as React from 'react';
-import { urls } from '../../shared/api';
-import { AlertConnection } from '../shared/AlertConnection';
+import { Redirect } from 'react-router';
+import { urls } from '../../../shared/api';
+import { AlertConnection } from '../../shared/AlertConnection';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import { Header } from '../shared/Header';
+import { Header } from '../../shared/Header';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import ActionSubject from 'material-ui/svg-icons/action/subject';
 
-import './home.scss';
+import './myCourses.scss';
 
-export class Home extends React.Component {
+export class MyCourses extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             items: [],
-            itemsPublished: [],
             loaded: false,
             displayError: false,
         }
     }
 
-    componentWillMount() {
-        this.loadPublic();
-
-        const isLoggedIn = this.props.isLoggedIn;
-        if (isLoggedIn) {
-            this.loadMy();
-        }
+    componentDidMount() {
+        this.load();
     }
 
-    loadPublic() {
-        let self = this;
-
-        this.props.get(urls.courses.published, result => {
-            let newState = {
-                loaded: true,
-                displayError: result.success !== true,
-                itemsPublished: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            if (result.success !== true) {
-                this.props.error(result);
-            }
-
-            self.setState(newState);
-        });
-    }
-
-    loadMy() {
+    load() {
         let self = this;
 
         this.props.get(urls.courses.my, result => {
@@ -72,6 +47,10 @@ export class Home extends React.Component {
     }
 
     render() {
+        if (!this.props.user.isLoggedIn) {
+            return <Redirect to="/courses/public" />
+        }
+
         const {
             items,
             itemsPublished,
@@ -79,15 +58,11 @@ export class Home extends React.Component {
             displayError
         } = this.state;
 
+        let navigationLinks = this.getNavigationLinks();
+
         return (
             <div>
-                <Header {...this.props} />
-                {itemsPublished.length > 0 &&
-                    <div className="cards">
-                    {itemsPublished.map(item => this.getCard(item, <CardText>Курс является опубликованным и находится в открытом доступе</CardText>))}
-                        <AlertConnection open={displayError} onClose={() => this.setState({ displayError: false })} />
-                    </div>
-                }
+                <Header navigationLinks={navigationLinks} {...this.props} />
                 {items.length > 0 &&
                     <div className="cards">
                     {items.map(item => this.getCard(item, <CardText color="red">Курс обязателен для прохождения</CardText>))}
@@ -96,6 +71,16 @@ export class Home extends React.Component {
                 }
             </div>
         );
+    }
+
+    getNavigationLinks() {
+        let user = this.props.user;
+        return user.isLoggedIn
+            ? [
+                { to: '/courses/public', title: 'Опубликованные курсы' },
+                { to: '/courses/my', title: 'Мои курсы' }
+            ]
+            : null;
     }
 
     getCard(item, cardText) {
