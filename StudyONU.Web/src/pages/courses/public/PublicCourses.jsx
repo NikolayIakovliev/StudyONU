@@ -5,7 +5,6 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import { Header } from '../../shared/Header';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
 import ActionSubject from 'material-ui/svg-icons/action/subject';
 
 import './publicCourses.scss';
@@ -93,7 +92,7 @@ export class PublicCourses extends React.Component {
                     label="Открыть"
                     primary={true}
                     icon={<ActionSubject />}
-                    onClick={() => this.props.history.push(`/courses/${item.id}`)}
+                    onClick={() => this.props.history.push(`/courses/${item.id}/tasks`)}
                 />
             </CardActions>
         </Card>

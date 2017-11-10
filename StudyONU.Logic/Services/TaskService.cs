@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using StudyONU.Core.Entities;
+using StudyONU.Core.Infrastructure;
 using StudyONU.Data.Contracts;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
@@ -190,11 +191,11 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<IEnumerable<TaskListDTO>>> GetByCourseAndStudentAsync(int courseId, string studentEmail)
+        public async Task<DataServiceMessage<IEnumerable<StudentTaskListDTO>>> GetByCourseAndStudentAsync(int courseId, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             List<string> errors = new List<string>();
-            IEnumerable<TaskListDTO> data = null;
+            IEnumerable<StudentTaskListDTO> data = null;
 
             try
             {
@@ -215,7 +216,12 @@ namespace StudyONU.Logic.Services
                             task.CourseId == courseId &&
                             (!task.DateAvailable.HasValue || task.DateAvailable.Value >= DateTime.Now.Date)
                             );
-                        data = mapper.Map<IEnumerable<TaskListDTO>>(taskEntities);
+                        data = mapper.Map<IEnumerable<StudentTaskListDTO>>(taskEntities);
+                        foreach (StudentTaskListDTO task in data)
+                        {
+                            TaskState taskState = await unitOfWork.Reports.GetReportState(studentEntity.Id, task.Id);
+                            task.ReportStatus = (int)taskState;
+                        }
                     }
                     else
                     {
@@ -235,7 +241,7 @@ namespace StudyONU.Logic.Services
                 actionResult = ServiceActionResult.Exception;
             }
 
-            return new DataServiceMessage<IEnumerable<TaskListDTO>>
+            return new DataServiceMessage<IEnumerable<StudentTaskListDTO>>
             {
                 ActionResult = actionResult,
                 Errors = errors,

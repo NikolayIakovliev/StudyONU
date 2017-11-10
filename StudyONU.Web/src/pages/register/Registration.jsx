@@ -66,12 +66,14 @@ export class Registration extends React.Component {
             allowNextStep
         } = this.state;
 
+        let navigationLinks = this.getNavigationLinks();
+
         const handleNext = this.getNextHandler(stepIndex);
         const stepContent = this.getStepContent(stepIndex);
 
         return (
             <div>
-                <Header {...this.props} />
+                <Header navigationLinks={navigationLinks} {...this.props} />
                 <Paper zDepth={3}>
                     <Subheader>Регистрация нового студента</Subheader>
                     <Divider />
@@ -108,6 +110,16 @@ export class Registration extends React.Component {
                 </Paper>
             </div>
         );
+    }
+
+    getNavigationLinks() {
+        let user = this.props.user;
+        return user.isLoggedIn
+            ? [
+                { to: '/courses/public', title: 'Опубликованные курсы' },
+                { to: '/courses/my', title: 'Мои курсы' }
+            ]
+            : null;
     }
 
     getStepContent(stepIndex) {

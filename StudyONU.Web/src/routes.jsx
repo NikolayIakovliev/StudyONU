@@ -30,6 +30,7 @@ export class Routes extends React.Component {
     }
 
     componentDidMount() {
+        this.update();
         AuthorizationStorage.subscribe(this);
     }
 
@@ -44,7 +45,7 @@ export class Routes extends React.Component {
                 <Route path='/register' component={Api(Registration)} />
                 <Route path='/courses/public' component={Api(PublicCourses)} />
                 {user.isLoggedIn && <Route path='/courses/my' component={Api(MyCourses)} />}
-                <Route path='/courses/:id(\d+)' component={Api(Course)} />
+                <Route path='/courses/:id(\d+)/tasks' component={Api(Course)} />
                 <Route path='/404' component={NotFound} />
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>

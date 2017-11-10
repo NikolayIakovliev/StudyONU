@@ -49,13 +49,13 @@ namespace StudyONU.Web.Controllers
         {
             string email = GetUserEmail();
 
-            DataServiceMessage<IEnumerable<TaskListDTO>> serviceMessage = await taskService.GetByCourseAndStudentAsync(id, email);
+            DataServiceMessage<IEnumerable<StudentTaskListDTO>> serviceMessage = await taskService.GetByCourseAndStudentAsync(id, email);
 
             // TODO
             // Use domain options
             if (serviceMessage.ActionResult == ServiceActionResult.Success)
             {
-                foreach (TaskListDTO item in serviceMessage.Data)
+                foreach (StudentTaskListDTO item in serviceMessage.Data)
                 {
                     if (item.FilePaths != null)
                     {

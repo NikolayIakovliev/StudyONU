@@ -92,7 +92,7 @@ export class Header extends React.Component {
                         <p className="role">{user.role}</p>
                     </div>
                     <img src={user.photoPath} className="user-avatar" />
-                    <button className="logout-btn" onClick={e => this.props.onLogout()}>Выйти</button>
+                    <button className="logout-btn" onClick={() => this.props.onLogout()}>Выйти</button>
                 </div>
             )
             : (
