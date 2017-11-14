@@ -15,6 +15,17 @@ namespace StudyONU.Data.Repositories
         public CourseRepository(StudyONUDbContext context)
             : base(context) { }
 
+        public async Task<CourseEntity> GetDetailedAsync(int id)
+        {
+            CourseEntity course = await context.Courses
+                .Include(courseEntity => courseEntity.Speciality)
+                .Include(courseEntity => courseEntity.Lecturer)
+                .ThenInclude(lecturerEntity => lecturerEntity.User)
+                .FirstOrDefaultAsync();
+
+            return course;
+        }
+
         public override async Task<IEnumerable<CourseEntity>> GetAllAsync(Expression<Func<CourseEntity, bool>> expression = null)
         {
             IQueryable<CourseEntity> entities = context.Courses

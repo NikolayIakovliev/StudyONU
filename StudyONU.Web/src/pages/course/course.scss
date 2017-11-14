@@ -1,0 +1,59 @@
+﻿@import '../shared/variables.scss';
+
+$course-info-height: 250px;
+
+.course-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: $course-info-height;
+    background: url('/images/task-page-top.jpg') no-repeat;
+    background-size: cover;
+    color: white;
+    text-align: center;
+
+    .title {
+        font-size: 26px;
+        margin: 10px;
+    }
+
+    .speciality {
+        font-size: 18px;
+    }
+
+    .lecturer-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .lecturer-photo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            margin-right: 30px;
+        }
+
+        .lecturer-name {
+            font-size: 18px;
+        }
+    }
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: $course-info-height;
+
+    .task-item {
+        margin-bottom: 30px;
+        width: 760px;
+    }
+}

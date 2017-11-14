@@ -5,6 +5,9 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import ActionSubject from 'material-ui/svg-icons/action/subject';
+import { grey500, red500, green500, orange500 } from 'material-ui/styles/colors';
+
+import './course.scss';
 
 export class Course extends React.Component {
     constructor(props) {
@@ -14,6 +17,7 @@ export class Course extends React.Component {
             items: [],
             loaded: false,
             displayError: false,
+            courseInfo: null
         }
     }
 
@@ -23,8 +27,22 @@ export class Course extends React.Component {
 
     load() {
         let self = this;
+        const id = this.props.match.params.id;
 
-        this.props.get(urls.courses.taskList(this.props.match.params.id), result => {
+        this.props.get(urls.courses.details(id), result => {
+            let newState = {
+                displayError: result.success !== true,
+                courseInfo: result.data
+            }
+
+            if (result.success !== true) {
+                this.props.error(result);
+            }
+
+            self.setState(newState);
+        });
+
+        this.props.get(urls.courses.taskList(id), result => {
             let newState = {
                 loaded: true,
                 displayError: result.success !== true,
@@ -43,20 +61,25 @@ export class Course extends React.Component {
 
     render() {
         const {
-            items
+            items,
+            courseInfo
         } = this.state;
 
         let navigationLinks = this.getNavigationLinks();
 
         const renderTaskTemplate = (item) => {
-            const description = this.getReportStatusDescription(item.reportStatus);
+            let description = item.description ? item.description + '' : '';
+            item.description = description.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+            const courseViewModel = this.getReportStatusViewModel(item.reportStatus);
             return (
-                <Card key={item.id} className="card">
-                    <CardTitle title={item.title} subtitle={this.getReportStatusText(item.reportStatusText)} />
-                    {item.description}
+                <Card key={item.id} className="task-item">
+                    <CardTitle title={item.title} subtitle={courseViewModel.text} subtitleColor={courseViewModel.color} subtitleStyle={{ fontSize: 16 }} />
+                    <Divider />
+                    <CardText dangerouslySetInnerHTML={{ __html: item.description }}></CardText>
                     <CardActions>
                         <FlatButton
-                            label="Открыть"
+                            label="Детали"
                             primary={true}
                             icon={<ActionSubject />}
                             onClick={() => this.props.history.push(`/courses/${item.id}/tasks`)}
@@ -68,8 +91,11 @@ export class Course extends React.Component {
 
         return (
             <div>
-                <Header navigationLinks={navigationLinks} {...this.props} />
-                {items.map(item => renderTaskTemplate(item))}
+                <Header navigationLinks={navigationLinks} backLink="/courses/public" {...this.props} />
+                {this.getCourseInfo(courseInfo)}
+                <div className="task-list">
+                    {items.map(item => renderTaskTemplate(item))}
+                </div>
             </div>
         );
     }
@@ -86,18 +112,54 @@ export class Course extends React.Component {
             : null;
     }
 
-    getReportStatusDescription(reportStatus) {
-        let description = {
+    getReportStatusViewModel(reportStatus) {
+        let viewModel = {
             text: '',
-            color: '',
-            icon: null
+            color: ''
         }
 
         switch (reportStatus) {
-
-            default:
+            case 1:
+                viewModel.text = 'Не выполнено';
+                viewModel.color = grey500;
+                break;
+            case 2:
+                viewModel.text = 'На проверке';
+                viewModel.color = orange500;
+                break;
+            case 3:
+                viewModel.text = 'Сдано';
+                viewModel.color = green500;
+                break;
+            case 4:
+                viewModel.text = 'Не утверждено';
+                viewModel.color = red500;
+                break;
+            case 5:
+                viewModel.text = 'Вышел срок сдачи';
+                viewModel.color = red500;
+                break;
         }
 
-        return text;
+        return viewModel;
+    }
+
+    getCourseInfo(courseInfo) {
+        console.log(courseInfo);
+
+        return courseInfo
+            ? (
+                <div className="course-info">
+                    <h2 className="title">{courseInfo.name}</h2>
+                    <p className="speciality">{`${courseInfo.specialityName}, ${courseInfo.courseNumber} курс`}</p>
+                    <div className="lecturer-info">
+                        <img className="lecturer-photo" src={courseInfo.lecturerPhotoPath} />
+                        <span className="lecturer-name">{courseInfo.lecturerFullName}</span>
+                    </div>
+                </div>
+            )
+            : (
+                <p>Загрузка...</p>
+            );
     }
 }

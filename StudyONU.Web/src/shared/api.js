@@ -90,6 +90,7 @@ export const urls = {
         checkEmail: '/api/account/checkemail'
     },
     courses: {
+        details: (id) => `/api/courses/${id}`,
         published: '/api/courses/published',
         my: '/api/courses/my',
         taskList: (id) => `/api/courses/${id}/tasks`

@@ -24,6 +24,22 @@ namespace StudyONU.Web.Controllers
         }
 
         [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            DataServiceMessage<CourseDetailsDTO> serviceMessage = await courseService.GetAsync(id);
+
+            // TODO
+            // Remove this
+            if (serviceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                serviceMessage.Data.LecturerPhotoPath = "http://localhost:28387/" + serviceMessage.Data.LecturerPhotoPath;
+            }
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpGet]
         [Route("published")]
         public async Task<IActionResult> ListPublished()
         {
