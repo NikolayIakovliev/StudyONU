@@ -1,7 +1,6 @@
 ﻿import * as React from 'react';
 import { Redirect } from 'react-router';
 import { urls } from '../../../shared/api';
-import { AlertConnection } from '../../shared/AlertConnection';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { Header } from '../../shared/Header';
 import Divider from 'material-ui/Divider';
@@ -16,8 +15,7 @@ export class MyCourses extends React.Component {
 
         this.state = {
             items: [],
-            loaded: false,
-            displayError: false,
+            loaded: false
         }
     }
 
@@ -29,28 +27,17 @@ export class MyCourses extends React.Component {
         let self = this;
 
         this.props.get(urls.courses.my, result => {
-            let newState = {
+            self.setState({
                 loaded: true,
-                displayError: result.success !== true,
-                items: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            if (result.success !== true) {
-                this.props.error(result);
-            }
-
-            self.setState(newState);
+                items: result.data
+            });
         });
     }
 
     render() {
         const {
             items,
-            itemsPublished,
-            loaded,
-            displayError
+            loaded
         } = this.state;
 
         let navigationLinks = this.getNavigationLinks();
@@ -61,7 +48,6 @@ export class MyCourses extends React.Component {
                 {items.length > 0 &&
                     <div className="cards">
                     {items.map(item => this.getCard(item, <CardText color="red">Курс обязателен для прохождения</CardText>))}
-                        <AlertConnection open={displayError} onClose={() => this.setState({ displayError: false })} />
                     </div>
                 }
             </div>

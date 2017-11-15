@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9116e40cbdd9ce2e17aa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d13aac8ea964b227c2af"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9451,9 +9451,9 @@ var AlertConnection = exports.AlertConnection = function (_React$Component) {
         value: function render() {
             return React.createElement(_Snackbar2.default, {
                 open: this.props.open,
-                message: '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0438',
+                message: this.props.message,
                 action: '\u0417\u0430\u043A\u0440\u044B\u0442\u044C',
-                autoHideDuration: 4000,
+                autoHideDuration: 5000,
                 onActionTouchTap: this.props.onClose,
                 onRequestClose: this.props.onClose });
         }
@@ -15338,6 +15338,8 @@ var _logger = __webpack_require__(151);
 
 var _LoginDialog = __webpack_require__(374);
 
+var _AlertConnection = __webpack_require__(170);
+
 __webpack_require__(398);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -15362,7 +15364,8 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
 
                 _this.state = {
                     openLoginDialog: false,
-                    loginError: false
+                    loginError: false,
+                    errorMessage: ''
                 };
                 return _this;
             }
@@ -15374,8 +15377,11 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
 
                     var _state = this.state,
                         openLoginDialog = _state.openLoginDialog,
-                        loginError = _state.loginError;
+                        loginError = _state.loginError,
+                        errorMessage = _state.errorMessage;
 
+
+                    var open = errorMessage.length > 0;
 
                     return React.createElement(
                         _MuiThemeProvider2.default,
@@ -15415,9 +15421,6 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                                         return _api.Api.delete(url, data);
                                     }, callback);
                                 },
-                                error: function error(message) {
-                                    return _logger.Logger.error(message);
-                                },
                                 onLogin: function onLogin() {
                                     return _this2.setState({ openLoginDialog: true });
                                 },
@@ -15434,6 +15437,13 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                                 onSubmit: function onSubmit(data) {
                                     return _this2.login(data);
                                 }
+                            }),
+                            React.createElement(_AlertConnection.AlertConnection, {
+                                open: open,
+                                message: errorMessage,
+                                onClose: function onClose() {
+                                    return _this2.setState({ errorMessage: '' });
+                                }
                             })
                         )
                     );
@@ -15443,28 +15453,41 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                 value: function callApi(method, callback) {
                     var _this3 = this;
 
+                    var self = this;
+                    var history = this.props.history;
+
                     method().then(function (response) {
-                        return _this3.checkUnauthorized(response);
+                        return _this3.parseResponse(response);
                     }).then(function (result) {
                         if (!result.isAuthOk) {
                             _onLogout();
                         } else if (result.exception) {
                             _logger.Logger.error(result.response);
                         } else {
-                            var json = result.response.json();
-                            if (json.errors && json.errors.length > 0) {
-                                _logger.Logger.error(errors);
-                            }
-
-                            json.then(function (r) {
-                                return callback(r);
+                            var promise = result.response.json();
+                            promise.then(function (json) {
+                                if (json.success === true) {
+                                    callback(json);
+                                } else {
+                                    var errors = json.errors;
+                                    if (errors.common) {
+                                        _logger.Logger.error(errors.common ? errors.common : 'Error on server');
+                                        self.setState({ errorMessage: 'Неправильно введены данные' });
+                                    } else if (errors.exception) {
+                                        _logger.Logger.error(errors.exception ? errors.exception : 'Exception on server');
+                                        self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
+                                    } else if (errors.access) {
+                                        _logger.Logger.error(errors.access ? errors.access : 'Access denied');
+                                        history.push('/');
+                                    }
+                                }
                             });
                         }
                     });
                 }
             }, {
-                key: 'checkUnauthorized',
-                value: function checkUnauthorized(response) {
+                key: 'parseResponse',
+                value: function parseResponse(response) {
                     var result = {
                         response: response,
                         isAuthOk: response.status != 401,
@@ -33440,8 +33463,6 @@ var React = _interopRequireWildcard(_react);
 
 var _api = __webpack_require__(46);
 
-var _AlertConnection = __webpack_require__(170);
-
 var _Card = __webpack_require__(99);
 
 var _Header = __webpack_require__(68);
@@ -33480,8 +33501,7 @@ var PublicCourses = exports.PublicCourses = function (_React$Component) {
 
         _this.state = {
             items: [],
-            loaded: false,
-            displayError: false
+            loaded: false
         };
         return _this;
     }
@@ -33494,34 +33514,23 @@ var PublicCourses = exports.PublicCourses = function (_React$Component) {
     }, {
         key: 'load',
         value: function load() {
-            var _this2 = this;
-
             var self = this;
 
             this.props.get(_api.urls.courses.published, function (result) {
-                var newState = {
+                self.setState({
                     loaded: true,
-                    displayError: result.success !== true,
-                    items: result.success === true ? result.data : []
-                };
-
-                if (result.success !== true) {
-                    _this2.props.error(result);
-                }
-
-                self.setState(newState);
+                    items: result.data
+                });
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this2 = this;
 
             var _state = this.state,
                 items = _state.items,
-                itemsPublished = _state.itemsPublished,
-                loaded = _state.loaded,
-                displayError = _state.displayError;
+                loaded = _state.loaded;
 
 
             var navigationLinks = this.getNavigationLinks();
@@ -33534,15 +33543,12 @@ var PublicCourses = exports.PublicCourses = function (_React$Component) {
                     'div',
                     { className: 'cards' },
                     items.map(function (item) {
-                        return _this3.getCard(item, React.createElement(
+                        return _this2.getCard(item, React.createElement(
                             _Card.CardText,
                             null,
                             '\u041A\u0443\u0440\u0441 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u043E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u043D\u043D\u044B\u043C \u0438 \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0441\u044F \u0432 \u043E\u0442\u043A\u0440\u044B\u0442\u043E\u043C \u0434\u043E\u0441\u0442\u0443\u043F\u0435'
                         ));
-                    }),
-                    React.createElement(_AlertConnection.AlertConnection, { open: displayError, onClose: function onClose() {
-                            return _this3.setState({ displayError: false });
-                        } })
+                    })
                 )
             );
         }
@@ -33555,7 +33561,7 @@ var PublicCourses = exports.PublicCourses = function (_React$Component) {
     }, {
         key: 'getCard',
         value: function getCard(item, cardText) {
-            var _this4 = this;
+            var _this3 = this;
 
             return React.createElement(
                 _Card.Card,
@@ -33576,7 +33582,7 @@ var PublicCourses = exports.PublicCourses = function (_React$Component) {
                         primary: true,
                         icon: React.createElement(_subject2.default, null),
                         onClick: function onClick() {
-                            return _this4.props.history.push('/courses/' + item.id + '/tasks');
+                            return _this3.props.history.push('/courses/' + item.id + '/tasks');
                         }
                     })
                 )
@@ -35509,8 +35515,6 @@ var _reactRouter = __webpack_require__(465);
 
 var _api = __webpack_require__(46);
 
-var _AlertConnection = __webpack_require__(170);
-
 var _Card = __webpack_require__(99);
 
 var _Header = __webpack_require__(68);
@@ -35549,8 +35553,7 @@ var MyCourses = exports.MyCourses = function (_React$Component) {
 
         _this.state = {
             items: [],
-            loaded: false,
-            displayError: false
+            loaded: false
         };
         return _this;
     }
@@ -35563,34 +35566,23 @@ var MyCourses = exports.MyCourses = function (_React$Component) {
     }, {
         key: 'load',
         value: function load() {
-            var _this2 = this;
-
             var self = this;
 
             this.props.get(_api.urls.courses.my, function (result) {
-                var newState = {
+                self.setState({
                     loaded: true,
-                    displayError: result.success !== true,
-                    items: result.success === true ? result.data : []
-                };
-
-                if (result.success !== true) {
-                    _this2.props.error(result);
-                }
-
-                self.setState(newState);
+                    items: result.data
+                });
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this2 = this;
 
             var _state = this.state,
                 items = _state.items,
-                itemsPublished = _state.itemsPublished,
-                loaded = _state.loaded,
-                displayError = _state.displayError;
+                loaded = _state.loaded;
 
 
             var navigationLinks = this.getNavigationLinks();
@@ -35603,15 +35595,12 @@ var MyCourses = exports.MyCourses = function (_React$Component) {
                     'div',
                     { className: 'cards' },
                     items.map(function (item) {
-                        return _this3.getCard(item, React.createElement(
+                        return _this2.getCard(item, React.createElement(
                             _Card.CardText,
                             { color: 'red' },
                             '\u041A\u0443\u0440\u0441 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u0434\u043B\u044F \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F'
                         ));
-                    }),
-                    React.createElement(_AlertConnection.AlertConnection, { open: displayError, onClose: function onClose() {
-                            return _this3.setState({ displayError: false });
-                        } })
+                    })
                 )
             );
         }
@@ -35624,7 +35613,7 @@ var MyCourses = exports.MyCourses = function (_React$Component) {
     }, {
         key: 'getCard',
         value: function getCard(item, cardText) {
-            var _this4 = this;
+            var _this3 = this;
 
             return React.createElement(
                 _Card.Card,
@@ -35645,7 +35634,7 @@ var MyCourses = exports.MyCourses = function (_React$Component) {
                         primary: true,
                         icon: React.createElement(_subject2.default, null),
                         onClick: function onClick() {
-                            return _this4.props.history.push('/courses/' + item.id + '/tasks');
+                            return _this3.props.history.push('/courses/' + item.id + '/tasks');
                         }
                     })
                 )
@@ -35829,11 +35818,12 @@ var Course = exports.Course = function (_React$Component) {
                         _Card.CardActions,
                         null,
                         React.createElement(_FlatButton2.default, {
+                            disabled: !_this3.props.user.isLoggedIn,
                             label: '\u0414\u0435\u0442\u0430\u043B\u0438',
                             primary: true,
                             icon: React.createElement(_subject2.default, null),
                             onClick: function onClick() {
-                                return _this3.props.history.push('/courses/' + item.id + '/tasks');
+                                return _this3.props.history.push('/courses/' + _this3.props.match.params.id + '/tasks/' + item.id);
                             }
                         })
                     )
@@ -35897,8 +35887,6 @@ var Course = exports.Course = function (_React$Component) {
     }, {
         key: 'getCourseInfo',
         value: function getCourseInfo(courseInfo) {
-            console.log(courseInfo);
-
             return courseInfo ? React.createElement(
                 'div',
                 { className: 'course-info' },

@@ -6,9 +6,9 @@ export class AlertConnection extends React.Component {
         return (
             <Snackbar
                 open={this.props.open}
-                message="Возникла ошибка при соединении"
+                message={this.props.message}
                 action="Закрыть"
-                autoHideDuration={4000}
+                autoHideDuration={5000}
                 onActionTouchTap={this.props.onClose}
                 onRequestClose={this.props.onClose} />
         );

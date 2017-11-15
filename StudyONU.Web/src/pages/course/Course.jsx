@@ -79,10 +79,11 @@ export class Course extends React.Component {
                     <CardText dangerouslySetInnerHTML={{ __html: item.description }}></CardText>
                     <CardActions>
                         <FlatButton
+                            disabled={!this.props.user.isLoggedIn}
                             label="Детали"
                             primary={true}
                             icon={<ActionSubject />}
-                            onClick={() => this.props.history.push(`/courses/${item.id}/tasks`)}
+                            onClick={() => this.props.history.push(`/courses/${this.props.match.params.id}/tasks/${item.id}`)}
                         />
                     </CardActions>
                 </Card>
@@ -145,8 +146,6 @@ export class Course extends React.Component {
     }
 
     getCourseInfo(courseInfo) {
-        console.log(courseInfo);
-
         return courseInfo
             ? (
                 <div className="course-info">

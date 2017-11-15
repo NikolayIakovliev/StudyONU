@@ -4,7 +4,6 @@ using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Options;
 using System;
 using System.IO;
-using StudyONU.Logic.Infrastructure;
 
 namespace StudyONU.Logic.Helpers
 {
@@ -25,8 +24,11 @@ namespace StudyONU.Logic.Helpers
 
             using (StreamWriter stream = File.AppendText(fullPath))
             {
-                string now = DateTime.Now.ToLongDateString();
-                stream.WriteLine($"[{now}] (FATAL): Exception:");
+                string now = DateTime.Now.ToString();
+                stream.WriteLine($"[{now}] (FATAL). Exception:");
+                stream.WriteLine("-- Begin Stack Trace --");
+                stream.WriteLine(exception.StackTrace);
+                stream.WriteLine("-- End Stack Trace --");
                 do
                 {
                     stream.WriteLine($"  -{exception.Message}");
@@ -41,7 +43,7 @@ namespace StudyONU.Logic.Helpers
 
             using (StreamWriter stream = File.AppendText(fullPath))
             {
-                string now = DateTime.Now.ToLongDateString();
+                string now = DateTime.Now.ToString();
                 stream.WriteLine($"[{now}] (FATAL): {message}.");
             }
         }
@@ -52,7 +54,7 @@ namespace StudyONU.Logic.Helpers
 
             using (StreamWriter stream = File.AppendText(fullPath))
             {
-                string now = DateTime.Now.ToLongDateString();
+                string now = DateTime.Now.ToString();
                 stream.WriteLine($"[{now}] (Info): {message}.");
             }
         }

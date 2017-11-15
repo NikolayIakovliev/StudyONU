@@ -222,10 +222,13 @@ namespace StudyONU.Logic.Services
                             (!task.DateAvailable.HasValue || task.DateAvailable.Value >= DateTime.Now.Date)
                             );
                         data = mapper.Map<IEnumerable<StudentTaskListDTO>>(taskEntities);
-                        foreach (StudentTaskListDTO task in data)
+                        if (studentEntity != null)
                         {
-                            TaskState taskState = await unitOfWork.Reports.GetReportState(studentEntity.Id, task.Id);
-                            task.ReportStatus = (int)taskState;
+                            foreach (StudentTaskListDTO task in data)
+                            {
+                                TaskState taskState = await unitOfWork.Reports.GetReportState(studentEntity.Id, task.Id);
+                                task.ReportStatus = (int)taskState;
+                            }
                         }
                     }
                     else

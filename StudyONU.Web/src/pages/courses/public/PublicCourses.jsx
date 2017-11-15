@@ -1,6 +1,5 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
-import { AlertConnection } from '../../shared/AlertConnection';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { Header } from '../../shared/Header';
 import Divider from 'material-ui/Divider';
@@ -15,8 +14,7 @@ export class PublicCourses extends React.Component {
 
         this.state = {
             items: [],
-            loaded: false,
-            displayError: false,
+            loaded: false
         }
     }
 
@@ -28,28 +26,17 @@ export class PublicCourses extends React.Component {
         let self = this;
 
         this.props.get(urls.courses.published, result => {
-            let newState = {
+            self.setState({
                 loaded: true,
-                displayError: result.success !== true,
-                items: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            if (result.success !== true) {
-                this.props.error(result);
-            }
-
-            self.setState(newState);
+                items: result.data
+            });
         });
     }
 
     render() {
         const {
             items,
-            itemsPublished,
-            loaded,
-            displayError
+            loaded
         } = this.state;
 
         let navigationLinks = this.getNavigationLinks();
@@ -60,7 +47,6 @@ export class PublicCourses extends React.Component {
                 {items.length > 0 &&
                     <div className="cards">
                     {items.map(item => this.getCard(item, <CardText>Курс является опубликованным и находится в открытом доступе</CardText>))}
-                        <AlertConnection open={displayError} onClose={() => this.setState({ displayError: false })} />
                     </div>
                 }
             </div>

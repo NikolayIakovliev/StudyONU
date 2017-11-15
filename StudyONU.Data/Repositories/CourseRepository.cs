@@ -21,7 +21,7 @@ namespace StudyONU.Data.Repositories
                 .Include(courseEntity => courseEntity.Speciality)
                 .Include(courseEntity => courseEntity.Lecturer)
                 .ThenInclude(lecturerEntity => lecturerEntity.User)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(courseEntity => courseEntity.Id == id);
 
             return course;
         }
