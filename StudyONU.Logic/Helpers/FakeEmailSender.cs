@@ -9,17 +9,17 @@ namespace StudyONU.Logic.Helpers
 {
     public class FakeEmailSender : IEmailSender
     {
-        private readonly IExceptionMessageBuilder exceptionMessageBuilder;
+        private readonly ILogger logger;
 
-        public FakeEmailSender(IExceptionMessageBuilder exceptionMessageBuilder)
+        public FakeEmailSender(ILogger logger)
         {
-            this.exceptionMessageBuilder = exceptionMessageBuilder;
+            this.logger = logger;
         }
 
         public async Task<ServiceMessage> SendEmailAsync(string to, string subject, string body)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             //try
             //{
@@ -36,7 +36,7 @@ namespace StudyONU.Logic.Helpers
             //catch (Exception exception)
             //{
             //    actionResult = ServiceActionResult.Exception;
-            //    exceptionMessageBuilder.FillErrors(exception, errors);
+            //    logger.FillErrors(exception, errors);
             //}
 
             return new ServiceMessage

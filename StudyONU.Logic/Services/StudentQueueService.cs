@@ -18,9 +18,9 @@ namespace StudyONU.Logic.Services
         public StudentQueueService(
             IUnitOfWork unitOfWork, 
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder,
+            ILogger logger,
             IPasswordHasher passwordHasher
-            ) : base(unitOfWork, mapper, exceptionMessageBuilder)
+            ) : base(unitOfWork, mapper, logger)
         {
             this.passwordHasher = passwordHasher;
         }
@@ -28,7 +28,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> CreateAsync(StudentQueueCreateDTO studentQueueCreateDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -48,19 +48,20 @@ namespace StudyONU.Logic.Services
                     else
                     {
                         actionResult = ServiceActionResult.NotFound;
-                        errors.Add("Speciality was not found");
+                        errors.AddCommonError("Speciality was not found");
                     }
                 }
                 else
                 {
                     actionResult = ServiceActionResult.Error;
-                    errors.Add("User with such email already exists");
+                    errors.AddCommonError("User with such email already exists");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -73,7 +74,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<StudentRegisteredDTO>> ApproveAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             StudentRegisteredDTO data = null;
 
             try
@@ -112,13 +113,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Student was not found");
+                    errors.AddCommonError("Student was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<StudentRegisteredDTO>
@@ -132,7 +134,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<StudentRegisteredDTO>> DisapproveAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             StudentRegisteredDTO data = null;
 
             try
@@ -153,13 +155,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Student was not found");
+                    errors.AddCommonError("Student was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<StudentRegisteredDTO>
@@ -195,7 +198,7 @@ namespace StudyONU.Logic.Services
         private async Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetAllAsync(Func<Task<IEnumerable<StudentQueueEntity>>> factory)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<StudentQueueListDTO> data = null;
 
             try
@@ -205,8 +208,9 @@ namespace StudyONU.Logic.Services
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<StudentQueueListDTO>>

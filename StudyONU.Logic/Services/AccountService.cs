@@ -18,10 +18,10 @@ namespace StudyONU.Logic.Services
         public AccountService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder,
+            ILogger logger,
             IPasswordHasher passwordHasher
             )
-            : base(unitOfWork, mapper, exceptionMessageBuilder)
+            : base(unitOfWork, mapper, logger)
         {
             this.passwordHasher = passwordHasher;
         }
@@ -29,7 +29,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> RegisterAdminAsync(RegisterAdminDTO adminDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -56,13 +56,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.Error;
-                    errors.Add("User with such email already exists");
+                    errors.Add("Email", "User with such email already exists");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -75,7 +76,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> InitializeRoles()
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -96,8 +97,9 @@ namespace StudyONU.Logic.Services
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -110,7 +112,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> ChangePasswordAsync(ChangePasswordDTO changePasswordDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             if (changePasswordDTO.NewPassword == changePasswordDTO.Confirm)
             {
@@ -133,25 +135,26 @@ namespace StudyONU.Logic.Services
                         else
                         {
                             actionResult = ServiceActionResult.Error;
-                            errors.Add("Old password is incorrect");
+                            errors.AddCommonError("Old password is incorrect");
                         }
                     }
                     else
                     {
                         actionResult = ServiceActionResult.NotFound;
-                        errors.Add("User was not found");
+                        errors.AddCommonError("User was not found");
                     }
                 }
                 catch (Exception exception)
                 {
-                    exceptionMessageBuilder.FillErrors(exception, errors);
+                    logger.Fatal(exception);
                     actionResult = ServiceActionResult.Exception;
+                    errors.AddExceptionError();
                 }
             }
             else
             {
                 actionResult = ServiceActionResult.Error;
-                errors.Add("Passwords don't match");
+                errors.AddCommonError("Passwords don't match");
             }
 
             return new ServiceMessage
@@ -164,7 +167,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> IsUnique(string email)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -173,13 +176,14 @@ namespace StudyONU.Logic.Services
                 if (userEntity != null || studentQueueEntity != null)
                 {
                     actionResult = ServiceActionResult.Error;
-                    errors.Add("Email is already being used");
+                    errors.AddCommonError("Email is already being used");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage

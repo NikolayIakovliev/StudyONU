@@ -27,7 +27,8 @@ namespace StudyONU.Web.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            DataServiceMessage<CourseDetailsDTO> serviceMessage = await courseService.GetAsync(id);
+            string email = GetUserEmail();
+            DataServiceMessage<CourseDetailsDTO> serviceMessage = await courseService.GetAsync(id, email);
 
             // TODO
             // Remove this

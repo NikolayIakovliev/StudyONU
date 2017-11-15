@@ -13,18 +13,18 @@ namespace StudyONU.Logic.Helpers
     public class FileHelper : IFileHelper
     {
         private readonly IHostingEnvironment env;
-        private readonly IExceptionMessageBuilder exceptionMessageBuilder;
+        private readonly ILogger logger;
 
-        public FileHelper(IHostingEnvironment env, IExceptionMessageBuilder exceptionMessageBuilder)
+        public FileHelper(IHostingEnvironment env, ILogger logger)
         {
             this.env = env;
-            this.exceptionMessageBuilder = exceptionMessageBuilder;
+            this.logger = logger;
         }
 
         public async Task<DataServiceMessage<string>> SaveFileAsync(IFormFile file, string serverFolderPath)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             string data = null;
 
             try
@@ -34,7 +34,7 @@ namespace StudyONU.Logic.Helpers
             catch (Exception exception)
             {
                 actionResult = ServiceActionResult.Exception;
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
             }
 
             return new DataServiceMessage<string>
@@ -48,7 +48,7 @@ namespace StudyONU.Logic.Helpers
         public async Task<DataServiceMessage<IEnumerable<string>>> SaveFilesAsync(IEnumerable<IFormFile> files, string serverFolderPath)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<string> data = null;
 
             try
@@ -60,7 +60,7 @@ namespace StudyONU.Logic.Helpers
             catch (Exception exception)
             {
                 actionResult = ServiceActionResult.Exception;
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
             }
 
             return new DataServiceMessage<IEnumerable<string>>

@@ -19,17 +19,17 @@ namespace StudyONU.Logic.Services
         public LecturerService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder,
+            ILogger logger,
             IPasswordHasher passwordHasher
             )
-            : base(unitOfWork, mapper, exceptionMessageBuilder) {
+            : base(unitOfWork, mapper, logger) {
             this.passwordHasher = passwordHasher;
         }
 
         public async Task<DataServiceMessage<string>> CreateAsync(LecturerCreateDTO lecturerCreateDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             string data = null;
 
             try
@@ -56,13 +56,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.Error;
-                    errors.Add("User with such E-Mail already exists");
+                    errors.AddCommonError("User with such E-Mail already exists");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<string>
@@ -76,7 +77,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> EditAsync(LecturerEditDTO lecturerEditDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -92,13 +93,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
+                    errors.AddCommonError("Lecturer was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -111,7 +113,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> DeleteAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -124,13 +126,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
+                    errors.AddCommonError("Lecturer was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -143,7 +146,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<IEnumerable<LecturerListDTO>>> GetAllAsync()
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<LecturerListDTO> data = null;
 
             try
@@ -157,8 +160,9 @@ namespace StudyONU.Logic.Services
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<LecturerListDTO>>

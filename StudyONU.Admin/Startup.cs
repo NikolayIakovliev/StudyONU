@@ -9,6 +9,7 @@ using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Builder;
 using StudyONU.Admin.Mappings;
 using StudyONU.Logic.Extensions;
+using System;
 
 namespace StudyONU.Admin
 {
@@ -21,7 +22,7 @@ namespace StudyONU.Admin
             this.configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(config =>
             {
@@ -39,6 +40,8 @@ namespace StudyONU.Admin
                     };
                     options.SerializerSettings.Converters.Add(converter);
                 });
+
+            return services.BuildServiceProvider();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,9 +56,9 @@ namespace StudyONU.Admin
                     ReactHotModuleReplacement = true,
                     ConfigFile = "webpack.config.development.js"
                 });
-                // TODO
-                // implement logging
             }
+
+            app.UseDatabaseSeedMiddleware();
 
             app.UseStaticFiles();
 
@@ -74,8 +77,6 @@ namespace StudyONU.Admin
                     defaults: new { controller = "Home", action = "Index" }
                     );
             });
-
-            app.UseDatabaseSeedMiddleware();
         }
     }
 }

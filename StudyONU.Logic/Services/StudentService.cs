@@ -16,7 +16,7 @@ namespace StudyONU.Logic.Services
         public StudentService(
             IUnitOfWork unitOfWork, 
             IMapper mapper, 
-            IExceptionMessageBuilder exceptionMessageBuilder
-            ) : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            ILogger logger
+            ) : base(unitOfWork, mapper, logger) { }
     }
 }

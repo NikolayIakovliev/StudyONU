@@ -9,7 +9,6 @@ namespace StudyONU.Logic.Extensions
         public static IServiceCollection AddHelpers(this IServiceCollection services)
         {
             services.AddTransient<IPasswordHasher, PasswordHasher>();
-            services.AddTransient<IExceptionMessageBuilder, ExceptionMessageBuilder>();
             services.AddTransient<IFileHelper, FileHelper>();
             services.AddTransient<IEmailSender, FakeEmailSender>();
 

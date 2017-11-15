@@ -18,13 +18,13 @@ namespace StudyONU.Logic.Services
         public TaskService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder)
-            : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            ILogger logger)
+            : base(unitOfWork, mapper, logger) { }
 
         public async Task<ServiceMessage> CreateAsync(TaskCreateDTO taskCreateDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -40,13 +40,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Course was not found");
+                    errors.AddCommonError("Course was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -59,7 +60,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> EditAsync(TaskEditDTO taskEditDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -75,14 +76,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Task was not found");
+                    errors.AddCommonError("Task was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -95,7 +97,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> EditFilesAsync(int id, IEnumerable<string> filePaths)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -108,14 +110,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Task was not found");
+                    errors.AddCommonError("Task was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -128,7 +131,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> DeleteAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -140,14 +143,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Task was not found");
+                    errors.AddCommonError("Task was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -160,7 +164,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<IEnumerable<TaskListDTO>>> GetByLecturerEmailAsync(string email)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<TaskListDTO> data = null;
 
             try
@@ -174,13 +178,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
+                    errors.AddCommonError("Lecturer was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<TaskListDTO>>
@@ -194,7 +199,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<IEnumerable<StudentTaskListDTO>>> GetByCourseAndStudentAsync(int courseId, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<StudentTaskListDTO> data = null;
 
             try
@@ -226,19 +231,20 @@ namespace StudyONU.Logic.Services
                     else
                     {
                         actionResult = ServiceActionResult.Error;
-                        errors.Add("Student doesn't have an access to course");
+                        errors.AddAccessError("Student doesn't have an access to course");
                     }
                 }
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Course was not found");
+                    errors.AddCommonError("Course was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<StudentTaskListDTO>>

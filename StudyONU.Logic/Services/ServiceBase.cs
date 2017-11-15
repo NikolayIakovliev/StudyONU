@@ -8,17 +8,17 @@ namespace StudyONU.Logic.Services
     {
         protected readonly IUnitOfWork unitOfWork;
         protected readonly IMapper mapper;
-        protected readonly IExceptionMessageBuilder exceptionMessageBuilder;
+        protected readonly ILogger logger;
 
         public ServiceBase(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder
+            ILogger logger
             )
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            this.exceptionMessageBuilder = exceptionMessageBuilder;
+            this.logger = logger;
         }
 
         public void Dispose()

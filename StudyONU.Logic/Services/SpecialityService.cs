@@ -17,13 +17,13 @@ namespace StudyONU.Logic.Services
         public SpecialityService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder) 
-            : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            ILogger logger) 
+            : base(unitOfWork, mapper, logger) { }
 
         public async Task<ServiceMessage> CreateAsync(string name)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -37,8 +37,9 @@ namespace StudyONU.Logic.Services
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -51,7 +52,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> EditAsync(SpecialityDTO specialityDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -63,14 +64,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Speciality was not found");
+                    errors.AddCommonError("Speciality was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -83,7 +85,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> DeleteAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -95,14 +97,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Speciality was not found");
+                    errors.AddCommonError("Speciality was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -115,7 +118,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<IEnumerable<SpecialityDTO>>> GetAllAsync()
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<SpecialityDTO> data = null;
 
             try
@@ -127,8 +130,9 @@ namespace StudyONU.Logic.Services
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<SpecialityDTO>>

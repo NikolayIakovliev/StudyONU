@@ -16,13 +16,13 @@ namespace StudyONU.Logic.Services
         public CourseService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder
-            ) : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            ILogger logger
+            ) : base(unitOfWork, mapper, logger) { }
 
         public async Task<ServiceMessage> CreateAsync(CourseCreateDTO courseCreateDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -42,19 +42,20 @@ namespace StudyONU.Logic.Services
                     else
                     {
                         actionResult = ServiceActionResult.NotFound;
-                        errors.Add("Speciality was not found");
+                        errors.AddCommonError("Speciality was not found");
                     }
                 }
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
+                    errors.AddCommonError("Lecturer was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -67,7 +68,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> EditAsync(CourseEditDTO courseEditDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -87,20 +88,21 @@ namespace StudyONU.Logic.Services
                     }
                     else
                     {
-                        errors.Add("Speciality was not found");
+                        errors.AddCommonError("Speciality was not found");
                         actionResult = ServiceActionResult.NotFound;
                     }
                 }
                 else
                 {
-                    errors.Add("Course was not found");
+                    errors.AddCommonError("Course was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -113,7 +115,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> DeleteAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -125,14 +127,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Course was not found");
+                    errors.AddCommonError("Course was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -142,10 +145,10 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<CourseDetailsDTO>> GetAsync(int id)
+        public async Task<DataServiceMessage<CourseDetailsDTO>> GetAsync(int id, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             CourseDetailsDTO data = null;
 
             try
@@ -153,18 +156,35 @@ namespace StudyONU.Logic.Services
                 CourseEntity courseEntity = await unitOfWork.Courses.GetDetailedAsync(id);
                 if (courseEntity != null)
                 {
-                    data = mapper.Map<CourseDetailsDTO>(courseEntity);
+                    StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+
+                    bool hasAccess =
+                        courseEntity.IsPublished ||
+                        (studentEntity != null &&
+                        courseEntity.SpecialityId == studentEntity.SpecialityId &&
+                        courseEntity.CourseNumber == studentEntity.CourseNumber);
+
+                    if (hasAccess)
+                    {
+                        data = mapper.Map<CourseDetailsDTO>(courseEntity);
+                    }
+                    else
+                    {
+                        actionResult = ServiceActionResult.Error;
+                        errors.AddAccessError("Student doesn't have an access to course");
+                    }
                 }
                 else
                 {
-                    errors.Add("Course was not found");
+                    errors.AddCommonError("Course was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<CourseDetailsDTO>
@@ -193,7 +213,7 @@ namespace StudyONU.Logic.Services
 
         public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetPublishedAsync()
         {
-            Func<Task<IEnumerable<CourseEntity>>> factory = 
+            Func<Task<IEnumerable<CourseEntity>>> factory =
                 () => unitOfWork.Courses.GetAllOrderedAsync(course => course.IsPublished, course => course.Name);
 
             return GetAllAsync(factory);
@@ -202,7 +222,7 @@ namespace StudyONU.Logic.Services
         private async Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetAllAsync(Func<Task<IEnumerable<CourseEntity>>> factory)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<CourseListDTO> data = null;
 
             try
@@ -212,8 +232,9 @@ namespace StudyONU.Logic.Services
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<CourseListDTO>>

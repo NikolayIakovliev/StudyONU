@@ -17,13 +17,13 @@ namespace StudyONU.Logic.Services
         public GuideService(
             IUnitOfWork unitOfWork, 
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder) 
-            : base(unitOfWork, mapper, exceptionMessageBuilder) { }
+            ILogger logger) 
+            : base(unitOfWork, mapper, logger) { }
 
         public async Task<ServiceMessage> CreateAsync(GuideCreateDTO guideCreateDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -39,13 +39,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Course was not found");
+                    errors.AddCommonError("Course was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -58,7 +59,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> EditAsync(GuideEditDTO guideEditDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -76,14 +77,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Guide was not found");
+                    errors.AddCommonError("Guide was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -96,7 +98,7 @@ namespace StudyONU.Logic.Services
         public async Task<ServiceMessage> DeleteAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
 
             try
             {
@@ -108,14 +110,15 @@ namespace StudyONU.Logic.Services
                 }
                 else
                 {
-                    errors.Add("Guide was not found");
+                    errors.AddCommonError("Guide was not found");
                     actionResult = ServiceActionResult.NotFound;
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new ServiceMessage
@@ -128,7 +131,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<GuideDetailsDTO>> GetByIdAsync(int id)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             GuideDetailsDTO data = null;
 
             try
@@ -141,13 +144,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Guide was not found");
+                    errors.AddCommonError("Guide was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<GuideDetailsDTO>
@@ -161,7 +165,7 @@ namespace StudyONU.Logic.Services
         public async Task<DataServiceMessage<IEnumerable<GuideListDTO>>> GetByLecturerEmailAsync(string email)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             IEnumerable<GuideListDTO> data = null;
 
             try
@@ -177,13 +181,14 @@ namespace StudyONU.Logic.Services
                 else
                 {
                     actionResult = ServiceActionResult.NotFound;
-                    errors.Add("Lecturer was not found");
+                    errors.AddCommonError("Lecturer was not found");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<IEnumerable<GuideListDTO>>

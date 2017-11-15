@@ -8,7 +8,6 @@ using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.DTO.Authorization;
 using StudyONU.Logic.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -25,10 +24,10 @@ namespace StudyONU.Logic.Services.Authentication
         public TokenService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IExceptionMessageBuilder exceptionMessageBuilder,
+            ILogger logger,
             IPasswordHasher passwordHasher
             )
-            : base(unitOfWork, mapper, exceptionMessageBuilder)
+            : base(unitOfWork, mapper, logger)
         {
             this.passwordHasher = passwordHasher;
         }
@@ -36,7 +35,7 @@ namespace StudyONU.Logic.Services.Authentication
         public async Task<DataServiceMessage<UserInfoDTO>> GenerateTokenAsync(LoginDTO loginDTO, LoginSettings settings)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
-            List<string> errors = new List<string>();
+            ErrorCollection errors = new ErrorCollection();
             UserInfoDTO data = null;
 
             try
@@ -100,13 +99,14 @@ namespace StudyONU.Logic.Services.Authentication
                 if (!authorized)
                 {
                     actionResult = ServiceActionResult.Error;
-                    errors.Add("Invalid email or password");
+                    errors.AddCommonError("Invalid email or password");
                 }
             }
             catch (Exception exception)
             {
-                exceptionMessageBuilder.FillErrors(exception, errors);
+                logger.Fatal(exception);
                 actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
             }
 
             return new DataServiceMessage<UserInfoDTO>

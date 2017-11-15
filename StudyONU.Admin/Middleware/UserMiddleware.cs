@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.Infrastructure;
@@ -18,6 +19,7 @@ namespace StudyONU.Admin.Middleware
 
         public async Task Invoke(HttpContext httpContext)
         {
+            ILogger logger = httpContext.RequestServices.GetService<ILogger>();
             IAccountService service = httpContext.RequestServices.GetService<IAccountService>();
 
             RegisterAdminDTO admin = new RegisterAdminDTO
@@ -33,8 +35,7 @@ namespace StudyONU.Admin.Middleware
             ServiceMessage serviceMessage = await service.RegisterAdminAsync(admin);
             if (serviceMessage.ActionResult == ServiceActionResult.Exception)
             {
-                // TODO
-                // implement logging
+                logger.Fatal("Error at UserMiddleware. IAccountService.RegisterAdminAsync failed");
             }
 
             await next(httpContext);
