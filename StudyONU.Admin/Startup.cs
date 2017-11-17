@@ -66,9 +66,15 @@ namespace StudyONU.Admin
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "download",
-                    template: "download/{id}",
+                    name: "downloadGuide",
+                    template: "download/guides/{id}",
                     defaults: new { controller = "File", action = "DownloadGuide" }
+                    );
+
+                routes.MapRoute(
+                    name: "downloadTask",
+                    template: "download/courses/{courseId:int}/{taskName}",
+                    defaults: new { controller = "File", action = "DownloadTask" }
                     );
 
                 routes.MapRoute(

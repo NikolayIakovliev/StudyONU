@@ -146,6 +146,40 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public async Task<DataServiceMessage<CourseDetailsDTO>> GetAsync(int id)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+            CourseDetailsDTO data = null;
+
+            try
+            {
+                CourseEntity courseEntity = await unitOfWork.Courses.GetDetailedAsync(id);
+                if (courseEntity != null)
+                {
+                    data = mapper.Map<CourseDetailsDTO>(courseEntity);
+                }
+                else
+                {
+                    errors.AddCommonError("Course was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new DataServiceMessage<CourseDetailsDTO>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
+        }
+
         public async Task<DataServiceMessage<CourseDetailsDTO>> GetAsync(int id, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;

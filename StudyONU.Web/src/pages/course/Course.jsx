@@ -7,6 +7,10 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionSubject from 'material-ui/svg-icons/action/subject';
 import { grey500, red500, green500, orange500 } from 'material-ui/styles/colors';
 
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import FileDownload from 'material-ui/svg-icons/file/file-download';
+
 import './course.scss';
 
 export class Course extends React.Component {
@@ -77,6 +81,28 @@ export class Course extends React.Component {
                     <CardTitle title={item.title} subtitle={courseViewModel.text} subtitleColor={courseViewModel.color} subtitleStyle={{ fontSize: 16 }} />
                     <Divider />
                     <CardText dangerouslySetInnerHTML={{ __html: item.description }}></CardText>
+                    {item.filePaths && item.filePaths.length > 0 &&
+                        <CardText>
+                            <List>
+                                {item.filePaths.map((filePath, index) => {
+                                    return <ListItem key={index} primaryText={`Файл ${index + 1}`} leftIcon={<FileDownload />} style={{ border: '1px solid #b9c0cc', marginBottom: 3 }} onClick={() => {
+                                        let extension = filePath.substr(filePath.lastIndexOf('.') + 1);
+
+                                        let a = document.createElement('a');
+                                        a.href = filePath;
+                                        a.target = '_blank';
+                                        a.download = '';
+
+                                        // TODO
+                                        // implement download by file name
+                                        // a.download = `${courseInfo.name}_${index + 1}.${extension}`;
+
+                                        a.click();
+                                    }} />;
+                                })}
+                            </List>
+                        </CardText>
+                    }
                     <CardActions>
                         <FlatButton
                             disabled={courseInfo.readOnly}

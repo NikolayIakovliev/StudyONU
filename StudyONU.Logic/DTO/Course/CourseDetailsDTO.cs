@@ -2,6 +2,8 @@
 {
     public class CourseDetailsDTO
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public byte CourseNumber { get; set; }
