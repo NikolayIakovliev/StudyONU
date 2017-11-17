@@ -20,6 +20,8 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByStudentEmailAsync(string email);
 
+        Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetRecommendedAsync(int studentQueueId);
+
         Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetPublishedAsync();
     }
 }

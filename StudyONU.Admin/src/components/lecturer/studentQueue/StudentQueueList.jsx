@@ -17,9 +17,7 @@ export class StudentQueueList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: [],
-            itemActionRequest: null,
-            approve: null
+            errors: []
         };
     }
 
@@ -31,23 +29,8 @@ export class StudentQueueList extends React.Component {
         const {
             loaded,
             items,
-            errors,
-            itemActionRequest,
-            approve
+            errors
         } = this.state;
-
-        const actions = [
-            <FlatButton
-                label="Подтвердить"
-                primary={true}
-                onClick={() => this.modifyItem()}
-            />,
-            <FlatButton
-                label="Отменить"
-                primary={true}
-                onClick={() => this.setState({ itemActionRequest: null })}
-            />
-        ];
 
         let render;
 
@@ -56,13 +39,10 @@ export class StudentQueueList extends React.Component {
         } else if (errors.length) {
             render = <div>Возникла ошибка!</div>;
         } else {
-            let open = itemActionRequest != null;
+            const getCourses = (studentId, callback) => this.props.get(urls.studentQueue.courses(studentId), result => callback(result));
+
             render = (
                 <div>
-                    <Dialog
-                        actions={actions}
-                        open={open}
-                        onRequestClose={() => this.setState({ itemActionRequest: null })}>Подтвердите действие</Dialog>
                     {items.length == 0 && <EmptyContent title="Заявок нет" message="Пока нет новых заявок на регистрацию" />}
                     {items.length > 0 &&
                         <div className="list-form-container">
@@ -74,7 +54,9 @@ export class StudentQueueList extends React.Component {
                                         return <StudentItem
                                             key={item.id}
                                             item={item}
-                                            onApprove={(item, approve) => this.setState({ itemActionRequest: item, approve: approve })} />
+                                            getCourses={getCourses}
+                                            onApprove={(id, courseIds) => this.approve(id, courseIds)}
+                                            onDisapprove={id => this.disapprove(id)} />
                                     })}
                                 </List>
                             </Paper>
@@ -87,17 +69,22 @@ export class StudentQueueList extends React.Component {
         return render;
     }
 
-    modifyItem() {
-        let url;
-
-        if (this.state.approve === true) {
-            url = urls.studentQueue.approve;
-        } else if (this.state.approve === false) {
-            url = urls.studentQueue.disapprove;
+    approve(studentId, courseIds) {
+        const data = {
+            id: studentId,
+            courseIds: courseIds
         }
 
+        this.modify(urls.studentQueue.approve, data);
+    }
+
+    disapprove(studentId) {
+        this.modify(urls.studentQueue.disapprove(studentId), null);
+    }
+
+    modify(url, data) {
         let reload = () => this.load();
-        this.props.post(`${url}?id=${this.state.itemActionRequest.id}`, null, result => {
+        this.props.post(url, data, result => {
             if (result.success === true) {
                 reload();
             } else {

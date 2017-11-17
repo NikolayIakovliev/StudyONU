@@ -56,6 +56,16 @@ namespace StudyONU.Data.Repositories
             return GetAllOrderedAsync(course => course.Lecturer.User.Email == email, keySelector);
         }
 
+        public async Task<IEnumerable<CourseEntity>> GetRecommendedAsync(int studentQueueId)
+        {
+            StudentQueueEntity studentEntity = await context.StudentQueue.FirstOrDefaultAsync(student => student.Id == studentQueueId);
+
+            return await GetAllOrderedAsync(course =>
+                course.CourseNumber == studentEntity.CourseNumber &&
+                course.SpecialityId == studentEntity.SpecialityId,
+                course => course.Name);
+        }
+
         public async Task<IEnumerable<CourseEntity>> GetAllOrderedAsync<TKey>(Expression<Func<CourseEntity, bool>> expression, Expression<Func<CourseEntity, TKey>> keySelector)
         {
             return await context.Courses

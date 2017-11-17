@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudyONU.Admin.Models.StudentQueue;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
+using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.DTO.StudentQueue;
 using StudyONU.Logic.Infrastructure;
 using System.Collections.Generic;
@@ -10,23 +12,26 @@ namespace StudyONU.Admin.Controllers
 {
     public class StudentQueueController : ApiController
     {
-        private readonly IStudentQueueService service;
+        private readonly IStudentQueueService studentService;
+        private readonly ICourseService courseService;
         private readonly IEmailSender emailSender;
 
         public StudentQueueController(
-            IStudentQueueService service,
+            IStudentQueueService studentService,
+            ICourseService courseService,
             IEmailSender emailSender
             )
         {
-            this.service = service;
+            this.studentService = studentService;
+            this.courseService = courseService;
             this.emailSender = emailSender;
         }
 
         [HttpPost]
         [Route("approve")]
-        public async Task<IActionResult> Approve([FromQuery] int id)
+        public async Task<IActionResult> Approve([FromBody] StudentQueueApproveBindingModel model)
         {
-            DataServiceMessage<StudentRegisteredDTO> dataServiceMessage = await service.ApproveAsync(id);
+            DataServiceMessage<StudentRegisteredDTO> dataServiceMessage = await studentService.ApproveAsync(model.Id, model.CourseIds);
 
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
@@ -41,10 +46,10 @@ namespace StudyONU.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("disapprove")]
-        public async Task<IActionResult> Disapprove([FromQuery] int id)
+        [Route("{id:int}/disapprove")]
+        public async Task<IActionResult> Disapprove(int id)
         {
-            DataServiceMessage<StudentRegisteredDTO> dataServiceMessage = await service.DisapproveAsync(id);
+            DataServiceMessage<StudentRegisteredDTO> dataServiceMessage = await studentService.DisapproveAsync(id);
 
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
@@ -64,7 +69,7 @@ namespace StudyONU.Admin.Controllers
             // TODO
             // Use options instead
             const string domain = "http://localhost:22107";
-            DataServiceMessage<IEnumerable<StudentQueueListDTO>> serviceMessage = await service.GetUnapprovedAsync();
+            DataServiceMessage<IEnumerable<StudentQueueListDTO>> serviceMessage = await studentService.GetUnapprovedAsync();
             if (serviceMessage.ActionResult == ServiceActionResult.Success)
             {
                 foreach (StudentQueueListDTO student in serviceMessage.Data)
@@ -72,6 +77,15 @@ namespace StudyONU.Admin.Controllers
                     student.PhotoPath = domain + student.PhotoPath;
                 }
             }
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpGet]
+        [Route("{id:int}/courses")]
+        public async Task<IActionResult> RecommendedCourseList(int id)
+        {
+            DataServiceMessage<IEnumerable<CourseListDTO>> serviceMessage = await courseService.GetRecommendedAsync(id);
 
             return GenerateResponse(serviceMessage);
         }

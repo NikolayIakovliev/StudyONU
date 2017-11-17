@@ -7,6 +7,7 @@ using StudyONU.Logic.DTO.StudentQueue;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services
@@ -16,7 +17,7 @@ namespace StudyONU.Logic.Services
         private readonly IPasswordHasher passwordHasher;
 
         public StudentQueueService(
-            IUnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger logger,
             IPasswordHasher passwordHasher
@@ -71,7 +72,7 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<StudentRegisteredDTO>> ApproveAsync(int id)
+        public async Task<DataServiceMessage<StudentRegisteredDTO>> ApproveAsync(int id, IEnumerable<int> courseIds)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
@@ -100,6 +101,23 @@ namespace StudyONU.Logic.Services
                         Speciality = studentQueueEntity.Speciality,
                         User = userEntity
                     };
+
+                    if (courseIds != null)
+                    {
+                        IEnumerable<Task<StudentCourseEntity>> tasks = courseIds.Select(async (courseId) =>
+                        {
+                            CourseEntity courseEntity = await unitOfWork.Courses.GetAsync(courseId);
+
+                            return new StudentCourseEntity
+                            {
+                                Course = courseEntity,
+                                CourseId = courseId,
+                                Student = studentEntity
+                            };
+                        });
+
+                        studentEntity.Courses = await Task.WhenAll(tasks);
+                    }
 
                     await unitOfWork.Students.AddAsync(studentEntity);
                     await unitOfWork.CommitAsync();
@@ -146,7 +164,7 @@ namespace StudyONU.Logic.Services
                     studentQueueEntity.DateApproved = DateTime.Now;
 
                     await unitOfWork.CommitAsync();
-                    
+
                     data = new StudentRegisteredDTO
                     {
                         Email = studentQueueEntity.Email
@@ -188,7 +206,7 @@ namespace StudyONU.Logic.Services
         {
             Func<Task<IEnumerable<StudentQueueEntity>>> factory =
                 () => unitOfWork.StudentQueue.GetAllOrderedAsync(
-                    studentEntity => !studentEntity.Approved.HasValue, 
+                    studentEntity => !studentEntity.Approved.HasValue,
                     studentEntity => studentEntity.DateCreated
                     );
 

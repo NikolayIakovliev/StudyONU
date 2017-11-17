@@ -10,7 +10,7 @@ namespace StudyONU.Logic.Contracts.Services
     {
         Task<ServiceMessage> CreateAsync(StudentQueueCreateDTO studentQueueCreateDTO);
 
-        Task<DataServiceMessage<StudentRegisteredDTO>> ApproveAsync(int id);
+        Task<DataServiceMessage<StudentRegisteredDTO>> ApproveAsync(int id, IEnumerable<int> courseIds = null);
 
         Task<DataServiceMessage<StudentRegisteredDTO>> DisapproveAsync(int id);
 

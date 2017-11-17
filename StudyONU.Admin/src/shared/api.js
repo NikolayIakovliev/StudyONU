@@ -118,8 +118,9 @@ export const urls = {
     },
     studentQueue: {
         list: '/api/studentQueue',
+        courses: (id) => `/api/studentQueue/${id}/courses`,
         approve: '/api/studentQueue/approve',
-        disapprove: '/api/studentQueue/disapprove'
+        disapprove: (id) => `/api/studentQueue/${id}/disapprove`
     }
 }
 

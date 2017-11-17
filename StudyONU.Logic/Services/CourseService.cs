@@ -211,6 +211,14 @@ namespace StudyONU.Logic.Services
             return GetAllAsync(factory);
         }
 
+        public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetRecommendedAsync(int studentQueueId)
+        {
+            Func<Task<IEnumerable<CourseEntity>>> factory =
+                () => unitOfWork.Courses.GetRecommendedAsync(studentQueueId);
+
+            return GetAllAsync(factory);
+        }
+
         public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetPublishedAsync()
         {
             Func<Task<IEnumerable<CourseEntity>>> factory =

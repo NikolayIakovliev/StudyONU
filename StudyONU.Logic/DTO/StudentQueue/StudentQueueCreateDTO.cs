@@ -1,4 +1,6 @@
-﻿namespace StudyONU.Logic.DTO.StudentQueue
+﻿using System.Collections.Generic;
+
+namespace StudyONU.Logic.DTO.StudentQueue
 {
     public class StudentQueueCreateDTO
     {

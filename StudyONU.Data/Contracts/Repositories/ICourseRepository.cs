@@ -14,6 +14,8 @@ namespace StudyONU.Data.Contracts.Repositories
 
         Task<IEnumerable<CourseEntity>> GetAllByStudentEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector);
 
+        Task<IEnumerable<CourseEntity>> GetRecommendedAsync(int studentQueueId);
+
         Task<IEnumerable<CourseEntity>> GetAllOrderedAsync<TKey>(Expression<Func<CourseEntity, bool>> expression, Expression<Func<CourseEntity, TKey>> keySelector);
     }
 }
