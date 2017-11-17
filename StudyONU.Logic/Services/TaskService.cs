@@ -5,6 +5,7 @@ using StudyONU.Core.Infrastructure;
 using StudyONU.Data.Contracts;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
+using StudyONU.Logic.DTO.Comment;
 using StudyONU.Logic.DTO.Task;
 using StudyONU.Logic.Infrastructure;
 using System;
@@ -170,15 +171,43 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                TaskEntity taskEntity = await unitOfWork.Tasks.GetDetailedAsync(id);
-                if (taskEntity != null)
+                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+                if (studentEntity != null)
                 {
+                    TaskEntity taskEntity = await unitOfWork.Tasks.GetDetailedAsync(id);
+                    if (taskEntity != null)
+                    {
+                        bool isInCourse = await unitOfWork.StudentCourse.IsInCourse(
+                            studentEntity.Id,
+                            taskEntity.CourseId
+                            );
+                        if (isInCourse)
+                        {
+                            data = mapper.Map<TaskDetailsDTO>(taskEntity);
+                            ReportEntity reportEntity = await unitOfWork.Reports.GetAsync(report =>
+                                report.StudentId == studentEntity.Id &&
+                                report.TaskId == id
+                                );
 
+                            data.Mark = reportEntity?.Mark;
+                            data.DateAccepted = reportEntity?.DateAccepted;
+                        }
+                        else
+                        {
+                            actionResult = ServiceActionResult.Error;
+                            errors.AddAccessError("Student doesn't have an access to course");
+                        }
+                    }
+                    else
+                    {
+                        errors.AddCommonError("Task was not found");
+                        actionResult = ServiceActionResult.NotFound;
+                    }
                 }
                 else
                 {
-                    errors.AddCommonError("Task was not found");
-                    actionResult = ServiceActionResult.NotFound;
+                    actionResult = ServiceActionResult.Error;
+                    errors.AddAccessError("Student doesn't have an access to course");
                 }
             }
             catch (Exception exception)

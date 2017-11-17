@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using StudyONU.Core.Entities;
 using StudyONU.Logic.DTO.Task;
+using System;
 using System.Collections.Generic;
 
 namespace StudyONU.Logic.Mappings
@@ -19,6 +20,9 @@ namespace StudyONU.Logic.Mappings
             CreateMap<TaskEntity, StudentTaskListDTO>()
                 .ForMember(dest => dest.ReportStatus, opts => opts.Ignore())
                 .ForMember(dest => dest.FilePaths, opts => opts.MapFrom(src => Deserialize(src.FilePaths)));
+            CreateMap<TaskEntity, TaskDetailsDTO>()
+                .ForMember(dest => dest.FilePaths, opts => opts.MapFrom(src => Deserialize(src.FilePaths)));
+
         }
 
         private IEnumerable<string> Deserialize(string filePaths)

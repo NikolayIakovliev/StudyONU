@@ -96,7 +96,10 @@ export const urls = {
         taskList: (id) => `/api/courses/${id}/tasks`
     },
     students: '/api/students',
-    specialities: '/api/specialities'
+    specialities: '/api/specialities',
+    tasks: {
+        details: (id) => `/api/tasks/${id}`
+    }
 }
 
 const checkStatus = (response) => {

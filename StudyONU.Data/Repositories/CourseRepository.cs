@@ -46,8 +46,7 @@ namespace StudyONU.Data.Repositories
             StudentEntity studentEntity = await context.Students.FirstAsync(student => student.User.Email == email);
 
             return await GetAllOrderedAsync(course =>
-                course.CourseNumber == studentEntity.CourseNumber &&
-                course.SpecialityId == studentEntity.SpecialityId,
+                course.Students.Select(student => student.StudentId).Contains(studentEntity.Id),
                 keySelector);
         }
 
