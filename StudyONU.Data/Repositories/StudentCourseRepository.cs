@@ -14,7 +14,7 @@ namespace StudyONU.Data.Repositories
         public Task<bool> IsInCourse(int studentId, int courseId)
         {
             return context.StudentsInCourses.AnyAsync(
-                studentCourse => studentCourse.CourseId == studentId && 
+                studentCourse => studentCourse.StudentId == studentId && 
                 studentCourse.CourseId == courseId
                 );
         }

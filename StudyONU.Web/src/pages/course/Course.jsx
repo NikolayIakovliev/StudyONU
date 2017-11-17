@@ -79,7 +79,7 @@ export class Course extends React.Component {
                     <CardText dangerouslySetInnerHTML={{ __html: item.description }}></CardText>
                     <CardActions>
                         <FlatButton
-                            disabled={!this.props.user.isLoggedIn}
+                            disabled={courseInfo.readOnly}
                             label="Детали"
                             primary={true}
                             icon={<ActionSubject />}
@@ -92,7 +92,7 @@ export class Course extends React.Component {
 
         return (
             <div>
-                <Header navigationLinks={navigationLinks} backLink="/courses/public" {...this.props} />
+                <Header navigationLinks={navigationLinks} backLink="/courses/my" {...this.props} />
                 {this.getCourseInfo(courseInfo)}
                 <div className="task-list">
                     {items.map(item => renderTaskTemplate(item))}

@@ -168,6 +168,7 @@ namespace StudyONU.Logic.Services
                     if (hasAccess)
                     {
                         data = mapper.Map<CourseDetailsDTO>(courseEntity);
+                        data.ReadOnly = !isInCourse;
                     }
                     else
                     {

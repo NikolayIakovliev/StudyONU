@@ -11,5 +11,7 @@
         public string LecturerFullName { get; set; }
 
         public string LecturerPhotoPath { get; set; }
+
+        public bool ReadOnly { get; set; }
     }
 }
