@@ -18,6 +18,7 @@ namespace StudyONU.Logic.Extensions
             services.AddRepository<IReportRepository, ReportRepository>();
             services.AddRepository<IRoleRepository, RoleRepository>();
             services.AddRepository<ISpecialityRepository, SpecialityRepository>();
+            services.AddRepository<IStudentCourseRepository, StudentCourseRepository>();
             services.AddRepository<IStudentQueueRepository, StudentQueueRepository>();
             services.AddRepository<IStudentRepository, StudentRepository>();
             services.AddRepository<ITaskRepository, TaskRepository>();

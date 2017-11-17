@@ -17,6 +17,7 @@ namespace StudyONU.Data.Infrastructure
         private Lazier<IReportRepository> reports;
         private Lazier<IRoleRepository> roles;
         private Lazier<ISpecialityRepository> specialities;
+        private Lazier<IStudentCourseRepository> studentCourse;
         private Lazier<IStudentQueueRepository> studentQueue;
         private Lazier<IStudentRepository> students;
         private Lazier<ITaskRepository> tasks;
@@ -38,6 +39,8 @@ namespace StudyONU.Data.Infrastructure
 
         public ISpecialityRepository Specialities => specialities.Value;
 
+        public IStudentCourseRepository StudentCourse => studentCourse.Value;
+
         public IStudentQueueRepository StudentQueue => studentQueue.Value;
 
         public IStudentRepository Students => students.Value;
@@ -56,6 +59,7 @@ namespace StudyONU.Data.Infrastructure
             Lazier<IReportRepository> reports,
             Lazier<IRoleRepository> roles,
             Lazier<ISpecialityRepository> specialities,
+            Lazier<IStudentCourseRepository> studentCourse,
             Lazier<IStudentQueueRepository> studentQueue,
             Lazier<IStudentRepository> students,
             Lazier<ITaskRepository> tasks,
@@ -71,6 +75,7 @@ namespace StudyONU.Data.Infrastructure
             this.reports = reports;
             this.roles = roles;
             this.specialities = specialities;
+            this.studentCourse = studentCourse;
             this.studentQueue = studentQueue;
             this.students = students;
             this.tasks = tasks;

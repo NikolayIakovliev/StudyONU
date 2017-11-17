@@ -22,6 +22,8 @@ namespace StudyONU.Data.Contracts
 
         ISpecialityRepository Specialities { get; }
 
+        IStudentCourseRepository StudentCourse { get; }
+
         IStudentQueueRepository StudentQueue { get; }
 
         IStudentRepository Students { get; }

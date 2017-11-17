@@ -9,6 +9,7 @@ using StudyONU.Logic.DTO.Task;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services
@@ -209,11 +210,11 @@ namespace StudyONU.Logic.Services
                 {
                     StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
 
-                    bool hasAccess =
-                        courseEntity.IsPublished ||
-                        (studentEntity != null &&
-                        courseEntity.SpecialityId == studentEntity.SpecialityId &&
-                        courseEntity.CourseNumber == studentEntity.CourseNumber);
+                    bool isInCourse =
+                        studentEntity != null &&
+                        await unitOfWork.StudentCourse.IsInCourse(studentEntity.Id, courseId);
+
+                    bool hasAccess = courseEntity.IsPublished || isInCourse;
 
                     if (hasAccess)
                     {
