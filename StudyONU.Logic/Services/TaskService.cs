@@ -218,8 +218,12 @@ namespace StudyONU.Logic.Services
                     if (hasAccess)
                     {
                         IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllAsync(task =>
-                            task.CourseId == courseId &&
-                            (!task.DateAvailable.HasValue || task.DateAvailable.Value >= DateTime.Now.Date)
+                                task.CourseId == courseId &&
+                                (
+                                    task.Course.IsPublished ||
+                                    !task.DateAvailable.HasValue ||
+                                    task.DateAvailable.Value >= DateTime.Now.Date
+                                )
                             );
                         data = mapper.Map<IEnumerable<StudentTaskListDTO>>(taskEntities);
                         if (studentEntity != null)

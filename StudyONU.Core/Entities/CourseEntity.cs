@@ -26,5 +26,7 @@ namespace StudyONU.Core.Entities
         public virtual ICollection<GuideEntity> Guides { get; set; }
 
         public virtual ICollection<TaskEntity> Tasks { get; set; }
+
+        public virtual ICollection<StudentCourseEntity> Students { get; set; }
     }
 }

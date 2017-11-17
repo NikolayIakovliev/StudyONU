@@ -12,9 +12,10 @@ using System;
 namespace StudyONU.Core.Migrations
 {
     [DbContext(typeof(StudyONUDbContext))]
-    partial class StudyONUDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171117103000_StudentCourseRelationship")]
+    partial class StudentCourseRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

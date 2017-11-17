@@ -17,5 +17,7 @@ namespace StudyONU.Core.Entities
         public virtual UserEntity User { get; set; }
 
         public virtual ICollection<ReportEntity> Reports { get; set; }
+
+        public virtual ICollection<StudentCourseEntity> Courses { get; set; }
     }
 }

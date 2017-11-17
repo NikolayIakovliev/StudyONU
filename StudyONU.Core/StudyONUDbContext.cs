@@ -24,6 +24,8 @@ namespace StudyONU.Core
 
         public DbSet<StudentEntity> Students { get; set; }
 
+        public DbSet<StudentCourseEntity> StudentsInCourses { get; set; }
+
         public DbSet<StudentQueueEntity> StudentQueue { get; set; }
 
         public DbSet<TaskEntity> Tasks { get; set; }
@@ -46,6 +48,7 @@ namespace StudyONU.Core
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new SpecialityConfiguration());
             builder.ApplyConfiguration(new StudentConfiguration());
+            builder.ApplyConfiguration(new StudentCourseConfiguration());
             builder.ApplyConfiguration(new StudentQueueConfiguration());
             builder.ApplyConfiguration(new TaskConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
