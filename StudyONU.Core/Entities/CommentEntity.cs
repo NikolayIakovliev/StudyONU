@@ -1,4 +1,6 @@
-﻿namespace StudyONU.Core.Entities
+﻿using System;
+
+namespace StudyONU.Core.Entities
 {
     public class CommentEntity
     {
@@ -13,5 +15,7 @@
         public int TaskId { get; set; }
 
         public virtual TaskEntity Task { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

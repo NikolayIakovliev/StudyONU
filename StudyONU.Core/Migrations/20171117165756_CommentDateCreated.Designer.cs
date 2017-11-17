@@ -12,9 +12,10 @@ using System;
 namespace StudyONU.Core.Migrations
 {
     [DbContext(typeof(StudyONUDbContext))]
-    partial class StudyONUDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171117165756_CommentDateCreated")]
+    partial class CommentDateCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

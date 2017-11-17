@@ -10,6 +10,7 @@ import { Registration } from './pages/register/Registration';
 import { PublicCourses } from './pages/courses/public/PublicCourses';
 import { MyCourses } from './pages/courses/my/MyCourses';
 import { Course } from './pages/course/Course';
+import { Task } from './pages/task/Task';
 
 
 export class Routes extends React.Component {
@@ -34,10 +35,11 @@ export class Routes extends React.Component {
         return (
             <Switch>
                 <Route exact path='/' render={() => <Redirect to="/courses/public" />} />
-                <Route path='/register' component={Api(Registration)} />
-                <Route path='/courses/public' component={Api(PublicCourses)} />
-                {user.isLoggedIn && <Route path='/courses/my' component={Api(MyCourses)} />}
-                <Route path='/courses/:id(\d+)/tasks' component={Api(Course)} />
+                <Route exact path='/register' component={Api(Registration)} />
+                <Route exact path='/courses/public' component={Api(PublicCourses)} />
+                {user.isLoggedIn && <Route exact path='/courses/my' component={Api(MyCourses)} />}
+                <Route exact path='/courses/:id(\d+)/tasks' component={Api(Course)} />
+                <Route exact path='/courses/:courseId(\d+)/tasks/:id(\d+)' component={Api(Task)} />
                 <Route path='/404' component={NotFound} />
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>

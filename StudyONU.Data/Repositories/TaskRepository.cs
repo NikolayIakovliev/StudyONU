@@ -14,7 +14,15 @@ namespace StudyONU.Data.Repositories
     {
         public TaskRepository(StudyONUDbContext context)
             : base(context) { }
-        
+
+        public Task<TaskEntity> GetDetailedAsync(int id)
+        {
+            return context.Tasks
+                .Include(task => task.Comments)
+                .Include(task => task.Reports)
+                .FirstOrDefaultAsync(task => task.Id == id)
+        }
+
         public async Task<IEnumerable<TaskEntity>> GetAllByLecturerIdAsync(int id)
         {
             return await context.Tasks

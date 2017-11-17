@@ -162,6 +162,40 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public async Task<DataServiceMessage<TaskDetailsDTO>> GetAsync(int id, string studentEmail)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+            TaskDetailsDTO data = null;
+
+            try
+            {
+                TaskEntity taskEntity = await unitOfWork.Tasks.GetDetailedAsync(id);
+                if (taskEntity != null)
+                {
+
+                }
+                else
+                {
+                    errors.AddCommonError("Task was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new DataServiceMessage<TaskDetailsDTO>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
+        }
+
         public async Task<DataServiceMessage<IEnumerable<TaskListDTO>>> GetByLecturerEmailAsync(string email)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;

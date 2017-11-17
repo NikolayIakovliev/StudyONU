@@ -22,6 +22,10 @@ namespace StudyONU.Core.Configurations
                 .WithMany(entity => entity.Comments)
                 .HasForeignKey(entity => entity.TaskId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(entity => entity.DateCreated)
+                .IsRequired()
+                .HasDefaultValueSql("GETDATE()");
         }
     }
 }
