@@ -17,15 +17,7 @@ export class Routes extends React.Component {
         super(props);
 
         this.state = {
-            user: {
-                isLoggedIn: false,
-                role: '',
-                token: '',
-                firstName: '',
-                lastName: '',
-                patronymic: '',
-                photoPath: ''
-            }
+            user: this.getUser()
         }
     }
 
@@ -53,6 +45,14 @@ export class Routes extends React.Component {
     }
 
     update() {
+        let user = this.getUser();
+        
+        this.setState({
+            user: user
+        });
+    }
+
+    getUser() {
         let user = {
             isLoggedIn: AuthorizationStorage.any(),
             role: '',
@@ -62,7 +62,7 @@ export class Routes extends React.Component {
             patronymic: '',
             photoPath: ''
         };
-        
+
         if (user.isLoggedIn) {
             let authorizationData = AuthorizationStorage.get();
             user.isLoggedIn = true;
@@ -73,9 +73,7 @@ export class Routes extends React.Component {
             user.patronymic = authorizationData.patronymic;
             user.photoPath = authorizationData.photoPath;
         }
-        
-        this.setState({
-            user: user
-        });
+
+        return user;
     }
 }
