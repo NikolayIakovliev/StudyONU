@@ -5,7 +5,6 @@
         NotDone = 1,
         OnCheck = 2,
         Accepted = 3,
-        Rejected = 4,
-        Overdue = 5
+        Rejected = 4
     }
 }

@@ -105,7 +105,7 @@ export class TaskItem extends React.Component {
         }
 
         let now = Date.now();
-        if (dateOverdue && dateOverdue > now) {
+        if (dateOverdue && dateOverdue < now) {
             let format = ddmmyyyy(dateOverdue, '.');
             details.text = `Срок сдачи прошел ${format}`;
             details.leftAvatar = <Avatar icon={<ActionInfoOutline />} backgroundColor={orange500} />;

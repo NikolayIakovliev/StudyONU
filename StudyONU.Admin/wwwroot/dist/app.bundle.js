@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f5d9ac3e94264822fb63"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d274b9a219bfc5f47aea"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -42125,7 +42125,7 @@ var TaskItem = exports.TaskItem = function (_React$Component) {
             };
 
             var now = Date.now();
-            if (dateOverdue && dateOverdue > now) {
+            if (dateOverdue && dateOverdue < now) {
                 var format = (0, _date.ddmmyyyy)(dateOverdue, '.');
                 details.text = '\u0421\u0440\u043E\u043A \u0441\u0434\u0430\u0447\u0438 \u043F\u0440\u043E\u0448\u0435\u043B ' + format;
                 details.leftAvatar = React.createElement(_Avatar2.default, { icon: React.createElement(_infoOutline2.default, null), backgroundColor: _colors.orange500 });

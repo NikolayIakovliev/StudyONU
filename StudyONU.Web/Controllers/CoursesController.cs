@@ -62,7 +62,7 @@ namespace StudyONU.Web.Controllers
 
         [HttpGet]
         [Route("{id:int}/tasks")]
-        public async Task<IActionResult> List(int id)
+        public async Task<IActionResult> TaskList(int id)
         {
             string email = GetUserEmail();
 

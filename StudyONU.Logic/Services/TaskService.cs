@@ -191,6 +191,9 @@ namespace StudyONU.Logic.Services
 
                             data.Mark = reportEntity?.Mark;
                             data.DateAccepted = reportEntity?.DateAccepted;
+                            data.ReportStatus = reportEntity != null
+                                ? (int)reportEntity.State
+                                : (int)TaskState.NotDone;
                         }
                         else
                         {
