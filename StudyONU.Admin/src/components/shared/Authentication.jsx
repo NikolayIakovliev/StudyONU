@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { Login } from './Login';
 import { AuthorizationData } from '../../shared/authorizationData';
-import { Api } from '../../shared/api';
+import { Api, urls } from '../../shared/api';
 
 export const Authentication = (WrappedComponent) => {
     return class WithAuthentication extends React.Component {
@@ -21,7 +21,15 @@ export const Authentication = (WrappedComponent) => {
         }
 
         componentDidMount() {
-            this.update();
+            let update = this.update;
+            Api.post(urls.check, null)
+                .then(response => {
+                    if (response.status == 401) {
+                        AuthorizationData.clear();
+                    }
+
+                    update();
+                });
         }
 
         render() {

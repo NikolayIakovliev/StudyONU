@@ -12,6 +12,7 @@ import { MyCourses } from './pages/courses/my/MyCourses';
 import { Course } from './pages/course/Course';
 import { Task } from './pages/task/Task';
 
+import { Api, urls } from './shared/api';
 
 export class Routes extends React.Component {
     constructor(props) {
@@ -23,8 +24,13 @@ export class Routes extends React.Component {
     }
 
     componentDidMount() {
-        this.update();
         AuthorizationStorage.subscribe(this);
+        Api.post(urls.check, null)
+            .then(response => {
+                if (response.status == 401) {
+                    AuthorizationStorage.clear();
+                }
+            });
     }
 
     render() {

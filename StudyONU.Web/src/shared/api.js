@@ -85,6 +85,7 @@ export class Api {
 }
 
 export const urls = {
+    check: '/api/check',
     token: '/api/token',
     account: {
         checkEmail: '/api/account/checkemail'

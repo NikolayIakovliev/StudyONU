@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d274b9a219bfc5f47aea"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "641265bbe7a3e52283e3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1735,6 +1735,7 @@ var Api = exports.Api = function () {
 }();
 
 var urls = exports.urls = {
+    check: '/api/check',
     token: '/api/token',
     account: {
         password: '/api/account/password'
@@ -17870,7 +17871,14 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
         _createClass(WithAuthentication, [{
             key: 'componentDidMount',
             value: function componentDidMount() {
-                this.update();
+                var update = this.update;
+                _api.Api.post(_api.urls.check, null).then(function (response) {
+                    if (response.status == 401) {
+                        _authorizationData.AuthorizationData.clear();
+                    }
+
+                    update();
+                });
             }
         }, {
             key: 'render',

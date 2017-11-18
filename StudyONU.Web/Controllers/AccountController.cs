@@ -42,6 +42,11 @@ namespace StudyONU.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [Route("/api/check")]
+        public IActionResult IsTokenValid() => Ok();
+
+        [HttpPost]
+        [Authorize]
         [Route("password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordBindingModel model)
         {
