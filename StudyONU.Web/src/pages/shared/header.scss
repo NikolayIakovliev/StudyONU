@@ -57,9 +57,11 @@ $background-color: #004d40;
             }
 
             .right-account {
+                flex: 1 1 .1rem;
+
                 .auth-links {
                     display: flex;
-                    justify-content: center;
+                    justify-content: flex-end;
                     align-items: center;
 
                     .btn {
@@ -81,6 +83,7 @@ $background-color: #004d40;
 
                 .account-container {
                     display: flex;
+                    justify-content: flex-end;
                     align-content: center;
 
                     .user-info {

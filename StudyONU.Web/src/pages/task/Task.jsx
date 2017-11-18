@@ -1,127 +1,107 @@
 ﻿import * as React from 'react';
-import { urls } from '../../shared/api';
-import { Header } from '../shared/Header';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
-import FlatButton from 'material-ui/FlatButton';
 
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import FileDownload from 'material-ui/svg-icons/file/file-download';
-import { grey500, red500, green500, orange500 } from 'material-ui/styles/colors';
+import { urls } from '../../shared/api';
+import { DateHelper } from '../../shared/date';
+
+import { Header } from '../shared/Header';
+import { TaskItem } from '../task/TaskItem';
 
 export class Task extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            id: props.match.params.id,
-            courseId: props.match.params.courseId,
-            taskDetails: null,
-            comments: []
+            id: null,
+            title: '',
+            description: '',
+            filePaths: null,
+            reportStatus: null,
+            mark: null,
+            dateOverdue: null,
+            dateAccepted: null,
+            comments: [],
+            loaded: false
         }
     }
 
     componentDidMount() {
         let self = this;
 
-        this.props.get(urls.tasks.details(this.state.id), result => {
+        this.props.get(urls.tasks.details(this.props.match.params.id), result => {
+            let task = result.data;
+
+            const id = task.id;
+            const title = task.title;
+            const description = task.description;
+            const filePaths = task.filePaths;
+            const reportStatus = task.reportStatus;
+            const mark = task.mark;
+            const dateOverdue = task.dateOverdue ? DateHelper.toDate(task.dateOverdue, '.') : null;
+            const dateAccepted = task.dateAccepted ? DateHelper.toDate(task.dateAccepted, '.') : null;
+            const comments = task.comments.map(comment => {
+                comment.dateCreated = DateHelper.toDate(comment.dateCreated, '.');
+                return comment;
+            });
+
             self.setState({
-                taskDetails: result.data,
-                comments: result.data.comments
+                id: id,
+                title: title,
+                description: description,
+                filePaths: filePaths,
+                reportStatus: reportStatus,
+                mark: mark,
+                dateOverdue: dateOverdue,
+                dateAccepted: dateAccepted,
+                comments: comments,
+                loaded: true
             });
         });
     }
 
     render() {
-        const {
-            id,
-            courseId,
-            taskDetails,
-            comments
-        } = this.state;
-
-        let navigationLinks = this.getNavigationLinks(courseId);
-
-        // TODO
-        // Replace by Loading
-        if (taskDetails == null) {
+        if (!this.state.loaded) {
+            // TODO
+            // Replace by Loading
             return null;
         }
 
-        const courseViewModel = this.getReportStatusViewModel(taskDetails.reportStatus);
+        const {
+            id,
+            title,
+            description,
+            filePaths,
+            reportStatus,
+            mark,
+            dateOverdue,
+            dateAccepted,
+            comments
+        } = this.state;
+
+        let navigationLinks = this.getNavigationLinks();
 
         return (
             <div>
-                <Header navigationLinks={navigationLinks} backLink={`/courses/${courseId}/tasks`} {...this.props} />
-                <Card>
-                    <CardTitle title={taskDetails.title} subtitle={courseViewModel.text} subtitleColor={courseViewModel.color} subtitleStyle={{ fontSize: 16 }} />
-                    <Divider />
-                    <CardText dangerouslySetInnerHTML={{ __html: taskDetails.description }}></CardText>
-                    {taskDetails.filePaths && taskDetails.filePaths.length > 0 &&
-                        <CardText>
-                            <List>
-                            {taskDetails.filePaths.map((filePath, index) => {
-                                    return <ListItem key={index} primaryText={`Файл ${index + 1}`} leftIcon={<FileDownload />} style={{ border: '1px solid #b9c0cc', marginBottom: 3 }} onClick={() => {
-                                        let extension = filePath.substr(filePath.lastIndexOf('.') + 1);
-
-                                        let a = document.createElement('a');
-                                        a.href = filePath;
-                                        a.target = '_blank';
-                                        a.download = '';
-
-                                        // TODO
-                                        // implement download by file name
-                                        // a.download = `${courseInfo.name}_${index + 1}.${extension}`;
-
-                                        a.click();
-                                    }} />;
-                                })}
-                            </List>
-                        </CardText>
-                    }
-                </Card>
+                <Header navigationLinks={navigationLinks} backLink={`/courses/${this.props.match.params.courseId}/tasks`} {...this.props} />
+                <TaskItem
+                    id={id}
+                    title={title}
+                    description={description}
+                    reportStatus={reportStatus}
+                    filePaths={filePaths}
+                    dateOverdue={dateOverdue}
+                    className=""
+                />
             </div>
         );
     }
 
-    getNavigationLinks(courseId) {
+    getNavigationLinks() {
+        const courseId = this.props.match.params.courseId;
+
         return [
             { to: `/courses/${courseId}/tasks`, title: 'Задачи' },
             { to: `/courses/${courseId}/guides`, title: 'Методички' },
             { to: `/courses/${courseId}/progress`, title: 'Успеваемость' }
         ];
-    }
-
-    getReportStatusViewModel(reportStatus) {
-        let viewModel = {
-            text: '',
-            color: ''
-        }
-
-        switch (reportStatus) {
-            case 1:
-                viewModel.text = 'Не выполнено';
-                viewModel.color = grey500;
-                break;
-            case 2:
-                viewModel.text = 'На проверке';
-                viewModel.color = orange500;
-                break;
-            case 3:
-                viewModel.text = 'Сдано';
-                viewModel.color = green500;
-                break;
-            case 4:
-                viewModel.text = 'Не утверждено';
-                viewModel.color = red500;
-                break;
-            case 5:
-                viewModel.text = 'Вышел срок сдачи';
-                viewModel.color = red500;
-                break;
-        }
-
-        return viewModel;
     }
 }

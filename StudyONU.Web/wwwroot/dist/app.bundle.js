@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "504726b87d577bbe440e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "24172eac76d86bf222e0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5250,7 +5250,7 @@ exports = module.exports = __webpack_require__(51)(undefined);
 
 
 // module
-exports.push([module.i, ".header-wrapper {\n  padding-top: 70px; }\n  .header-wrapper .header {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    z-index: 2;\n    height: 70px;\n    background-color: #004d40;\n    color: white;\n    box-shadow: 0px 2px 12px black; }\n    .header-wrapper .header .header-content {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      height: 100%;\n      padding: 0 20px; }\n      .header-wrapper .header .header-content .left-controls {\n        display: flex;\n        align-items: center;\n        height: 100%;\n        flex: 1 1 .1rem; }\n      .header-wrapper .header .header-content .navbar-links {\n        display: flex;\n        height: 100%;\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .navbar-links .navbar-link {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          color: white;\n          text-decoration: none;\n          padding: 0 25px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .navbar-links .navbar-link:hover {\n            background-color: rgba(255, 255, 255, 0.3); }\n        .header-wrapper .header .header-content .navbar-links .navbar-link-active {\n          opacity: 1;\n          background-color: #005c4d;\n          border-bottom: 2px solid white; }\n      .header-wrapper .header .header-content .right-account .auth-links {\n        display: flex;\n        justify-content: center;\n        align-items: center; }\n        .header-wrapper .header .header-content .right-account .auth-links .btn {\n          border: none;\n          background-color: transparent;\n          font-size: 16px;\n          cursor: pointer;\n          outline: none;\n          color: white;\n          margin: 0 10px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .right-account .auth-links .btn:hover {\n            border-bottom: 1px solid #CCE1EE;\n            opacity: 1; }\n      .header-wrapper .header .header-content .right-account .account-container {\n        display: flex;\n        align-content: center; }\n        .header-wrapper .header .header-content .right-account .account-container .user-info {\n          padding: 0 18px;\n          text-align: right;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info .fullname {\n            font-size: 20px;\n            margin: 0; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info .role {\n            font-size: 12px;\n            margin: 0; }\n        .header-wrapper .header .header-content .right-account .account-container .user-avatar {\n          height: 40px;\n          width: 40px;\n          border-radius: 50%;\n          border: 2px solid white; }\n        .header-wrapper .header .header-content .right-account .account-container .logout-btn {\n          margin: 0 30px;\n          border: none;\n          background-color: transparent;\n          font-size: 16px;\n          cursor: pointer;\n          outline: none;\n          opacity: 0.8;\n          color: white; }\n          .header-wrapper .header .header-content .right-account .account-container .logout-btn:hover {\n            border-bottom: 1px solid #CCE1EE;\n            opacity: 1; }\n", ""]);
+exports.push([module.i, ".header-wrapper {\n  padding-top: 70px; }\n  .header-wrapper .header {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    z-index: 2;\n    height: 70px;\n    background-color: #004d40;\n    color: white;\n    box-shadow: 0px 2px 12px black; }\n    .header-wrapper .header .header-content {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      height: 100%;\n      padding: 0 20px; }\n      .header-wrapper .header .header-content .left-controls {\n        display: flex;\n        align-items: center;\n        height: 100%;\n        flex: 1 1 .1rem; }\n      .header-wrapper .header .header-content .navbar-links {\n        display: flex;\n        height: 100%;\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .navbar-links .navbar-link {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          color: white;\n          text-decoration: none;\n          padding: 0 25px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .navbar-links .navbar-link:hover {\n            background-color: rgba(255, 255, 255, 0.3); }\n        .header-wrapper .header .header-content .navbar-links .navbar-link-active {\n          opacity: 1;\n          background-color: #005c4d;\n          border-bottom: 2px solid white; }\n      .header-wrapper .header .header-content .right-account {\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .right-account .auth-links {\n          display: flex;\n          justify-content: flex-end;\n          align-items: center; }\n          .header-wrapper .header .header-content .right-account .auth-links .btn {\n            border: none;\n            background-color: transparent;\n            font-size: 16px;\n            cursor: pointer;\n            outline: none;\n            color: white;\n            margin: 0 10px;\n            opacity: 0.8; }\n            .header-wrapper .header .header-content .right-account .auth-links .btn:hover {\n              border-bottom: 1px solid #CCE1EE;\n              opacity: 1; }\n        .header-wrapper .header .header-content .right-account .account-container {\n          display: flex;\n          justify-content: flex-end;\n          align-content: center; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info {\n            padding: 0 18px;\n            text-align: right;\n            opacity: 0.8; }\n            .header-wrapper .header .header-content .right-account .account-container .user-info .fullname {\n              font-size: 20px;\n              margin: 0; }\n            .header-wrapper .header .header-content .right-account .account-container .user-info .role {\n              font-size: 12px;\n              margin: 0; }\n          .header-wrapper .header .header-content .right-account .account-container .user-avatar {\n            height: 40px;\n            width: 40px;\n            border-radius: 50%;\n            border: 2px solid white; }\n          .header-wrapper .header .header-content .right-account .account-container .logout-btn {\n            margin: 0 30px;\n            border: none;\n            background-color: transparent;\n            font-size: 16px;\n            cursor: pointer;\n            outline: none;\n            opacity: 0.8;\n            color: white; }\n            .header-wrapper .header .header-content .right-account .account-container .logout-btn:hover {\n              border-bottom: 1px solid #CCE1EE;\n              opacity: 1; }\n", ""]);
 
 // exports
 
@@ -35785,16 +35785,6 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(28);
-
-var _Header = __webpack_require__(53);
-
-var _Card = __webpack_require__(71);
-
-var _Divider = __webpack_require__(54);
-
-var _Divider2 = _interopRequireDefault(_Divider);
-
 var _FlatButton = __webpack_require__(29);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
@@ -35803,17 +35793,13 @@ var _subject = __webpack_require__(102);
 
 var _subject2 = _interopRequireDefault(_subject);
 
-var _colors = __webpack_require__(47);
+var _api = __webpack_require__(28);
 
-var _List = __webpack_require__(172);
+var _date = __webpack_require__(473);
 
-var _Subheader = __webpack_require__(70);
+var _Header = __webpack_require__(53);
 
-var _Subheader2 = _interopRequireDefault(_Subheader);
-
-var _fileDownload = __webpack_require__(173);
-
-var _fileDownload2 = _interopRequireDefault(_fileDownload);
+var _TaskItem = __webpack_require__(475);
 
 __webpack_require__(471);
 
@@ -35860,20 +35846,12 @@ var Course = exports.Course = function (_React$Component) {
                 });
             });
 
-            // TODO
-            // Move to another file
-            var toDate = function toDate(yyyyMMdd, divider) {
-                var parts = yyyyMMdd.split(divider);
-
-                return new Date(parts[0], parts[1] - 1, parts[2]);
-            };
-
             this.props.get(_api.urls.courses.taskList(id), function (result) {
                 self.setState({
                     loaded: true,
                     tasks: result.data.map(function (task) {
                         if (task.dateOverdue) {
-                            task.dateOverdue = toDate(task.dateOverdue, '.');
+                            task.dateOverdue = _date.DateHelper.toDate(task.dateOverdue, '.');
                         }
 
                         return task;
@@ -35893,55 +35871,22 @@ var Course = exports.Course = function (_React$Component) {
 
             var navigationLinks = this.getNavigationLinks();
 
-            var renderTaskTemplate = function renderTaskTemplate(task) {
-                var description = task.description ? task.description + '' : '';
-                task.description = description.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            // TODO
+            // Loading
+            if (courseInfo == null) {
+                return null;
+            }
 
-                var courseViewModel = _this2.getReportStatusViewModel(task);
-                return React.createElement(
-                    _Card.Card,
-                    { key: task.id, className: 'task-item' },
-                    React.createElement(_Card.CardTitle, { title: task.title, subtitle: courseViewModel.text, subtitleColor: courseViewModel.color, subtitleStyle: { fontSize: 16 } }),
-                    React.createElement(_Divider2.default, null),
-                    React.createElement(_Card.CardText, { dangerouslySetInnerHTML: { __html: task.description } }),
-                    task.filePaths && task.filePaths.length > 0 && React.createElement(
-                        _Card.CardText,
-                        null,
-                        React.createElement(
-                            _List.List,
-                            null,
-                            task.filePaths.map(function (filePath, index) {
-                                return React.createElement(_List.ListItem, { key: index, primaryText: '\u0424\u0430\u0439\u043B ' + (index + 1), leftIcon: React.createElement(_fileDownload2.default, null), style: { border: '1px solid #b9c0cc', marginBottom: 3 }, onClick: function onClick() {
-                                        var extension = filePath.substr(filePath.lastIndexOf('.') + 1);
-
-                                        var a = document.createElement('a');
-                                        a.href = filePath;
-                                        a.target = '_blank';
-                                        a.download = '';
-
-                                        // TODO
-                                        // implement download by file name
-                                        // a.download = `${courseInfo.name}_${index + 1}.${extension}`;
-
-                                        a.click();
-                                    } });
-                            })
-                        )
-                    ),
-                    React.createElement(
-                        _Card.CardActions,
-                        null,
-                        React.createElement(_FlatButton2.default, {
-                            disabled: courseInfo.readOnly,
-                            label: '\u0414\u0435\u0442\u0430\u043B\u0438',
-                            primary: true,
-                            icon: React.createElement(_subject2.default, null),
-                            onClick: function onClick() {
-                                return _this2.props.history.push('/courses/' + _this2.props.match.params.id + '/tasks/' + task.id);
-                            }
-                        })
-                    )
-                );
+            var actions = function actions(taskId) {
+                return React.createElement(_FlatButton2.default, {
+                    disabled: courseInfo.readOnly,
+                    label: '\u0414\u0435\u0442\u0430\u043B\u0438',
+                    primary: true,
+                    icon: React.createElement(_subject2.default, null),
+                    onClick: function onClick() {
+                        return _this2.props.history.push('/courses/' + _this2.props.match.params.id + '/tasks/' + taskId);
+                    }
+                });
             };
 
             return React.createElement(
@@ -35953,7 +35898,16 @@ var Course = exports.Course = function (_React$Component) {
                     'div',
                     { className: 'task-list' },
                     tasks.map(function (task) {
-                        return renderTaskTemplate(task);
+                        return React.createElement(_TaskItem.TaskItem, {
+                            id: task.id,
+                            title: task.title,
+                            description: task.description,
+                            reportStatus: task.reportStatus,
+                            filePaths: task.filePaths,
+                            dateOverdue: task.dateOverdue,
+                            className: 'task-item',
+                            actions: actions(task.id)
+                        });
                     })
                 )
             );
@@ -35962,59 +35916,12 @@ var Course = exports.Course = function (_React$Component) {
         key: 'getNavigationLinks',
         value: function getNavigationLinks() {
             var id = this.props.match.params.id;
-            var user = this.props.user;
-            return user.isLoggedIn ? [{ to: '/courses/' + id + '/tasks', title: 'Задачи' }, { to: '/courses/' + id + '/guides', title: 'Методички' }, { to: '/courses/' + id + '/progress', title: 'Успеваемость' }] : null;
-        }
-    }, {
-        key: 'getReportStatusViewModel',
-        value: function getReportStatusViewModel(task) {
-            var reportStatus = task.reportStatus,
-                dateOverdue = task.dateOverdue;
-
-
-            var viewModel = {
-                text: '',
-                color: ''
-
-                // TODO
-                // Move to another file
-            };var ddmmyyyy = function ddmmyyyy(date, divider) {
-                var mm = date.getMonth() + 1;
-                var dd = date.getDate();
-
-                return [(dd > 9 ? '' : '0') + dd, (mm > 9 ? '' : '0') + mm, date.getFullYear()].join(divider);
-            };
-
-            switch (reportStatus) {
-                case 1:
-                    if (dateOverdue && dateOverdue >= Date.now()) {
-                        viewModel.text = '\u0412\u044B\u0448\u0435\u043B \u0441\u0440\u043E\u043A \u0441\u0434\u0430\u0447\u0438 - ' + ddmmyyyy(dateOverdue, '.');
-                        viewModel.color = _colors.red500;
-                    } else {
-                        viewModel.text = 'Не выполнено' + (dateOverdue ? ' - \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u0441\u0434\u0430\u0442\u044C \u0434\u043E ' + ddmmyyyy(dateOverdue, '.') : '');
-                        viewModel.color = _colors.grey500;
-                    }
-                    break;
-                case 2:
-                    viewModel.text = 'На проверке';
-                    viewModel.color = _colors.orange500;
-                    break;
-                case 3:
-                    viewModel.text = 'Сдано';
-                    viewModel.color = _colors.green500;
-                    break;
-                case 4:
-                    viewModel.text = 'Не утверждено';
-                    viewModel.color = _colors.red500;
-                    break;
-            }
-
-            return viewModel;
+            return [{ to: '/courses/' + id + '/tasks', title: 'Задачи' }, { to: '/courses/' + id + '/guides', title: 'Методички' }, { to: '/courses/' + id + '/progress', title: 'Успеваемость' }];
         }
     }, {
         key: 'getCourseInfo',
         value: function getCourseInfo(courseInfo) {
-            return courseInfo ? React.createElement(
+            return React.createElement(
                 'div',
                 { className: 'course-info' },
                 React.createElement(
@@ -36037,10 +35944,6 @@ var Course = exports.Course = function (_React$Component) {
                         courseInfo.lecturerFullName
                     )
                 )
-            ) : React.createElement(
-                'p',
-                null,
-                '\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...'
             );
         }
     }]);
@@ -36279,31 +36182,11 @@ var React = _interopRequireWildcard(_react);
 
 var _api = __webpack_require__(28);
 
+var _date = __webpack_require__(473);
+
 var _Header = __webpack_require__(53);
 
-var _Card = __webpack_require__(71);
-
-var _Divider = __webpack_require__(54);
-
-var _Divider2 = _interopRequireDefault(_Divider);
-
-var _FlatButton = __webpack_require__(29);
-
-var _FlatButton2 = _interopRequireDefault(_FlatButton);
-
-var _List = __webpack_require__(172);
-
-var _Subheader = __webpack_require__(70);
-
-var _Subheader2 = _interopRequireDefault(_Subheader);
-
-var _fileDownload = __webpack_require__(173);
-
-var _fileDownload2 = _interopRequireDefault(_fileDownload);
-
-var _colors = __webpack_require__(47);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _TaskItem = __webpack_require__(475);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -36322,10 +36205,16 @@ var Task = exports.Task = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
         _this.state = {
-            id: props.match.params.id,
-            courseId: props.match.params.courseId,
-            taskDetails: null,
-            comments: []
+            id: null,
+            title: '',
+            description: '',
+            filePaths: null,
+            reportStatus: null,
+            mark: null,
+            dateOverdue: null,
+            dateAccepted: null,
+            comments: [],
+            loaded: false
         };
         return _this;
     }
@@ -36335,111 +36224,347 @@ var Task = exports.Task = function (_React$Component) {
         value: function componentDidMount() {
             var self = this;
 
-            this.props.get(_api.urls.tasks.details(this.state.id), function (result) {
+            this.props.get(_api.urls.tasks.details(this.props.match.params.id), function (result) {
+                var task = result.data;
+
+                var id = task.id;
+                var title = task.title;
+                var description = task.description;
+                var filePaths = task.filePaths;
+                var reportStatus = task.reportStatus;
+                var mark = task.mark;
+                var dateOverdue = task.dateOverdue ? _date.DateHelper.toDate(task.dateOverdue, '.') : null;
+                var dateAccepted = task.dateAccepted ? _date.DateHelper.toDate(task.dateAccepted, '.') : null;
+                var comments = task.comments.map(function (comment) {
+                    comment.dateCreated = _date.DateHelper.toDate(comment.dateCreated, '.');
+                    return comment;
+                });
+
                 self.setState({
-                    taskDetails: result.data,
-                    comments: result.data.comments
+                    id: id,
+                    title: title,
+                    description: description,
+                    filePaths: filePaths,
+                    reportStatus: reportStatus,
+                    mark: mark,
+                    dateOverdue: dateOverdue,
+                    dateAccepted: dateAccepted,
+                    comments: comments,
+                    loaded: true
                 });
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var _state = this.state,
-                id = _state.id,
-                courseId = _state.courseId,
-                taskDetails = _state.taskDetails,
-                comments = _state.comments;
-
-
-            var navigationLinks = this.getNavigationLinks(courseId);
-
-            // TODO
-            // Replace by Loading
-            if (taskDetails == null) {
+            if (!this.state.loaded) {
+                // TODO
+                // Replace by Loading
                 return null;
             }
 
-            var courseViewModel = this.getReportStatusViewModel(taskDetails.reportStatus);
+            var _state = this.state,
+                id = _state.id,
+                title = _state.title,
+                description = _state.description,
+                filePaths = _state.filePaths,
+                reportStatus = _state.reportStatus,
+                mark = _state.mark,
+                dateOverdue = _state.dateOverdue,
+                dateAccepted = _state.dateAccepted,
+                comments = _state.comments;
+
+
+            var navigationLinks = this.getNavigationLinks();
 
             return React.createElement(
                 'div',
                 null,
-                React.createElement(_Header.Header, _extends({ navigationLinks: navigationLinks, backLink: '/courses/' + courseId + '/tasks' }, this.props)),
-                React.createElement(
-                    _Card.Card,
-                    null,
-                    React.createElement(_Card.CardTitle, { title: taskDetails.title, subtitle: courseViewModel.text, subtitleColor: courseViewModel.color, subtitleStyle: { fontSize: 16 } }),
-                    React.createElement(_Divider2.default, null),
-                    React.createElement(_Card.CardText, { dangerouslySetInnerHTML: { __html: taskDetails.description } }),
-                    taskDetails.filePaths && taskDetails.filePaths.length > 0 && React.createElement(
-                        _Card.CardText,
-                        null,
-                        React.createElement(
-                            _List.List,
-                            null,
-                            taskDetails.filePaths.map(function (filePath, index) {
-                                return React.createElement(_List.ListItem, { key: index, primaryText: '\u0424\u0430\u0439\u043B ' + (index + 1), leftIcon: React.createElement(_fileDownload2.default, null), style: { border: '1px solid #b9c0cc', marginBottom: 3 }, onClick: function onClick() {
-                                        var extension = filePath.substr(filePath.lastIndexOf('.') + 1);
-
-                                        var a = document.createElement('a');
-                                        a.href = filePath;
-                                        a.target = '_blank';
-                                        a.download = '';
-
-                                        // TODO
-                                        // implement download by file name
-                                        // a.download = `${courseInfo.name}_${index + 1}.${extension}`;
-
-                                        a.click();
-                                    } });
-                            })
-                        )
-                    )
-                )
+                React.createElement(_Header.Header, _extends({ navigationLinks: navigationLinks, backLink: '/courses/' + this.props.match.params.courseId + '/tasks' }, this.props)),
+                React.createElement(_TaskItem.TaskItem, {
+                    id: id,
+                    title: title,
+                    description: description,
+                    reportStatus: reportStatus,
+                    filePaths: filePaths,
+                    dateOverdue: dateOverdue,
+                    className: ''
+                })
             );
         }
     }, {
         key: 'getNavigationLinks',
-        value: function getNavigationLinks(courseId) {
+        value: function getNavigationLinks() {
+            var courseId = this.props.match.params.courseId;
+
             return [{ to: '/courses/' + courseId + '/tasks', title: 'Задачи' }, { to: '/courses/' + courseId + '/guides', title: 'Методички' }, { to: '/courses/' + courseId + '/progress', title: 'Успеваемость' }];
         }
+    }]);
+
+    return Task;
+}(React.Component);
+
+/***/ }),
+/* 473 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DateHelper = exports.DateHelper = function () {
+    function DateHelper() {
+        _classCallCheck(this, DateHelper);
+    }
+
+    _createClass(DateHelper, null, [{
+        key: 'nowDate',
+        value: function nowDate() {
+            var now = new Date();
+            now.setHours(0, 0, 0, 0);
+
+            return now;
+        }
     }, {
-        key: 'getReportStatusViewModel',
-        value: function getReportStatusViewModel(reportStatus) {
-            var viewModel = {
+        key: 'toDate',
+        value: function toDate(yyyyMMdd, divider) {
+            var parts = yyyyMMdd.split(divider);
+
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+    }, {
+        key: 'ddmmyyyy',
+        value: function ddmmyyyy(date, divider) {
+            var mm = date.getMonth() + 1;
+            var dd = date.getDate();
+
+            return [(dd > 9 ? '' : '0') + dd, (mm > 9 ? '' : '0') + mm, date.getFullYear()].join(divider);
+        }
+    }]);
+
+    return DateHelper;
+}();
+
+/***/ }),
+/* 474 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Downloader = exports.Downloader = function () {
+    function Downloader() {
+        _classCallCheck(this, Downloader);
+    }
+
+    _createClass(Downloader, null, [{
+        key: 'task',
+        value: function task(filePath, fileName) {
+            var extension = filePath.substr(filePath.lastIndexOf('.') + 1);
+
+            var a = document.createElement('a');
+            a.href = filePath;
+            a.target = '_blank';
+            a.download = fileName + '.' + extension;
+
+            a.click();
+        }
+    }]);
+
+    return Downloader;
+}();
+
+/***/ }),
+/* 475 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TaskItem = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _Card = __webpack_require__(71);
+
+var _Divider = __webpack_require__(54);
+
+var _Divider2 = _interopRequireDefault(_Divider);
+
+var _List = __webpack_require__(172);
+
+var _fileDownload = __webpack_require__(173);
+
+var _fileDownload2 = _interopRequireDefault(_fileDownload);
+
+var _colors = __webpack_require__(47);
+
+var _Header = __webpack_require__(53);
+
+var _date = __webpack_require__(473);
+
+var _download = __webpack_require__(474);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TaskItem = exports.TaskItem = function (_React$Component) {
+    _inherits(TaskItem, _React$Component);
+
+    function TaskItem(props) {
+        _classCallCheck(this, TaskItem);
+
+        var _this = _possibleConstructorReturn(this, (TaskItem.__proto__ || Object.getPrototypeOf(TaskItem)).call(this, props));
+
+        _this.state = {
+            id: props.id,
+            title: props.title,
+            description: props.description,
+            reportStatus: props.reportStatus,
+            filePaths: props.filePaths,
+            dateOverdue: props.dateOverdue,
+            className: props.className
+        };
+        return _this;
+    }
+
+    _createClass(TaskItem, [{
+        key: 'render',
+        value: function render() {
+            var _state = this.state,
+                id = _state.id,
+                title = _state.title,
+                filePaths = _state.filePaths,
+                className = _state.className;
+
+
+            var description = this.getDescription();
+            var report = this.getReport();
+
+            return React.createElement(
+                _Card.Card,
+                { className: className },
+                React.createElement(_Card.CardTitle, {
+                    title: title,
+                    subtitle: report.text,
+                    subtitleColor: report.color,
+                    subtitleStyle: { fontSize: 16 }
+                }),
+                React.createElement(_Divider2.default, null),
+                React.createElement(_Card.CardText, { dangerouslySetInnerHTML: { __html: description } }),
+                filePaths && filePaths.length > 0 && React.createElement(
+                    _Card.CardText,
+                    null,
+                    React.createElement(
+                        _List.List,
+                        null,
+                        filePaths.map(function (filePath, index) {
+                            return React.createElement(_List.ListItem, {
+                                key: index,
+                                primaryText: '\u0424\u0430\u0439\u043B ' + (index + 1),
+                                leftIcon: React.createElement(_fileDownload2.default, null),
+                                style: { border: '1px solid #b9c0cc', marginBottom: 3 },
+                                onClick: function onClick() {
+                                    return _download.Downloader.task(filePath, title + ' ' + (index + 1));
+                                } });
+                        })
+                    )
+                ),
+                this.props.actions && React.createElement(
+                    _Card.CardActions,
+                    null,
+                    this.props.actions
+                )
+            );
+        }
+    }, {
+        key: 'getDescription',
+        value: function getDescription() {
+            var description = '';
+
+            if (this.state.description) {
+                description += this.state.description;
+            }
+
+            return description.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        }
+    }, {
+        key: 'getReport',
+        value: function getReport() {
+            var _state2 = this.state,
+                reportStatus = _state2.reportStatus,
+                dateOverdue = _state2.dateOverdue;
+
+
+            var report = {
                 text: '',
                 color: ''
             };
 
             switch (reportStatus) {
                 case 1:
-                    viewModel.text = 'Не выполнено';
-                    viewModel.color = _colors.grey500;
+                    if (dateOverdue) {
+                        var format = _date.DateHelper.ddmmyyyy(dateOverdue, '.');
+                        if (dateOverdue < _date.DateHelper.nowDate()) {
+                            report.text = '\u0412\u044B\u0448\u0435\u043B \u0441\u0440\u043E\u043A \u0441\u0434\u0430\u0447\u0438 - ' + format;
+                            report.color = _colors.red500;
+                        } else {
+                            report.text = '\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E - \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u0441\u0434\u0430\u0442\u044C \u0434\u043E ' + format;
+                            report.color = _colors.grey500;
+                        }
+                    } else {
+                        report.text = 'Не выполнено';
+                        report.color = _colors.grey500;
+                    }
                     break;
                 case 2:
-                    viewModel.text = 'На проверке';
-                    viewModel.color = _colors.orange500;
+                    report.text = 'На проверке';
+                    report.color = _colors.orange500;
                     break;
                 case 3:
-                    viewModel.text = 'Сдано';
-                    viewModel.color = _colors.green500;
+                    report.text = 'Сдано';
+                    report.color = _colors.green500;
                     break;
                 case 4:
-                    viewModel.text = 'Не утверждено';
-                    viewModel.color = _colors.red500;
-                    break;
-                case 5:
-                    viewModel.text = 'Вышел срок сдачи';
-                    viewModel.color = _colors.red500;
+                    report.text = 'Не утверждено';
+                    report.color = _colors.red500;
                     break;
             }
 
-            return viewModel;
+            return report;
         }
     }]);
 
-    return Task;
+    return TaskItem;
 }(React.Component);
 
 /***/ })
