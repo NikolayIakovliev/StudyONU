@@ -10,7 +10,7 @@ namespace StudyONU.Logic.Extensions
         {
             services.AddTransient<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IFileHelper, FileHelper>();
-            services.AddTransient<IEmailSender, FakeEmailSender>();
+            services.AddTransient<IEmailSender, EmailSender>();
 
             return services;
         }

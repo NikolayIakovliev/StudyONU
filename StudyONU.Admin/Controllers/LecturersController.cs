@@ -38,15 +38,14 @@ namespace StudyONU.Admin.Controllers
             DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.Photo, LecturersImageUploadPath);
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
-                LecturerCreateDTO lecturerCreateDTO = mapper.Map<LecturerCreateDTO>(model, opts =>
-                    opts.AfterMap((src, dest) =>
-                    {
-                        (dest as LecturerCreateDTO).PhotoPath = dataServiceMessage.Data;
-                    })
-                );
+                LecturerCreateDTO lecturerCreateDTO = mapper.Map<LecturerCreateDTO>(model);
+                lecturerCreateDTO.PhotoPath = dataServiceMessage.Data;
+
                 dataServiceMessage = await service.CreateAsync(lecturerCreateDTO);
                 if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
                 {
+                    // TODO
+                    // Create IMessageBuilder
                     ServiceMessage serviceMessage = await emailSender.SendEmailAsync(model.Email, "StudyONU - registration", $"Welcome! Your password: {dataServiceMessage.Data}");
                 }
             }
