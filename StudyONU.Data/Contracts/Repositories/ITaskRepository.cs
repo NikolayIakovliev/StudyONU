@@ -10,6 +10,8 @@ namespace StudyONU.Data.Contracts.Repositories
     {
         Task<TaskEntity> GetDetailedAsync(int id);
 
+        Task<IEnumerable<TaskEntity>> GetAllAvailableAsync(int courseId);
+
         Task<IEnumerable<TaskEntity>> GetAllByLecturerIdAsync(int id);
 
         Task<IEnumerable<TaskEntity>> GetAllByLecturerIdOrderedAsync<TKey>(int id, Expression<Func<TaskEntity, TKey>> keySelector);

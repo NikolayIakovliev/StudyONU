@@ -18,6 +18,7 @@ namespace StudyONU.Logic.Extensions
             services.AddTransient<IGuideService, GuideService>();
             services.AddTransient<ITaskService, TaskService>();
             services.AddTransient<IStudentQueueService, StudentQueueService>();
+            services.AddTransient<IReportService, ReportService>();
 
             return services;
         }

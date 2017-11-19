@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StudyONU.Web.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class AccountController : ApiController
     {
         private readonly ITokenService tokenService;
@@ -31,6 +31,7 @@ namespace StudyONU.Web.Controllers
 
         [HttpPost]
         [Route("/api/token")]
+        [AllowAnonymous]
         public async Task<IActionResult> GenerateToken([FromBody] LoginBindingModel model)
         {
             LoginDTO loginDTO = mapper.Map<LoginDTO>(model);
@@ -41,12 +42,10 @@ namespace StudyONU.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("/api/check")]
         public IActionResult IsTokenValid() => Ok();
 
         [HttpPost]
-        [Authorize]
         [Route("password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordBindingModel model)
         {
@@ -60,6 +59,7 @@ namespace StudyONU.Web.Controllers
 
         [HttpPost]
         [Route("checkemail")]
+        [AllowAnonymous]
         public async Task<IActionResult> CheckEmail([FromQuery] string email)
         {
             ServiceMessage serviceMessage = await accountService.IsUnique(email);

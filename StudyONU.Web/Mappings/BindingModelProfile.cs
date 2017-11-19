@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using StudyONU.Logic.DTO.Account;
+using StudyONU.Logic.DTO.Report;
 using StudyONU.Logic.DTO.StudentQueue;
 using StudyONU.Web.Authentication;
 using StudyONU.Web.Models.Account;
+using StudyONU.Web.Models.Report;
 using StudyONU.Web.Models.StudentQueue;
 
 namespace StudyONU.Web.Mappings
@@ -18,6 +20,8 @@ namespace StudyONU.Web.Mappings
             CreateMap<ChangePasswordBindingModel, ChangePasswordDTO>();
 
             CreateMap<StudentQueueCreateBindingModel, StudentQueueCreateDTO>();
+
+            CreateMap<ReportCreateBindingModel, ReportCreateDTO>();
         }
     }
 }

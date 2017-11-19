@@ -191,9 +191,18 @@ namespace StudyONU.Logic.Services
 
                             data.Mark = reportEntity?.Mark;
                             data.DateAccepted = reportEntity?.DateAccepted;
-                            data.ReportStatus = reportEntity != null
-                                ? (int)reportEntity.State
-                                : (int)TaskState.NotDone;
+                            if (reportEntity != null)
+                            {
+                                data.ReportStatus = (int)reportEntity?.State;
+                            }
+                            else
+                            {
+                                TaskState status = taskEntity.DateOverdue.HasValue && taskEntity.DateOverdue.Value.Date < DateTime.Now.Date
+                                    ? TaskState.Overdue
+                                    : TaskState.NotDone;
+
+                                data.ReportStatus = (int)status;
+                            }
                         }
                         else
                         {
@@ -284,21 +293,29 @@ namespace StudyONU.Logic.Services
 
                     if (hasAccess)
                     {
-                        IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllAsync(task =>
-                                task.CourseId == courseId &&
-                                (
-                                    task.Course.IsPublished ||
-                                    !task.DateAvailable.HasValue ||
-                                    task.DateAvailable.Value >= DateTime.Now.Date
-                                )
-                            );
+                        IEnumerable<TaskEntity> taskEntities = await unitOfWork.Tasks.GetAllAvailableAsync(courseId);
                         data = mapper.Map<IEnumerable<StudentTaskListDTO>>(taskEntities);
+
                         if (studentEntity != null)
                         {
-                            foreach (StudentTaskListDTO task in data)
+                            foreach (TaskEntity taskEntity in taskEntities)
                             {
-                                TaskState taskState = await unitOfWork.Reports.GetReportState(studentEntity.Id, task.Id);
-                                task.ReportStatus = (int)taskState;
+                                ReportEntity reportEntity = taskEntity.Reports.FirstOrDefault(report => report.StudentId == studentEntity.Id);
+
+                                TaskState taskState;
+
+                                if (reportEntity != null)
+                                {
+                                    taskState = reportEntity.State;
+                                }
+                                else
+                                {
+                                    taskState = taskEntity.DateOverdue.HasValue && taskEntity.DateOverdue.Value.Date < DateTime.Now.Date
+                                        ? TaskState.Overdue
+                                        : TaskState.NotDone;
+                                }
+
+                                data.FirstOrDefault(t => t.Id == taskEntity.Id).ReportStatus = (int)taskState;
                             }
                         }
                     }

@@ -37,13 +37,13 @@ export class Routes extends React.Component {
         const user = this.state.user;
 
         let Api = ApiWrapper(user, (data) => AuthorizationStorage.save(data), () => AuthorizationStorage.clear());
-
+        
         return (
             <Switch>
                 <Route exact path='/' render={() => <Redirect to="/courses/public" />} />
                 <Route exact path='/register' component={Api(Registration)} />
                 <Route exact path='/courses/public' component={Api(PublicCourses)} />
-                {user.isLoggedIn && <Route exact path='/courses/my' component={Api(MyCourses)} />}
+                <Route exact path='/courses/my' component={Api(MyCourses)} />
                 <Route exact path='/courses/:id(\d+)/tasks' component={Api(Course)} />
                 <Route exact path='/courses/:courseId(\d+)/tasks/:id(\d+)' component={Api(Task)} />
                 <Route path='/404' component={NotFound} />

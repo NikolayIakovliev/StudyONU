@@ -40,5 +40,20 @@ namespace StudyONU.Data.Repositories
                 .OrderBy(keySelector)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<TaskEntity>> GetAllAvailableAsync(int courseId)
+        {
+            return await context.Tasks
+                .Include(task => task.Reports)
+                .Where(task =>
+                    task.CourseId == courseId &&
+                    (
+                        task.Course.IsPublished ||
+                        !task.DateAvailable.HasValue ||
+                        task.DateAvailable.Value >= DateTime.Now.Date
+                    )
+                )
+                .ToListAsync();
+        }
     }
 }

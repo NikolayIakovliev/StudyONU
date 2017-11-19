@@ -20,6 +20,6 @@
             (dd > 9 ? '' : '0') + dd,
             (mm > 9 ? '' : '0') + mm,
             date.getFullYear()
-        ].join(divider);
+        ].join(divider ? divider : '/');
     }
 }

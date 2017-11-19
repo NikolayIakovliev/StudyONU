@@ -9,6 +9,7 @@ namespace StudyONU.Web.Controllers
     public class ApiController : Controller
     {
         protected const string StudentsImageUploadPath = "images/uploads/students";
+        protected const string ReportsUploadPath = "files/uploads/reports";
 
         protected IActionResult GenerateResponse<TData>(DataServiceMessage<TData> serviceMessage) where TData : class
         {

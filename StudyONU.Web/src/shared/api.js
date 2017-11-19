@@ -100,7 +100,8 @@ export const urls = {
     specialities: '/api/specialities',
     tasks: {
         details: (id) => `/api/tasks/${id}`
-    }
+    },
+    reports: '/api/reports'
 }
 
 const checkStatus = (response) => {

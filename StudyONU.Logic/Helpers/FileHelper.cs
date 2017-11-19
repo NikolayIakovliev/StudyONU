@@ -27,14 +27,22 @@ namespace StudyONU.Logic.Helpers
             ErrorCollection errors = new ErrorCollection();
             string data = null;
 
-            try
+            if (file != null)
             {
-                data = await CreateFile(file, serverFolderPath);
+                try
+                {
+                    data = await CreateFile(file, serverFolderPath);
+                }
+                catch (Exception exception)
+                {
+                    actionResult = ServiceActionResult.Exception;
+                    logger.Fatal(exception);
+                }
             }
-            catch (Exception exception)
+            else
             {
-                actionResult = ServiceActionResult.Exception;
-                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Error;
+                errors.AddCommonError("File wasn't received");
             }
 
             return new DataServiceMessage<string>
@@ -51,16 +59,24 @@ namespace StudyONU.Logic.Helpers
             ErrorCollection errors = new ErrorCollection();
             IEnumerable<string> data = null;
 
-            try
+            if (files != null)
             {
-                IEnumerable<Task<string>> tasks = files.Select(async file => await CreateFile(file, serverFolderPath));
-                await Task.WhenAll(tasks);
-                data = tasks.Select(task => task.Result);
+                try
+                {
+                    IEnumerable<Task<string>> tasks = files.Select(async file => await CreateFile(file, serverFolderPath));
+                    await Task.WhenAll(tasks);
+                    data = tasks.Select(task => task.Result);
+                }
+                catch (Exception exception)
+                {
+                    actionResult = ServiceActionResult.Exception;
+                    logger.Fatal(exception);
+                }
             }
-            catch (Exception exception)
+            else
             {
-                actionResult = ServiceActionResult.Exception;
-                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Error;
+                errors.AddCommonError("Files weren't received");
             }
 
             return new DataServiceMessage<IEnumerable<string>>
