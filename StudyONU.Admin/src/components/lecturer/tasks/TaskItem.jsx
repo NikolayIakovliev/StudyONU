@@ -104,7 +104,8 @@ export class TaskItem extends React.Component {
             dateFormat: ''
         }
 
-        let now = Date.now();
+        let now = new Date();
+        now.setHours(0, 0, 0, 0);
         if (dateOverdue && dateOverdue < now) {
             let format = ddmmyyyy(dateOverdue, '.');
             details.text = `Срок сдачи прошел ${format}`;

@@ -50,7 +50,7 @@ namespace StudyONU.Data.Repositories
                     (
                         task.Course.IsPublished ||
                         !task.DateAvailable.HasValue ||
-                        task.DateAvailable.Value >= DateTime.Now.Date
+                        task.DateAvailable.Value.Date <= DateTime.Now.Date
                     )
                 )
                 .ToListAsync();

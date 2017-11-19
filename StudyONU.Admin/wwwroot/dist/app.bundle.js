@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a6e9a0b31c16e9d671bb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "63e89b6fabeb57825551"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -42132,7 +42132,8 @@ var TaskItem = exports.TaskItem = function (_React$Component) {
                 dateFormat: ''
             };
 
-            var now = Date.now();
+            var now = new Date();
+            now.setHours(0, 0, 0, 0);
             if (dateOverdue && dateOverdue < now) {
                 var format = (0, _date.ddmmyyyy)(dateOverdue, '.');
                 details.text = '\u0421\u0440\u043E\u043A \u0441\u0434\u0430\u0447\u0438 \u043F\u0440\u043E\u0448\u0435\u043B ' + format;
