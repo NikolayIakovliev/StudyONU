@@ -17,7 +17,8 @@ import {
     grey500,
     red500,
     green500,
-    orange500
+    orange500,
+    blue500
 } from 'material-ui/styles/colors';
 
 import { Header } from '../shared/Header';
@@ -82,7 +83,8 @@ export class TaskItem extends React.Component {
     getReport() {
         const {
             reportStatus,
-            dateOverdue
+            dateOverdue,
+            readOnly
         } = this.props;
 
         let report = {
@@ -90,33 +92,40 @@ export class TaskItem extends React.Component {
             color: ''
         }
 
-        switch (reportStatus) {
-            case 1:
-                if (dateOverdue) {
-                    const format = DateHelper.ddmmyyyy(dateOverdue, '.');
-                    report.text = `Не выполнено - необходимо сдать до ${format}`;
+        if (!readOnly) {
+            const format = dateOverdue
+                ? DateHelper.ddmmyyyy(dateOverdue, '.')
+                : '';
+
+            switch (reportStatus) {
+                case 1:
                     report.color = grey500;
-                } else {
-                    report.text = 'Не выполнено';
-                    report.color = grey500;
-                }
-                break;
-            case 2:
-                report.text = 'На проверке';
-                report.color = orange500;
-                break;
-            case 3:
-                report.text = 'Сдано';
-                report.color = green500;
-                break;
-            case 4:
-                report.text = 'Не утверждено';
-                report.color = red500;
-            case 5:
-                const format = DateHelper.ddmmyyyy(dateOverdue, '.');
-                report.text = `Вышел срок сдачи - ${format}`;
-                report.color = red500;
-                break;
+                    if (dateOverdue) {
+                        report.text = `Не выполнено - необходимо сдать до ${format}`;
+                    } else {
+                        report.text = 'Не выполнено';
+                    }
+                    break;
+                case 2:
+                    report.text = 'Отправлено';
+                    report.color = blue500;
+                    break;
+                case 3:
+                    report.text = 'На проверке';
+                    report.color = orange500;
+                    break;
+                case 4:
+                    report.text = 'Сдано';
+                    report.color = green500;
+                    break;
+                case 5:
+                    report.text = 'Не утверждено';
+                    report.color = red500;
+                case 6:
+                    report.text = `Вышел срок сдачи - ${format}`;
+                    report.color = red500;
+                    break;
+            }
         }
 
         return report;

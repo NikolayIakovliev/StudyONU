@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9b8cc49330a125b28d83"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "99f6b9d5df4abcee55a1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1469,7 +1469,12 @@ var urls = exports.urls = {
             return '/api/tasks/' + id;
         }
     },
-    reports: '/api/reports'
+    reports: {
+        create: '/api/reports',
+        cancel: function cancel(taskId) {
+            return '/api/reports/' + taskId + '/cancel';
+        }
+    }
 };
 
 var checkStatus = function checkStatus(response) {
@@ -2493,14 +2498,14 @@ var Header = exports.Header = function (_React$Component) {
                         { onClick: function onClick() {
                                 return history.push('/');
                             } },
-                        'Home'
+                        '\u0414\u043E\u043C\u0430\u0448\u043D\u044F\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430'
                     ),
                     React.createElement(
                         _MenuItem2.default,
                         { onClick: function onClick() {
                                 return history.push('/register');
                             } },
-                        'Register'
+                        '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F'
                     )
                 )
             );
@@ -11110,7 +11115,8 @@ var TaskItem = exports.TaskItem = function (_React$Component) {
         value: function getReport() {
             var _props2 = this.props,
                 reportStatus = _props2.reportStatus,
-                dateOverdue = _props2.dateOverdue;
+                dateOverdue = _props2.dateOverdue,
+                readOnly = _props2.readOnly;
 
 
             var report = {
@@ -11118,33 +11124,38 @@ var TaskItem = exports.TaskItem = function (_React$Component) {
                 color: ''
             };
 
-            switch (reportStatus) {
-                case 1:
-                    if (dateOverdue) {
-                        var _format = _date.DateHelper.ddmmyyyy(dateOverdue, '.');
-                        report.text = '\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E - \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u0441\u0434\u0430\u0442\u044C \u0434\u043E ' + _format;
+            if (!readOnly) {
+                var format = dateOverdue ? _date.DateHelper.ddmmyyyy(dateOverdue, '.') : '';
+
+                switch (reportStatus) {
+                    case 1:
                         report.color = _colors.grey500;
-                    } else {
-                        report.text = 'Не выполнено';
-                        report.color = _colors.grey500;
-                    }
-                    break;
-                case 2:
-                    report.text = 'На проверке';
-                    report.color = _colors.orange500;
-                    break;
-                case 3:
-                    report.text = 'Сдано';
-                    report.color = _colors.green500;
-                    break;
-                case 4:
-                    report.text = 'Не утверждено';
-                    report.color = _colors.red500;
-                case 5:
-                    var format = _date.DateHelper.ddmmyyyy(dateOverdue, '.');
-                    report.text = '\u0412\u044B\u0448\u0435\u043B \u0441\u0440\u043E\u043A \u0441\u0434\u0430\u0447\u0438 - ' + format;
-                    report.color = _colors.red500;
-                    break;
+                        if (dateOverdue) {
+                            report.text = '\u041D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E - \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u0441\u0434\u0430\u0442\u044C \u0434\u043E ' + format;
+                        } else {
+                            report.text = 'Не выполнено';
+                        }
+                        break;
+                    case 2:
+                        report.text = 'Отправлено';
+                        report.color = _colors.blue500;
+                        break;
+                    case 3:
+                        report.text = 'На проверке';
+                        report.color = _colors.orange500;
+                        break;
+                    case 4:
+                        report.text = 'Сдано';
+                        report.color = _colors.green500;
+                        break;
+                    case 5:
+                        report.text = 'Не утверждено';
+                        report.color = _colors.red500;
+                    case 6:
+                        report.text = '\u0412\u044B\u0448\u0435\u043B \u0441\u0440\u043E\u043A \u0441\u0434\u0430\u0447\u0438 - ' + format;
+                        report.color = _colors.red500;
+                        break;
+                }
             }
 
             return report;
@@ -16983,10 +16994,10 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                                         return _api.Api.get(url);
                                     }, callback);
                                 },
-                                post: function post(url, data, callback) {
+                                post: function post(url, data, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.post(url, data);
-                                    }, callback);
+                                    }, callback, onError);
                                 },
                                 postFormData: function postFormData(url, data, callback) {
                                     return _this2.callApi(function () {
@@ -17037,7 +17048,7 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                 }
             }, {
                 key: 'callApi',
-                value: function callApi(method, callback) {
+                value: function callApi(method, callback, onError) {
                     var _this3 = this;
 
                     var self = this;
@@ -17056,16 +17067,20 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                                 if (json.success === true) {
                                     callback(json);
                                 } else {
-                                    var errors = json.errors;
-                                    if (errors.common) {
-                                        _logger.Logger.error(errors.common ? errors.common : 'Error on server');
-                                        self.setState({ errorMessage: 'Неправильно введены данные' });
-                                    } else if (errors.exception) {
-                                        _logger.Logger.error(errors.exception ? errors.exception : 'Exception on server');
-                                        self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
-                                    } else if (errors.access) {
-                                        _logger.Logger.error(errors.access ? errors.access : 'Access denied');
-                                        history.push('/');
+                                    if (onError) {
+                                        onError(json);
+                                    } else {
+                                        var errors = json.errors;
+                                        if (errors.common != undefined) {
+                                            _logger.Logger.error(errors.common ? errors.common : 'Error on server');
+                                            self.setState({ errorMessage: 'Неправильно введены данные' });
+                                        } else if (errors.exception != undefined) {
+                                            _logger.Logger.error(errors.exception ? errors.exception : 'Exception on server');
+                                            self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
+                                        } else if (errors.access != undefined) {
+                                            _logger.Logger.error(errors.access ? errors.access : 'Access denied');
+                                            history.push('/');
+                                        }
                                     }
                                 }
                             });
@@ -28209,15 +28224,13 @@ var Registration = exports.Registration = function (_React$Component) {
                         var self = _this4;
 
                         _this4.props.post(_api.urls.account.checkEmail + '?email=' + _this4.state.email, null, function (result) {
+                            var stepIndex = _this4.state.stepIndex + 1;
                             var errors = { email: '' };
-                            var stepIndex = _this4.state.stepIndex;
-                            if (result.success === true) {
-                                stepIndex++;
-                            } else {
-                                errors.email = 'Почта уже используется';
-                            }
 
-                            self.setState({ allowNextStep: result.success, errors: errors, stepIndex: stepIndex });
+                            self.setState({ allowNextStep: true, stepIndex: stepIndex, errors: errors });
+                        }, function (result) {
+                            var errors = { email: 'Почта уже используется' };
+                            self.setState({ errors: errors });
                         });
                     };
                 case 1:
@@ -36069,8 +36082,9 @@ var Course = exports.Course = function (_React$Component) {
                             reportStatus: task.reportStatus,
                             filePaths: task.filePaths,
                             dateOverdue: task.dateOverdue,
-                            className: 'task-item',
-                            actions: actions(task.id)
+                            readOnly: courseInfo.readOnly,
+                            actions: actions(task.id),
+                            className: 'task-item'
                         });
                     })
                 )
@@ -36554,6 +36568,9 @@ var Task = exports.Task = function (_React$Component) {
                             dateAccepted: dateAccepted,
                             onSend: function onSend(file) {
                                 return _this2.onSend(file);
+                            },
+                            onCancel: function onCancel() {
+                                return _this2.onCancel();
                             }
                         })
                     )
@@ -36576,7 +36593,15 @@ var Task = exports.Task = function (_React$Component) {
             };
 
             var self = this;
-            this.props.postFormData(_api.urls.reports, data, function (result) {
+            this.props.postFormData(_api.urls.reports.create, data, function (result) {
+                self.load();
+            });
+        }
+    }, {
+        key: 'onCancel',
+        value: function onCancel() {
+            var self = this;
+            this.props.put(_api.urls.reports.cancel(this.state.id), null, function (result) {
                 self.load();
             });
         }
@@ -36699,21 +36724,23 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
 
             var content = null;
 
-            if (reportStatus === 1 || reportStatus === 5) {
+            if (reportStatus === 1 || reportStatus === 6) {
                 content = this.getNotAcceptedContent();
             } else if (reportStatus === 2) {
+                content = this.getCancelContent();
+            } else if (reportStatus === 3) {
                 content = React.createElement(
                     'p',
                     null,
                     '\u0420\u0430\u0431\u043E\u0442\u0430 \u043D\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0435'
                 );
-            } else if (reportStatus === 3) {
+            } else if (reportStatus === 4) {
                 content = React.createElement(
                     'p',
                     null,
                     '\u0420\u0430\u0431\u043E\u0442\u0430 \u0441\u0434\u0430\u043D\u0430'
                 );
-            } else if (reportStatus === 4) {
+            } else if (reportStatus === 5) {
                 content = this.getNotAcceptedContent();
             }
 
@@ -36754,6 +36781,28 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
             );
         }
     }, {
+        key: 'getCancelContent',
+        value: function getCancelContent() {
+            var _this2 = this;
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'p',
+                    null,
+                    '\u0420\u0430\u0431\u043E\u0442\u0430 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0430'
+                ),
+                React.createElement(_RaisedButton2.default, {
+                    label: '\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0443',
+                    secondary: true,
+                    onClick: function onClick() {
+                        return _this2.props.onCancel();
+                    }
+                })
+            );
+        }
+    }, {
         key: 'getReportText',
         value: function getReportText(reportStatus) {
             var text = '';
@@ -36763,19 +36812,19 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                     text = 'Работа ещё не сдана';
                     break;
                 case 2:
-                    text = 'Работа на проверке';
+                    text = 'Работа отправлена';
                     break;
                 case 3:
-                    text = 'Работа сдана';
+                    text = 'Работа на проверке';
                     break;
                 case 4:
-                    text = 'Работа не утверждена';
+                    text = 'Работа сдана';
                     break;
                 case 5:
-                    text = 'Прошёл срок сдачи';
+                    text = 'Работа не утверждена';
                     break;
-                default:
-                    text = 'Неизвестен';
+                case 6:
+                    text = 'Прошёл срок сдачи';
                     break;
             }
 
@@ -36784,7 +36833,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
     }, {
         key: 'getReportForm',
         value: function getReportForm() {
-            var _this2 = this;
+            var _this3 = this;
 
             var file = this.state.file;
 
@@ -36809,7 +36858,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                         className: 'dropzone',
                         multiple: false,
                         onDrop: function onDrop(files) {
-                            return _this2.setState({ file: files[0] });
+                            return _this3.setState({ file: files[0] });
                         },
                         accept: '.docx,.doc,.pdf,.txt' },
                     dropzoneContent
@@ -36820,7 +36869,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                     disabled: disabled,
                     style: { marginTop: 30 },
                     onClick: function onClick() {
-                        return _this2.props.onSend(file);
+                        return _this3.props.onSend(file);
                     }
                 })
             );

@@ -46,5 +46,16 @@ namespace StudyONU.Web.Controllers
 
             return GenerateResponse(dataServiceMessage);
         }
+
+        [HttpPut]
+        [Route("{taskId:int}/cancel")]
+        public async Task<IActionResult> Cancel(int taskId)
+        {
+            string email = GetUserEmail();
+
+            ServiceMessage serviceMessage = await service.DeleteAsync(taskId, email);
+
+            return GenerateResponse(serviceMessage);
+        }
     }
 }

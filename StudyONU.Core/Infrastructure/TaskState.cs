@@ -3,9 +3,10 @@
     public enum TaskState
     {
         NotDone = 1,
-        OnCheck = 2,
-        Accepted = 3,
-        Rejected = 4,
-        Overdue = 5
+        Sent = 2,
+        OnCheck = 3,
+        Accepted = 4,
+        Rejected = 5,
+        Overdue = 6
     }
 }

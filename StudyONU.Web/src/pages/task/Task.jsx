@@ -77,6 +77,7 @@ export class Task extends React.Component {
                             dateOverdue={dateOverdue}
                             dateAccepted={dateAccepted}
                             onSend={file => this.onSend(file)}
+                            onCancel={() => this.onCancel()}
                         />
                     </div>
                 </div>
@@ -101,7 +102,14 @@ export class Task extends React.Component {
         }
 
         let self = this;
-        this.props.postFormData(urls.reports, data, result => {
+        this.props.postFormData(urls.reports.create, data, result => {
+            self.load();
+        });
+    }
+
+    onCancel() {
+        let self = this;
+        this.props.put(urls.reports.cancel(this.state.id), null, result => {
             self.load();
         });
     }

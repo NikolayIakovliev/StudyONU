@@ -243,15 +243,13 @@ export class Registration extends React.Component {
                     let self = this;
 
                     this.props.post(`${urls.account.checkEmail}?email=${this.state.email}`, null, result => {
+                        let stepIndex = this.state.stepIndex + 1;
                         let errors = { email: '' };
-                        let stepIndex = this.state.stepIndex;
-                        if (result.success === true) {
-                            stepIndex++;
-                        } else {
-                            errors.email = 'Почта уже используется';
-                        }
 
-                        self.setState({ allowNextStep: result.success, errors: errors, stepIndex: stepIndex });
+                        self.setState({ allowNextStep: true, stepIndex: stepIndex, errors: errors });
+                    }, result => {
+                        let errors = { email: 'Почта уже используется' };
+                        self.setState({ errors });
                     });
                 }
             case 1:

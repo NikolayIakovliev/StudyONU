@@ -63,10 +63,10 @@ export class Header extends React.Component {
                         docked={false}
                         onRequestChange={open => this.setState({ open: open })}>
                         <MenuItem onClick={() => history.push('/')}>
-                            Home
+                            Домашняя страница
                         </MenuItem>
                         <MenuItem onClick={() => history.push('/register')}>
-                            Register
+                            Регистрация
                         </MenuItem>
                     </Drawer>
                 }

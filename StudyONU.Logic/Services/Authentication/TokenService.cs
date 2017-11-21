@@ -17,7 +17,7 @@ namespace StudyONU.Logic.Services.Authentication
 {
     public class TokenService : ServiceBase, ITokenService
     {
-        private const int TokenMinutesExpiration = 30;
+        private const int TokenMinutesExpiration = 120;
 
         private readonly IPasswordHasher passwordHasher;
 

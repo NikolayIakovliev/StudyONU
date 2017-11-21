@@ -78,7 +78,7 @@ export class GuideItem extends React.Component {
             details.text = 'Методичка опубликована';
             details.leftAvatar = <Avatar icon={<ActionDone />} backgroundColor={green500} />;
         } else {
-            details.text = 'Методичка скрыта';
+            details.text = 'Методичка не опубликована';
             details.leftAvatar = <Avatar icon={<ActionClear />} backgroundColor={red500} />;
         }
 

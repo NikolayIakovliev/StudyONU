@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "902ea48296bf0af27551"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b6fa8269b109d02e46c1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37227,7 +37227,7 @@ var GuideItem = exports.GuideItem = function (_React$Component) {
                 details.text = 'Методичка опубликована';
                 details.leftAvatar = React.createElement(_Avatar2.default, { icon: React.createElement(_done2.default, null), backgroundColor: _colors.green500 });
             } else {
-                details.text = 'Методичка скрыта';
+                details.text = 'Методичка не опубликована';
                 details.leftAvatar = React.createElement(_Avatar2.default, { icon: React.createElement(_clear2.default, null), backgroundColor: _colors.red500 });
             }
 

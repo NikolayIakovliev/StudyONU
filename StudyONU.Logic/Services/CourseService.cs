@@ -7,7 +7,6 @@ using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services

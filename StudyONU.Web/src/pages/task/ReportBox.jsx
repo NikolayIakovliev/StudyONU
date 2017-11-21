@@ -34,13 +34,15 @@ export class ReportBox extends React.Component {
 
         let content = null;
 
-        if (reportStatus === 1 || reportStatus === 5) {
+        if (reportStatus === 1 || reportStatus === 6) {
             content = this.getNotAcceptedContent();
         } else if (reportStatus === 2) {
-            content = <p>Работа на проверке</p>;
+            content = this.getCancelContent();
         } else if (reportStatus === 3) {
-            content = <p>Работа сдана</p>;
+            content = <p>Работа на проверке</p>;
         } else if (reportStatus === 4) {
+            content = <p>Работа сдана</p>;
+        } else if (reportStatus === 5) {
             content = this.getNotAcceptedContent();
         }
 
@@ -59,14 +61,27 @@ export class ReportBox extends React.Component {
             : 'неограниченный';
 
         let reportText = this.getReportText(reportStatus);
-        
+
         return (
             <div>
                 <p>{dateOverdueText}</p>
                 <p>Статус: <span>{reportText}</span></p>
                 {this.getReportForm()}
             </div>
-            );
+        );
+    }
+
+    getCancelContent() {
+        return (
+            <div>
+                <p>Работа отправлена</p>
+                <RaisedButton
+                    label="Отменить отправку"
+                    secondary={true}
+                    onClick={() => this.props.onCancel()}
+                />
+            </div>
+        );
     }
 
     getReportText(reportStatus) {
@@ -77,19 +92,19 @@ export class ReportBox extends React.Component {
                 text = 'Работа ещё не сдана';
                 break;
             case 2:
-                text = 'Работа на проверке';
+                text = 'Работа отправлена';
                 break;
             case 3:
-                text = 'Работа сдана';
+                text = 'Работа на проверке';
                 break;
             case 4:
-                text = 'Работа не утверждена';
+                text = 'Работа сдана';
                 break;
             case 5:
-                text = 'Прошёл срок сдачи';
+                text = 'Работа не утверждена';
                 break;
-            default:
-                text = 'Неизвестен';
+            case 6:
+                text = 'Прошёл срок сдачи';
                 break;
         }
 

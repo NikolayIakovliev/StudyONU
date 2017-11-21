@@ -101,7 +101,10 @@ export const urls = {
     tasks: {
         details: (id) => `/api/tasks/${id}`
     },
-    reports: '/api/reports'
+    reports: {
+        create: '/api/reports',
+        cancel: (taskId) => `/api/reports/${taskId}/cancel`
+    }
 }
 
 const checkStatus = (response) => {

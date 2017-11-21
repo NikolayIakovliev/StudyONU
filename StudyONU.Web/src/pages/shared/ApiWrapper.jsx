@@ -35,7 +35,7 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
                         <WrappedComponent {...this.props}
                             user={user}
                             get={(url, callback) => this.callApi(() => Api.get(url), callback)}
-                            post={(url, data, callback) => this.callApi(() => Api.post(url, data), callback)}
+                            post={(url, data, callback, onError) => this.callApi(() => Api.post(url, data), callback, onError)}
                             postFormData={(url, data, callback) => this.callApi(() => Api.postFormData(url, data), callback)}
                             put={(url, data, callback) => this.callApi(() => Api.put(url, data), callback)}
                             putFormData={(url, data, callback) => this.callApi(() => Api.putFormData(url, data), callback)}
@@ -59,7 +59,7 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
             );
         }
 
-        callApi(method, callback) {
+        callApi(method, callback, onError) {
             let self = this;
             const history = this.props.history;
 
@@ -76,16 +76,20 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
                             if (json.success === true) {
                                 callback(json);
                             } else {
-                                let errors = json.errors;
-                                if (errors.common) {
-                                    Logger.error(errors.common ? errors.common : 'Error on server');
-                                    self.setState({ errorMessage: 'Неправильно введены данные' });
-                                } else if (errors.exception) {
-                                    Logger.error(errors.exception ? errors.exception : 'Exception on server');
-                                    self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
-                                } else if (errors.access) {
-                                    Logger.error(errors.access ? errors.access : 'Access denied');
-                                    history.push('/');
+                                if (onError) {
+                                    onError(json);
+                                } else {
+                                    let errors = json.errors;
+                                    if (errors.common != undefined) {
+                                        Logger.error(errors.common ? errors.common : 'Error on server');
+                                        self.setState({ errorMessage: 'Неправильно введены данные' });
+                                    } else if (errors.exception != undefined) {
+                                        Logger.error(errors.exception ? errors.exception : 'Exception on server');
+                                        self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
+                                    } else if (errors.access != undefined) {
+                                        Logger.error(errors.access ? errors.access : 'Access denied');
+                                        history.push('/');
+                                    }
                                 }
                             }
                         });

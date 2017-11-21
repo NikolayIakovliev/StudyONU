@@ -86,8 +86,9 @@ export class Course extends React.Component {
                             reportStatus={task.reportStatus}
                             filePaths={task.filePaths}
                             dateOverdue={task.dateOverdue}
-                            className="task-item"
+                            readOnly={courseInfo.readOnly}
                             actions={actions(task.id)}
+                            className="task-item"
                         />)
                     }
                 </div>
