@@ -65,7 +65,7 @@ export class ReportBox extends React.Component {
         return (
             <div>
                 <p>{dateOverdueText}</p>
-                <p>Статус: <span>{reportText}</span></p>
+                <p>{reportText}</p>
                 {this.getReportForm()}
             </div>
         );

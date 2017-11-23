@@ -18,6 +18,11 @@ namespace StudyONU.Core.Configurations
                 .WithMany(entity => entity.Comments)
                 .HasForeignKey(entity => entity.SenderId);
 
+            builder.HasOne(entity => entity.Student)
+                .WithMany(entity => entity.Comments)
+                .HasForeignKey(entity => entity.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(entity => entity.Task)
                 .WithMany(entity => entity.Comments)
                 .HasForeignKey(entity => entity.TaskId)

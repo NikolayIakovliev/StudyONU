@@ -21,14 +21,14 @@ export const Authentication = (WrappedComponent) => {
         }
 
         componentDidMount() {
-            let update = this.update;
+            let self = this;
             Api.post(urls.check, null)
                 .then(response => {
                     if (response.status == 401) {
                         AuthorizationData.clear();
                     }
 
-                    update();
+                    self.update();
                 });
         }
 
@@ -89,12 +89,13 @@ export const Authentication = (WrappedComponent) => {
         }
 
         callApi(method, callback) {
+            let self = this;
             method()
                 .then(response => this.checkUnauthorized(response))
                 .then(result => {
                     if (!result.isAuthOk) {
                         AuthorizationData.clear();
-                        this.update();
+                        self.update();
                     } else if (result.exception) {
                         console.error(result.response);
                     } else {

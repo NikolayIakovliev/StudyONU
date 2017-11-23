@@ -8,6 +8,7 @@ using StudyONU.Logic.DTO.Report;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace StudyONU.Logic.Services
 {
@@ -78,6 +79,51 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public async Task<ServiceMessage> ChangeOnCheckStateAsync(int taskId, string studentEmail)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+
+            try
+            {
+                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+                if (studentEntity != null)
+                {
+                    ReportEntity reportEntity = await unitOfWork.Reports.GetAsync(report =>
+                        report.TaskId == taskId &&
+                        report.StudentId == studentEntity.Id
+                    );
+                    if (reportEntity != null)
+                    {
+                        reportEntity.State = TaskState.OnCheck;
+                        await unitOfWork.CommitAsync();
+                    }
+                    else
+                    {
+                        actionResult = ServiceActionResult.NotFound;
+                        errors.AddCommonError("Report was not found");
+                    }
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.AddCommonError("Student was not found");
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
         public async Task<ServiceMessage> DeleteAsync(int taskId, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
@@ -120,6 +166,32 @@ namespace StudyONU.Logic.Services
             {
                 ActionResult = actionResult,
                 Errors = errors
+            };
+        }
+
+        public async Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetSentAsync(string lecturerEmail)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+            IEnumerable<ReportListDTO> data = null;
+
+            try
+            {
+                IEnumerable<ReportEntity> reportEntities = await unitOfWork.Reports.GetAllByStateAndLecturerAsync(TaskState.Sent, lecturerEmail);
+                data = mapper.Map<IEnumerable<ReportListDTO>>(reportEntities);
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new DataServiceMessage<IEnumerable<ReportListDTO>>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
             };
         }
     }

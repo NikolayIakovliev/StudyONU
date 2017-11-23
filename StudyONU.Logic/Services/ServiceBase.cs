@@ -21,9 +21,6 @@ namespace StudyONU.Logic.Services
             this.logger = logger;
         }
 
-        public void Dispose()
-        {
-            unitOfWork.Dispose();
-        }
+        public void Dispose() => unitOfWork.Dispose();
     }
 }

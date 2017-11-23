@@ -1,6 +1,7 @@
 ﻿using StudyONU.Logic.DTO.Report;
 using StudyONU.Logic.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Contracts.Services
@@ -9,6 +10,10 @@ namespace StudyONU.Logic.Contracts.Services
     {
         Task<ServiceMessage> CreateAsync(ReportCreateDTO reportDTO, string studentEmail);
 
+        Task<ServiceMessage> ChangeOnCheckStateAsync(int taskId, string studentEmail);
+
         Task<ServiceMessage> DeleteAsync(int taskId, string studentEmail);
+
+        Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetSentAsync(string lecturerEmail);
     }
 }

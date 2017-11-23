@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudyONU.Admin.Filters;
 using StudyONU.Admin.Models.StudentQueue;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
 {
+    [LecturerAuthorize]
     public class StudentQueueController : ApiController
     {
         private readonly IStudentQueueService studentService;

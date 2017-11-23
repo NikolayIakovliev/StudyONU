@@ -15,6 +15,7 @@ import { CourseList } from './components/lecturer/courses/CourseList';
 import { GuideList } from './components/lecturer/guides/GuideList';
 import { TaskList } from './components/lecturer/tasks/TaskList';
 import { StudentQueueList } from './components/lecturer/studentQueue/StudentQueueList';
+import { SentReportBox } from './components/lecturer/reports/SentReportBox';
 
 const adminRole = 'Админ';
 const lecturerRole = 'Преподаватель';
@@ -83,6 +84,10 @@ export class Routes extends React.Component {
                     to: '/students/queue'
                 },
                 {
+                    title: 'Непроверенные отчёты',
+                    to: '/reports/sent'
+                },
+                {
                     title: 'Сменить пароль',
                     to: '/account/password'
                 }
@@ -90,10 +95,11 @@ export class Routes extends React.Component {
             routes = (
                 <Switch>
                     <Route exact path='/' component={LecturerAuthorization(LecturerHome, this.props)} />
-                    <Route exact path='/courses' component={LecturerAuthorization(CourseList, this.props)} />
-                    <Route exact path='/guides' component={LecturerAuthorization(GuideList, this.props)} />
-                    <Route exact path='/tasks' component={LecturerAuthorization(TaskList, this.props)} />
+                    <Route path='/courses' component={LecturerAuthorization(CourseList, this.props)} />
+                    <Route path='/guides' component={LecturerAuthorization(GuideList, this.props)} />
+                    <Route path='/tasks' component={LecturerAuthorization(TaskList, this.props)} />
                     <Route path='/students/queue' component={LecturerAuthorization(StudentQueueList, this.props)} />
+                    <Route path='/reports/sent' component={LecturerAuthorization(SentReportBox, this.props)} />
                     <Route path='/account/password' component={LecturerAuthorization(ChangePassword, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>

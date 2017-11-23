@@ -12,6 +12,10 @@ namespace StudyONU.Core.Entities
 
         public virtual UserEntity Sender { get; set; }
 
+        public int StudentId { get; set; }
+
+        public virtual StudentEntity Student { get; set; }
+
         public int TaskId { get; set; }
 
         public virtual TaskEntity Task { get; set; }

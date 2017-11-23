@@ -123,8 +123,8 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                IEnumerable<SpecialityEntity> speacialityEntities = await unitOfWork.Specialities.GetAllAsync();
-                data = mapper.Map<IEnumerable<SpecialityDTO>>(speacialityEntities)
+                IEnumerable<SpecialityEntity> specialityEntities = await unitOfWork.Specialities.GetAllAsync();
+                data = mapper.Map<IEnumerable<SpecialityDTO>>(specialityEntities)
                     .OrderBy(speaciality => speaciality.Name)
                     .ToList();
             }

@@ -19,5 +19,7 @@ namespace StudyONU.Core.Entities
         public virtual ICollection<ReportEntity> Reports { get; set; }
 
         public virtual ICollection<StudentCourseEntity> Courses { get; set; }
+
+        public virtual ICollection<CommentEntity> Comments { get; internal set; }
     }
 }

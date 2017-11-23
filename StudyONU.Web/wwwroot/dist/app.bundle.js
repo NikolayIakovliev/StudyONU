@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "99f6b9d5df4abcee55a1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8a6d5b485fa62ccd3966"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -36770,12 +36770,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                 React.createElement(
                     'p',
                     null,
-                    '\u0421\u0442\u0430\u0442\u0443\u0441: ',
-                    React.createElement(
-                        'span',
-                        null,
-                        reportText
-                    )
+                    reportText
                 ),
                 this.getReportForm()
             );

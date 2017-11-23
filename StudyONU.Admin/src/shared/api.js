@@ -122,6 +122,13 @@ export const urls = {
         courses: (id) => `/api/studentQueue/${id}/courses`,
         approve: '/api/studentQueue/approve',
         disapprove: (id) => `/api/studentQueue/${id}/disapprove`
+    },
+    reports: {
+        sent: '/api/reports/sent',
+        check: (taskId, studentEmail) => `/api/reports/check?taskId=${taskId}&studentEmail=${studentEmail}`
+    },
+    comments: {
+        list: (taskId, studentEmail) => `/api/comments?taskId=${taskId}&studentEmail=${studentEmail}`
     }
 }
 
