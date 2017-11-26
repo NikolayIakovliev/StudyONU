@@ -29,7 +29,7 @@ namespace StudyONU.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] ReportCreateBindingModel model)
+        public async Task<IActionResult> Send([FromForm] ReportCreateBindingModel model)
         {
             DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, ReportsUploadPath);
 
@@ -39,7 +39,7 @@ namespace StudyONU.Web.Controllers
                 reportCreateDTO.FilePath = dataServiceMessage.Data;
                 string email = GetUserEmail();
 
-                ServiceMessage serviceMessage = await service.CreateAsync(reportCreateDTO, email);
+                ServiceMessage serviceMessage = await service.SendAsync(reportCreateDTO, email);
 
                 return GenerateResponse(serviceMessage);
             }

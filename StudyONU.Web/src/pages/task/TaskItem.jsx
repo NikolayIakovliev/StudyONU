@@ -35,6 +35,7 @@ export class TaskItem extends React.Component {
         } = this.props;
 
         const description = this.getDescription();
+        const style = this.getDescriptionStyle();
         const report = this.getReport();
 
         return (
@@ -60,7 +61,7 @@ export class TaskItem extends React.Component {
                         </List>
                     </CardText>
                 }
-                <CardText dangerouslySetInnerHTML={{ __html: description }}></CardText>
+                <CardText style={style} dangerouslySetInnerHTML={{ __html: description }}></CardText>
                 {this.props.actions &&
                     <CardActions>
                         {this.props.actions}
@@ -68,6 +69,17 @@ export class TaskItem extends React.Component {
                 }
             </Card>
         )
+    }
+
+    getDescriptionStyle() {
+        let style = {};
+
+        if (this.props.shortenDescription) {
+            style.maxHeight = '80px';
+            style.overflowY = 'auto';
+        }
+
+        return style;
     }
 
     getDescription() {

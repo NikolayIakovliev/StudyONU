@@ -44,7 +44,7 @@ export class SentReportBox extends React.Component {
             <div className="report-box">
                 <ReportList
                     items={items}
-                    rightIconButton={RightIconButton(report => this.startChecking(report))}
+                    rightIconButton={SentRightIconButton(report => this.startChecking(report))}
                 />
                 <CommentBox />
             </div>

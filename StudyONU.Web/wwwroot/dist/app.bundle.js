@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2084e18eeb7e622cd045"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dc50655f0212f807b1b6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11061,6 +11061,7 @@ var TaskItem = exports.TaskItem = function (_React$Component) {
 
 
             var description = this.getDescription();
+            var style = this.getDescriptionStyle();
             var report = this.getReport();
 
             return React.createElement(
@@ -11091,13 +11092,25 @@ var TaskItem = exports.TaskItem = function (_React$Component) {
                         })
                     )
                 ),
-                React.createElement(_Card.CardText, { dangerouslySetInnerHTML: { __html: description } }),
+                React.createElement(_Card.CardText, { style: style, dangerouslySetInnerHTML: { __html: description } }),
                 this.props.actions && React.createElement(
                     _Card.CardActions,
                     null,
                     this.props.actions
                 )
             );
+        }
+    }, {
+        key: 'getDescriptionStyle',
+        value: function getDescriptionStyle() {
+            var style = {};
+
+            if (this.props.shortenDescription) {
+                style.maxHeight = '80px';
+                style.overflowY = 'auto';
+            }
+
+            return style;
         }
     }, {
         key: 'getDescription',
@@ -36084,7 +36097,8 @@ var Course = exports.Course = function (_React$Component) {
                             dateOverdue: task.dateOverdue,
                             readOnly: courseInfo.readOnly,
                             actions: actions(task.id),
-                            className: 'task-item'
+                            className: 'task-item',
+                            shortenDescription: true
                         });
                     })
                 )
@@ -36600,6 +36614,7 @@ var Task = exports.Task = function (_React$Component) {
     }, {
         key: 'onCancel',
         value: function onCancel() {
+            var self = this;
             this.props.put(_api.urls.reports.cancel(this.state.id), null, function (result) {
                 return self.load();
             }, function (result) {

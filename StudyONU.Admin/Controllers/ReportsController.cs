@@ -21,9 +21,9 @@ namespace StudyONU.Admin.Controllers
 
         [HttpPut]
         [Route("check")]
-        public async Task<IActionResult> StartChecking(int taskId, string studentEmail)
+        public async Task<IActionResult> Check(int taskId, string studentEmail)
         {
-            ServiceMessage serviceMessage = await service.ChangeOnCheckStateAsync(taskId, studentEmail);
+            ServiceMessage serviceMessage = await service.OnCheckAsync(taskId, studentEmail);
             
             return GenerateResponse(serviceMessage);
         }

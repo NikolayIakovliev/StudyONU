@@ -8,9 +8,9 @@ namespace StudyONU.Logic.Contracts.Services
 {
     public interface IReportService : IDisposable
     {
-        Task<ServiceMessage> CreateAsync(ReportCreateDTO reportDTO, string studentEmail);
+        Task<ServiceMessage> SendAsync(ReportCreateDTO reportDTO, string studentEmail);
 
-        Task<ServiceMessage> ChangeOnCheckStateAsync(int taskId, string studentEmail);
+        Task<ServiceMessage> OnCheckAsync(int taskId, string studentEmail);
 
         Task<ServiceMessage> CancelAsync(int taskId, string studentEmail);
 

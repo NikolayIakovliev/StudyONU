@@ -89,6 +89,7 @@ export class Course extends React.Component {
                             readOnly={courseInfo.readOnly}
                             actions={actions(task.id)}
                             className="task-item"
+                            shortenDescription={true}
                         />)
                     }
                 </div>

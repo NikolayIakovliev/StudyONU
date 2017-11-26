@@ -21,7 +21,7 @@ namespace StudyONU.Logic.Services
             )
             : base(unitOfWork, mapper, logger) { }
 
-        public async Task<ServiceMessage> CreateAsync(ReportCreateDTO reportDTO, string studentEmail)
+        public async Task<ServiceMessage> SendAsync(ReportCreateDTO reportDTO, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
@@ -38,13 +38,27 @@ namespace StudyONU.Logic.Services
                             report.TaskId == taskEntity.Id &&
                             report.StudentId == studentEntity.Id
                         );
-                        if (reportEntity == null || reportEntity.State == TaskState.NotDone)
+
+                        bool editable =
+                            reportEntity != null &&
+                            (reportEntity.State == TaskState.NotDone ||
+                            reportEntity.State == TaskState.Rejected);
+
+                        if (reportEntity == null)
                         {
                             reportEntity = mapper.Map<ReportEntity>(reportDTO);
                             reportEntity.Student = studentEntity;
                             reportEntity.State = TaskState.Sent;
+                            reportEntity.DateModified = DateTime.Now;
 
                             await unitOfWork.Reports.AddAsync(reportEntity);
+                            await unitOfWork.CommitAsync();
+                        }
+                        else if (editable)
+                        {
+                            reportEntity.State = TaskState.Sent;
+                            reportEntity.DateModified = DateTime.Now;
+
                             await unitOfWork.CommitAsync();
                         }
                         else
@@ -79,7 +93,7 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> ChangeOnCheckStateAsync(int taskId, string studentEmail)
+        public async Task<ServiceMessage> OnCheckAsync(int taskId, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
@@ -96,6 +110,8 @@ namespace StudyONU.Logic.Services
                     if (reportEntity != null && reportEntity.State == TaskState.Sent)
                     {
                         reportEntity.State = TaskState.OnCheck;
+                        reportEntity.DateModified = DateTime.Now;
+
                         await unitOfWork.CommitAsync();
                     }
                     else
@@ -140,7 +156,9 @@ namespace StudyONU.Logic.Services
                     );
                     if (reportEntity != null && reportEntity.State == TaskState.Sent)
                     {
-                        unitOfWork.Reports.Remove(reportEntity);
+                        reportEntity.State = TaskState.NotDone;
+                        reportEntity.DateModified = DateTime.Now;
+
                         await unitOfWork.CommitAsync();
                     }
                     else
