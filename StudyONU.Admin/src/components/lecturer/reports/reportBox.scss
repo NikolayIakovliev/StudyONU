@@ -1,6 +1,11 @@
 ﻿.report-box {
     display: flex;
     justify-content: space-between;
+    align-items:flex-start;
+
+    & > :first-child {
+        margin-right: 30px;
+    }
 
     & > * {
         flex-grow: 1;

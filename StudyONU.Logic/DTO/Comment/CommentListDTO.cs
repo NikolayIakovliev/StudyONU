@@ -6,6 +6,8 @@ namespace StudyONU.Logic.DTO.Comment
     {
         public string Text { get; set; }
 
+        public string SenderPhoto { get; set; }
+
         public string SenderEmail { get; set; }
 
         public string SenderFullName { get; set; }

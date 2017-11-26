@@ -104,6 +104,10 @@ export const urls = {
     reports: {
         create: '/api/reports',
         cancel: (taskId) => `/api/reports/${taskId}/cancel`
+    },
+    comments: {
+        create: '/api/comments',
+        list: (taskId) => `/api/comments?taskId=${taskId}`
     }
 }
 

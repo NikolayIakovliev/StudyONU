@@ -87,6 +87,7 @@ namespace StudyONU.Logic.Services.Authentication
                         data = new UserInfoDTO
                         {
                             Token = jwtSecurityTokenHandler.WriteToken(token),
+                            Email = userEntity.Email,
                             Role = userEntity.Role.Name,
                             FirstName = userEntity.FirstName,
                             LastName = userEntity.LastName,

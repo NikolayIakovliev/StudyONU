@@ -7,6 +7,8 @@ import { Header } from '../shared/Header';
 import { TaskItem } from '../task/TaskItem';
 import { ReportBox } from '../task/ReportBox';
 
+import { CommentBox } from './CommentBox';
+
 import './task.scss';
 
 export class Task extends React.Component {
@@ -79,6 +81,11 @@ export class Task extends React.Component {
                             onSend={file => this.onSend(file)}
                             onCancel={() => this.onCancel()}
                         />
+                        <CommentBox
+                            items={comments}
+                            userEmail={this.props.user.email}
+                            sendComment={text => this.sendComment(text)}
+                        />
                     </div>
                 </div>
             </div>
@@ -112,6 +119,16 @@ export class Task extends React.Component {
         this.props.put(urls.reports.cancel(this.state.id), null, result => self.load(), result => location.reload());
     }
 
+    sendComment(text) {
+        const data = {
+            text: text,
+            taskId: this.state.id
+        }
+
+        let self = this;
+        this.props.post(urls.comments.create, data, result => self.loadComments());
+    }
+
     load() {
         let self = this;
 
@@ -126,10 +143,6 @@ export class Task extends React.Component {
             const mark = task.mark;
             const dateOverdue = task.dateOverdue ? DateHelper.toDate(task.dateOverdue, '.') : null;
             const dateAccepted = task.dateAccepted ? DateHelper.toDate(task.dateAccepted, '.') : null;
-            const comments = task.comments.map(comment => {
-                comment.dateCreated = DateHelper.toDate(comment.dateCreated, '.');
-                return comment;
-            });
 
             self.setState({
                 id: id,
@@ -140,8 +153,29 @@ export class Task extends React.Component {
                 mark: mark,
                 dateOverdue: dateOverdue,
                 dateAccepted: dateAccepted,
-                comments: comments,
                 loaded: true
+            });
+
+            self.loadComments();
+        });
+    }
+
+    loadComments() {
+        const taskId = this.state.id;
+
+        let self = this;
+        let url = urls.comments.list(taskId);
+
+        this.props.get(url, result => {
+            let comments = result.data.map(comment => {
+                comment.dateCreated = DateHelper.toDate(comment.dateCreated, '.');
+                comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+                return comment;
+            });
+
+            self.setState({
+                comments
             });
         });
     }

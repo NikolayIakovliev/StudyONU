@@ -10,6 +10,7 @@ export const Authentication = (WrappedComponent) => {
 
             this.state = {
                 user: {
+                    email: '',
                     role: '',
                     token: '',
                     firstName: '',
@@ -116,6 +117,7 @@ export const Authentication = (WrappedComponent) => {
 
         update() {
             let user = {
+                email: '',
                 role: '',
                 token: '',
                 firstName: '',
@@ -127,6 +129,7 @@ export const Authentication = (WrappedComponent) => {
             let userLoggedIn = AuthorizationData.any();
             if (userLoggedIn) {
                 let authorizationData = AuthorizationData.get();
+                user.email = authorizationData.email;
                 user.role = authorizationData.role;
                 user.token = authorizationData.token;
                 user.firstName = authorizationData.firstName;

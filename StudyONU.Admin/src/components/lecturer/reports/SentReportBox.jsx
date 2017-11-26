@@ -2,6 +2,7 @@
 
 import { EmptyContent } from '../../shared/EmptyContent';
 import { Downloader } from '../../../shared/download';
+import { toDate } from '../../../shared/date';
 import { urls } from '../../../shared/api';
 
 import { ReportList } from './ReportList';
@@ -16,7 +17,11 @@ export class SentReportBox extends React.Component {
 
         this.state = {
             items: [],
-            loaded: false
+            loaded: false,
+            comments: [],
+            openComments: false,
+            taskId: null,
+            studentEmail: null
         }
     }
 
@@ -27,7 +32,9 @@ export class SentReportBox extends React.Component {
     render() {
         const {
             items,
-            loaded
+            loaded,
+            comments,
+            openComments
         } = this.state;
 
         // TODO
@@ -45,8 +52,14 @@ export class SentReportBox extends React.Component {
                 <ReportList
                     items={items}
                     rightIconButton={SentRightIconButton(report => this.startChecking(report))}
+                    onSelect={item => this.loadComments(item.taskId, item.studentEmail)}
                 />
-                <CommentBox />
+                <CommentBox
+                    open={openComments}
+                    items={comments}
+                    userEmail={this.props.user.email}
+                    sendComment={text => this.sendComment(text)}
+                />
             </div>
         );
     }
@@ -56,9 +69,21 @@ export class SentReportBox extends React.Component {
         Downloader.download(report.filePath, fileName);
 
         let self = this;
-        this.props.put(urls.reports.check(report.taskId, report.studentEmail), null, result => {
-            self.load();
-        });
+        this.props.put(urls.reports.check(report.taskId, report.studentEmail), null, result => self.load());
+    }
+
+    sendComment(text) {
+        let studentEmail = this.state.studentEmail;
+        let taskId = this.state.taskId;
+
+        const data = {
+            text: text,
+            studentEmail: studentEmail,
+            taskId: taskId
+        }
+
+        let self = this;
+        this.props.post(urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
     }
 
     load() {
@@ -66,7 +91,32 @@ export class SentReportBox extends React.Component {
         this.props.get(urls.reports.sent, result => {
             self.setState({
                 items: result.data,
-                loaded: true
+                loaded: true,
+                comments: [],
+                openComments: false,
+                taskId: null,
+                studentEmail: null
+            });
+        });
+    }
+
+    loadComments(taskId, studentEmail) {
+        let self = this;
+        let url = urls.comments.list(taskId, studentEmail);
+
+        this.props.get(url, result => {
+            let comments = result.data.map(comment => {
+                comment.dateCreated = toDate(comment.dateCreated, '.');
+                comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+                return comment;
+            });
+
+            self.setState({
+                comments,
+                openComments: true,
+                taskId: taskId,
+                studentEmail: studentEmail
             });
         });
     }

@@ -26,6 +26,7 @@ export class ReportList extends React.Component {
                         primaryText={`${item.taskTitle}, ${item.courseName} (${item.courseNumber} курс)`}
                         secondaryText={`${item.studentFullName} - ${item.studentEmail}`}
                         rightIconButton={this.props.rightIconButton(item)}
+                        onClick={() => this.props.onSelect(item)}
                     />)}
                 </List>
             </Paper>

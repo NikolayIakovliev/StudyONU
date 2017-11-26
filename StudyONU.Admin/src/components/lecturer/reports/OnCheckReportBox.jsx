@@ -2,6 +2,7 @@
 
 import { EmptyContent } from '../../shared/EmptyContent';
 import { Downloader } from '../../../shared/download';
+import { toDate } from '../../../shared/date';
 import { urls } from '../../../shared/api';
 
 import { ReportList } from './ReportList';
@@ -18,7 +19,11 @@ export class OnCheckReportBox extends React.Component {
         this.state = {
             items: [],
             loaded: false,
-            acceptItem: null
+            acceptItem: null,
+            comments: [],
+            openComments: false,
+            taskId: null,
+            studentEmail: null
         }
     }
 
@@ -30,7 +35,9 @@ export class OnCheckReportBox extends React.Component {
         const {
             items,
             loaded,
-            acceptItem
+            acceptItem,
+            comments,
+            openComments
         } = this.state;
 
         // TODO
@@ -55,8 +62,14 @@ export class OnCheckReportBox extends React.Component {
                             report => this.reject(report),
                             report => this.download(report))
                         }
+                        onSelect={item => this.loadComments(item.taskId, item.studentEmail)}
                     />
-                    <CommentBox />
+                    <CommentBox
+                        open={openComments}
+                        items={comments}
+                        userEmail={this.props.user.email}
+                        sendComment={text => this.sendComment(text)}
+                    />
                 </div>
                 <MarkModal
                     open={open}
@@ -86,13 +99,52 @@ export class OnCheckReportBox extends React.Component {
         Downloader.download(report.filePath, fileName);
     }
 
+    sendComment(text) {
+        let studentEmail = this.state.studentEmail;
+        let taskId = this.state.taskId;
+
+        const data = {
+            text: text,
+            studentEmail: studentEmail,
+            taskId: taskId
+        }
+
+        let self = this;
+        this.props.post(urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+    }
+
     load() {
         let self = this;
         this.props.get(urls.reports.onCheck, result => {
             self.setState({
                 items: result.data,
                 loaded: true,
-                acceptItem: null
+                acceptItem: null,
+                comments: [],
+                openComments: false,
+                taskId: null,
+                studentEmail: null
+            });
+        });
+    }
+
+    loadComments(taskId, studentEmail) {
+        let self = this;
+        let url = urls.comments.list(taskId, studentEmail);
+
+        this.props.get(url, result => {
+            let comments = result.data.map(comment => {
+                comment.dateCreated = toDate(comment.dateCreated, '.');
+                comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+                return comment;
+            });
+
+            self.setState({
+                comments,
+                openComments: true,
+                taskId: taskId,
+                studentEmail: studentEmail
             });
         });
     }

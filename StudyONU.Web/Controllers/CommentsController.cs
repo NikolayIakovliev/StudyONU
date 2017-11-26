@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using StudyONU.Admin.Filters;
-using StudyONU.Admin.Models.Comment;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Comment;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Web.Models.Comment;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StudyONU.Admin.Controllers
+namespace StudyONU.Web.Controllers
 {
-    [LecturerAuthorize]
     public class CommentsController : ApiController
     {
         private readonly ICommentService service;
@@ -25,8 +23,11 @@ namespace StudyONU.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CommentCreateBindingModel model)
         {
+            string email = GetUserEmail();
+
             CommentCreateDTO comment = mapper.Map<CommentCreateDTO>(model);
-            comment.SenderEmail = GetUserEmail();
+            comment.SenderEmail = email;
+            comment.StudentEmail = email;
 
             ServiceMessage serviceMessage = await service.CreateAsync(comment);
 
@@ -34,9 +35,11 @@ namespace StudyONU.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List([FromQuery] int taskId, [FromQuery] string studentEmail)
+        public async Task<IActionResult> List([FromQuery] int taskId)
         {
-            DataServiceMessage<IEnumerable<CommentListDTO>> serviceMessage = await service.GetByTaskAndStudentAsync(taskId, studentEmail);
+            string email = GetUserEmail();
+
+            DataServiceMessage<IEnumerable<CommentListDTO>> serviceMessage = await service.GetByTaskAndStudentAsync(taskId, email);
 
             return GenerateResponse(serviceMessage);
         }

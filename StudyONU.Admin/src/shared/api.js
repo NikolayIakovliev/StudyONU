@@ -131,6 +131,7 @@ export const urls = {
         reject: (taskId, studentEmail) => `/api/reports/reject?taskId=${taskId}&studentEmail=${studentEmail}`
     },
     comments: {
+        create: '/api/comments',
         list: (taskId, studentEmail) => `/api/comments?taskId=${taskId}&studentEmail=${studentEmail}`
     }
 }

@@ -21,7 +21,5 @@ namespace StudyONU.Logic.DTO.Task
         public decimal? Mark { get; set; }
 
         public DateTime? DateAccepted { get; set; }
-
-        public IEnumerable<CommentListDTO> Comments { get; set; }
     }
 }

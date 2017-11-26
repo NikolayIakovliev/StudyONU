@@ -9,8 +9,6 @@ namespace StudyONU.Admin.Controllers
     public class ApiController : Controller
     {
         protected const string LecturersImageUploadPath = "images/uploads/lecturers";
-        protected const string StudentsImageUploadPath = "images/uploads/students";
-        protected const string QueueImageUploadPath = "images/uploads/queue";
         protected const string GuidesUploadPath = "files/uploads/guides";
         protected const string TasksUploadPath = "files/uploads/tasks";
 

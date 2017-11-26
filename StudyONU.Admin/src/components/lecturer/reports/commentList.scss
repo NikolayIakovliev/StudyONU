@@ -1,0 +1,29 @@
+﻿.comment-list {
+    padding: 0 !important;
+
+    .comment-item {
+        margin-top: -10px;
+
+        .sender-name {
+            margin: 0;
+        }
+
+        .sender-email {
+            font-size: 14px;
+            line-height: 16px;
+            height: 16px;
+            margin: 4px 0px 0px;
+            color: rgba(0, 0, 0, 0.541176);
+        }
+
+        .comment-text {
+            margin-bottom: 0;
+        }
+
+        .comment-date {
+            text-align: right;
+            font-size: 13px;
+            color: gray;
+        }
+    }
+}

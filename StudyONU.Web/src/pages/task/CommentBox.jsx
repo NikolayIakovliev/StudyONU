@@ -11,14 +11,9 @@ export class CommentBox extends React.Component {
 
     render() {
         const {
-            items,
-            open
+            items
         } = this.props;
-
-        if (!open) {
-            return null;
-        }
-
+        
         const list = this.getList();
 
         return (

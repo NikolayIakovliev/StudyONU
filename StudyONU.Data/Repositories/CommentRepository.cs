@@ -18,7 +18,7 @@ namespace StudyONU.Data.Repositories
             return await context.Comments
                 .Include(comment => comment.Sender)
                 .Where(comment => comment.TaskId == taskId && comment.Student.User.Email == studentEmail)
-                .OrderByDescending(comment => comment.DateCreated)
+                .OrderBy(comment => comment.DateCreated)
                 .ToListAsync();
         }
     }

@@ -19,6 +19,51 @@ namespace StudyONU.Logic.Services
             ILogger logger) 
             : base(unitOfWork, mapper, logger) { }
 
+        public async Task<ServiceMessage> CreateAsync(CommentCreateDTO commentDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+
+            try
+            {
+                TaskEntity taskEntity = await unitOfWork.Tasks.GetAsync(commentDTO.TaskId);
+                UserEntity sender = await unitOfWork.Users.GetByEmailAsync(commentDTO.SenderEmail);
+                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(commentDTO.StudentEmail);
+
+                bool ok =
+                    taskEntity != null &&
+                    sender != null &&
+                    studentEntity != null;
+
+                if (ok)
+                {
+                    CommentEntity commentEntity = mapper.Map<CommentEntity>(commentDTO);
+                    commentEntity.SenderId = sender.Id;
+                    commentEntity.StudentId = studentEntity.Id;
+
+                    await unitOfWork.Comments.AddAsync(commentEntity);
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.NotFound;
+                    errors.AddCommonError();
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
         public async Task<DataServiceMessage<IEnumerable<CommentListDTO>>> GetByTaskAndStudentAsync(int taskId, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;

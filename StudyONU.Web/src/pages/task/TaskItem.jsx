@@ -133,6 +133,7 @@ export class TaskItem extends React.Component {
                 case 5:
                     report.text = 'Не утверждено';
                     report.color = red500;
+                    break;
                 case 6:
                     report.text = `Вышел срок сдачи - ${format}`;
                     report.color = red500;
