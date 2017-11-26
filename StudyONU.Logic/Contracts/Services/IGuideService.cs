@@ -17,5 +17,7 @@ namespace StudyONU.Logic.Contracts.Services
         Task<DataServiceMessage<GuideDetailsDTO>> GetByIdAsync(int id);
 
         Task<DataServiceMessage<IEnumerable<GuideListDTO>>> GetByLecturerEmailAsync(string email);
+
+        Task<DataServiceMessage<IEnumerable<StudentGuideListDTO>>> GetByCourseAndStudentAsync(int courseId, string studentEmail);
     }
 }

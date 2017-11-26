@@ -43,9 +43,9 @@ export class GuideItem extends React.Component {
             courseNumber,
             isPublished
         } = item;
-
+        
         let publishmentDetails = this.getPublishmentDetails(isPublished);
-        let availableDetails = this.getAvailableDetails(dateAvailable);
+        let availableDetails = this.getAvailableDetails(dateAvailable, isPublished);
 
         return (
             <ListItem
@@ -85,7 +85,7 @@ export class GuideItem extends React.Component {
         return details;
     }
 
-    getAvailableDetails(dateAvailable) {
+    getAvailableDetails(dateAvailable, isPublished) {
         let details = {
             leftAvatar: null,
             text: '',
@@ -93,7 +93,7 @@ export class GuideItem extends React.Component {
         }
 
         let now = Date.now();
-        if (dateAvailable && dateAvailable > now) {
+        if (dateAvailable && dateAvailable > now && !isPublished) {
             let format = ddmmyyyy(dateAvailable, '.');
             details.text = `Будет доступна студентам с ${format}`;
             details.leftAvatar = <Avatar icon={<ActionClear />} backgroundColor={red500} />;

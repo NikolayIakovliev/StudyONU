@@ -108,7 +108,8 @@ export const urls = {
     comments: {
         create: '/api/comments',
         list: (taskId) => `/api/comments?taskId=${taskId}`
-    }
+    },
+    guides: (courseId) => `/api/guides?courseId=${courseId}`
 }
 
 const checkStatus = (response) => {

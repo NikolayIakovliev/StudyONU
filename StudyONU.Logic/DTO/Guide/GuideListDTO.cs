@@ -14,6 +14,8 @@ namespace StudyONU.Logic.DTO.Guide
 
         public DateTime? DateAvailable { get; set; }
 
+        public int CourseId { get; set; }
+
         public string CourseName { get; set; }
 
         public byte CourseNumber { get; set; }

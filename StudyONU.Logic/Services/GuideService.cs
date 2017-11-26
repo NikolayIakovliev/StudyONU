@@ -198,5 +198,56 @@ namespace StudyONU.Logic.Services
                 Data = data
             };
         }
+
+        public async Task<DataServiceMessage<IEnumerable<StudentGuideListDTO>>> GetByCourseAndStudentAsync(int courseId, string studentEmail)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+            IEnumerable<StudentGuideListDTO> data = null;
+
+            try
+            {
+                CourseEntity courseEntity = await unitOfWork.Courses.GetDetailedAsync(courseId);
+                if (courseEntity != null)
+                {
+                    StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+
+                    bool isInCourse =
+                        studentEntity != null &&
+                        await unitOfWork.StudentCourse.IsInCourse(studentEntity.Id, courseId);
+
+                    bool hasAccess = courseEntity.IsPublished || isInCourse;
+
+                    if (hasAccess)
+                    {
+                        IEnumerable<GuideEntity> guideEntities = await unitOfWork.Guides.GetAvailableByCourseAsync(courseId);
+                        data = mapper.Map<IEnumerable<StudentGuideListDTO>>(guideEntities);
+                    }
+                    else
+                    {
+                        actionResult = ServiceActionResult.Error;
+                        errors.AddAccessError("Student doesn't have an access to course");
+                    }
+                }
+                else
+                {
+                    errors.AddCommonError("Course was not found");
+                    actionResult = ServiceActionResult.NotFound;
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new DataServiceMessage<IEnumerable<StudentGuideListDTO>>
+            {
+                ActionResult = actionResult,
+                Errors = errors,
+                Data = data
+            };
+        }
     }
 }

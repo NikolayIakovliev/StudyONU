@@ -18,6 +18,7 @@ namespace StudyONU.Data.Repositories
         public async Task<CourseEntity> GetDetailedAsync(int id)
         {
             CourseEntity course = await context.Courses
+                .Include(courseEntity => courseEntity.Guides)
                 .Include(courseEntity => courseEntity.Speciality)
                 .Include(courseEntity => courseEntity.Lecturer)
                 .ThenInclude(lecturerEntity => lecturerEntity.User)

@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import { Dialog } from '../../shared/Dialog';
 import { Loading } from '../../shared/Loading';
+import { Filter } from '../../shared/filter/Filter';
 import { EmptyContent } from '../../shared/EmptyContent';
 import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
@@ -21,7 +22,9 @@ export class GuideList extends React.Component {
             items: [],
             errors: [],
             itemEditRequest: null,
-            itemDeleteRequest: null
+            itemDeleteRequest: null,
+            sortCourses: [],
+            sortCourseId: null
         };
     }
 
@@ -35,8 +38,13 @@ export class GuideList extends React.Component {
             items,
             errors,
             itemEditRequest,
-            itemDeleteRequest
+            itemDeleteRequest,
+            sortCourses,
+            sortCourseId
         } = this.state;
+
+        const courses = sortCourses.map(course => { return { id: course.id, label: course.name } });
+        const sortedItems = items.filter(item => sortCourseId == null || item.courseId == sortCourseId);
 
         let render;
 
@@ -47,6 +55,12 @@ export class GuideList extends React.Component {
         } else {
             render = (
                 <div>
+                    <Filter
+                        value={sortCourseId}
+                        items={courses}
+                        defaultText="Все методички"
+                        onChange={sortCourseId => this.setState({ sortCourseId })}
+                    />
                     {itemEditRequest != null &&
                         <GuideEditDialog
                             title="Редактирование методички"
@@ -76,7 +90,7 @@ export class GuideList extends React.Component {
                                 <List>
                                     <Subheader>Методички</Subheader>
                                     <Divider />
-                                    {items.map((item, index) => {
+                                    {sortedItems.map((item, index) => {
                                         return <GuideItem
                                             key={item.id}
                                             item={item}
@@ -124,6 +138,12 @@ export class GuideList extends React.Component {
 
     load() {
         let self = this;
+
+        this.props.get(urls.courses, result => {
+            self.setState({
+                sortCourses: result.data
+            });
+        });
 
         this.props.get(urls.guides, result => {
             let newState = {

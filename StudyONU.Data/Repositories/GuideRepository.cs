@@ -38,5 +38,18 @@ namespace StudyONU.Data.Repositories
                 .Where(guide => guide.Course.LecturerId == id)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<GuideEntity>> GetAvailableByCourseAsync(int courseId)
+        {
+            return await context.Guides
+                .Where(guide =>
+                    guide.CourseId == courseId &&
+                    (guide.Course.IsPublished ||
+                    !guide.DateAvailable.HasValue ||
+                    guide.DateAvailable.Value <= DateTime.Now
+                    )
+                )
+                .ToListAsync();
+        }
     }
 }
