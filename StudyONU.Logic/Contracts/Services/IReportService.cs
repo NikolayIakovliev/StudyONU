@@ -14,6 +14,12 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<ServiceMessage> CancelAsync(int taskId, string studentEmail);
 
+        Task<ServiceMessage> AcceptAsync(int taskId, string studentEmail, decimal mark);
+
+        Task<ServiceMessage> RejectAsync(int taskId, string studentEmail);
+
         Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetSentAsync(string lecturerEmail);
+
+        Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetOnCheckAsync(string lecturerEmail);
     }
 }

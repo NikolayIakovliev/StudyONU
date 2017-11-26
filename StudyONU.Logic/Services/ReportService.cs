@@ -169,7 +169,113 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetSentAsync(string lecturerEmail)
+        public async Task<ServiceMessage> AcceptAsync(int taskId, string studentEmail, decimal mark)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+
+            try
+            {
+                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+                if (studentEntity != null)
+                {
+                    ReportEntity reportEntity = await unitOfWork.Reports.GetAsync(report =>
+                        report.TaskId == taskId &&
+                        report.StudentId == studentEntity.Id
+                    );
+                    if (reportEntity != null && reportEntity.State == TaskState.OnCheck)
+                    {
+                        reportEntity.State = TaskState.Accepted;
+                        reportEntity.DateAccepted = DateTime.Now;
+                        reportEntity.DateModified = DateTime.Now;
+                        reportEntity.Mark = mark;
+
+                        await unitOfWork.CommitAsync();
+                    }
+                    else
+                    {
+                        errors.AddCommonError("Report was not found");
+                        actionResult = ServiceActionResult.NotFound;
+                    }
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.Error;
+                    errors.AddAccessError("Student doesn't have an access to course");
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> RejectAsync(int taskId, string studentEmail)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+
+            try
+            {
+                StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(studentEmail);
+                if (studentEntity != null)
+                {
+                    ReportEntity reportEntity = await unitOfWork.Reports.GetAsync(report =>
+                        report.TaskId == taskId &&
+                        report.StudentId == studentEntity.Id
+                    );
+                    if (reportEntity != null && reportEntity.State == TaskState.OnCheck)
+                    {
+                        reportEntity.State = TaskState.Rejected;
+                        reportEntity.DateModified = DateTime.Now;
+
+                        await unitOfWork.CommitAsync();
+                    }
+                    else
+                    {
+                        errors.AddCommonError("Report was not found");
+                        actionResult = ServiceActionResult.NotFound;
+                    }
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.Error;
+                    errors.AddAccessError("Student doesn't have an access to course");
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetSentAsync(string lecturerEmail)
+        {
+            return GetByStateAsync(lecturerEmail, TaskState.Sent);
+        }
+
+        public Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetOnCheckAsync(string lecturerEmail)
+        {
+            return GetByStateAsync(lecturerEmail, TaskState.OnCheck);
+        }
+
+        private async Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetByStateAsync(string lecturerEmail, TaskState state)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
@@ -177,7 +283,7 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                IEnumerable<ReportEntity> reportEntities = await unitOfWork.Reports.GetAllByStateAndLecturerAsync(TaskState.Sent, lecturerEmail);
+                IEnumerable<ReportEntity> reportEntities = await unitOfWork.Reports.GetAllByStateAndLecturerAsync(state, lecturerEmail);
                 data = mapper.Map<IEnumerable<ReportListDTO>>(reportEntities);
             }
             catch (Exception exception)

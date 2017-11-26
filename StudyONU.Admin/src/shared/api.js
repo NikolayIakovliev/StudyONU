@@ -125,7 +125,10 @@ export const urls = {
     },
     reports: {
         sent: '/api/reports/sent',
-        check: (taskId, studentEmail) => `/api/reports/check?taskId=${taskId}&studentEmail=${studentEmail}`
+        onCheck: '/api/reports/oncheck',
+        check: (taskId, studentEmail) => `/api/reports/check?taskId=${taskId}&studentEmail=${studentEmail}`,
+        accept: (taskId, studentEmail, mark) => `/api/reports/accept?taskId=${taskId}&studentEmail=${studentEmail}&mark=${mark}`,
+        reject: (taskId, studentEmail) => `/api/reports/reject?taskId=${taskId}&studentEmail=${studentEmail}`
     },
     comments: {
         list: (taskId, studentEmail) => `/api/comments?taskId=${taskId}&studentEmail=${studentEmail}`

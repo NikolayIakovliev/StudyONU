@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c9fe07c4310e1b429dbe"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2084e18eeb7e622cd045"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -36716,11 +36716,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
     }, {
         key: 'getContent',
         value: function getContent() {
-            var _props = this.props,
-                reportStatus = _props.reportStatus,
-                mark = _props.mark,
-                dateOverdue = _props.dateOverdue,
-                dateAccepted = _props.dateAccepted;
+            var reportStatus = this.props.reportStatus;
 
 
             var content = null;
@@ -36736,11 +36732,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                     '\u0420\u0430\u0431\u043E\u0442\u0430 \u043D\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0435'
                 );
             } else if (reportStatus === 4) {
-                content = React.createElement(
-                    'p',
-                    null,
-                    '\u0420\u0430\u0431\u043E\u0442\u0430 \u0441\u0434\u0430\u043D\u0430'
-                );
+                content = this.getAcceptedContent();
             } else if (reportStatus === 5) {
                 content = this.getNotAcceptedContent();
             }
@@ -36750,9 +36742,9 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
     }, {
         key: 'getNotAcceptedContent',
         value: function getNotAcceptedContent() {
-            var _props2 = this.props,
-                reportStatus = _props2.reportStatus,
-                dateOverdue = _props2.dateOverdue;
+            var _props = this.props,
+                reportStatus = _props.reportStatus,
+                dateOverdue = _props.dateOverdue;
 
 
             var dateOverdueText = 'Срок сдачи: ';
@@ -36796,6 +36788,36 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                         return _this2.props.onCancel();
                     }
                 })
+            );
+        }
+    }, {
+        key: 'getAcceptedContent',
+        value: function getAcceptedContent() {
+            var _props2 = this.props,
+                mark = _props2.mark,
+                dateAccepted = _props2.dateAccepted;
+
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'p',
+                    null,
+                    '\u0420\u0430\u0431\u043E\u0442\u0430 \u0441\u0434\u0430\u043D\u0430'
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    '\u041E\u0446\u0435\u043D\u043A\u0430: ',
+                    mark
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    '\u0414\u0430\u0442\u0430 \u0443\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F: ',
+                    _date.DateHelper.ddmmyyyy(dateAccepted, '.')
+                )
             );
         }
     }, {

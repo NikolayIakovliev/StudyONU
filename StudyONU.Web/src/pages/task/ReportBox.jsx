@@ -26,10 +26,7 @@ export class ReportBox extends React.Component {
 
     getContent() {
         const {
-            reportStatus,
-            mark,
-            dateOverdue,
-            dateAccepted
+            reportStatus
         } = this.props;
 
         let content = null;
@@ -41,7 +38,7 @@ export class ReportBox extends React.Component {
         } else if (reportStatus === 3) {
             content = <p>Работа на проверке</p>;
         } else if (reportStatus === 4) {
-            content = <p>Работа сдана</p>;
+            content = this.getAcceptedContent();
         } else if (reportStatus === 5) {
             content = this.getNotAcceptedContent();
         }
@@ -80,6 +77,21 @@ export class ReportBox extends React.Component {
                     secondary={true}
                     onClick={() => this.props.onCancel()}
                 />
+            </div>
+        );
+    }
+
+    getAcceptedContent() {
+        const {
+            mark,
+            dateAccepted
+        } = this.props;
+        
+        return (
+            <div>
+                <p>Работа сдана</p>
+                <p>Оценка: {mark}</p>
+                <p>Дата утверждения: {DateHelper.ddmmyyyy(dateAccepted, '.')}</p>
             </div>
         );
     }
