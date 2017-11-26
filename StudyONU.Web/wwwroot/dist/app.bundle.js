@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8a6d5b485fa62ccd3966"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c9fe07c4310e1b429dbe"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -714,7 +714,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "dist/";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -15788,7 +15788,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=__webpack_hmr&dynamicPublicPath=true", __webpack_require__(60)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=dist%2F__webpack_hmr&dynamicPublicPath=true", __webpack_require__(60)(module)))
 
 /***/ }),
 /* 286 */
@@ -16989,35 +16989,35 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                             { style: { padding: 30, backgroundColor: '#EBE8E8' } },
                             React.createElement(WrappedComponent, _extends({}, this.props, {
                                 user: user,
-                                get: function get(url, callback) {
+                                get: function get(url, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.get(url);
-                                    }, callback);
+                                    }, callback, onError);
                                 },
                                 post: function post(url, data, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.post(url, data);
                                     }, callback, onError);
                                 },
-                                postFormData: function postFormData(url, data, callback) {
+                                postFormData: function postFormData(url, data, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.postFormData(url, data);
-                                    }, callback);
+                                    }, callback, onError);
                                 },
-                                put: function put(url, data, callback) {
+                                put: function put(url, data, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.put(url, data);
-                                    }, callback);
+                                    }, callback, onError);
                                 },
-                                putFormData: function putFormData(url, data, callback) {
+                                putFormData: function putFormData(url, data, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.putFormData(url, data);
-                                    }, callback);
+                                    }, callback, onError);
                                 },
-                                'delete': function _delete(url, data, callback) {
+                                'delete': function _delete(url, data, callback, onError) {
                                     return _this2.callApi(function () {
                                         return _api.Api.delete(url, data);
-                                    }, callback);
+                                    }, callback, onError);
                                 },
                                 onLogin: function onLogin() {
                                     return _this2.setState({ openLoginDialog: true });
@@ -36600,9 +36600,10 @@ var Task = exports.Task = function (_React$Component) {
     }, {
         key: 'onCancel',
         value: function onCancel() {
-            var self = this;
             this.props.put(_api.urls.reports.cancel(this.state.id), null, function (result) {
-                self.load();
+                return self.load();
+            }, function (result) {
+                return location.reload();
             });
         }
     }, {

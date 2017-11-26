@@ -54,7 +54,8 @@ namespace StudyONU.Admin
                 {
                     HotModuleReplacement = true,
                     ReactHotModuleReplacement = true,
-                    ConfigFile = "webpack.config.development.js"
+                    ConfigFile = "webpack.config.development.js",
+                    HotModuleReplacementEndpoint = "/dist/__webpack_hmr"
                 });
             }
 

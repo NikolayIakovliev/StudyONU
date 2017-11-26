@@ -108,10 +108,7 @@ export class Task extends React.Component {
     }
 
     onCancel() {
-        let self = this;
-        this.props.put(urls.reports.cancel(this.state.id), null, result => {
-            self.load();
-        });
+        this.props.put(urls.reports.cancel(this.state.id), null, result => self.load(), result => location.reload());
     }
 
     load() {

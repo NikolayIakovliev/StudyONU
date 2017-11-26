@@ -53,7 +53,7 @@ namespace StudyONU.Web.Controllers
         {
             string email = GetUserEmail();
 
-            ServiceMessage serviceMessage = await service.DeleteAsync(taskId, email);
+            ServiceMessage serviceMessage = await service.CancelAsync(taskId, email);
 
             return GenerateResponse(serviceMessage);
         }

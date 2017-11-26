@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2a889cf1de51895115cd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c1c60063ef6798ca3792"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -714,7 +714,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "dist/";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -16857,7 +16857,7 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?path=__webpack_hmr&dynamicPublicPath=true", __webpack_require__(80)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, "?path=dist%2F__webpack_hmr&dynamicPublicPath=true", __webpack_require__(80)(module)))
 
 /***/ }),
 /* 313 */
@@ -43656,13 +43656,13 @@ var React = _interopRequireWildcard(_react);
 
 var _EmptyContent = __webpack_require__(71);
 
-var _download = __webpack_require__(548);
+var _download = __webpack_require__(543);
 
-var _ReportList = __webpack_require__(543);
+var _ReportList = __webpack_require__(544);
 
-var _CommentBox = __webpack_require__(546);
+var _CommentBox = __webpack_require__(547);
 
-__webpack_require__(547);
+__webpack_require__(548);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -43761,6 +43761,43 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Downloader = exports.Downloader = function () {
+    function Downloader() {
+        _classCallCheck(this, Downloader);
+    }
+
+    _createClass(Downloader, null, [{
+        key: 'download',
+        value: function download(filePath, fileName) {
+            var extension = filePath.substr(filePath.lastIndexOf('.') + 1);
+
+            var a = document.createElement('a');
+            a.href = filePath;
+            a.target = '_blank';
+            a.download = fileName + '.' + extension;
+
+            a.click();
+        }
+    }]);
+
+    return Downloader;
+}();
+
+/***/ }),
+/* 544 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.ReportList = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -43787,7 +43824,7 @@ var _Avatar = __webpack_require__(55);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
-var _RightIconButton = __webpack_require__(544);
+var _RightIconButton = __webpack_require__(545);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43848,7 +43885,7 @@ var ReportList = exports.ReportList = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 544 */
+/* 545 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43879,7 +43916,7 @@ var _MenuItem = __webpack_require__(35);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _description = __webpack_require__(545);
+var _description = __webpack_require__(546);
 
 var _description2 = _interopRequireDefault(_description);
 
@@ -43910,7 +43947,7 @@ var RightIconButton = exports.RightIconButton = function RightIconButton(_onClic
 };
 
 /***/ }),
-/* 545 */
+/* 546 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43948,7 +43985,7 @@ ActionDescription.muiName = 'SvgIcon';
 exports.default = ActionDescription;
 
 /***/ }),
-/* 546 */
+/* 547 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44004,7 +44041,7 @@ var CommentBox = exports.CommentBox = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 547 */
+/* 548 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -44033,43 +44070,6 @@ if(true) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
-
-/***/ }),
-/* 548 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Downloader = exports.Downloader = function () {
-    function Downloader() {
-        _classCallCheck(this, Downloader);
-    }
-
-    _createClass(Downloader, null, [{
-        key: 'download',
-        value: function download(filePath, fileName) {
-            var extension = filePath.substr(filePath.lastIndexOf('.') + 1);
-
-            var a = document.createElement('a');
-            a.href = filePath;
-            a.target = '_blank';
-            a.download = fileName + '.' + extension;
-
-            a.click();
-        }
-    }]);
-
-    return Downloader;
-}();
 
 /***/ })
 /******/ ]);

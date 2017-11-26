@@ -38,7 +38,7 @@ namespace StudyONU.Logic.Services
                             report.TaskId == taskEntity.Id &&
                             report.StudentId == studentEntity.Id
                         );
-                        if (reportEntity == null)
+                        if (reportEntity == null || reportEntity.State == TaskState.NotDone)
                         {
                             reportEntity = mapper.Map<ReportEntity>(reportDTO);
                             reportEntity.Student = studentEntity;
@@ -93,7 +93,7 @@ namespace StudyONU.Logic.Services
                         report.TaskId == taskId &&
                         report.StudentId == studentEntity.Id
                     );
-                    if (reportEntity != null)
+                    if (reportEntity != null && reportEntity.State == TaskState.Sent)
                     {
                         reportEntity.State = TaskState.OnCheck;
                         await unitOfWork.CommitAsync();
@@ -124,7 +124,7 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> DeleteAsync(int taskId, string studentEmail)
+        public async Task<ServiceMessage> CancelAsync(int taskId, string studentEmail)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
@@ -138,7 +138,7 @@ namespace StudyONU.Logic.Services
                         report.TaskId == taskId &&
                         report.StudentId == studentEntity.Id
                     );
-                    if (reportEntity != null)
+                    if (reportEntity != null && reportEntity.State == TaskState.Sent)
                     {
                         unitOfWork.Reports.Remove(reportEntity);
                         await unitOfWork.CommitAsync();

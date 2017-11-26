@@ -34,12 +34,12 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
                     <div style={{ padding: 30, backgroundColor: '#EBE8E8' }}>
                         <WrappedComponent {...this.props}
                             user={user}
-                            get={(url, callback) => this.callApi(() => Api.get(url), callback)}
+                            get={(url, callback, onError) => this.callApi(() => Api.get(url), callback, onError)}
                             post={(url, data, callback, onError) => this.callApi(() => Api.post(url, data), callback, onError)}
-                            postFormData={(url, data, callback) => this.callApi(() => Api.postFormData(url, data), callback)}
-                            put={(url, data, callback) => this.callApi(() => Api.put(url, data), callback)}
-                            putFormData={(url, data, callback) => this.callApi(() => Api.putFormData(url, data), callback)}
-                            delete={(url, data, callback) => this.callApi(() => Api.delete(url, data), callback)}
+                            postFormData={(url, data, callback, onError) => this.callApi(() => Api.postFormData(url, data), callback, onError)}
+                            put={(url, data, callback, onError) => this.callApi(() => Api.put(url, data), callback, onError)}
+                            putFormData={(url, data, callback, onError) => this.callApi(() => Api.putFormData(url, data), callback, onError)}
+                            delete={(url, data, callback, onError) => this.callApi(() => Api.delete(url, data), callback, onError)}
                             onLogin={() => this.setState({ openLoginDialog: true })}
                             onLogout={() => onLogout()}
                         />

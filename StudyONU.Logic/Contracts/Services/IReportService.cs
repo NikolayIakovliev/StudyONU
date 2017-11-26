@@ -12,7 +12,7 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<ServiceMessage> ChangeOnCheckStateAsync(int taskId, string studentEmail);
 
-        Task<ServiceMessage> DeleteAsync(int taskId, string studentEmail);
+        Task<ServiceMessage> CancelAsync(int taskId, string studentEmail);
 
         Task<DataServiceMessage<IEnumerable<ReportListDTO>>> GetSentAsync(string lecturerEmail);
     }
