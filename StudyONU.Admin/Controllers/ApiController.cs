@@ -8,9 +8,9 @@ namespace StudyONU.Admin.Controllers
     [Produces("application/json")]
     public class ApiController : Controller
     {
-        protected const string LecturersImageUploadPath = "images/uploads/lecturers";
-        protected const string GuidesUploadPath = "files/uploads/guides";
-        protected const string TasksUploadPath = "files/uploads/tasks";
+        protected const string LecturersImageUploadPath = "images\\uploads\\lecturers";
+        protected const string GuidesUploadPath = "files\\uploads\\guides";
+        protected const string TasksUploadPath = "files\\uploads\\tasks";
 
         protected IActionResult GenerateResponse<TData>(DataServiceMessage<TData> serviceMessage) where TData : class
         {

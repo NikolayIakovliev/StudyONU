@@ -82,6 +82,12 @@ namespace StudyONU.Admin
                     );
 
                 routes.MapRoute(
+                    name: "download",
+                    template: "download",
+                    defaults: new { controller = "File", action = "Download" }
+                    );
+
+                routes.MapRoute(
                     name: "default",
                     template: "{*.}",
                     defaults: new { controller = "Home", action = "Index" }

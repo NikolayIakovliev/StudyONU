@@ -99,7 +99,7 @@ namespace StudyONU.Logic.Helpers
                 await file.CopyToAsync(stream);
             }
 
-            return "/" + Path.Combine(serverFolderPath, fullFileName);
+            return Path.Combine(serverFolderPath, fullFileName);
         }
     }
 }
