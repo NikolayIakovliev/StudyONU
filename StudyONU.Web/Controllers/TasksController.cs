@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Task;
 using StudyONU.Logic.Infrastructure;
-using System.Linq;
+using StudyONU.Web.Helpers;
 using System.Threading.Tasks;
 
 namespace StudyONU.Web.Controllers
@@ -12,10 +12,12 @@ namespace StudyONU.Web.Controllers
     public class TasksController : ApiController
     {
         private readonly ITaskService service;
+        private readonly DomainHelper domainHelper;
 
-        public TasksController(ITaskService service)
+        public TasksController(ITaskService service, DomainHelper domainHelper)
         {
             this.service = service;
+            this.domainHelper = domainHelper;
         }
 
         [HttpGet]
@@ -25,14 +27,12 @@ namespace StudyONU.Web.Controllers
             string email = GetUserEmail();
 
             DataServiceMessage<TaskDetailsDTO> serviceMessage = await service.GetAsync(id, email);
-
-            // TODO
-            // Use domain options
+            
             if (serviceMessage.ActionResult == ServiceActionResult.Success)
             {
                 if (serviceMessage.Data.FilePaths != null)
                 {
-                    serviceMessage.Data.FilePaths = serviceMessage.Data.FilePaths.Select(path => "http://localhost:28387" + path);
+                    serviceMessage.Data.FilePaths = domainHelper.PrependDomain(serviceMessage.Data.FilePaths);
                 }
             }
 

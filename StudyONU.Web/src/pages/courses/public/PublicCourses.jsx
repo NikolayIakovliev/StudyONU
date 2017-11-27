@@ -68,7 +68,7 @@ export class PublicCourses extends React.Component {
             <CardHeader
                 title={item.lecturerFullName}
                 subtitle={item.lecturerEmail}
-                avatar={`http://localhost:28387${item.lecturerPhotoPath}`}
+                avatar={item.lecturerPhotoPath}
             />
             <Divider />
             <CardTitle title={item.name} subtitle={`${item.specialityName}, ${item.courseNumber} курс`} />

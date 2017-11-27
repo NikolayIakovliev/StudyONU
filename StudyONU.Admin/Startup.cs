@@ -29,6 +29,9 @@ namespace StudyONU.Admin
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
+
+            // TODO
+            // Move Authentication to Logic
             services.AddAuthentication(JwtBearerSettings.Issuer, JwtBearerSettings.Key);
 
             services.AddMvc()

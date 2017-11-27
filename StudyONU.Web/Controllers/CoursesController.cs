@@ -4,8 +4,8 @@ using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Course;
 using StudyONU.Logic.DTO.Task;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Web.Helpers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Web.Controllers
@@ -14,13 +14,17 @@ namespace StudyONU.Web.Controllers
     {
         private readonly ICourseService courseService;
         private readonly ITaskService taskService;
+        private readonly DomainHelper domainHelper;
 
         public CoursesController(
             ICourseService courseService,
-            ITaskService taskService)
+            ITaskService taskService,
+            DomainHelper domainHelper
+            )
         {
             this.courseService = courseService;
             this.taskService = taskService;
+            this.domainHelper = domainHelper;
         }
 
         [HttpGet]
@@ -28,13 +32,12 @@ namespace StudyONU.Web.Controllers
         public async Task<IActionResult> Details(int id)
         {
             string email = GetUserEmail();
-            DataServiceMessage<CourseDetailsDTO> serviceMessage = await courseService.GetAsync(id, email);
 
-            // TODO
-            // Remove this
+            DataServiceMessage<CourseDetailsDTO> serviceMessage = await courseService.GetAsync(id, email);
+            
             if (serviceMessage.ActionResult == ServiceActionResult.Success)
             {
-                serviceMessage.Data.LecturerPhotoPath = "http://localhost:28387/" + serviceMessage.Data.LecturerPhotoPath;
+                serviceMessage.Data.LecturerPhotoPath = domainHelper.PrependDomain(serviceMessage.Data.LecturerPhotoPath);
             }
 
             return GenerateResponse(serviceMessage);
@@ -46,7 +49,7 @@ namespace StudyONU.Web.Controllers
         {
             DataServiceMessage<IEnumerable<CourseListDTO>> serviceMessage = await courseService.GetPublishedAsync();
 
-            return GenerateResponse(serviceMessage);
+            return List(serviceMessage);
         }
 
         [HttpGet]
@@ -55,9 +58,10 @@ namespace StudyONU.Web.Controllers
         public async Task<IActionResult> ListAvailable()
         {
             string email = GetUserEmail();
+
             DataServiceMessage<IEnumerable<CourseListDTO>> serviceMessage = await courseService.GetByStudentEmailAsync(email);
 
-            return GenerateResponse(serviceMessage);
+            return List(serviceMessage);
         }
 
         [HttpGet]
@@ -67,17 +71,28 @@ namespace StudyONU.Web.Controllers
             string email = GetUserEmail();
 
             DataServiceMessage<IEnumerable<StudentTaskListDTO>> serviceMessage = await taskService.GetByCourseAndStudentAsync(id, email);
-
-            // TODO
-            // Use domain options
+            
             if (serviceMessage.ActionResult == ServiceActionResult.Success)
             {
                 foreach (StudentTaskListDTO item in serviceMessage.Data)
                 {
                     if (item.FilePaths != null)
                     {
-                        item.FilePaths = item.FilePaths.Select(path => "http://localhost:28387" + path);
+                        item.FilePaths = domainHelper.PrependDomain(item.FilePaths);
                     }
+                }
+            }
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        private IActionResult List(DataServiceMessage<IEnumerable<CourseListDTO>> serviceMessage)
+        {
+            if (serviceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                foreach (CourseListDTO item in serviceMessage.Data)
+                {
+                    item.LecturerPhotoPath = domainHelper.PrependDomain(item.LecturerPhotoPath);
                 }
             }
 

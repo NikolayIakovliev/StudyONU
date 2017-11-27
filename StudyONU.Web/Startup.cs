@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
 using StudyONU.Logic.Extensions;
 using StudyONU.Web.Authentication;
+using StudyONU.Web.Extensions;
 using StudyONU.Web.Mappings;
 
 namespace StudyONU.Web
@@ -27,7 +28,11 @@ namespace StudyONU.Web
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
+
+            // TODO
+            // Move Authentication to Logic
             services.AddAuthentication(JwtBearerSettings.Issuer, JwtBearerSettings.Key);
+            services.AddDomain(configuration);
 
             services.AddMvc()
                 .AddJsonOptions(options =>

@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "737ff8e62e6fc6be1b60"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0a0d535d4469e692d03d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -34649,7 +34649,7 @@ var PublicCourses = exports.PublicCourses = function (_React$Component) {
                 React.createElement(_Card.CardHeader, {
                     title: item.lecturerFullName,
                     subtitle: item.lecturerEmail,
-                    avatar: 'http://localhost:28387' + item.lecturerPhotoPath
+                    avatar: item.lecturerPhotoPath
                 }),
                 React.createElement(_Divider2.default, null),
                 React.createElement(_Card.CardTitle, { title: item.name, subtitle: item.specialityName + ', ' + item.courseNumber + ' \u043A\u0443\u0440\u0441' }),
@@ -36039,7 +36039,7 @@ var MyCourses = exports.MyCourses = function (_React$Component) {
                 React.createElement(_Card.CardHeader, {
                     title: item.lecturerFullName,
                     subtitle: item.lecturerEmail,
-                    avatar: 'http://localhost:28387' + item.lecturerPhotoPath
+                    avatar: item.lecturerPhotoPath
                 }),
                 React.createElement(_Divider2.default, null),
                 React.createElement(_Card.CardTitle, { title: item.name, subtitle: item.specialityName + ', ' + item.courseNumber + ' \u043A\u0443\u0440\u0441' }),
