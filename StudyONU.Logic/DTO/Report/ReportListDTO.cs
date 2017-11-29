@@ -1,10 +1,12 @@
-﻿namespace StudyONU.Logic.DTO.Report
+﻿using System.Collections.Generic;
+
+namespace StudyONU.Logic.DTO.Report
 {
     public class ReportListDTO
     {
         public int TaskId { get; set; }
 
-        public string FilePath { get; set; }
+        public IEnumerable<string> FilePaths { get; set; }
 
         public int CourseId { get; set; }
 

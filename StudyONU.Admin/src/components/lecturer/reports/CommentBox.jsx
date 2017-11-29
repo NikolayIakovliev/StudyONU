@@ -24,7 +24,10 @@ export class CommentBox extends React.Component {
         return (
             <Paper zDepth={3}>
                 {list}
-                <CommentInput onSubmit={text => this.props.sendComment(text)} />
+                <CommentInput
+                    onSubmit={text => this.props.sendComment(text)}
+                    onClose={() => this.props.onClose()}
+                />
             </Paper>
         );
     }

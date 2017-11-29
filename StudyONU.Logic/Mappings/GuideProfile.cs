@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using StudyONU.Core.Entities;
+﻿using StudyONU.Core.Entities;
 using StudyONU.Logic.DTO.Guide;
 
 namespace StudyONU.Logic.Mappings
 {
-    class GuideProfile : Profile
+    class GuideProfile : ProfileBase
     {
         public GuideProfile()
         {

@@ -10,7 +10,7 @@ export class ReportBox extends React.Component {
         super(props);
 
         this.state = {
-            file: null
+            files: []
         }
     }
 
@@ -124,19 +124,19 @@ export class ReportBox extends React.Component {
     }
 
     getReportForm() {
-        const file = this.state.file;
+        const files = this.state.files;
 
-        let dropzoneContent = file
-            ? <p>Файл загружен: {file.name}</p>
-            : <p>Прикрепить файл</p>;
+        let dropzoneContent = files.length > 0
+            ? <p>Загружено файлов: {files.length}</p>
+            : <p>Прикрепить файлы</p>;
 
-        const disabled = file == null;
+        const disabled = files.length == 0;
         return (
             <div>
                 <Dropzone
                     className="dropzone"
-                    multiple={false}
-                    onDrop={files => this.setState({ file: files[0] })}
+                    multiple={true}
+                    onDrop={files => this.setState({ files: files })}
                     accept=".docx,.doc,.pdf,.txt">
                     {dropzoneContent}
                 </Dropzone>
@@ -145,7 +145,7 @@ export class ReportBox extends React.Component {
                     primary={true}
                     disabled={disabled}
                     style={{ marginTop: 30 }}
-                    onClick={() => this.props.onSend(file)}
+                    onClick={() => this.props.onSend(files)}
                 />
             </div>
         );

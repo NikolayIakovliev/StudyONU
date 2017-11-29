@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using StudyONU.Core.Entities;
+﻿using StudyONU.Core.Entities;
 using StudyONU.Logic.DTO.Lecturer;
 
 namespace StudyONU.Logic.Mappings
 {
-    class LecturerProfile : Profile
+    class LecturerProfile : ProfileBase
     {
         public LecturerProfile()
         {

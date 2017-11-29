@@ -8,8 +8,8 @@ namespace StudyONU.Web.Controllers
     [Produces("application/json")]
     public class ApiController : Controller
     {
-        protected const string StudentsImageUploadPath = "images/uploads/students";
-        protected const string ReportsUploadPath = "files/uploads/reports";
+        protected const string StudentsImageUploadPath = "images\\uploads\\students";
+        protected const string ReportsUploadPath = "files\\uploads\\reports";
 
         protected string GetUserEmail()
         {

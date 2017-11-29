@@ -1,6 +1,7 @@
 ﻿.task-details {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 
     .task-box {
         flex-grow: 1;

@@ -78,7 +78,7 @@ export class Task extends React.Component {
                             mark={mark}
                             dateOverdue={dateOverdue}
                             dateAccepted={dateAccepted}
-                            onSend={file => this.onSend(file)}
+                            onSend={files => this.onSend(files)}
                             onCancel={() => this.onCancel()}
                         />
                         <CommentBox
@@ -102,9 +102,9 @@ export class Task extends React.Component {
         ];
     }
 
-    onSend(file) {
+    onSend(files) {
         const data = {
-            file: file,
+            files: files,
             taskId: this.state.id
         }
 

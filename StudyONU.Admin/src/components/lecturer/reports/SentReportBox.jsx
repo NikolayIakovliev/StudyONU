@@ -1,7 +1,6 @@
 ﻿import * as React from 'react';
 
 import { EmptyContent } from '../../shared/EmptyContent';
-import { Downloader } from '../../../shared/download';
 import { toDate } from '../../../shared/date';
 import { urls } from '../../../shared/api';
 
@@ -53,21 +52,20 @@ export class SentReportBox extends React.Component {
                     items={items}
                     rightIconButton={SentRightIconButton(report => this.startChecking(report))}
                     onSelect={item => this.loadComments(item.taskId, item.studentEmail)}
+                    openFile={filePath => this.openFile(filePath)}
                 />
                 <CommentBox
                     open={openComments}
                     items={comments}
                     userEmail={this.props.user.email}
                     sendComment={text => this.sendComment(text)}
+                    onClose={() => this.setState({ openComments: false })}
                 />
             </div>
         );
     }
 
     startChecking(report) {
-        const fileName = `${report.courseName}, ${report.taskTitle} - ${report.studentFullName}`;
-        Downloader.download(report.filePath, fileName);
-
         let self = this;
         this.props.put(urls.reports.check(report.taskId, report.studentEmail), null, result => self.load());
     }
@@ -84,6 +82,10 @@ export class SentReportBox extends React.Component {
 
         let self = this;
         this.props.post(urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+    }
+
+    openFile(filePath) {
+        window.open(filePath);
     }
 
     load() {

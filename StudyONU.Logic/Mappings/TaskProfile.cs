@@ -1,13 +1,9 @@
-﻿using AutoMapper;
-using Newtonsoft.Json;
-using StudyONU.Core.Entities;
+﻿using StudyONU.Core.Entities;
 using StudyONU.Logic.DTO.Task;
-using System;
-using System.Collections.Generic;
 
 namespace StudyONU.Logic.Mappings
 {
-    class TaskProfile : Profile
+    class TaskProfile : ProfileBase
     {
         public TaskProfile()
         {
@@ -23,16 +19,6 @@ namespace StudyONU.Logic.Mappings
             CreateMap<TaskEntity, TaskDetailsDTO>()
                 .ForMember(dest => dest.FilePaths, opts => opts.MapFrom(src => Deserialize(src.FilePaths)));
 
-        }
-
-        private IEnumerable<string> Deserialize(string filePaths)
-        {
-            return JsonConvert.DeserializeObject<IEnumerable<string>>(filePaths);
-        }
-
-        private string Serialize(IEnumerable<string> filePaths)
-        {
-            return JsonConvert.SerializeObject(filePaths);
         }
     }
 }

@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c58cfec114ebfd505667"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "14ec6b325955f9cacdab"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -12441,6 +12441,12 @@ var _Avatar = __webpack_require__(46);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
+var _assignment = __webpack_require__(517);
+
+var _assignment2 = _interopRequireDefault(_assignment);
+
+var _colors = __webpack_require__(32);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -12489,7 +12495,18 @@ var ReportList = exports.ReportList = function (_React$Component) {
                             rightIconButton: _this2.props.rightIconButton(item),
                             onClick: function onClick() {
                                 return _this2.props.onSelect(item);
-                            }
+                            },
+                            initiallyOpen: true,
+                            nestedItems: item.filePaths.map(function (filePath, index) {
+                                return React.createElement(_List.ListItem, {
+                                    key: filePath,
+                                    primaryText: '\u0424\u0430\u0439\u043B ' + (index + 1),
+                                    leftAvatar: React.createElement(_Avatar2.default, { icon: React.createElement(_assignment2.default, null), backgroundColor: _colors.blueA200 }),
+                                    onClick: function onClick() {
+                                        return _this2.props.openFile(filePath);
+                                    }
+                                });
+                            })
                         });
                     })
                 )
@@ -12565,9 +12582,14 @@ var CommentBox = exports.CommentBox = function (_React$Component) {
                 _Paper2.default,
                 { zDepth: 3 },
                 list,
-                React.createElement(_CommentInput.CommentInput, { onSubmit: function onSubmit(text) {
+                React.createElement(_CommentInput.CommentInput, {
+                    onSubmit: function onSubmit(text) {
                         return _this2.props.sendComment(text);
-                    } })
+                    },
+                    onClose: function onClose() {
+                        return _this2.props.onClose();
+                    }
+                })
             );
         }
     }, {
@@ -12716,7 +12738,7 @@ var OnCheckRightIconButton = exports.OnCheckRightIconButton = function OnCheckRi
                         return onDownload(item);
                     }
                 },
-                '\u0421\u043A\u0430\u0447\u0430\u0442\u044C'
+                '\u0421\u043A\u0430\u0447\u0430\u0442\u044C \u0444\u0430\u0439\u043B\u044B'
             )
         );
     };
@@ -44045,8 +44067,6 @@ var React = _interopRequireWildcard(_react);
 
 var _EmptyContent = __webpack_require__(56);
 
-var _download = __webpack_require__(206);
-
 var _date = __webpack_require__(26);
 
 var _api = __webpack_require__(22);
@@ -44123,6 +44143,9 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
                     }),
                     onSelect: function onSelect(item) {
                         return _this2.loadComments(item.taskId, item.studentEmail);
+                    },
+                    openFile: function openFile(filePath) {
+                        return _this2.openFile(filePath);
                     }
                 }),
                 React.createElement(_CommentBox.CommentBox, {
@@ -44131,6 +44154,9 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
                     userEmail: this.props.user.email,
                     sendComment: function sendComment(text) {
                         return _this2.sendComment(text);
+                    },
+                    onClose: function onClose() {
+                        return _this2.setState({ openComments: false });
                     }
                 })
             );
@@ -44138,9 +44164,6 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
     }, {
         key: 'startChecking',
         value: function startChecking(report) {
-            var fileName = report.courseName + ', ' + report.taskTitle + ' - ' + report.studentFullName;
-            _download.Downloader.download(report.filePath, fileName);
-
             var self = this;
             this.props.put(_api.urls.reports.check(report.taskId, report.studentEmail), null, function (result) {
                 return self.load();
@@ -44162,6 +44185,11 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
             this.props.post(_api.urls.comments.create, data, function (result) {
                 return self.loadComments(taskId, studentEmail);
             });
+        }
+    }, {
+        key: 'openFile',
+        value: function openFile(filePath) {
+            window.open(filePath);
         }
     }, {
         key: 'load',
@@ -44423,9 +44451,17 @@ var CommentInput = exports.CommentInput = function (_React$Component) {
                     React.createElement(_RaisedButton2.default, {
                         label: '\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C',
                         primary: true,
-                        style: { margin: '15px 0' },
+                        style: { margin: '15px' },
                         onClick: function onClick() {
                             return _this2.validate();
+                        }
+                    }),
+                    React.createElement(_RaisedButton2.default, {
+                        label: '\u0417\u0430\u043A\u0440\u044B\u0442\u044C',
+                        secondary: true,
+                        style: { margin: '15px 0' },
+                        onClick: function onClick() {
+                            return _this2.props.onClose();
                         }
                     })
                 )
@@ -44608,6 +44644,9 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
                         }),
                         onSelect: function onSelect(item) {
                             return _this2.loadComments(item.taskId, item.studentEmail);
+                        },
+                        openFile: function openFile(filePath) {
+                            return _this2.openFile(filePath);
                         }
                     }),
                     React.createElement(_CommentBox.CommentBox, {
@@ -44616,6 +44655,9 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
                         userEmail: this.props.user.email,
                         sendComment: function sendComment(text) {
                             return _this2.sendComment(text);
+                        },
+                        onClose: function onClose() {
+                            return _this2.setState({ openComments: false });
                         }
                     })
                 ),
@@ -44654,7 +44696,12 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
         key: 'download',
         value: function download(report) {
             var fileName = report.courseName + ', ' + report.taskTitle + ' - ' + report.studentFullName;
-            _download.Downloader.download(report.filePath, fileName);
+
+            for (var i = 0; i < report.filePaths.length; i++) {
+                var filePath = report.filePaths[i];
+
+                _download.Downloader.download(filePath, fileName + ' (' + (i + 1) + ')');
+            }
         }
     }, {
         key: 'sendComment',
@@ -44672,6 +44719,11 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
             this.props.post(_api.urls.comments.create, data, function (result) {
                 return self.loadComments(taskId, studentEmail);
             });
+        }
+    }, {
+        key: 'openFile',
+        value: function openFile(filePath) {
+            window.open(filePath);
         }
     }, {
         key: 'load',

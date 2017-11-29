@@ -6,6 +6,7 @@ using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Report;
 using StudyONU.Logic.Infrastructure;
 using StudyONU.Web.Models.Report;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StudyONU.Web.Controllers
@@ -31,12 +32,12 @@ namespace StudyONU.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Send([FromForm] ReportCreateBindingModel model)
         {
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, ReportsUploadPath);
+            DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(model.Files, ReportsUploadPath);
 
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 ReportCreateDTO reportCreateDTO = mapper.Map<ReportCreateDTO>(model);
-                reportCreateDTO.FilePath = dataServiceMessage.Data;
+                reportCreateDTO.FilePaths = dataServiceMessage.Data;
                 string email = GetUserEmail();
 
                 ServiceMessage serviceMessage = await service.SendAsync(reportCreateDTO, email);

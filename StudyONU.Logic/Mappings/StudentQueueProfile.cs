@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using StudyONU.Core.Entities;
+﻿using StudyONU.Core.Entities;
 using StudyONU.Logic.DTO.StudentQueue;
 
 namespace StudyONU.Logic.Mappings
 {
-    class StudentQueueProfile : Profile
+    class StudentQueueProfile : ProfileBase
     {
         public StudentQueueProfile()
         {

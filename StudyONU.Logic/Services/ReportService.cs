@@ -9,6 +9,7 @@ using StudyONU.Logic.Infrastructure;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace StudyONU.Logic.Services
 {
@@ -56,6 +57,7 @@ namespace StudyONU.Logic.Services
                         }
                         else if (editable)
                         {
+                            reportEntity.FilePaths = JsonConvert.SerializeObject(reportDTO.FilePaths);
                             reportEntity.State = TaskState.Sent;
                             reportEntity.DateModified = DateTime.Now;
 

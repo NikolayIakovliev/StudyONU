@@ -14,9 +14,8 @@ namespace StudyONU.Core.Configurations
                 entity.StudentId
             });
 
-            builder.Property(entity => entity.FilePath)
-                .IsRequired()
-                .HasMaxLength(400);
+            builder.Property(entity => entity.FilePaths)
+                .IsRequired();
             builder.Property(entity => entity.DateCreated)
                 .IsRequired()
                 .HasDefaultValueSql("GETDATE()");

@@ -58,7 +58,7 @@ export const OnCheckRightIconButton = (onAccept, onReject, onDownload) => (item)
             leftIcon={<FileDownload />}
             onClick={() => onDownload(item)}
         >
-            Скачать
+            Скачать файлы
             </MenuItem>
     </IconMenu>
 );

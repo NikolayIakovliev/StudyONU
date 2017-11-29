@@ -13,7 +13,7 @@ namespace StudyONU.Core.Entities
 
         public virtual StudentEntity Student { get; set; }
 
-        public string FilePath { get; set; }
+        public string FilePaths { get; set; }
 
         public DateTime DateCreated { get; set; }
 

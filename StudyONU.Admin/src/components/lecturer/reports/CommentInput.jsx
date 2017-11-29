@@ -32,8 +32,14 @@ export class CommentInput extends React.Component {
                     <RaisedButton
                         label="Отправить"
                         primary={true}
-                        style={{ margin: '15px 0' }}
+                        style={{ margin: '15px' }}
                         onClick={() => this.validate()}
+                    />
+                    <RaisedButton
+                        label="Закрыть"
+                        secondary={true}
+                        style={{ margin: '15px 0' }}
+                        onClick={() => this.props.onClose()}
                     />
                 </div>
             </div>

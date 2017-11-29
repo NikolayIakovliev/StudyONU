@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0a0d535d4469e692d03d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a23c5d7667701fb05707"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7170,7 +7170,7 @@ exports = module.exports = __webpack_require__(30)(undefined);
 
 
 // module
-exports.push([module.i, ".task-details {\n  display: flex;\n  justify-content: space-between; }\n  .task-details .task-box {\n    flex-grow: 1; }\n  .task-details .right-content {\n    display: flex;\n    flex-direction: column;\n    margin-left: 30px; }\n    .task-details .right-content .report-box {\n      padding: 20px;\n      min-width: 300px;\n      margin-bottom: 30px; }\n", ""]);
+exports.push([module.i, ".task-details {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start; }\n  .task-details .task-box {\n    flex-grow: 1; }\n  .task-details .right-content {\n    display: flex;\n    flex-direction: column;\n    margin-left: 30px; }\n    .task-details .right-content .report-box {\n      padding: 20px;\n      min-width: 300px;\n      margin-bottom: 30px; }\n", ""]);
 
 // exports
 
@@ -36621,8 +36621,8 @@ var Task = exports.Task = function (_React$Component) {
                             mark: mark,
                             dateOverdue: dateOverdue,
                             dateAccepted: dateAccepted,
-                            onSend: function onSend(file) {
-                                return _this2.onSend(file);
+                            onSend: function onSend(files) {
+                                return _this2.onSend(files);
                             },
                             onCancel: function onCancel() {
                                 return _this2.onCancel();
@@ -36648,9 +36648,9 @@ var Task = exports.Task = function (_React$Component) {
         }
     }, {
         key: 'onSend',
-        value: function onSend(file) {
+        value: function onSend(files) {
             var data = {
-                file: file,
+                files: files,
                 taskId: this.state.id
             };
 
@@ -36791,7 +36791,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (ReportBox.__proto__ || Object.getPrototypeOf(ReportBox)).call(this, props));
 
         _this.state = {
-            file: null
+            files: []
         };
         return _this;
     }
@@ -36947,20 +36947,20 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
         value: function getReportForm() {
             var _this3 = this;
 
-            var file = this.state.file;
+            var files = this.state.files;
 
-            var dropzoneContent = file ? React.createElement(
+            var dropzoneContent = files.length > 0 ? React.createElement(
                 'p',
                 null,
-                '\u0424\u0430\u0439\u043B \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D: ',
-                file.name
+                '\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043E \u0444\u0430\u0439\u043B\u043E\u0432: ',
+                files.length
             ) : React.createElement(
                 'p',
                 null,
-                '\u041F\u0440\u0438\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0444\u0430\u0439\u043B'
+                '\u041F\u0440\u0438\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0444\u0430\u0439\u043B\u044B'
             );
 
-            var disabled = file == null;
+            var disabled = files.length == 0;
             return React.createElement(
                 'div',
                 null,
@@ -36968,9 +36968,9 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                     _reactDropzone2.default,
                     {
                         className: 'dropzone',
-                        multiple: false,
+                        multiple: true,
                         onDrop: function onDrop(files) {
-                            return _this3.setState({ file: files[0] });
+                            return _this3.setState({ files: files });
                         },
                         accept: '.docx,.doc,.pdf,.txt' },
                     dropzoneContent
@@ -36981,7 +36981,7 @@ var ReportBox = exports.ReportBox = function (_React$Component) {
                     disabled: disabled,
                     style: { marginTop: 30 },
                     onClick: function onClick() {
-                        return _this3.props.onSend(file);
+                        return _this3.props.onSend(files);
                     }
                 })
             );

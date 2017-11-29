@@ -5,6 +5,7 @@ using StudyONU.Logic.DTO.Report;
 using StudyONU.Logic.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyONU.Admin.Controllers
@@ -73,10 +74,7 @@ namespace StudyONU.Admin.Controllers
                 foreach (ReportListDTO item in serviceMessage.Data)
                 {
                     item.StudentPhoto = "http://localhost:22107" + item.StudentPhoto;
-                    if (item.FilePath != null)
-                    {
-                        item.FilePath = "http://localhost:22107" + item.FilePath;
-                    }
+                    item.FilePaths = item.FilePaths.Select(filePath => "http://localhost:22107/" + filePath);
                 }
             }
 

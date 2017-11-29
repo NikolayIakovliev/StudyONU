@@ -63,12 +63,14 @@ export class OnCheckReportBox extends React.Component {
                             report => this.download(report))
                         }
                         onSelect={item => this.loadComments(item.taskId, item.studentEmail)}
+                        openFile={filePath => this.openFile(filePath)}
                     />
                     <CommentBox
                         open={openComments}
                         items={comments}
                         userEmail={this.props.user.email}
                         sendComment={text => this.sendComment(text)}
+                        onClose={() => this.setState({ openComments: false })}
                     />
                 </div>
                 <MarkModal
@@ -96,7 +98,12 @@ export class OnCheckReportBox extends React.Component {
 
     download(report) {
         const fileName = `${report.courseName}, ${report.taskTitle} - ${report.studentFullName}`;
-        Downloader.download(report.filePath, fileName);
+
+        for (let i = 0; i < report.filePaths.length; i++) {
+            let filePath = report.filePaths[i];
+
+            Downloader.download(filePath, `${fileName} (${i + 1})`);
+        }
     }
 
     sendComment(text) {
@@ -111,6 +118,10 @@ export class OnCheckReportBox extends React.Component {
 
         let self = this;
         this.props.post(urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+    }
+
+    openFile(filePath) {
+        window.open(filePath);
     }
 
     load() {
