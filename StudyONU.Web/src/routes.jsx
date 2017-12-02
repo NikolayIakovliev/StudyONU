@@ -12,6 +12,7 @@ import { MyCourses } from './pages/courses/my/MyCourses';
 import { Course } from './pages/course/Course';
 import { Task } from './pages/task/Task';
 import { GuideList } from './pages/guides/GuideList';
+import { CourseProgress } from './pages/courseProgress/CourseProgress';
 
 import { Api, urls } from './shared/api';
 
@@ -47,6 +48,7 @@ export class Routes extends React.Component {
                 <Route exact path='/courses/my' component={Api(MyCourses)} />
                 <Route exact path='/courses/:id(\d+)/tasks' component={Api(Course)} />
                 <Route exact path='/courses/:id(\d+)/guides' component={Api(GuideList)} />
+                <Route exact path='/courses/:id(\d+)/progress' component={Api(CourseProgress)} />
                 <Route exact path='/courses/:courseId(\d+)/tasks/:id(\d+)' component={Api(Task)} />
                 <Route path='/404' component={NotFound} />
                 <Route render={() => <Redirect to="/404" />} />

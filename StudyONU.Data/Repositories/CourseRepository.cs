@@ -27,6 +27,11 @@ namespace StudyONU.Data.Repositories
             return course;
         }
 
+        public Task<bool> ExistsAsync(int id)
+        {
+            return context.Courses.AnyAsync(course => course.Id == id);
+        }
+
         public override async Task<IEnumerable<CourseEntity>> GetAllAsync(Expression<Func<CourseEntity, bool>> expression = null)
         {
             IQueryable<CourseEntity> entities = context.Courses

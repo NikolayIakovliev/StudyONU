@@ -12,7 +12,7 @@ namespace StudyONU.Logic.Extensions
             services.AddServices();
             services.AddRepositories();
             services.AddDatabase(configuration);
-            services.AddAutoMapper(configuration);
+            services.AddAutoMapper();
 
             return services;
         }

@@ -133,7 +133,8 @@ export const urls = {
     comments: {
         create: '/api/comments',
         list: (taskId, studentEmail) => `/api/comments?taskId=${taskId}&studentEmail=${studentEmail}`
-    }
+    },
+    courseProgress: (courseId) => `/api/courseReport/${courseId}`
 }
 
 const checkStatus = (response) => {

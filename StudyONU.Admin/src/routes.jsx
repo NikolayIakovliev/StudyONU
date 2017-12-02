@@ -17,6 +17,7 @@ import { TaskList } from './components/lecturer/tasks/TaskList';
 import { StudentQueueList } from './components/lecturer/studentQueue/StudentQueueList';
 import { SentReportBox } from './components/lecturer/reports/SentReportBox';
 import { OnCheckReportBox } from './components/lecturer/reports/OnCheckReportBox';
+import { CourseProgress } from './components/lecturer/courseProgress/CourseProgress';
 
 const adminRole = 'Админ';
 const lecturerRole = 'Преподаватель';
@@ -93,6 +94,10 @@ export class Routes extends React.Component {
                     to: '/reports/oncheck'
                 },
                 {
+                    title: 'Успеваемость',
+                    to: '/course/progress'
+                },
+                {
                     title: 'Сменить пароль',
                     to: '/account/password'
                 }
@@ -106,6 +111,7 @@ export class Routes extends React.Component {
                     <Route path='/students/queue' component={LecturerAuthorization(StudentQueueList, this.props)} />
                     <Route path='/reports/sent' component={LecturerAuthorization(SentReportBox, this.props)} />
                     <Route path='/reports/oncheck' component={LecturerAuthorization(OnCheckReportBox, this.props)} />
+                    <Route path='/course/progress' component={LecturerAuthorization(CourseProgress, this.props)} />
                     <Route path='/account/password' component={LecturerAuthorization(ChangePassword, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>

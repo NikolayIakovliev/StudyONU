@@ -10,6 +10,8 @@ namespace StudyONU.Data.Contracts.Repositories
     {
         Task<CourseEntity> GetDetailedAsync(int id);
 
+        Task<bool> ExistsAsync(int id);
+
         Task<IEnumerable<CourseEntity>> GetAllByLecturerEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector);
 
         Task<IEnumerable<CourseEntity>> GetAllByStudentEmailAsync<TKey>(string email, Expression<Func<CourseEntity, TKey>> keySelector);

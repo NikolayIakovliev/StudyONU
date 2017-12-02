@@ -55,5 +55,12 @@ namespace StudyONU.Data.Repositories
                 )
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<TaskEntity>> GetByCourseAsync(int courseId)
+        {
+            return await context.Tasks
+                .Where(task => task.CourseId == courseId)
+                .ToListAsync();
+        }
     }
 }

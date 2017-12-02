@@ -66,7 +66,7 @@ export class Api {
         return fetch(url, init).catch(error => Logger.error(error));
     }
 
-    static token(data, onComplete) {
+    static token(data, onSuccess, onError) {
         let init = {
             method: 'POST',
             headers: {
@@ -79,8 +79,13 @@ export class Api {
         fetch(urls.token, init)
             .then(checkStatus)
             .then(res => res.json())
-            .then(res => onComplete(res))
-            .catch(error => Logger.error(error));
+            .then(res => onSuccess(res))
+            .catch(error => {
+                if (onError) {
+                    onError();
+                }
+                Logger.error(error)
+            });
     }
 }
 
@@ -109,7 +114,8 @@ export const urls = {
         create: '/api/comments',
         list: (taskId) => `/api/comments?taskId=${taskId}`
     },
-    guides: (courseId) => `/api/guides?courseId=${courseId}`
+    guides: (courseId) => `/api/guides?courseId=${courseId}`,
+    courseProgress: (courseId) => `/api/courseReport/${courseId}`
 }
 
 const checkStatus = (response) => {

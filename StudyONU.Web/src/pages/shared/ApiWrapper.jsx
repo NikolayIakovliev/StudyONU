@@ -110,13 +110,15 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
         login(data) {
             let self = this;
             Api.token(data, result => {
-                if (result.success === true) {
-                    onLogin(result.data);
-                }
+                onLogin(result.data);
 
                 self.setState({
-                    loginError: result.success !== true,
-                    openLoginDialog: result.success !== true
+                    loginError: false,
+                    openLoginDialog: false
+                });
+            }, () => {
+                self.setState({
+                    loginError: true
                 });
             });
         }

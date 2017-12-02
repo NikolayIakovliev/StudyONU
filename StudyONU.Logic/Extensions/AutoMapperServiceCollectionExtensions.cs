@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudyONU.Logic.Mappings;
 
@@ -7,7 +6,7 @@ namespace StudyONU.Logic.Extensions
 {
     public static class AutoMapperServiceCollectionExtensions
     {
-        public static IServiceCollection AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(config =>
             {
@@ -19,6 +18,7 @@ namespace StudyONU.Logic.Extensions
                 config.AddProfile<StudentQueueProfile>();
                 config.AddProfile<CommentProfile>();
                 config.AddProfile<ReportProfile>();
+                config.AddProfile<CourseReportProfile>();
             });
 
             return services;
