@@ -1,6 +1,10 @@
 ﻿.account-panel {
-    .btn-container {
-        display: flex;
-        padding-top: 30px;
+    .account-info {
+        margin-bottom: 30px;
+
+        .btn-container {
+            display: flex;
+            padding-top: 30px;
+        }
     }
 }

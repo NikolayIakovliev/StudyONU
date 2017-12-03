@@ -4,8 +4,6 @@ import { Layout } from './components/shared/Layout';
 import { NotFound } from './components/shared/NotFound';
 import { Authorization } from './components/shared/Authorization';
 
-import { ChangePassword } from './components/shared/ChangePassword';
-
 import { AdminHome } from './components/admin/home/Home';
 import { LecturerList } from './components/admin/lecturers/LecturerList';
 import { SpecialityList } from './components/admin/specialities/SpecialityList';
@@ -50,10 +48,6 @@ export class Routes extends React.Component {
                 {
                     title: 'Специальности',
                     to: '/specialities'
-                },
-                {
-                    title: 'Сменить пароль',
-                    to: '/account/password'
                 }
             ];
             routes = (
@@ -61,7 +55,6 @@ export class Routes extends React.Component {
                     <Route exact path='/' component={AdminAuthorization(AdminHome, this.props)} />
                     <Route path='/lecturers' component={AdminAuthorization(LecturerList, this.props)} />
                     <Route path='/specialities' component={AdminAuthorization(SpecialityList, this.props)} />
-                    <Route path='/account/password' component={AdminAuthorization(ChangePassword, this.props)} />
                     <Route path='/account/info' component={AdminAuthorization(AccountPanel, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
@@ -99,10 +92,6 @@ export class Routes extends React.Component {
                 {
                     title: 'Успеваемость',
                     to: '/course/progress'
-                },
-                {
-                    title: 'Сменить пароль',
-                    to: '/account/password'
                 }
             ];
             routes = (
@@ -115,7 +104,6 @@ export class Routes extends React.Component {
                     <Route path='/reports/sent' component={LecturerAuthorization(SentReportBox, this.props)} />
                     <Route path='/reports/oncheck' component={LecturerAuthorization(OnCheckReportBox, this.props)} />
                     <Route path='/course/progress' component={LecturerAuthorization(CourseProgress, this.props)} />
-                    <Route path='/account/password' component={LecturerAuthorization(ChangePassword, this.props)} />
                     <Route path='/account/info' component={LecturerAuthorization(AccountPanel, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>

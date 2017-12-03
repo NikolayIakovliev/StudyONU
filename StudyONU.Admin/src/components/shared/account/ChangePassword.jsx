@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../shared/api';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
@@ -72,15 +71,14 @@ export class ChangePassword extends React.Component {
             }
 
             let self = this;
-            this.props.post(urls.account.password, data, result => {
-                if (result.success === true) {
-                    self.resetForm();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
+            this.props.onPasswordChange(data, () => self.resetForm(), () => {
+                let errors = {
+                    oldPassword: 'Старый пароль введён неправильно',
+                    newPassword: '',
+                    confirm: ''
                 }
+
+                this.setState({ errors });
             });
         }
     }
@@ -91,6 +89,7 @@ export class ChangePassword extends React.Component {
             newPassword,
             confirm
         } = this.state;
+
         let errors = {
             oldPassword: '',
             newPassword: '',
