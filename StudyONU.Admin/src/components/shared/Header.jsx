@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './header.scss';
 
@@ -14,10 +14,11 @@ export class Header extends React.Component {
         return (
             <div className="header">
                 <div className="user-info">
-                    <p className="fullname">{`${user.firstName} ${user.lastName}`}</p>
+                    <p className="fullname">{`${user.lastName} ${user.firstName} ${user.patronymic}`}</p>
                     <p className="role">{user.role}</p>
                 </div>
                 <img src={user.photoPath} className="user-avatar" />
+                <Link className="account-panel-link" to="/account/info">Личный кабинет</Link>
                 <button className="logout-btn" onClick={e => this.props.logout()}>Выйти</button>
             </div>
         );

@@ -26,6 +26,42 @@ namespace StudyONU.Logic.Services
             this.passwordHasher = passwordHasher;
         }
 
+        public async Task<ServiceMessage> InitializeRoles()
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+
+            try
+            {
+                foreach (string roleName in Roles.GetRoles())
+                {
+                    RoleEntity roleEntity = await unitOfWork.Roles.GetAsync(applicationRole => applicationRole.Name == roleName);
+                    if (roleEntity == null)
+                    {
+                        RoleEntity applicationRole = new RoleEntity
+                        {
+                            Name = roleName
+                        };
+
+                        await unitOfWork.Roles.AddAsync(applicationRole);
+                        await unitOfWork.CommitAsync();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
         public async Task<ServiceMessage> RegisterAdminAsync(RegisterAdminDTO adminDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
@@ -73,26 +109,27 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> InitializeRoles()
+        public async Task<ServiceMessage> EditAsync(UserEditDTO userEditDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
 
             try
             {
-                foreach (string roleName in Roles.GetRoles())
+                UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(userEditDTO.OldEmail);
+                if (userEntity != null)
                 {
-                    RoleEntity roleEntity = await unitOfWork.Roles.GetAsync(applicationRole => applicationRole.Name == roleName);
-                    if (roleEntity == null)
-                    {
-                        RoleEntity applicationRole = new RoleEntity
-                        {
-                            Name = roleName
-                        };
+                    userEntity.FirstName = userEditDTO.FirstName;
+                    userEntity.LastName = userEditDTO.LastName;
+                    userEntity.Patronymic = userEditDTO.Patronymic;
+                    userEntity.Email = userEditDTO.NewEmail;
 
-                        await unitOfWork.Roles.AddAsync(applicationRole);
-                        await unitOfWork.CommitAsync();
-                    }
+                    await unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    actionResult = ServiceActionResult.Error;
+                    errors.AddCommonError("User with such email was not found");
                 }
             }
             catch (Exception exception)

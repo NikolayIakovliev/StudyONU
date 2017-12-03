@@ -11,6 +11,8 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<ServiceMessage> RegisterAdminAsync(RegisterAdminDTO adminDTO);
 
+        Task<ServiceMessage> EditAsync(UserEditDTO userEditDTO);
+
         Task<ServiceMessage> ChangePasswordAsync(ChangePasswordDTO changePasswordDTO);
 
         Task<ServiceMessage> IsUnique(string email);

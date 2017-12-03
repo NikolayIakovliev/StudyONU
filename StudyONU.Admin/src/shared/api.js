@@ -107,7 +107,8 @@ export const urls = {
     check: '/api/check',
     token: '/api/token',
     account: {
-        password: '/api/account/password'
+        password: '/api/account/password',
+        info: '/api/account'
     },
     lecturers: '/api/lecturers',
     specialities: '/api/specialities',

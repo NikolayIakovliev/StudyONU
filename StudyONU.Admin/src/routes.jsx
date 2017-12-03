@@ -19,6 +19,8 @@ import { SentReportBox } from './components/lecturer/reports/SentReportBox';
 import { OnCheckReportBox } from './components/lecturer/reports/OnCheckReportBox';
 import { CourseProgress } from './components/lecturer/courseProgress/CourseProgress';
 
+import { AccountPanel } from './components/shared/account/AccountPanel';
+
 const adminRole = 'Админ';
 const lecturerRole = 'Преподаватель';
 
@@ -60,6 +62,7 @@ export class Routes extends React.Component {
                     <Route path='/lecturers' component={AdminAuthorization(LecturerList, this.props)} />
                     <Route path='/specialities' component={AdminAuthorization(SpecialityList, this.props)} />
                     <Route path='/account/password' component={AdminAuthorization(ChangePassword, this.props)} />
+                    <Route path='/account/info' component={AdminAuthorization(AccountPanel, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
@@ -113,6 +116,7 @@ export class Routes extends React.Component {
                     <Route path='/reports/oncheck' component={LecturerAuthorization(OnCheckReportBox, this.props)} />
                     <Route path='/course/progress' component={LecturerAuthorization(CourseProgress, this.props)} />
                     <Route path='/account/password' component={LecturerAuthorization(ChangePassword, this.props)} />
+                    <Route path='/account/info' component={LecturerAuthorization(AccountPanel, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );

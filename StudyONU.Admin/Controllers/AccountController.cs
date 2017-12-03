@@ -56,5 +56,17 @@ namespace StudyONU.Admin.Controllers
 
             return GenerateResponse(serviceMessage);
         }
+
+        [HttpPut]
+        [Route("/api/account")]
+        public async Task<IActionResult> Edit([FromBody] UserEditBindingModel model)
+        {
+            UserEditDTO userEditDTO = mapper.Map<UserEditDTO>(model);
+            userEditDTO.OldEmail = GetUserEmail();
+
+            ServiceMessage serviceMessage = await accountService.EditAsync(userEditDTO);
+
+            return GenerateResponse(serviceMessage);
+        }
     }
 }

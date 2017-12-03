@@ -41,6 +41,9 @@ namespace StudyONU.Admin.Mappings
             CreateMap<ChangePasswordBindingModel, ChangePasswordDTO>();
 
             CreateMap<CommentCreateBindingModel, CommentCreateDTO>();
+
+            CreateMap<UserEditBindingModel, UserEditDTO>()
+                .ForMember(dest => dest.NewEmail, opt => opt.MapFrom(src => src.Email));
         }
     }
 }
