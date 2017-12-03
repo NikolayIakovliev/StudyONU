@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9cf6f8c76ad8e0f24f0e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f28b04b7b9390d47937f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6895,7 +6895,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.sidebar .nav-list .nav-item .nav-link:link, .sidebar .nav-list .nav-item .nav-link-active:link {\n  text-decoration: none; }\n\n.sidebar .nav-list .nav-item .nav-link:visited, .sidebar .nav-list .nav-item .nav-link-active:visited {\n  text-decoration: none; }\n\n.sidebar .nav-list .nav-item .nav-link:hover, .sidebar .nav-list .nav-item .nav-link-active:hover {\n  text-decoration: none; }\n\n.sidebar .nav-list .nav-item .nav-link:active, .sidebar .nav-list .nav-item .nav-link-active:active {\n  text-decoration: none; }\n\n.list-form-container {\n  display: flex;\n  justify-content: space-between; }\n  .list-form-container .flex-grow-1 {\n    flex-grow: 1;\n    align-self: flex-start; }\n\n.centered {\n  text-align: center !important; }\n\n.sidebar {\n  position: fixed;\n  z-index: 1;\n  height: 100vh;\n  width: 300px;\n  overflow: auto;\n  background-color: #0a1944; }\n  .sidebar .logo-container {\n    text-align: center;\n    padding: 30px 0; }\n  .sidebar .nav-list {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n    .sidebar .nav-list .nav-item {\n      text-align: center; }\n      .sidebar .nav-list .nav-item .nav-link, .sidebar .nav-list .nav-item .nav-link-active {\n        display: block;\n        color: white;\n        width: 100%;\n        padding: 15px 0;\n        font-size: 20px; }\n      .sidebar .nav-list .nav-item .nav-link:hover {\n        background-color: #A3AABE; }\n      .sidebar .nav-list .nav-item .nav-link-active {\n        background-color: rgba(118, 132, 172, 0.5); }\n", ""]);
+exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.sidebar .nav-list .nav-item .nav-link:link, .sidebar .nav-list .nav-item .nav-link-active:link {\n  text-decoration: none; }\n\n.sidebar .nav-list .nav-item .nav-link:visited, .sidebar .nav-list .nav-item .nav-link-active:visited {\n  text-decoration: none; }\n\n.sidebar .nav-list .nav-item .nav-link:hover, .sidebar .nav-list .nav-item .nav-link-active:hover {\n  text-decoration: none; }\n\n.sidebar .nav-list .nav-item .nav-link:active, .sidebar .nav-list .nav-item .nav-link-active:active {\n  text-decoration: none; }\n\n.list-form-container {\n  display: flex;\n  justify-content: space-between; }\n  .list-form-container .flex-grow-1 {\n    flex-grow: 1;\n    align-self: flex-start; }\n\n.centered {\n  text-align: center !important; }\n\n.sidebar {\n  position: fixed;\n  z-index: 1;\n  height: 100vh;\n  width: 250px;\n  overflow: auto;\n  background-color: #0a1944;\n  transition: width 0.4s ease; }\n  .sidebar .sidebar-control {\n    display: flex;\n    justify-content: flex-end;\n    padding-top: 10px;\n    padding-right: 10px; }\n  .sidebar .logo-container {\n    text-align: center;\n    padding-bottom: 30px; }\n  .sidebar .nav-list {\n    list-style: none;\n    margin: 0;\n    padding: 0; }\n    .sidebar .nav-list .nav-item {\n      text-align: center; }\n      .sidebar .nav-list .nav-item .nav-link, .sidebar .nav-list .nav-item .nav-link-active {\n        display: block;\n        color: white;\n        width: 100%;\n        padding: 15px 0;\n        font-size: 16px; }\n      .sidebar .nav-list .nav-item .nav-link:hover {\n        background-color: #A3AABE; }\n      .sidebar .nav-list .nav-item .nav-link-active {\n        background-color: rgba(118, 132, 172, 0.5); }\n  .sidebar.minified {\n    width: 50px;\n    overflow: hidden; }\n    .sidebar.minified .logo-container, .sidebar.minified .nav-list {\n      visibility: hidden; }\n", ""]);
 
 // exports
 
@@ -6923,7 +6923,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.layout {\n  margin-left: 300px;\n  height: 100%;\n  background-color: #EBE8E8; }\n  .layout .layout-content {\n    margin: 30px;\n    min-height: 100%; }\n", ""]);
+exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.layout {\n  margin-left: 250px;\n  height: 100%;\n  background-color: #EBE8E8;\n  transition: margin-left 0.4s ease; }\n  .layout.expanded {\n    margin-left: 50px; }\n  .layout .layout-content {\n    margin: 30px;\n    min-height: 100%; }\n", ""]);
 
 // exports
 
@@ -19876,19 +19876,30 @@ var Layout = exports.Layout = function (_React$Component) {
     function Layout(props) {
         _classCallCheck(this, Layout);
 
-        return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+
+        _this.state = {
+            layoutExpanded: false
+        };
+        return _this;
     }
 
     _createClass(Layout, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var classes = this.getLayoutClasses();
+
             return React.createElement(
                 'div',
                 null,
-                React.createElement(_Sidebar.Sidebar, { navigationLinks: this.props.navigationLinks }),
+                React.createElement(_Sidebar.Sidebar, { navigationLinks: this.props.navigationLinks, onToggle: function onToggle(expanded) {
+                        return _this2.setState({ layoutExpanded: !expanded });
+                    } }),
                 React.createElement(
                     'div',
-                    { className: 'layout' },
+                    { className: classes.join(" ") },
                     React.createElement(_Header.Header, { logout: this.props.onLogout, user: this.props.user }),
                     React.createElement(
                         _MuiThemeProvider2.default,
@@ -19901,6 +19912,20 @@ var Layout = exports.Layout = function (_React$Component) {
                     )
                 )
             );
+        }
+    }, {
+        key: 'getLayoutClasses',
+        value: function getLayoutClasses() {
+            var layoutExpanded = this.state.layoutExpanded;
+
+
+            var classes = ['layout'];
+
+            if (layoutExpanded) {
+                classes.push('expanded');
+            }
+
+            return classes;
         }
     }]);
 
@@ -25753,6 +25778,8 @@ var React = _interopRequireWildcard(_react);
 
 var _reactRouterDom = __webpack_require__(61);
 
+var _ToggleButton = __webpack_require__(564);
+
 __webpack_require__(423);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -25769,15 +25796,34 @@ var Sidebar = exports.Sidebar = function (_React$Component) {
     function Sidebar(props) {
         _classCallCheck(this, Sidebar);
 
-        return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
+
+        _this.state = {
+            expanded: true
+        };
+        return _this;
     }
 
     _createClass(Sidebar, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var expanded = this.state.expanded;
+
+
+            var classes = this.getSidebarClasses(expanded);
+
             return React.createElement(
                 'aside',
-                { className: 'sidebar' },
+                { className: classes.join(" ") },
+                React.createElement(
+                    'div',
+                    { className: 'sidebar-control' },
+                    React.createElement(_ToggleButton.ToggleButton, { value: expanded, onToggle: function onToggle() {
+                            return _this2.onToggle(!expanded);
+                        } })
+                ),
                 React.createElement(
                     'div',
                     { className: 'logo-container' },
@@ -25806,6 +25852,25 @@ var Sidebar = exports.Sidebar = function (_React$Component) {
                     })
                 )
             );
+        }
+    }, {
+        key: 'getSidebarClasses',
+        value: function getSidebarClasses(expanded) {
+            var classes = ['sidebar'];
+
+            if (!expanded) {
+                classes.push('minified');
+            }
+
+            return classes;
+        }
+    }, {
+        key: 'onToggle',
+        value: function onToggle(expanded) {
+            this.props.onToggle(expanded);
+            this.setState({
+                expanded: expanded
+            });
         }
     }]);
 
@@ -47251,6 +47316,118 @@ TableRow.propTypes = process.env.NODE_ENV !== "production" ? {
 } : {};
 exports.default = TableRow;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 564 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ToggleButton = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+__webpack_require__(567);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ToggleButton = exports.ToggleButton = function (_React$Component) {
+    _inherits(ToggleButton, _React$Component);
+
+    function ToggleButton(props) {
+        _classCallCheck(this, ToggleButton);
+
+        return _possibleConstructorReturn(this, (ToggleButton.__proto__ || Object.getPrototypeOf(ToggleButton)).call(this, props));
+    }
+
+    _createClass(ToggleButton, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var value = this.props.value;
+
+            var classes = this.getClasses(value);
+
+            return React.createElement('button', { className: classes.join(" "), onClick: function onClick() {
+                    return _this2.props.onToggle(!value);
+                } });
+        }
+    }, {
+        key: 'getClasses',
+        value: function getClasses(close) {
+            var classes = ['toggle-btn'];
+
+            if (!close) {
+                classes.push('open');
+            }
+
+            return classes;
+        }
+    }]);
+
+    return ToggleButton;
+}(React.Component);
+
+/***/ }),
+/* 565 */,
+/* 566 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(15)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.toggle-btn {\n  color: white;\n  background-color: transparent;\n  border: none;\n  cursor: pointer;\n  outline: none;\n  border-radius: 50%;\n  width: 35px;\n  padding-bottom: 5px;\n  transition: transform 1s ease, background-color 0.4s ease; }\n  .toggle-btn::after {\n    content: '\\2039';\n    font-size: 30px; }\n  .toggle-btn:hover {\n    background-color: rgba(118, 132, 172, 0.5); }\n  .toggle-btn.open {\n    transform: scaleX(-1); }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 567 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(566);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(16)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(566, function() {
+			var newContent = __webpack_require__(566);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

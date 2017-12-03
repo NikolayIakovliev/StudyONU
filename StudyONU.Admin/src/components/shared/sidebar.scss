@@ -8,10 +8,18 @@
     width: $sidebar-width;
     overflow: auto;
     background-color: $blue-dark;
+    transition: width 0.4s ease;
+
+    .sidebar-control {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 10px;
+        padding-right: 10px;
+    }
 
     .logo-container {
         text-align: center;
-        padding: 30px 0;
+        padding-bottom: 30px;
     }
 
     .nav-list {
@@ -28,7 +36,7 @@
                 color: white;
                 width: 100%;
                 padding: 15px 0;
-                font-size: 20px;
+                font-size: 16px;
             }
 
             .nav-link {
@@ -43,6 +51,15 @@
                 @extend %nav-link;
                 background-color: $blue-light;
             }
+        }
+    }
+
+    &.minified {
+        width: $sidebar-width-min;
+        overflow: hidden;
+
+        .logo-container, .nav-list {
+            visibility: hidden;
         }
     }
 }

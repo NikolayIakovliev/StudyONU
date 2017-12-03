@@ -1,0 +1,26 @@
+﻿@import 'variables.scss';
+
+.toggle-btn {
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 50%;
+    width: 35px;
+    padding-bottom: 5px;
+    transition: transform 1s ease, background-color 0.4s ease;
+
+    &::after {
+        content: '\2039';
+        font-size: 30px;
+    }
+
+    &:hover {
+        background-color: $blue-light;
+    }
+
+    &.open {
+        transform: scaleX(-1);
+    }
+}
