@@ -64,11 +64,16 @@ export class GuideList extends React.Component {
 
     getNavigationLinks() {
         const id = this.props.match.params.id;
-        return [
+        let navLinks = [
             { to: `/courses/${id}/tasks`, title: 'Задачи' },
-            { to: `/courses/${id}/guides`, title: 'Методички' },
-            { to: `/courses/${id}/progress`, title: 'Успеваемость' }
+            { to: `/courses/${id}/guides`, title: 'Методички' }
         ];
+
+        if (this.props.user.isLoggedIn) {
+            navLinks.push({ to: `/courses/${id}/progress`, title: 'Успеваемость' });
+        }
+
+        return navLinks;
     }
 
 

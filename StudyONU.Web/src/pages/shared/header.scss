@@ -32,8 +32,9 @@ $background-color: #004d40;
 
             .navbar-links {
                 display: flex;
-                height: 100%;
                 flex: 1 1 .1rem;
+                justify-content: center;
+                height: 100%;
 
                 .navbar-link {
                     display: flex;

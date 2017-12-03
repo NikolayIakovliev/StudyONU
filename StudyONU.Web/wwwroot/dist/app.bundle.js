@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3afe67733f44cd9b00c1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cc4cb9bd09a91855a700"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7128,7 +7128,7 @@ exports = module.exports = __webpack_require__(31)(undefined);
 
 
 // module
-exports.push([module.i, ".header-wrapper {\n  padding-top: 70px; }\n  .header-wrapper .header {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    z-index: 2;\n    height: 70px;\n    background-color: #004d40;\n    color: white;\n    box-shadow: 0px 2px 12px black; }\n    .header-wrapper .header .header-content {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      height: 100%;\n      padding: 0 20px; }\n      .header-wrapper .header .header-content .left-controls {\n        display: flex;\n        align-items: center;\n        height: 100%;\n        flex: 1 1 .1rem; }\n      .header-wrapper .header .header-content .navbar-links {\n        display: flex;\n        height: 100%;\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .navbar-links .navbar-link {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          color: white;\n          text-decoration: none;\n          padding: 0 25px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .navbar-links .navbar-link:hover {\n            background-color: rgba(255, 255, 255, 0.3); }\n        .header-wrapper .header .header-content .navbar-links .navbar-link-active {\n          opacity: 1;\n          background-color: #005c4d;\n          border-bottom: 2px solid white; }\n      .header-wrapper .header .header-content .right-account {\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .right-account .auth-links {\n          display: flex;\n          justify-content: flex-end;\n          align-items: center; }\n          .header-wrapper .header .header-content .right-account .auth-links .btn {\n            border: none;\n            background-color: transparent;\n            font-size: 16px;\n            cursor: pointer;\n            outline: none;\n            color: white;\n            margin: 0 10px;\n            opacity: 0.8; }\n            .header-wrapper .header .header-content .right-account .auth-links .btn:hover {\n              border-bottom: 1px solid #CCE1EE;\n              opacity: 1; }\n        .header-wrapper .header .header-content .right-account .account-container {\n          display: flex;\n          justify-content: flex-end;\n          align-content: center; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info {\n            padding: 0 18px;\n            text-align: right;\n            opacity: 0.8; }\n            .header-wrapper .header .header-content .right-account .account-container .user-info .fullname {\n              font-size: 20px;\n              margin: 0; }\n            .header-wrapper .header .header-content .right-account .account-container .user-info .role {\n              font-size: 12px;\n              margin: 0; }\n          .header-wrapper .header .header-content .right-account .account-container .user-avatar {\n            height: 40px;\n            width: 40px;\n            border-radius: 50%;\n            border: 2px solid white; }\n          .header-wrapper .header .header-content .right-account .account-container .logout-btn {\n            margin: 0 30px;\n            border: none;\n            background-color: transparent;\n            font-size: 16px;\n            cursor: pointer;\n            outline: none;\n            opacity: 0.8;\n            color: white; }\n            .header-wrapper .header .header-content .right-account .account-container .logout-btn:hover {\n              border-bottom: 1px solid #CCE1EE;\n              opacity: 1; }\n", ""]);
+exports.push([module.i, ".header-wrapper {\n  padding-top: 70px; }\n  .header-wrapper .header {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    z-index: 2;\n    height: 70px;\n    background-color: #004d40;\n    color: white;\n    box-shadow: 0px 2px 12px black; }\n    .header-wrapper .header .header-content {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      height: 100%;\n      padding: 0 20px; }\n      .header-wrapper .header .header-content .left-controls {\n        display: flex;\n        align-items: center;\n        height: 100%;\n        flex: 1 1 .1rem; }\n      .header-wrapper .header .header-content .navbar-links {\n        display: flex;\n        flex: 1 1 .1rem;\n        justify-content: center;\n        height: 100%; }\n        .header-wrapper .header .header-content .navbar-links .navbar-link {\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          color: white;\n          text-decoration: none;\n          padding: 0 25px;\n          opacity: 0.8; }\n          .header-wrapper .header .header-content .navbar-links .navbar-link:hover {\n            background-color: rgba(255, 255, 255, 0.3); }\n        .header-wrapper .header .header-content .navbar-links .navbar-link-active {\n          opacity: 1;\n          background-color: #005c4d;\n          border-bottom: 2px solid white; }\n      .header-wrapper .header .header-content .right-account {\n        flex: 1 1 .1rem; }\n        .header-wrapper .header .header-content .right-account .auth-links {\n          display: flex;\n          justify-content: flex-end;\n          align-items: center; }\n          .header-wrapper .header .header-content .right-account .auth-links .btn {\n            border: none;\n            background-color: transparent;\n            font-size: 16px;\n            cursor: pointer;\n            outline: none;\n            color: white;\n            margin: 0 10px;\n            opacity: 0.8; }\n            .header-wrapper .header .header-content .right-account .auth-links .btn:hover {\n              border-bottom: 1px solid #CCE1EE;\n              opacity: 1; }\n        .header-wrapper .header .header-content .right-account .account-container {\n          display: flex;\n          justify-content: flex-end;\n          align-content: center; }\n          .header-wrapper .header .header-content .right-account .account-container .user-info {\n            padding: 0 18px;\n            text-align: right;\n            opacity: 0.8; }\n            .header-wrapper .header .header-content .right-account .account-container .user-info .fullname {\n              font-size: 20px;\n              margin: 0; }\n            .header-wrapper .header .header-content .right-account .account-container .user-info .role {\n              font-size: 12px;\n              margin: 0; }\n          .header-wrapper .header .header-content .right-account .account-container .user-avatar {\n            height: 40px;\n            width: 40px;\n            border-radius: 50%;\n            border: 2px solid white; }\n          .header-wrapper .header .header-content .right-account .account-container .logout-btn {\n            margin: 0 30px;\n            border: none;\n            background-color: transparent;\n            font-size: 16px;\n            cursor: pointer;\n            outline: none;\n            opacity: 0.8;\n            color: white; }\n            .header-wrapper .header .header-content .right-account .account-container .logout-btn:hover {\n              border-bottom: 1px solid #CCE1EE;\n              opacity: 1; }\n", ""]);
 
 // exports
 
@@ -36681,7 +36681,13 @@ var Course = exports.Course = function (_React$Component) {
         key: 'getNavigationLinks',
         value: function getNavigationLinks() {
             var id = this.props.match.params.id;
-            return [{ to: '/courses/' + id + '/tasks', title: 'Задачи' }, { to: '/courses/' + id + '/guides', title: 'Методички' }, { to: '/courses/' + id + '/progress', title: 'Успеваемость' }];
+            var navLinks = [{ to: '/courses/' + id + '/tasks', title: 'Задачи' }, { to: '/courses/' + id + '/guides', title: 'Методички' }];
+
+            if (this.props.user.isLoggedIn) {
+                navLinks.push({ to: '/courses/' + id + '/progress', title: 'Успеваемость' });
+            }
+
+            return navLinks;
         }
     }, {
         key: 'getCourseInfo',
@@ -37924,7 +37930,13 @@ var GuideList = exports.GuideList = function (_React$Component) {
         key: 'getNavigationLinks',
         value: function getNavigationLinks() {
             var id = this.props.match.params.id;
-            return [{ to: '/courses/' + id + '/tasks', title: 'Задачи' }, { to: '/courses/' + id + '/guides', title: 'Методички' }, { to: '/courses/' + id + '/progress', title: 'Успеваемость' }];
+            var navLinks = [{ to: '/courses/' + id + '/tasks', title: 'Задачи' }, { to: '/courses/' + id + '/guides', title: 'Методички' }];
+
+            if (this.props.user.isLoggedIn) {
+                navLinks.push({ to: '/courses/' + id + '/progress', title: 'Успеваемость' });
+            }
+
+            return navLinks;
         }
     }, {
         key: 'load',
@@ -38587,6 +38599,10 @@ var CourseProgress = exports.CourseProgress = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            if (!this.props.user.isLoggedIn) {
+                this.props.history.push('/courses/public');
+            }
+
             var _state = this.state,
                 loaded = _state.loaded,
                 tasks = _state.tasks,

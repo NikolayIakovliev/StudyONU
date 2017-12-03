@@ -22,6 +22,10 @@ export class CourseProgress extends React.Component {
     }
 
     render() {
+        if (!this.props.user.isLoggedIn) {
+            this.props.history.push('/courses/public');
+        }
+
         const {
             loaded,
             tasks,
