@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ba44778e2ede231405ae"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bc6083898746632f0dc8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1521,6 +1521,46 @@ exports.default = _Divider2.default;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _Subheader = __webpack_require__(439);
+
+var _Subheader2 = _interopRequireDefault(_Subheader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Subheader2.default;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _TextField = __webpack_require__(480);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _TextField2.default;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.urls = exports.Api = undefined;
@@ -1742,46 +1782,6 @@ var headers = function headers() {
         'Authorization': 'Bearer ' + token
     };
 };
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _Subheader = __webpack_require__(439);
-
-var _Subheader2 = _interopRequireDefault(_Subheader);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _Subheader2.default;
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _TextField = __webpack_require__(480);
-
-var _TextField2 = _interopRequireDefault(_TextField);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _TextField2.default;
 
 /***/ }),
 /* 22 */
@@ -7060,7 +7060,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -13027,7 +13027,7 @@ var _Divider = __webpack_require__(18);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -19214,7 +19214,7 @@ var _Login = __webpack_require__(340);
 
 var _authorizationData = __webpack_require__(102);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -19430,7 +19430,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 __webpack_require__(341);
 
@@ -19750,7 +19750,7 @@ var _OnCheckReportBox = __webpack_require__(556);
 
 var _CourseProgress = __webpack_require__(559);
 
-var _AccountPanel = __webpack_require__(570);
+var _AccountPanel = __webpack_require__(567);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -26398,11 +26398,11 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -31974,7 +31974,7 @@ var _reactDropzone = __webpack_require__(71);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -31986,7 +31986,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -34609,7 +34609,7 @@ var _FlatButton = __webpack_require__(26);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -34818,11 +34818,11 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -35086,7 +35086,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -35251,7 +35251,7 @@ var _FlatButton = __webpack_require__(26);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -35382,11 +35382,11 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -35800,7 +35800,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _SelectField = __webpack_require__(93);
 
@@ -35810,7 +35810,7 @@ var _MenuItem = __webpack_require__(36);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -35822,7 +35822,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -36094,7 +36094,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -37676,7 +37676,7 @@ var _FlatButton = __webpack_require__(26);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -37853,13 +37853,13 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _date = __webpack_require__(27);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -38941,7 +38941,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _date = __webpack_require__(27);
 
@@ -38961,7 +38961,7 @@ var _MenuItem = __webpack_require__(36);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -38973,7 +38973,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -39287,7 +39287,7 @@ var _DatePickerDialog = __webpack_require__(524);
 
 var _DatePickerDialog2 = _interopRequireDefault(_DatePickerDialog);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -42002,7 +42002,7 @@ var _FlatButton = __webpack_require__(26);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -42582,13 +42582,13 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _date = __webpack_require__(27);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -43176,7 +43176,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _date = __webpack_require__(27);
 
@@ -43188,7 +43188,7 @@ var _MenuItem = __webpack_require__(36);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -43200,7 +43200,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -43570,7 +43570,7 @@ var _FlatButton = __webpack_require__(26);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -43858,11 +43858,11 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -44263,7 +44263,7 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -44422,7 +44422,7 @@ var _EmptyContent = __webpack_require__(56);
 
 var _date = __webpack_require__(27);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _ReportList = __webpack_require__(212);
 
@@ -44610,7 +44610,7 @@ var _Avatar2 = _interopRequireDefault(_Avatar);
 
 var _List = __webpack_require__(22);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -44742,7 +44742,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -44910,7 +44910,7 @@ var _download = __webpack_require__(557);
 
 var _date = __webpack_require__(27);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _ReportList = __webpack_require__(212);
 
@@ -45180,7 +45180,7 @@ var _Dialog = __webpack_require__(25);
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -45311,7 +45311,7 @@ var _Loading = __webpack_require__(46);
 
 var _Filter = __webpack_require__(137);
 
-var _api = __webpack_require__(19);
+var _api = __webpack_require__(21);
 
 var _ProgressTable = __webpack_require__(560);
 
@@ -47244,6 +47244,102 @@ exports.default = TableRow;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.AccountPanel = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _AccountInfo = __webpack_require__(568);
+
+var _ChangePassword = __webpack_require__(569);
+
+var _api = __webpack_require__(21);
+
+var _authorizationData = __webpack_require__(102);
+
+__webpack_require__(570);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AccountPanel = exports.AccountPanel = function (_React$Component) {
+    _inherits(AccountPanel, _React$Component);
+
+    function AccountPanel(props) {
+        _classCallCheck(this, AccountPanel);
+
+        return _possibleConstructorReturn(this, (AccountPanel.__proto__ || Object.getPrototypeOf(AccountPanel)).call(this, props));
+    }
+
+    _createClass(AccountPanel, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return React.createElement(
+                'div',
+                { className: 'account-panel' },
+                React.createElement(_AccountInfo.AccountInfo, {
+                    user: this.props.user,
+                    onInfoChange: function onInfoChange(data) {
+                        return _this2.onInfoChange(data);
+                    }
+                }),
+                React.createElement(_ChangePassword.ChangePassword, {
+                    onPasswordChange: function onPasswordChange(data, onSuccess, onError) {
+                        return _this2.onPasswordChange(data, onSuccess, onError);
+                    }
+                })
+            );
+        }
+    }, {
+        key: 'onInfoChange',
+        value: function onInfoChange(data) {
+            this.props.put(_api.urls.account.info, data, function () {
+                var user = _authorizationData.AuthorizationData.get();
+                user.lastName = data.lastName;
+                user.firstName = data.firstName;
+                user.patronymic = data.patronymic;
+                user.email = data.email;
+
+                _authorizationData.AuthorizationData.save(user);
+                location.reload();
+            });
+        }
+    }, {
+        key: 'onPasswordChange',
+        value: function onPasswordChange(data, onSuccess, onError) {
+            this.props.post(_api.urls.account.password, data, function (result) {
+                if (result.success === true) {
+                    onSuccess();
+                } else {
+                    onError();
+                }
+            });
+        }
+    }]);
+
+    return AccountPanel;
+}(React.Component);
+
+/***/ }),
+/* 568 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.AccountInfo = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -47256,7 +47352,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -47264,7 +47360,7 @@ var _Divider = __webpack_require__(18);
 
 var _Divider2 = _interopRequireDefault(_Divider);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -47466,37 +47562,6 @@ var AccountInfo = exports.AccountInfo = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 568 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(146);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(16)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(146, function() {
-			var newContent = __webpack_require__(146);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
 /* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47514,7 +47579,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _Subheader = __webpack_require__(20);
+var _Subheader = __webpack_require__(19);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
@@ -47526,7 +47591,7 @@ var _Paper = __webpack_require__(12);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _TextField = __webpack_require__(21);
+var _TextField = __webpack_require__(20);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -47710,97 +47775,32 @@ var ChangePassword = exports.ChangePassword = function (_React$Component) {
 /* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
+// load the styles
+var content = __webpack_require__(146);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.AccountPanel = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-var _AccountInfo = __webpack_require__(567);
-
-var _ChangePassword = __webpack_require__(569);
-
-var _api = __webpack_require__(19);
-
-var _authorizationData = __webpack_require__(102);
-
-__webpack_require__(568);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AccountPanel = exports.AccountPanel = function (_React$Component) {
-    _inherits(AccountPanel, _React$Component);
-
-    function AccountPanel(props) {
-        _classCallCheck(this, AccountPanel);
-
-        return _possibleConstructorReturn(this, (AccountPanel.__proto__ || Object.getPrototypeOf(AccountPanel)).call(this, props));
-    }
-
-    _createClass(AccountPanel, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return React.createElement(
-                'div',
-                { className: 'account-panel' },
-                React.createElement(_AccountInfo.AccountInfo, {
-                    user: this.props.user,
-                    onInfoChange: function onInfoChange(data) {
-                        return _this2.onInfoChange(data);
-                    }
-                }),
-                React.createElement(_ChangePassword.ChangePassword, {
-                    onPasswordChange: function onPasswordChange(data, onSuccess, onError) {
-                        return _this2.onPasswordChange(data, onSuccess, onError);
-                    }
-                })
-            );
-        }
-    }, {
-        key: 'onInfoChange',
-        value: function onInfoChange(data) {
-            this.props.put(_api.urls.account.info, data, function () {
-                var user = _authorizationData.AuthorizationData.get();
-                user.lastName = data.lastName;
-                user.firstName = data.firstName;
-                user.patronymic = data.patronymic;
-                user.email = data.email;
-
-                _authorizationData.AuthorizationData.save(user);
-                location.reload();
-            });
-        }
-    }, {
-        key: 'onPasswordChange',
-        value: function onPasswordChange(data, onSuccess, onError) {
-            this.props.post(_api.urls.account.password, data, function (result) {
-                if (result.success === true) {
-                    onSuccess();
-                } else {
-                    onError();
-                }
-            });
-        }
-    }]);
-
-    return AccountPanel;
-}(React.Component);
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(16)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(146, function() {
+			var newContent = __webpack_require__(146);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

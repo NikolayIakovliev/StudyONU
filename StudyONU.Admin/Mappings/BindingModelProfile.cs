@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Models.Account;
 using StudyONU.Admin.Models.Comment;
 using StudyONU.Admin.Models.Course;
@@ -21,9 +20,7 @@ namespace StudyONU.Admin.Mappings
     {
         public BindingModelProfile()
         {
-            CreateMap<LoginBindingModel, LoginDTO>()
-                .ForMember(dest => dest.Issuer, opt => opt.MapFrom(src => JwtBearerSettings.Issuer))
-                .ForMember(dest => dest.Key, opt => opt.MapFrom(src => JwtBearerSettings.Key));
+            CreateMap<LoginBindingModel, LoginDTO>();
 
             CreateMap<CourseCreateBindingModel, CourseCreateDTO>();
             CreateMap<CourseEditBindingModel, CourseEditDTO>();

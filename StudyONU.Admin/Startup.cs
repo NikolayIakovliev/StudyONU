@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
-using StudyONU.Admin.Authentication;
 using StudyONU.Admin.Builder;
 using StudyONU.Admin.Mappings;
 using StudyONU.Logic.Extensions;
@@ -29,10 +28,6 @@ namespace StudyONU.Admin
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
-
-            // TODO
-            // Move Authentication to Logic
-            services.AddAuthentication(JwtBearerSettings.Issuer, JwtBearerSettings.Key);
 
             services.AddMvc()
                 .AddJsonOptions(options =>

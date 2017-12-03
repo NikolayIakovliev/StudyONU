@@ -7,12 +7,13 @@ namespace StudyONU.Logic.Extensions
     {
         public static IServiceCollection AddLogic(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddLogging(configuration);
+            services.AddOptions(configuration);
             services.AddHelpers();
             services.AddServices();
             services.AddRepositories();
             services.AddDatabase(configuration);
             services.AddAutoMapper();
+            services.AddAuthentication();
 
             return services;
         }

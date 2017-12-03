@@ -1,18 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StudyONU.Logic.Contracts;
-using StudyONU.Logic.Helpers;
 using StudyONU.Logic.Options;
 
 namespace StudyONU.Logic.Extensions
 {
-    public static class LoggingServiceCollectionExtensions
+    public static class OptionsServiceCollectionExtensions
     {
-        public static IServiceCollection AddLogging(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<LoggingOptions>(configuration.GetSection("Logging"));
-
-            services.AddTransient<ILogger, FileLogger>();
+            services.Configure<AuthOptions>(configuration.GetSection("Auth"));
 
             return services;
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts;
@@ -7,6 +8,7 @@ using StudyONU.Logic.Contracts.Services.Authentication;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.DTO.Authorization;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Logic.Options;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -20,16 +22,19 @@ namespace StudyONU.Logic.Services.Authentication
         private const int TokenMinutesExpiration = 120;
 
         private readonly IPasswordHasher passwordHasher;
+        private readonly AuthOptions options;
 
         public TokenService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger logger,
-            IPasswordHasher passwordHasher
+            IPasswordHasher passwordHasher,
+            IOptions<AuthOptions> options
             )
             : base(unitOfWork, mapper, logger)
         {
             this.passwordHasher = passwordHasher;
+            this.options = options.Value;
         }
 
         public async Task<DataServiceMessage<UserInfoDTO>> GenerateTokenAsync(LoginDTO loginDTO, LoginSettings settings)
@@ -72,12 +77,12 @@ namespace StudyONU.Logic.Services.Authentication
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         };
 
-                        SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(loginDTO.Key));
+                        SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key));
                         SigningCredentials credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
                         JwtSecurityToken token = new JwtSecurityToken(
-                            loginDTO.Issuer,
-                            loginDTO.Issuer,
+                            options.Issuer,
+                            options.Issuer,
                             claims,
                             expires: DateTime.Now.AddMinutes(TokenMinutesExpiration),
                             signingCredentials: credentials
