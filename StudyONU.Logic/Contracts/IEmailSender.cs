@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Contracts
 {
-    public interface IEmailSender : IDisposable
+    public interface IEmailSender
     {
         Task<ServiceMessage> SendEmailAsync(string to, string subject, string body);
     }

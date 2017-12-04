@@ -1,29 +1,30 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
+using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Logic.Options;
 using System;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Helpers
 {
-    // TODO
-    // Use options
     public class EmailSender : IEmailSender
     {
-        private const string From = "nickose777@gmail.com";
-        private const string Password = "Nick2397";
-
         private readonly IUnitOfWork unitOfWork;
+        private readonly EmailOptions options;
         private readonly ILogger logger;
 
         public EmailSender(
             IUnitOfWork unitOfWork,
+            IOptions<EmailOptions> options,
             ILogger logger
             )
         {
             this.unitOfWork = unitOfWork;
+            this.options = options.Value;
             this.logger = logger;
         }
 
@@ -34,15 +35,17 @@ namespace StudyONU.Logic.Helpers
 
             try
             {
-                string FromAdressTitle = "Name of sender here";
-                string ToAdressTitle = to;
+                string toAdressTitle = to;
 
-                string SmtpServer = "smtp.gmail.com";
-                int SmtpPortNumber = 587;
+                UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(to);
+                if (userEntity != null)
+                {
+                    toAdressTitle = $"{userEntity.LastName} {userEntity.FirstName} {userEntity.Patronymic}";
+                }
 
                 MimeMessage mimeMessage = new MimeMessage();
-                mimeMessage.From.Add(new MailboxAddress(FromAdressTitle, From));
-                mimeMessage.To.Add(new MailboxAddress(ToAdressTitle, to));
+                mimeMessage.From.Add(new MailboxAddress(options.FromAddress, options.Email));
+                mimeMessage.To.Add(new MailboxAddress(toAdressTitle, to));
                 mimeMessage.Subject = subject;
                 mimeMessage.Body = new TextPart("plain")
                 {
@@ -51,11 +54,11 @@ namespace StudyONU.Logic.Helpers
 
                 using (SmtpClient client = new SmtpClient())
                 {
-                    await client.ConnectAsync(SmtpServer, SmtpPortNumber, false);
+                    await client.ConnectAsync(options.Server, options.Port, false);
 
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                    await client.AuthenticateAsync(From, Password);
+                    await client.AuthenticateAsync(options.Email, options.Password);
 
                     await client.SendAsync(mimeMessage);
 
@@ -73,11 +76,6 @@ namespace StudyONU.Logic.Helpers
                 ActionResult = actionResult,
                 Errors = errors
             };
-        }
-
-        public void Dispose()
-        {
-            unitOfWork.Dispose();
         }
     }
 }
