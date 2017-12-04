@@ -87,11 +87,12 @@ namespace StudyONU.Logic.Services
                     studentQueueEntity.DateApproved = DateTime.Now;
 
                     // TODO
-                    // Hash two times
-                    string password = passwordHasher.HashPassword(studentQueueEntity.Email);
+                    // Use Guid
+                    string password = studentQueueEntity.Email;
+                    string passwordHash = passwordHasher.HashPassword(studentQueueEntity.Email);
 
                     UserEntity userEntity = mapper.Map<UserEntity>(studentQueueEntity);
-                    userEntity.PasswordHash = password;
+                    userEntity.PasswordHash = passwordHash;
                     userEntity.Role = await unitOfWork.Roles.GetAsync(role => role.Name == Roles.Student);
 
                     StudentEntity studentEntity = new StudentEntity

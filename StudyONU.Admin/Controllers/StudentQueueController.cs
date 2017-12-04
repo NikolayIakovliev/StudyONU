@@ -68,17 +68,7 @@ namespace StudyONU.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            // TODO
-            // Use options instead
-            const string domain = "http://localhost:22107";
             DataServiceMessage<IEnumerable<StudentQueueListDTO>> serviceMessage = await studentService.GetUnapprovedAsync();
-            if (serviceMessage.ActionResult == ServiceActionResult.Success)
-            {
-                foreach (StudentQueueListDTO student in serviceMessage.Data)
-                {
-                    student.PhotoPath = domain + student.PhotoPath;
-                }
-            }
 
             return GenerateResponse(serviceMessage);
         }

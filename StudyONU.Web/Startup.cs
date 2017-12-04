@@ -27,8 +27,9 @@ namespace StudyONU.Web
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
-            
-            services.AddDomain(configuration);
+
+            services.AddWebOptions(configuration);
+            services.AddWebHelpers();
 
             services.AddMvc()
                 .AddJsonOptions(options =>

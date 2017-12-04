@@ -61,7 +61,6 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
 
         callApi(method, callback, onError) {
             let self = this;
-            const history = this.props.history;
 
             method()
                 .then(response => this.parseResponse(response))
@@ -70,6 +69,7 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
                         onLogout();
                     } else if (result.exception) {
                         Logger.error(result.response);
+                        self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
                     } else {
                         let promise = result.response.json();
                         promise.then(json => {
@@ -88,7 +88,7 @@ export const ApiWrapper = (user, onLogin, onLogout) => (WrappedComponent) => {
                                         self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
                                     } else if (errors.access != undefined) {
                                         Logger.error(errors.access ? errors.access : 'Access denied');
-                                        history.push('/');
+                                        this.props.history.push('/');
                                     }
                                 }
                             }

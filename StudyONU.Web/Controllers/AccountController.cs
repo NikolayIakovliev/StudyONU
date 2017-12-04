@@ -6,6 +6,7 @@ using StudyONU.Logic.Contracts.Services.Authentication;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.DTO.Authorization;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Web.Helpers;
 using StudyONU.Web.Models.Account;
 using System.Threading.Tasks;
 
@@ -17,16 +18,19 @@ namespace StudyONU.Web.Controllers
         private readonly ITokenService tokenService;
         private readonly IAccountService accountService;
         private readonly IMapper mapper;
+        private readonly DomainHelper domainHelper;
 
         public AccountController(
             ITokenService tokenService,
             IAccountService accountService,
-            IMapper mapper
+            IMapper mapper,
+            DomainHelper domainHelper
             )
         {
             this.tokenService = tokenService;
             this.accountService = accountService;
             this.mapper = mapper;
+            this.domainHelper = domainHelper;
         }
 
         [HttpPost]
@@ -37,6 +41,10 @@ namespace StudyONU.Web.Controllers
             LoginDTO loginDTO = mapper.Map<LoginDTO>(model);
 
             DataServiceMessage<UserInfoDTO> serviceMessage = await tokenService.GenerateTokenAsync(loginDTO, LoginSettings.Student);
+            if (serviceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                serviceMessage.Data.PhotoPath = domainHelper.PrependDomain(serviceMessage.Data.PhotoPath);
+            }
 
             return GenerateResponse(serviceMessage);
         }

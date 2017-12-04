@@ -35,7 +35,7 @@ namespace StudyONU.Logic.Helpers
             try
             {
                 string FromAdressTitle = "Name of sender here";
-                string ToAdressTitle = "Name of receiver here";
+                string ToAdressTitle = to;
 
                 string SmtpServer = "smtp.gmail.com";
                 int SmtpPortNumber = 587;

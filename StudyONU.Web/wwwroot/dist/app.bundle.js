@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "98b36e5b1e73df4fda10"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "83d251575d4192d70c57"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18392,7 +18392,6 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                     var _this3 = this;
 
                     var self = this;
-                    var history = this.props.history;
 
                     method().then(function (response) {
                         return _this3.parseResponse(response);
@@ -18401,6 +18400,7 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                             _onLogout();
                         } else if (result.exception) {
                             _logger.Logger.error(result.response);
+                            self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
                         } else {
                             var promise = result.response.json();
                             promise.then(function (json) {
@@ -18419,7 +18419,7 @@ var ApiWrapper = exports.ApiWrapper = function ApiWrapper(user, onLogin, _onLogo
                                             self.setState({ errorMessage: 'Возникла ошибка при соединении. Перезагрузите страницу' });
                                         } else if (errors.access != undefined) {
                                             _logger.Logger.error(errors.access ? errors.access : 'Access denied');
-                                            history.push('/');
+                                            _this3.props.history.push('/');
                                         }
                                     }
                                 }
