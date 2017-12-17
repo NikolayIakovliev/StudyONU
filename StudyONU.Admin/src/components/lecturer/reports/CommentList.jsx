@@ -4,7 +4,7 @@ import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
-import { ddmmyyyy } from '../../../shared/date';
+import DateHelper from '../../../shared/date';
 
 import './commentList.scss';
 
@@ -31,7 +31,7 @@ export class CommentList extends React.Component {
                         <p className="sender-name">{item.senderFullName}</p>
                         <p className="sender-email">{item.senderEmail}</p>
                         <p className="comment-text" dangerouslySetInnerHTML={{ __html: item.text }}></p>
-                        <p className="comment-date">{ddmmyyyy(item.dateCreated, '.')}</p>
+                        <p className="comment-date">{DateHelper.ddmmyyyy(item.dateCreated, '.')}</p>
                     </div>
                 </ListItem >)}
             </List>

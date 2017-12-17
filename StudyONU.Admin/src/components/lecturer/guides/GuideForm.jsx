@@ -1,6 +1,5 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
-import { yyyymmdd } from '../../../shared/date';
 import Dropzone from 'react-dropzone';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
@@ -11,6 +10,8 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { FloatButton } from '../../shared/FloatButton';
+
+import DateHelper from '../../../shared/date';
 
 import './guideForm.scss';
 
@@ -132,7 +133,7 @@ export class GuideForm extends React.Component {
                 name: this.state.name,
                 file: this.state.file,
                 dateAvailable: this.state.dateAvailable != null
-                    ? yyyymmdd(this.state.dateAvailable, '-')
+                    ? DateHelper.yyyymmdd(this.state.dateAvailable, '-')
                     : null,
                 courseId: this.state.course.id
             }

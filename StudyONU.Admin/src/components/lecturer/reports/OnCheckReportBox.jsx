@@ -2,8 +2,8 @@
 
 import { EmptyContent } from '../../shared/EmptyContent';
 import { Downloader } from '../../../shared/download';
-import { toDate } from '../../../shared/date';
 import { urls } from '../../../shared/api';
+import DateHelper from '../../../shared/date';
 
 import { ReportList } from './ReportList';
 import { CommentBox } from './CommentBox';
@@ -145,7 +145,7 @@ export class OnCheckReportBox extends React.Component {
 
         this.props.get(url, result => {
             let comments = result.data.map(comment => {
-                comment.dateCreated = toDate(comment.dateCreated, '.');
+                comment.dateCreated = DateHelper.toDate(comment.dateCreated, '.');
                 comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
                 return comment;

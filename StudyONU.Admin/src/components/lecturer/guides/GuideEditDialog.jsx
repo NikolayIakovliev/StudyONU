@@ -1,11 +1,12 @@
 ﻿import * as React from 'react';
-import { yyyymmdd } from '../../../shared/date';
 import MaterialDialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dropzone from 'react-dropzone';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
+
+import DateHelper from '../../../shared/date';
 
 export class GuideEditDialog extends React.Component {
     constructor(props) {
@@ -114,7 +115,7 @@ export class GuideEditDialog extends React.Component {
             let dateAvailableFormat = null;
 
             if (dateAvailable) {
-                dateAvailableFormat = yyyymmdd(dateAvailable, '.');
+                dateAvailableFormat = DateHelper.yyyymmdd(dateAvailable, '.');
             }
 
             const data = {

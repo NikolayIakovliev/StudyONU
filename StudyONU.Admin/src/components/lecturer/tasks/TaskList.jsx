@@ -1,6 +1,5 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
-import { toDate } from '../../../shared/date';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -12,6 +11,8 @@ import { EmptyContent } from '../../shared/EmptyContent';
 import { TaskItem } from './TaskItem';
 import { TaskForm } from './TaskForm';
 import { TaskEditDialog } from './TaskEditDialog';
+
+import DateHelper from '../../../shared/date';
 
 export class TaskList extends React.Component {
     constructor(props) {
@@ -174,10 +175,10 @@ export class TaskList extends React.Component {
 
             newState.items = newState.items.map(item => {
                 if (item.dateAvailable) {
-                    item.dateAvailable = toDate(item.dateAvailable, '.');
+                    item.dateAvailable = DateHelper.toDate(item.dateAvailable, '.');
                 }
                 if (item.dateOverdue) {
-                    item.dateOverdue = toDate(item.dateOverdue, '.');
+                    item.dateOverdue = DateHelper.toDate(item.dateOverdue, '.');
                 }
 
                 return item;

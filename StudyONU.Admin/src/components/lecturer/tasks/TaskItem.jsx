@@ -5,11 +5,12 @@ import Avatar from 'material-ui/Avatar';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionClear from 'material-ui/svg-icons/content/clear';
 import { blueA200, red500, green500, orange500, grey500 } from 'material-ui/styles/colors';
-import { ddmmyyyy } from '../../../shared/date';
 import ActionInfoOutline from 'material-ui/svg-icons/action/info-outline';
 import DeviceAccessTime from 'material-ui/svg-icons/device/access-time';
 import ActionViewHeadline from 'material-ui/svg-icons/action/view-headline';
 import Download from 'material-ui/svg-icons/file/file-download';
+
+import DateHelper from '../../../shared/date';
 
 export class TaskItem extends React.Component {
     constructor(props) {
@@ -85,7 +86,7 @@ export class TaskItem extends React.Component {
 
         let now = Date.now();
         if (dateAvailable && dateAvailable > now) {
-            let format = ddmmyyyy(dateAvailable, '.');
+            let format = DateHelper.ddmmyyyy(dateAvailable, '.');
             details.text = `Будет доступна студентам с ${format}`;
             details.leftAvatar = <Avatar icon={<DeviceAccessTime />} backgroundColor={grey500} />;
             details.dateFormat = format;
@@ -107,12 +108,12 @@ export class TaskItem extends React.Component {
         let now = new Date();
         now.setHours(0, 0, 0, 0);
         if (dateOverdue && dateOverdue < now) {
-            let format = ddmmyyyy(dateOverdue, '.');
+            let format = DateHelper.ddmmyyyy(dateOverdue, '.');
             details.text = `Срок сдачи прошел ${format}`;
             details.leftAvatar = <Avatar icon={<ActionInfoOutline />} backgroundColor={orange500} />;
             details.dateFormat = format;
         } else if (dateOverdue) {
-            let format = ddmmyyyy(dateOverdue, '.');
+            let format = DateHelper.ddmmyyyy(dateOverdue, '.');
             details.text = `Необходимо сдать до ${format} (включительно)`;
             details.leftAvatar = <Avatar icon={<DeviceAccessTime />} backgroundColor={blueA200} />;
             details.dateFormat = format;

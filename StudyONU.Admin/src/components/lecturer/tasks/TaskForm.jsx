@@ -1,6 +1,5 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
-import { yyyymmdd } from '../../../shared/date';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
@@ -11,6 +10,8 @@ import DatePicker from 'material-ui/DatePicker';
 import Dropzone from 'react-dropzone';
 import RaisedButton from 'material-ui/RaisedButton';
 import { FloatButton } from '../../shared/FloatButton';
+
+import DateHelper from '../../../shared/date';
 
 import './taskForm.scss';
 
@@ -164,10 +165,10 @@ export class TaskForm extends React.Component {
             let dateOverdueFormat = null;
 
             if (dateAvailable) {
-                dateAvailableFormat = yyyymmdd(dateAvailable, '-');
+                dateAvailableFormat = DateHelper.yyyymmdd(dateAvailable, '-');
             }
             if (dateOverdue) {
-                dateOverdueFormat = yyyymmdd(dateOverdue, '-');
+                dateOverdueFormat = DateHelper.yyyymmdd(dateOverdue, '-');
             }
 
             const data = {

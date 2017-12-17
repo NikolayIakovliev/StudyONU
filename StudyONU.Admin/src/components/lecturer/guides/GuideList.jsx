@@ -1,6 +1,5 @@
 ﻿import * as React from 'react';
 import { urls } from '../../../shared/api';
-import { toDate } from '../../../shared/date';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -12,6 +11,8 @@ import { EmptyContent } from '../../shared/EmptyContent';
 import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
 import { GuideEditDialog } from './GuideEditDialog';
+
+import DateHelper from '../../../shared/date';
 
 export class GuideList extends React.Component {
     constructor(props) {
@@ -158,7 +159,7 @@ export class GuideList extends React.Component {
 
             newState.items = newState.items.map(item => {
                 if (item.dateAvailable) {
-                    item.dateAvailable = toDate(item.dateAvailable, '.');
+                    item.dateAvailable = DateHelper.toDate(item.dateAvailable, '.');
                 }
 
                 return item;

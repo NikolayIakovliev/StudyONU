@@ -1,11 +1,12 @@
 ﻿import * as React from 'react';
-import { yyyymmdd } from '../../../shared/date';
 import MaterialDialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import Dropzone from 'react-dropzone';
 import Toggle from 'material-ui/Toggle';
+
+import DateHelper from '../../../shared/date';
 
 import './taskEditDialog.scss';
 
@@ -137,10 +138,10 @@ export class TaskEditDialog extends React.Component {
             let dateOverdueFormat = null;
 
             if (dateAvailable) {
-                dateAvailableFormat = yyyymmdd(dateAvailable, '.');
+                dateAvailableFormat = DateHelper.yyyymmdd(dateAvailable, '.');
             }
             if (dateOverdue) {
-                dateOverdueFormat = yyyymmdd(dateOverdue, '.');
+                dateOverdueFormat = DateHelper.yyyymmdd(dateOverdue, '.');
             }
 
             const data = {

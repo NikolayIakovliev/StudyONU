@@ -6,7 +6,8 @@ import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionClear from 'material-ui/svg-icons/content/clear';
 import { blueA200, red500, green500 } from 'material-ui/styles/colors';
-import { ddmmyyyy } from '../../../shared/date';
+
+import DateHelper from '../../../shared/date';
 
 export class GuideItem extends React.Component {
     constructor(props) {
@@ -94,7 +95,7 @@ export class GuideItem extends React.Component {
 
         let now = Date.now();
         if (dateAvailable && dateAvailable > now && !isPublished) {
-            let format = ddmmyyyy(dateAvailable, '.');
+            let format = DateHelper.ddmmyyyy(dateAvailable, '.');
             details.text = `Будет доступна студентам с ${format}`;
             details.leftAvatar = <Avatar icon={<ActionClear />} backgroundColor={red500} />;
             details.dateFormat = format;
