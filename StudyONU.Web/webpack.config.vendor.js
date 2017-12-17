@@ -41,7 +41,7 @@ module.exports = (env) => {
                 moduleFilenameTemplate: path.relative('./wwwroot/dist/', '[resourcePath]')
             })
         ] : [
-
+                new webpack.optimize.UglifyJsPlugin()
             ])
     }];
 };

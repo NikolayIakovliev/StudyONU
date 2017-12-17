@@ -3,39 +3,38 @@ const merge = require('webpack-merge');
 const common = require('./webpack.config.common');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const cssExtract = new ExtractTextPlugin("[name]-legacy.css");
-const sassExtract = new ExtractTextPlugin("[name].css");
+const sassExtract = new ExtractTextPlugin("main.css");
 const bundleOutputDir = './wwwroot/dist';
 
 module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.(js|jsx)$/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         presets: ['env', 'react']
                     }
-                }
-            },
-            {
-                test: /\.css$/,
-                use: cssExtract.extract({
-                    use: 'css-loader?minimize'
-                })
+                },
+                exclude: /node_modules/
             },
             {
                 test: /\.scss$/,
                 use: sassExtract.extract({
-                    use: ['css-loader?minimize']
+                    use: ['css-loader?minimize', 'postcss-loader', 'sass-loader']
                 })
             }
         ]
     },
     plugins: [
-        cssExtract,
         sassExtract,
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')

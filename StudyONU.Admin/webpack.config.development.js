@@ -16,7 +16,8 @@ module.exports = merge(common, {
                             name: '[name].[ext]'
                         }
                     }
-                ]
+                ],
+                exclude: /node_modules/
             },
             {
                 test: /\.(js|jsx)$/,
@@ -24,17 +25,17 @@ module.exports = merge(common, {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react', 'es2015', 'stage-0']
+                        presets: ['env', 'react']
                     }
                 }
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader', 'postcss-loader']
             },
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
             }
         ]
     },
@@ -42,6 +43,11 @@ module.exports = merge(common, {
         new webpack.SourceMapDevToolPlugin({
             filename: '[file].map',
             moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]')
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('development')
+            }
         })
     ]
 });

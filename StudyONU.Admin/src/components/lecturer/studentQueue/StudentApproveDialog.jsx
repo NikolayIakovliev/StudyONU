@@ -65,6 +65,7 @@ export class StudentApproveDialog extends React.Component {
                         } = item;
                         return (
                             <ListItem
+                                key={item.course.id}
                                 leftCheckbox={<Checkbox checked={checked} onCheck={(e, isChecked) => this.onCheck(item, isChecked)} />}
                                 primaryText={course.name}
                                 secondaryText={`${course.specialityName}, ${course.courseNumber} курс`}

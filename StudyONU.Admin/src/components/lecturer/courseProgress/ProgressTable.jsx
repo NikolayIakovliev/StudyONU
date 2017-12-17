@@ -28,16 +28,21 @@ export class ProgressTable extends React.Component {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {students.map(item => <TableRow>
+                    {students.map((item, index) => <TableRow key={index}>
                         <TableRowColumn style={{ whiteSpace: 'normal', padding: 0 }}>{item.studentFullName}</TableRowColumn>
-                        {tasks.map(task => {
+                        {tasks.map((task, index) => {
                             const report = item.reports.find(report => report.taskId === task.id);
                             let content = '-';
                             if (report && report.mark) {
                                 content = report.mark;
                             }
 
-                            return <TableRowColumn className="centered">{content}</TableRowColumn>;
+                            return <TableRowColumn
+                                key={index}
+                                className="centered"
+                            >
+                                {content}
+                            </TableRowColumn>;
                         })}
                     </TableRow>)}
                 </TableBody>

@@ -1,7 +1,8 @@
 ﻿const authorizationKey = 'authorization';
 
+let _subscribers = [];
 export class AuthorizationStorage {
-    static subscribers = [];
+    static get subscribers() { return _subscribers; }
 
     static subscribe(subscriber) {
         AuthorizationStorage.subscribers.push(subscriber);
