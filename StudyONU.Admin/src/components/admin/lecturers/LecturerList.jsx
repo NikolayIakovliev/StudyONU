@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { Api, urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -9,6 +8,8 @@ import { Loading } from '../../shared/Loading';
 import { LecturerItem } from './LecturerItem';
 import { LecturerForm } from './LecturerForm';
 import { LecturerEditDialog } from './LecturerEditDialog';
+
+import Urls from '../../../shared/urls';
 
 export class LecturerList extends React.Component {
     constructor(props) {
@@ -95,7 +96,7 @@ export class LecturerList extends React.Component {
 
     modifyItem(method, data) {
         let reload = () => this.load();
-        method(urls.lecturers, data, result => {
+        method(Urls.lecturers, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -110,7 +111,7 @@ export class LecturerList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.lecturers, response => {
+        this.props.get(Urls.lecturers, response => {
             let newState = {
                 loaded: true,
                 itemEditRequest: null,

@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -9,6 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import { Loading } from '../../shared/Loading';
 import { EmptyContent } from '../../shared/EmptyContent';
 import { StudentItem } from './StudentItem';
+
+import Urls from '../../../shared/urls';
 
 export class StudentQueueList extends React.Component {
     constructor(props) {
@@ -39,7 +40,7 @@ export class StudentQueueList extends React.Component {
         } else if (errors.length) {
             render = <div>Возникла ошибка!</div>;
         } else {
-            const getCourses = (studentId, callback) => this.props.get(urls.studentQueue.courses(studentId), result => callback(result));
+            const getCourses = (studentId, callback) => this.props.get(Urls.studentQueue.courses(studentId), result => callback(result));
 
             render = (
                 <div>
@@ -75,11 +76,11 @@ export class StudentQueueList extends React.Component {
             courseIds: courseIds
         }
 
-        this.modify(urls.studentQueue.approve, data);
+        this.modify(Urls.studentQueue.approve, data);
     }
 
     disapprove(studentId) {
-        this.modify(urls.studentQueue.disapprove(studentId), null);
+        this.modify(Urls.studentQueue.disapprove(studentId), null);
     }
 
     modify(url, data) {
@@ -99,7 +100,7 @@ export class StudentQueueList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.studentQueue.list, result => {
+        this.props.get(Urls.studentQueue.list, result => {
             let newState = {
                 loaded: true,
                 itemActionRequest: null,

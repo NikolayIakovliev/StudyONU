@@ -3,7 +3,7 @@
 import { AccountInfo } from './AccountInfo';
 import { ChangePassword } from './ChangePassword';
 
-import { urls } from '../../../shared/api';
+import Urls from '../../../shared/urls';
 import { AuthorizationData } from '../../../shared/authorizationData';
 
 import './accountPanel.scss';
@@ -28,7 +28,7 @@ export class AccountPanel extends React.Component {
     }
 
     onInfoChange(data) {
-        this.props.put(urls.account.info, data, () => {
+        this.props.put(Urls.account.info, data, () => {
             let user = AuthorizationData.get();
             user.lastName = data.lastName;
             user.firstName = data.firstName;
@@ -41,7 +41,7 @@ export class AccountPanel extends React.Component {
     }
 
     onPasswordChange(data, onSuccess, onError) {
-        this.props.post(urls.account.password, data, result => {
+        this.props.post(Urls.account.password, data, result => {
             if (result.success === true) {
                 onSuccess();
             } else {

@@ -3,7 +3,7 @@
 import { Loading } from '../../shared/Loading';
 import { Filter } from '../../shared/filter/Filter';
 
-import { urls } from '../../../shared/api';
+import Urls from '../../../shared/urls';
 
 import { ProgressTable } from './ProgressTable';
 
@@ -55,7 +55,7 @@ export class CourseProgress extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.courses, result => {
+        this.props.get(Urls.courses, result => {
             self.setState({
                 courses: result.data,
                 loaded: true
@@ -84,7 +84,7 @@ export class CourseProgress extends React.Component {
     loadCourseProgress(courseId) {
         if (courseId) {
             let self = this;
-            this.props.get(urls.courseProgress(courseId), result => {
+            this.props.get(Urls.courseProgress(courseId), result => {
                 const tasks = result.data.tasks;
                 const students = result.data.students;
 

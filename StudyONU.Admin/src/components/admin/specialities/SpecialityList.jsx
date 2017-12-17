@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -9,6 +8,8 @@ import { Loading } from '../../shared/Loading';
 import { SpecialityItem } from './SpecialityItem';
 import { SpecialityForm } from './SpecialityForm';
 import { SpecialityEditDialog } from './SpecialityEditDialog';
+
+import Urls from '../../../shared/urls';
 
 export class SpecialityList extends React.Component {
     constructor(props) {
@@ -90,7 +91,7 @@ export class SpecialityList extends React.Component {
 
     modifyItem(method, data) {
         let reload = () => this.load();
-        method(urls.specialities, data, result => {
+        method(Urls.specialities, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -105,7 +106,7 @@ export class SpecialityList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.specialities, response => {
+        this.props.get(Urls.specialities, response => {
             let newState = {
                 loaded: true,
                 itemEditRequest: null,

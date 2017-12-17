@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../../shared/api';
 import Dropzone from 'react-dropzone';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';

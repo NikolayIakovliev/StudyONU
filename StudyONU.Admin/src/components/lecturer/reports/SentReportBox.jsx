@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 
 import { EmptyContent } from '../../shared/EmptyContent';
-import { urls } from '../../../shared/api';
+
+import Urls from '../../../shared/urls';
 import DateHelper from '../../../shared/date';
 
 import { ReportList } from './ReportList';
@@ -67,7 +68,7 @@ export class SentReportBox extends React.Component {
 
     startChecking(report) {
         let self = this;
-        this.props.put(urls.reports.check(report.taskId, report.studentEmail), null, result => self.load());
+        this.props.put(Urls.reports.check(report.taskId, report.studentEmail), null, result => self.load());
     }
 
     sendComment(text) {
@@ -81,7 +82,7 @@ export class SentReportBox extends React.Component {
         }
 
         let self = this;
-        this.props.post(urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+        this.props.post(Urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
     }
 
     openFile(filePath) {
@@ -90,7 +91,7 @@ export class SentReportBox extends React.Component {
 
     load() {
         let self = this;
-        this.props.get(urls.reports.sent, result => {
+        this.props.get(Urls.reports.sent, result => {
             self.setState({
                 items: result.data,
                 loaded: true,
@@ -104,7 +105,7 @@ export class SentReportBox extends React.Component {
 
     loadComments(taskId, studentEmail) {
         let self = this;
-        let url = urls.comments.list(taskId, studentEmail);
+        let url = Urls.comments.list(taskId, studentEmail);
 
         this.props.get(url, result => {
             let comments = result.data.map(comment => {

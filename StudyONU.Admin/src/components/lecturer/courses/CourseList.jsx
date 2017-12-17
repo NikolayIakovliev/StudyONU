@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -10,6 +9,8 @@ import { EmptyContent } from '../../shared/EmptyContent';
 import { CourseItem } from './CourseItem';
 import { CourseForm } from './CourseForm';
 import { CourseEditDialog } from './CourseEditDialog';
+
+import Urls from '../../../shared/urls';
 
 export class CourseList extends React.Component {
     constructor(props) {
@@ -95,7 +96,7 @@ export class CourseList extends React.Component {
     }
 
     getSpecialities(callback) {
-        this.props.get(urls.specialities, result => {
+        this.props.get(Urls.specialities, result => {
             if (result.success === true) {
                 callback(result.data);
             } else {
@@ -108,7 +109,7 @@ export class CourseList extends React.Component {
 
     modifyItem(method, data) {
         let reload = () => this.load();
-        method(urls.courses, data, result => {
+        method(Urls.courses, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -123,7 +124,7 @@ export class CourseList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.courses, result => {
+        this.props.get(Urls.courses, result => {
             let newState = {
                 loaded: true,
                 itemEditRequest: null,

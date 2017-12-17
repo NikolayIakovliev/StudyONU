@@ -2,7 +2,8 @@
 
 import { EmptyContent } from '../../shared/EmptyContent';
 import { Downloader } from '../../../shared/download';
-import { urls } from '../../../shared/api';
+
+import Urls from '../../../shared/urls';
 import DateHelper from '../../../shared/date';
 
 import { ReportList } from './ReportList';
@@ -84,14 +85,14 @@ export class OnCheckReportBox extends React.Component {
 
     accept(report, mark) {
         let self = this;
-        let url = urls.reports.accept(report.taskId, report.studentEmail, mark);
+        let url = Urls.reports.accept(report.taskId, report.studentEmail, mark);
 
         this.props.put(url, null, result => self.load());
     }
 
     reject(report) {
         let self = this;
-        let url = urls.reports.reject(report.taskId, report.studentEmail);
+        let url = Urls.reports.reject(report.taskId, report.studentEmail);
 
         this.props.put(url, null, result => self.load());
     }
@@ -117,7 +118,7 @@ export class OnCheckReportBox extends React.Component {
         }
 
         let self = this;
-        this.props.post(urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+        this.props.post(Urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
     }
 
     openFile(filePath) {
@@ -126,7 +127,7 @@ export class OnCheckReportBox extends React.Component {
 
     load() {
         let self = this;
-        this.props.get(urls.reports.onCheck, result => {
+        this.props.get(Urls.reports.onCheck, result => {
             self.setState({
                 items: result.data,
                 loaded: true,
@@ -141,7 +142,7 @@ export class OnCheckReportBox extends React.Component {
 
     loadComments(taskId, studentEmail) {
         let self = this;
-        let url = urls.comments.list(taskId, studentEmail);
+        let url = Urls.comments.list(taskId, studentEmail);
 
         this.props.get(url, result => {
             let comments = result.data.map(comment => {

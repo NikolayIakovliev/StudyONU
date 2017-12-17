@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -12,6 +11,7 @@ import { GuideItem } from './GuideItem';
 import { GuideForm } from './GuideForm';
 import { GuideEditDialog } from './GuideEditDialog';
 
+import Urls from '../../../shared/urls';
 import DateHelper from '../../../shared/date';
 
 export class GuideList extends React.Component {
@@ -111,7 +111,7 @@ export class GuideList extends React.Component {
     }
 
     getCourses(callback) {
-        this.props.get(urls.courses, result => {
+        this.props.get(Urls.courses, result => {
             if (result.success === true) {
                 callback(result.data);
             } else {
@@ -125,7 +125,7 @@ export class GuideList extends React.Component {
 
     modifyItem(method, data) {
         let reload = () => this.load();
-        method(urls.guides, data, result => {
+        method(Urls.guides, data, result => {
             if (result.success === true) {
                 reload();
             } else {
@@ -140,13 +140,13 @@ export class GuideList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.courses, result => {
+        this.props.get(Urls.courses, result => {
             self.setState({
                 sortCourses: result.data
             });
         });
 
-        this.props.get(urls.guides, result => {
+        this.props.get(Urls.guides, result => {
             let newState = {
                 loaded: true,
                 itemEditRequest: null,

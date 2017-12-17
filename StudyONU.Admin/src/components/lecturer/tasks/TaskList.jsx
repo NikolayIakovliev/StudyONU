@@ -12,6 +12,7 @@ import { TaskItem } from './TaskItem';
 import { TaskForm } from './TaskForm';
 import { TaskEditDialog } from './TaskEditDialog';
 
+import Urls from '../../../shared/urls';
 import DateHelper from '../../../shared/date';
 
 export class TaskList extends React.Component {
@@ -82,7 +83,7 @@ export class TaskList extends React.Component {
                                         id: item.id,
                                         files: item.files
                                     };
-                                    this.modifyItem(this.props.putFormData, filesData, urls.tasks.files);
+                                    this.modifyItem(this.props.putFormData, filesData, Urls.tasks.files);
                                 }
                             }} />
                     }
@@ -127,7 +128,7 @@ export class TaskList extends React.Component {
     }
 
     getCourses(callback) {
-        this.props.get(urls.courses, result => {
+        this.props.get(Urls.courses, result => {
             if (result.success === true) {
                 callback(result.data);
             } else {
@@ -139,7 +140,7 @@ export class TaskList extends React.Component {
         });
     }
 
-    modifyItem(method, data, url = urls.tasks.common) {
+    modifyItem(method, data, url = Urls.tasks.common) {
         let reload = () => this.load();
         method(url, data, result => {
             if (result.success === true) {
@@ -156,13 +157,13 @@ export class TaskList extends React.Component {
     load() {
         let self = this;
 
-        this.props.get(urls.courses, result => {
+        this.props.get(Urls.courses, result => {
             self.setState({
                 sortCourses: result.data
             });
         });
 
-        this.props.get(urls.tasks.common, result => {
+        this.props.get(Urls.tasks.common, result => {
             let newState = {
                 loaded: true,
                 itemEditRequest: null,
