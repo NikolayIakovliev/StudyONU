@@ -1,5 +1,8 @@
 ﻿import * as React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import { Login } from './Login';
+import Alert from './alert/Alert';
 
 import Api from '../../shared/api';
 import Urls from '../../shared/urls';
@@ -10,47 +13,43 @@ export const Authentication = (WrappedComponent) => {
         constructor(props) {
             super(props);
 
-            this.state = {
-                user: {
-                    email: '',
-                    role: '',
-                    token: '',
-                    firstName: '',
-                    lastName: '',
-                    patronymic: '',
-                    photoPath: ''
-                }
-            }
+            this.state = this.getState();
 
             AuthorizationStorage.subscribe(this);
         }
 
         componentDidMount() {
             if (AuthorizationStorage.any()) {
-                const onSuccess = () => this.update();
-                const onError = () => {
-                    AuthorizationStorage.clear();
-                    this.update();
-                }
+                const onError = () => AuthorizationStorage.clear();
 
-                Api.post(Urls.check, null, onSuccess, onError);
+                Api.post(Urls.check, null, null, onError);
             }
         }
 
         render() {
             const user = this.state.user;
+            const alert = this.getAlert();
 
             let renderedComponent = user.role
-                ? <WrappedComponent
-                    user={user}
-                    get={(url, onSuccess, onError) => this.get(url, onSuccess, onError)}
-                    post={(url, data, onSuccess, onError) => this.post(url, data, onSuccess, onError)}
-                    postFormData={(url, data, onSuccess, onError) => this.postFormData(url, data, onSuccess, onError)}
-                    put={(url, data, onSuccess, onError) => this.put(url, data, onSuccess, onError)}
-                    putFormData={(url, data, onSuccess, onError) => this.putFormData(url, data, onSuccess, onError)}
-                    delete={(url, data, onSuccess, onError) => this.delete(url, data, onSuccess, onError)}
-                    onLogout={() => AuthorizationStorage.clear()}
-                />
+                ? <MuiThemeProvider>
+                    <div>
+                        <WrappedComponent
+                            user={user}
+                            get={(url, onSuccess, onError) => this.get(url, onSuccess, onError)}
+                            post={(url, data, onSuccess, onError) => this.post(url, data, onSuccess, onError)}
+                            postFormData={(url, data, onSuccess, onError) => this.postFormData(url, data, onSuccess, onError)}
+                            put={(url, data, onSuccess, onError) => this.put(url, data, onSuccess, onError)}
+                            putFormData={(url, data, onSuccess, onError) => this.putFormData(url, data, onSuccess, onError)}
+                            delete={(url, data, onSuccess, onError) => this.delete(url, data, onSuccess, onError)}
+                            onLogout={() => AuthorizationStorage.clear()}
+                        />
+                        <Alert
+                            open={alert.open}
+                            message={alert.message}
+                            onRequestClose={() => this.setState({ errorMessage: '' })}
+                        />
+                    </div>
+                </MuiThemeProvider>
                 : <Login
                     onLoginSuccess={data => {
                         AuthorizationStorage.save(data);
@@ -59,6 +58,13 @@ export const Authentication = (WrappedComponent) => {
                     }} />;
 
             return renderedComponent;
+        }
+
+        getAlert() {
+            return {
+                open: this.state.errorMessage.length > 0,
+                message: this.state.errorMessage
+            }
         }
 
         get(url, onSuccess, onError) {
@@ -92,16 +98,19 @@ export const Authentication = (WrappedComponent) => {
         }
 
         onError(errors) {
-            // TODO
-            //let errorMessage = errors.common != undefined
-            //    ? 'Неправильно введены данные'
-            //    : 'Возникла ошибка при соединении. Перезагрузите страницу';
+            let errorMessage = errors.common != undefined
+                ? 'Неправильно введены данные'
+                : 'Возникла ошибка при соединении. Перезагрузите страницу';
 
-            //this.setState({ errorMessage });
-            alert('Error');
+            this.setState({ errorMessage });
         }
 
         update() {
+            const state = this.getState();
+            this.setState(state);
+        }
+
+        getState() {
             let user = {
                 email: '',
                 role: '',
@@ -123,8 +132,11 @@ export const Authentication = (WrappedComponent) => {
                 user.patronymic = storage.patronymic;
                 user.photoPath = storage.photoPath;
             }
-            
-            this.setState({ user });
+
+            return {
+                user,
+                errorMessage: ''
+            }
         }
     }
 }

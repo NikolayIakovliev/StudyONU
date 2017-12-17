@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 
@@ -22,11 +21,9 @@ export class Layout extends React.Component {
                 <Sidebar navigationLinks={this.props.navigationLinks} onToggle={expanded => this.setState({ layoutExpanded: !expanded })} />
                 <div className={classes.join(" ")}>
                     <Header logout={this.props.onLogout} user={this.props.user} />
-                    <MuiThemeProvider>
-                        <div className="layout-content">
-                            {this.props.children}
-                        </div>
-                    </MuiThemeProvider>
+                    <div className="layout-content">
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         );
