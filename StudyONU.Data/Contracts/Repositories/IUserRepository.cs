@@ -6,5 +6,7 @@ namespace StudyONU.Data.Contracts.Repositories
     public interface IUserRepository : IRepository<UserEntity>
     {
         Task<UserEntity> GetByEmailAsync(string email);
+
+        Task<UserEntity> GetByEmailAndRoleAsync(string email, string roleName);
     }
 }

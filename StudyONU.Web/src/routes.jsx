@@ -68,6 +68,7 @@ export class Routes extends React.Component {
         let user = {
             isLoggedIn: AuthorizationStorage.any(),
             role: '',
+            displayRole: '',
             token: '',
             firstName: '',
             lastName: '',
@@ -79,6 +80,7 @@ export class Routes extends React.Component {
             let authorizationData = AuthorizationStorage.get();
             user.isLoggedIn = true;
             user.role = authorizationData.role;
+            user.displayRole = authorizationData.displayRole;
             user.token = authorizationData.token;
             user.firstName = authorizationData.firstName;
             user.lastName = authorizationData.lastName;

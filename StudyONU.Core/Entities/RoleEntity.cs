@@ -8,6 +8,8 @@ namespace StudyONU.Core.Entities
 
         public string Name { get; set; }
 
+        public string DisplayName { get; set; }
+
         public virtual ICollection<UserEntity> Users { get; set; }
     }
 }

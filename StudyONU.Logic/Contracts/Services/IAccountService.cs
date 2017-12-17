@@ -9,7 +9,9 @@ namespace StudyONU.Logic.Contracts.Services
     {
         Task<ServiceMessage> InitializeRoles();
 
-        Task<ServiceMessage> RegisterAdminAsync(RegisterAdminDTO adminDTO);
+        Task<ServiceMessage> RegisterAdminAsync(RegisterUserDTO adminDTO);
+
+        Task<ServiceMessage> RegisterDeveloperAsync(RegisterUserDTO developerDTO);
 
         Task<ServiceMessage> EditAsync(UserEditDTO userEditDTO);
 

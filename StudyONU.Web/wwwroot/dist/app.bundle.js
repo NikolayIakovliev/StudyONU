@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f88f42a042e1ca51522d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "935ddf0ae0db9c345cc2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1678,7 +1678,7 @@ var Header = exports.Header = function (_React$Component) {
                     React.createElement(
                         'p',
                         { className: 'role' },
-                        user.role
+                        user.displayRole
                     )
                 ),
                 React.createElement('img', { src: user.photoPath, className: 'user-avatar' }),
@@ -18226,6 +18226,7 @@ var Routes = exports.Routes = function (_React$Component) {
             var user = {
                 isLoggedIn: _authorizationStorage.AuthorizationStorage.any(),
                 role: '',
+                displayRole: '',
                 token: '',
                 firstName: '',
                 lastName: '',
@@ -18237,6 +18238,7 @@ var Routes = exports.Routes = function (_React$Component) {
                 var authorizationData = _authorizationStorage.AuthorizationStorage.get();
                 user.isLoggedIn = true;
                 user.role = authorizationData.role;
+                user.displayRole = authorizationData.displayRole;
                 user.token = authorizationData.token;
                 user.firstName = authorizationData.firstName;
                 user.lastName = authorizationData.lastName;

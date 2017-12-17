@@ -83,9 +83,8 @@ namespace StudyONU.Admin.Controllers
         public async Task<IActionResult> List()
         {
             string email = GetUserEmail();
-            DataServiceMessage<IEnumerable<GuideListDTO>> serviceMessage = await service.GetByLecturerEmailAsync(email);
 
-            serviceMessage.ActionResult = ServiceActionResult.Error;
+            DataServiceMessage<IEnumerable<GuideListDTO>> serviceMessage = await service.GetByLecturerEmailAsync(email);
 
             return GenerateResponse(serviceMessage);
         }

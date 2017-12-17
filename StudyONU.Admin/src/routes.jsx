@@ -18,6 +18,8 @@ import { SentReportBox } from './components/lecturer/reports/SentReportBox';
 import { OnCheckReportBox } from './components/lecturer/reports/OnCheckReportBox';
 import { CourseProgress } from './components/lecturer/courseProgress/CourseProgress';
 
+import DeveloperHome from './components/developer/home/Home';
+
 import Login from './components/shared/Login';
 import ApiWrapper from './components/shared/ApiWrapper';
 
@@ -25,8 +27,9 @@ import Api from './shared/api';
 import Urls from './shared/urls';
 import AuthorizationStorage from './shared/authorizationStorage';
 
-const adminRole = 'Админ';
-const lecturerRole = 'Преподаватель';
+const adminRole = 'Admin';
+const lecturerRole = 'Lecturer';
+const developerRole = 'Developer';
 
 export default class Routes extends React.Component {
     constructor(props) {
@@ -52,7 +55,7 @@ export default class Routes extends React.Component {
                 }} />
         }
 
-        let PropsApiWrapper = ApiWrapper(this.state, this.props);
+        let PropsApiWrapper = ApiWrapper(this.state);
 
         let userRole = this.state.role;
         let routes;
@@ -75,10 +78,10 @@ export default class Routes extends React.Component {
             ];
             routes = (
                 <Switch>
-                    <Route exact path='/' component={PropsApiWrapper(AdminHome, this.props)} />
-                    <Route path='/lecturers' component={PropsApiWrapper(LecturerList, this.props)} />
-                    <Route path='/specialities' component={PropsApiWrapper(SpecialityList, this.props)} />
-                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel, this.props)} />
+                    <Route exact path='/' component={PropsApiWrapper(AdminHome)} />
+                    <Route path='/lecturers' component={PropsApiWrapper(LecturerList)} />
+                    <Route path='/specialities' component={PropsApiWrapper(SpecialityList)} />
+                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
@@ -119,22 +122,40 @@ export default class Routes extends React.Component {
             ];
             routes = (
                 <Switch>
-                    <Route exact path='/' component={PropsApiWrapper(LecturerHome, this.props)} />
-                    <Route path='/courses' component={PropsApiWrapper(CourseList, this.props)} />
-                    <Route path='/guides' component={PropsApiWrapper(GuideList, this.props)} />
-                    <Route path='/tasks' component={PropsApiWrapper(TaskList, this.props)} />
-                    <Route path='/students/queue' component={PropsApiWrapper(StudentQueueList, this.props)} />
-                    <Route path='/reports/sent' component={PropsApiWrapper(SentReportBox, this.props)} />
-                    <Route path='/reports/oncheck' component={PropsApiWrapper(OnCheckReportBox, this.props)} />
-                    <Route path='/course/progress' component={PropsApiWrapper(CourseProgress, this.props)} />
-                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel, this.props)} />
+                    <Route exact path='/' component={PropsApiWrapper(LecturerHome)} />
+                    <Route path='/courses' component={PropsApiWrapper(CourseList)} />
+                    <Route path='/guides' component={PropsApiWrapper(GuideList)} />
+                    <Route path='/tasks' component={PropsApiWrapper(TaskList)} />
+                    <Route path='/students/queue' component={PropsApiWrapper(StudentQueueList)} />
+                    <Route path='/reports/sent' component={PropsApiWrapper(SentReportBox)} />
+                    <Route path='/reports/oncheck' component={PropsApiWrapper(OnCheckReportBox)} />
+                    <Route path='/course/progress' component={PropsApiWrapper(CourseProgress)} />
+                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel)} />
+                    <Route path='/' component={NotFound} />
+                </Switch>
+            );
+        } else if (userRole == developerRole) {
+            links = [
+                {
+                    title: 'Домашняя страница',
+                    to: '/'
+                }
+            ];
+            routes = (
+                <Switch>
+                    <Route exact path='/' component={PropsApiWrapper(DeveloperHome)} />
+                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
         }
 
         return (
-            <Layout navigationLinks={links} {...this.props} user={this.state}>
+            <Layout
+                user={this.state}
+                navigationLinks={links}
+                {...this.props}
+                onLogout={() => AuthorizationStorage.clear()}>
                 {routes}
             </Layout>
         );
@@ -149,6 +170,7 @@ export default class Routes extends React.Component {
         let user = {
             email: '',
             role: '',
+            displayRole: '',
             token: '',
             firstName: '',
             lastName: '',
@@ -161,6 +183,7 @@ export default class Routes extends React.Component {
             let storage = AuthorizationStorage.get();
             user.email = storage.email;
             user.role = storage.role;
+            user.displayRole = storage.displayRole;
             user.token = storage.token;
             user.firstName = storage.firstName;
             user.lastName = storage.lastName;

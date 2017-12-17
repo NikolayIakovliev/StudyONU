@@ -17,5 +17,12 @@ namespace StudyONU.Data.Repositories
                 .Include(user => user.Role)
                 .FirstOrDefaultAsync(user => user.Email == email);
         }
+
+        public Task<UserEntity> GetByEmailAndRoleAsync(string email, string roleName)
+        {
+            return context.Users
+                .Include(user => user.Role)
+                .FirstOrDefaultAsync(user => user.Email == email && user.Role.Name == roleName);
+        }
     }
 }

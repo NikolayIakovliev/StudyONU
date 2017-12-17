@@ -4,17 +4,28 @@ namespace StudyONU.Logic.Infrastructure
 {
     public static class Roles
     {
-        public static string Admin = "Админ";
+        public static string Developer = "Developer";
+        public static string DeveloperDisplayName = "Разработчик";
 
-        public static string Lecturer = "Преподаватель";
+        public static string Admin = "Admin";
+        public static string AdminDisplayName = "Админ";
 
-        public static string Student = "Студент";
+        public static string HeadLecturer = "HeadLecturer";
+        public static string HeadLecturerDisplayName = "Закафедры";
 
-        public static IEnumerable<string> GetRoles() => new List<string>
+        public static string Lecturer = "Lecturer";
+        public static string LecturerDisplayName = "Преподаватель";
+
+        public static string Student = "Student";
+        public static string StudentDisplayName = "Студент";
+
+        public static IDictionary<string, string> GetRoles() => new Dictionary<string, string>
         {
-            Admin,
-            Lecturer,
-            Student
+            { Developer, DeveloperDisplayName },
+            { Admin, AdminDisplayName },
+            { HeadLecturer, HeadLecturerDisplayName },
+            { Lecturer, LecturerDisplayName },
+            { Student, StudentDisplayName },
         };
     }
 }

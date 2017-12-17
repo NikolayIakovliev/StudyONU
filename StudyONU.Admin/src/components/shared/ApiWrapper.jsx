@@ -6,7 +6,7 @@ import Alert from './alert/Alert';
 import Api from '../../shared/api';
 import AuthorizationStorage from '../../shared/authorizationStorage';
 
-const ApiWrapper = (user, props) => (WrappedComponent) => {
+const ApiWrapper = (user) => (WrappedComponent) => {
     return class WithApiWrapper extends React.Component {
         constructor(props) {
             super(props);
@@ -22,7 +22,7 @@ const ApiWrapper = (user, props) => (WrappedComponent) => {
             return (
                 <div>
                     <WrappedComponent
-                        {...props}
+                        user={user}
                         get={(url, onSuccess, onError) => this.get(url, onSuccess, onError)}
                         post={(url, data, onSuccess, onError) => this.post(url, data, onSuccess, onError)}
                         postFormData={(url, data, onSuccess, onError) => this.postFormData(url, data, onSuccess, onError)}

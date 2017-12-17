@@ -22,7 +22,7 @@ export class Layout extends React.Component {
             <div>
                 <Sidebar navigationLinks={this.props.navigationLinks} onToggle={expanded => this.setState({ layoutExpanded: !expanded })} />
                 <div className={classes.join(" ")}>
-                    <Header logout={this.props.onLogout} user={this.props.user} />
+                    <Header onLogout={this.props.onLogout} user={this.props.user} />
                     <div className="layout-content">
                         <MuiThemeProvider>
                             {this.props.children}

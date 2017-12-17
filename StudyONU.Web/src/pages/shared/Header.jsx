@@ -89,7 +89,7 @@ export class Header extends React.Component {
                 <div className="account-container">
                     <div className="user-info">
                         <p className="fullname">{`${user.firstName} ${user.lastName}`}</p>
-                        <p className="role">{user.role}</p>
+                        <p className="role">{user.displayRole}</p>
                     </div>
                     <img src={user.photoPath} className="user-avatar" />
                     <button className="logout-btn" onClick={() => this.props.onLogout()}>Выйти</button>

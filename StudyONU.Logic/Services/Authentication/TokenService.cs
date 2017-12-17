@@ -51,10 +51,11 @@ namespace StudyONU.Logic.Services.Authentication
                 switch (settings)
                 {
                     case LoginSettings.Administration:
-                        AdminEntity adminEntity = await unitOfWork.Admins.GetByEmailAsync(loginDTO.Email);
-                        LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetByEmailAsync(loginDTO.Email);
+                        UserEntity developerEntity = await unitOfWork.Users.GetByEmailAndRoleAsync(loginDTO.Email, Roles.Developer);
+                        UserEntity adminEntity = await unitOfWork.Users.GetByEmailAndRoleAsync(loginDTO.Email, Roles.Admin);
+                        UserEntity lecturerEntity = await unitOfWork.Users.GetByEmailAndRoleAsync(loginDTO.Email, Roles.Lecturer);
 
-                        userEntity = adminEntity?.User ?? lecturerEntity?.User;
+                        userEntity = developerEntity ?? adminEntity ?? lecturerEntity;
                         break;
                     case LoginSettings.Student:
                         StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(loginDTO.Email);
@@ -94,6 +95,7 @@ namespace StudyONU.Logic.Services.Authentication
                             Token = jwtSecurityTokenHandler.WriteToken(token),
                             Email = userEntity.Email,
                             Role = userEntity.Role.Name,
+                            DisplayRole = userEntity.Role.DisplayName,
                             FirstName = userEntity.FirstName,
                             LastName = userEntity.LastName,
                             Patronymic = userEntity.Patronymic,

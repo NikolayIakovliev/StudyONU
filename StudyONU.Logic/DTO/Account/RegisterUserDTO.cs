@@ -1,6 +1,6 @@
 ﻿namespace StudyONU.Logic.DTO.Account
 {
-    public class RegisterAdminDTO
+    public class RegisterUserDTO
     {
         public string FirstName { get; set; }
 

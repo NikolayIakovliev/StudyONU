@@ -6,7 +6,6 @@ using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Account;
 using StudyONU.Logic.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StudyONU.Logic.Services
@@ -33,14 +32,15 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                foreach (string roleName in Roles.GetRoles())
+                foreach (var role in Roles.GetRoles())
                 {
-                    RoleEntity roleEntity = await unitOfWork.Roles.GetAsync(applicationRole => applicationRole.Name == roleName);
+                    RoleEntity roleEntity = await unitOfWork.Roles.GetAsync(applicationRole => applicationRole.Name == role.Key);
                     if (roleEntity == null)
                     {
                         RoleEntity applicationRole = new RoleEntity
                         {
-                            Name = roleName
+                            Name = role.Key,
+                            DisplayName = role.Value
                         };
 
                         await unitOfWork.Roles.AddAsync(applicationRole);
@@ -62,14 +62,14 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> RegisterAdminAsync(RegisterAdminDTO adminDTO)
+        public async Task<ServiceMessage> RegisterAdminAsync(RegisterUserDTO adminDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
 
             try
             {
-                AdminEntity adminEntity = await unitOfWork.Admins.GetByEmailAsync(adminDTO.Email);
+                AdminEntity adminEntity = await unitOfWork.Admins.GetAsync(admin => true);
                 if (adminEntity == null)
                 {
                     adminEntity = new AdminEntity
@@ -89,10 +89,44 @@ namespace StudyONU.Logic.Services
                     await unitOfWork.Admins.AddAsync(adminEntity);
                     await unitOfWork.CommitAsync();
                 }
-                else
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+                actionResult = ServiceActionResult.Exception;
+                errors.AddExceptionError();
+            }
+
+            return new ServiceMessage
+            {
+                ActionResult = actionResult,
+                Errors = errors
+            };
+        }
+
+        public async Task<ServiceMessage> RegisterDeveloperAsync(RegisterUserDTO developerDTO)
+        {
+            ServiceActionResult actionResult = ServiceActionResult.Success;
+            ErrorCollection errors = new ErrorCollection();
+
+            try
+            {
+                UserEntity developerEntity = await unitOfWork.Users.GetAsync(user => user.Role.Name == Roles.Developer);
+                if (developerEntity == null)
                 {
-                    actionResult = ServiceActionResult.Error;
-                    errors.Add("Email", "User with such email already exists");
+                    developerEntity = new UserEntity
+                    {
+                        FirstName = developerDTO.FirstName,
+                        LastName = developerDTO.LastName,
+                        Patronymic = developerDTO.Patronymic,
+                        Email = developerDTO.Email,
+                        PhotoPath = developerDTO.PhotoPath,
+                        PasswordHash = passwordHasher.HashPassword(developerDTO.Password),
+                        Role = await unitOfWork.Roles.GetAsync(role => role.Name == Roles.Developer)
+                    };
+
+                    await unitOfWork.Users.AddAsync(developerEntity);
+                    await unitOfWork.CommitAsync();
                 }
             }
             catch (Exception exception)

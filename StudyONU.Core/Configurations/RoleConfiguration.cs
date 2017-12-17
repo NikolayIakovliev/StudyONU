@@ -13,6 +13,9 @@ namespace StudyONU.Core.Configurations
             builder.Property(entity => entity.Name)
                 .IsRequired()
                 .HasMaxLength(20);
+            builder.Property(entity => entity.DisplayName)
+                .IsRequired()
+                .HasMaxLength(20);
         }
     }
 }

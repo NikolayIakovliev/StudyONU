@@ -42,7 +42,7 @@ namespace StudyONU.Admin
             return services.BuildServiceProvider();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -56,8 +56,6 @@ namespace StudyONU.Admin
                     HotModuleReplacementEndpoint = "/dist/__webpack_hmr"
                 });
             }
-
-            app.UseDatabaseSeedMiddleware();
 
             app.UseStaticFiles();
 
@@ -88,6 +86,8 @@ namespace StudyONU.Admin
                     defaults: new { controller = "Home", action = "Index" }
                     );
             });
+
+            await app.UseDatabaseSeed();
         }
     }
 }
