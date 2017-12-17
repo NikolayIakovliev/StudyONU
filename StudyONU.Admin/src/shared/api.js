@@ -1,4 +1,5 @@
 ﻿import { AuthorizationData } from './authorizationData';
+import Logger from './logger';
 
 export class Api {
     static get(url, onSuccess, onError) {
@@ -127,8 +128,7 @@ export class Api {
     }
 
     static log(error) {
-        // TODO implement logging
-        console.error(error);
+        Logger.error(error);
     }
 }
 
