@@ -1,4 +1,6 @@
 ﻿import * as React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 
@@ -22,7 +24,9 @@ export class Layout extends React.Component {
                 <div className={classes.join(" ")}>
                     <Header logout={this.props.onLogout} user={this.props.user} />
                     <div className="layout-content">
-                        {this.props.children}
+                        <MuiThemeProvider>
+                            {this.props.children}
+                        </MuiThemeProvider>
                     </div>
                 </div>
             </div>

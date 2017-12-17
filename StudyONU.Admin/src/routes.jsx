@@ -1,8 +1,9 @@
 ﻿import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import { Layout } from './components/shared/Layout';
 import { NotFound } from './components/shared/NotFound';
-import { Authorization } from './components/shared/Authorization';
+import { AccountPanel } from './components/shared/account/AccountPanel';
 
 import { AdminHome } from './components/admin/home/Home';
 import { LecturerList } from './components/admin/lecturers/LecturerList';
@@ -17,21 +18,43 @@ import { SentReportBox } from './components/lecturer/reports/SentReportBox';
 import { OnCheckReportBox } from './components/lecturer/reports/OnCheckReportBox';
 import { CourseProgress } from './components/lecturer/courseProgress/CourseProgress';
 
-import { AccountPanel } from './components/shared/account/AccountPanel';
+import Login from './components/shared/Login';
+import ApiWrapper from './components/shared/ApiWrapper';
+
+import Api from './shared/api';
+import Urls from './shared/urls';
+import AuthorizationStorage from './shared/authorizationStorage';
 
 const adminRole = 'Админ';
 const lecturerRole = 'Преподаватель';
 
-const AdminAuthorization = Authorization([adminRole]);
-const LecturerAuthorization = Authorization([lecturerRole]);
-
-export class Routes extends React.Component {
+export default class Routes extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = this.getUser();
+
+        AuthorizationStorage.subscribe(this);
+    }
+
+    componentDidMount() {
+        if (AuthorizationStorage.any()) {
+            Api.post(Urls.check, null, null, () => AuthorizationStorage.clear());
+        }
     }
 
     render() {
-        let userRole = this.props.user.role;
+        if (!AuthorizationStorage.any()) {
+            return <Login
+                onLoginSuccess={data => {
+                    AuthorizationStorage.save(data);
+                    this.props.history.push('/');
+                }} />
+        }
+
+        let PropsApiWrapper = ApiWrapper(this.state, this.props);
+
+        let userRole = this.state.role;
         let routes;
         let links;
 
@@ -52,10 +75,10 @@ export class Routes extends React.Component {
             ];
             routes = (
                 <Switch>
-                    <Route exact path='/' component={AdminAuthorization(AdminHome, this.props)} />
-                    <Route path='/lecturers' component={AdminAuthorization(LecturerList, this.props)} />
-                    <Route path='/specialities' component={AdminAuthorization(SpecialityList, this.props)} />
-                    <Route path='/account/info' component={AdminAuthorization(AccountPanel, this.props)} />
+                    <Route exact path='/' component={PropsApiWrapper(AdminHome, this.props)} />
+                    <Route path='/lecturers' component={PropsApiWrapper(LecturerList, this.props)} />
+                    <Route path='/specialities' component={PropsApiWrapper(SpecialityList, this.props)} />
+                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
@@ -96,24 +119,55 @@ export class Routes extends React.Component {
             ];
             routes = (
                 <Switch>
-                    <Route exact path='/' component={LecturerAuthorization(LecturerHome, this.props)} />
-                    <Route path='/courses' component={LecturerAuthorization(CourseList, this.props)} />
-                    <Route path='/guides' component={LecturerAuthorization(GuideList, this.props)} />
-                    <Route path='/tasks' component={LecturerAuthorization(TaskList, this.props)} />
-                    <Route path='/students/queue' component={LecturerAuthorization(StudentQueueList, this.props)} />
-                    <Route path='/reports/sent' component={LecturerAuthorization(SentReportBox, this.props)} />
-                    <Route path='/reports/oncheck' component={LecturerAuthorization(OnCheckReportBox, this.props)} />
-                    <Route path='/course/progress' component={LecturerAuthorization(CourseProgress, this.props)} />
-                    <Route path='/account/info' component={LecturerAuthorization(AccountPanel, this.props)} />
+                    <Route exact path='/' component={PropsApiWrapper(LecturerHome, this.props)} />
+                    <Route path='/courses' component={PropsApiWrapper(CourseList, this.props)} />
+                    <Route path='/guides' component={PropsApiWrapper(GuideList, this.props)} />
+                    <Route path='/tasks' component={PropsApiWrapper(TaskList, this.props)} />
+                    <Route path='/students/queue' component={PropsApiWrapper(StudentQueueList, this.props)} />
+                    <Route path='/reports/sent' component={PropsApiWrapper(SentReportBox, this.props)} />
+                    <Route path='/reports/oncheck' component={PropsApiWrapper(OnCheckReportBox, this.props)} />
+                    <Route path='/course/progress' component={PropsApiWrapper(CourseProgress, this.props)} />
+                    <Route path='/account/info' component={PropsApiWrapper(AccountPanel, this.props)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );
         }
 
         return (
-            <Layout navigationLinks={links} {...this.props}>
+            <Layout navigationLinks={links} {...this.props} user={this.state}>
                 {routes}
             </Layout>
         );
+    }
+    
+    update() {
+        const user = this.getUser();
+        this.setState(user);
+    }
+
+    getUser() {
+        let user = {
+            email: '',
+            role: '',
+            token: '',
+            firstName: '',
+            lastName: '',
+            patronymic: '',
+            photoPath: ''
+        }
+
+        let userLoggedIn = AuthorizationStorage.any();
+        if (userLoggedIn) {
+            let storage = AuthorizationStorage.get();
+            user.email = storage.email;
+            user.role = storage.role;
+            user.token = storage.token;
+            user.firstName = storage.firstName;
+            user.lastName = storage.lastName;
+            user.patronymic = storage.patronymic;
+            user.photoPath = storage.photoPath;
+        }
+
+        return user;
     }
 }

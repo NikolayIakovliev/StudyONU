@@ -104,6 +104,7 @@ export default class Api {
             return response;
         } else if (onError) {
             onError(response, false);
+            return Promise.reject(response.statusText);
         } else {
             let error = new Error(response.statusText);
             error.response = response;

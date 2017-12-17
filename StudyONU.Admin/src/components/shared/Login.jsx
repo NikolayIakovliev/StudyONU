@@ -5,7 +5,7 @@ import Urls from '../../shared/urls';
 
 import './login.scss';
 
-export class Login extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
 
