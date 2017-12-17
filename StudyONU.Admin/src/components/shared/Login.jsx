@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
-import { Api } from '../../shared/api';
+
+import Api from '../../shared/api';
 import Urls from '../../shared/urls';
 
 import './login.scss';

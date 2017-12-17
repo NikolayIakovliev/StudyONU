@@ -1,7 +1,7 @@
 ﻿import AuthorizationStorage from './authorizationStorage';
 import Logger from './logger';
 
-export class Api {
+export default class Api {
     static get(url, onSuccess, onError) {
         let init = createInit('GET');
 
@@ -87,19 +87,17 @@ export class Api {
     }
 
     static sendRequest(url, init, onSuccess, onError) {
-        let promise = fetch(url, init).then(response => Api.checkResponse(response, onError));
-        if (promise) {
-            promise
-                .then(response => response.json())
-                .then(result => Api.checkResult(result, onSuccess, onError))
-                .catch(Api.log);
-        }
+        fetch(url, init)
+            .then(response => Api.checkResponse(response, onError))
+            .then(response => response.json())
+            .then(result => Api.checkResult(result, onSuccess, onError))
+            .catch(Api.log);
     }
 
     static checkResponse(response, onError) {
         if (response.status == 401) {
             AuthorizationStorage.clear();
-            return;
+            return Promise.reject('Unauthorized');
         }
 
         if (response.ok) {

@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { Login } from './Login';
-import { Api } from '../../shared/api';
 
+import Api from '../../shared/api';
 import Urls from '../../shared/urls';
 import AuthorizationStorage from '../../shared/authorizationStorage';
 
@@ -26,13 +26,15 @@ export const Authentication = (WrappedComponent) => {
         }
 
         componentDidMount() {
-            const onSuccess = () => this.update();
-            const onError = () => {
-                AuthorizationStorage.clear();
-                this.update();
-            }
+            if (AuthorizationStorage.any()) {
+                const onSuccess = () => this.update();
+                const onError = () => {
+                    AuthorizationStorage.clear();
+                    this.update();
+                }
 
-            Api.post(Urls.check, null, onSuccess, onError);
+                Api.post(Urls.check, null, onSuccess, onError);
+            }
         }
 
         render() {

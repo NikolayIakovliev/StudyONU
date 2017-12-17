@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "674f0f929a1fb384afec"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "65e14fd095107fa1612b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9761,7 +9761,6 @@ module.exports = Html5Entities;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Api = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -9777,7 +9776,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Api = exports.Api = function () {
+var Api = function () {
     function Api() {
         _classCallCheck(this, Api);
     }
@@ -9875,23 +9874,20 @@ var Api = exports.Api = function () {
     }, {
         key: 'sendRequest',
         value: function sendRequest(url, init, onSuccess, onError) {
-            var promise = fetch(url, init).then(function (response) {
+            fetch(url, init).then(function (response) {
                 return Api.checkResponse(response, onError);
-            });
-            if (promise) {
-                promise.then(function (response) {
-                    return response.json();
-                }).then(function (result) {
-                    return Api.checkResult(result, onSuccess, onError);
-                }).catch(Api.log);
-            }
+            }).then(function (response) {
+                return response.json();
+            }).then(function (result) {
+                return Api.checkResult(result, onSuccess, onError);
+            }).catch(Api.log);
         }
     }, {
         key: 'checkResponse',
         value: function checkResponse(response, onError) {
             if (response.status == 401) {
                 _authorizationStorage2.default.clear();
-                return;
+                return Promise.reject('Unauthorized');
             }
 
             if (response.ok) {
@@ -9928,6 +9924,9 @@ var Api = exports.Api = function () {
 
     return Api;
 }();
+
+exports.default = Api;
+
 
 var createInit = function createInit(method, data) {
     var init = {
@@ -19259,6 +19258,8 @@ var _Login = __webpack_require__(339);
 
 var _api = __webpack_require__(172);
 
+var _api2 = _interopRequireDefault(_api);
+
 var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
@@ -19307,15 +19308,17 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
             value: function componentDidMount() {
                 var _this2 = this;
 
-                var onSuccess = function onSuccess() {
-                    return _this2.update();
-                };
-                var onError = function onError() {
-                    _authorizationStorage2.default.clear();
-                    _this2.update();
-                };
+                if (_authorizationStorage2.default.any()) {
+                    var onSuccess = function onSuccess() {
+                        return _this2.update();
+                    };
+                    var onError = function onError() {
+                        _authorizationStorage2.default.clear();
+                        _this2.update();
+                    };
 
-                _api.Api.post(_urls2.default.check, null, onSuccess, onError);
+                    _api2.default.post(_urls2.default.check, null, onSuccess, onError);
+                }
             }
         }, {
             key: 'render',
@@ -19364,7 +19367,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 var _onError = onError || function (errors) {
                     return _this4.onError(errors);
                 };
-                _api.Api.get(url, onSuccess, _onError);
+                _api2.default.get(url, onSuccess, _onError);
             }
         }, {
             key: 'post',
@@ -19374,7 +19377,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 var _onError = onError || function (errors) {
                     return _this5.onError(errors);
                 };
-                _api.Api.post(url, data, onSuccess, _onError);
+                _api2.default.post(url, data, onSuccess, _onError);
             }
         }, {
             key: 'postFormData',
@@ -19384,7 +19387,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 var _onError = onError || function (errors) {
                     return _this6.onError(errors);
                 };
-                _api.Api.postFormData(url, data, onSuccess, _onError);
+                _api2.default.postFormData(url, data, onSuccess, _onError);
             }
         }, {
             key: 'put',
@@ -19394,7 +19397,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 var _onError = onError || function (errors) {
                     return _this7.onError(errors);
                 };
-                _api.Api.put(url, data, onSuccess, _onError);
+                _api2.default.put(url, data, onSuccess, _onError);
             }
         }, {
             key: 'putFormData',
@@ -19404,7 +19407,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 var _onError = onError || function (errors) {
                     return _this8.onError(errors);
                 };
-                _api.Api.putFormData(url, data, onSuccess, _onError);
+                _api2.default.putFormData(url, data, onSuccess, _onError);
             }
         }, {
             key: 'delete',
@@ -19414,7 +19417,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                 var _onError = onError || function (errors) {
                     return _this9.onError(errors);
                 };
-                _api.Api.delete(url, data, onSuccess, _onError);
+                _api2.default.delete(url, data, onSuccess, _onError);
             }
         }, {
             key: 'onError',
@@ -19479,6 +19482,8 @@ var _react = __webpack_require__(0);
 var React = _interopRequireWildcard(_react);
 
 var _api = __webpack_require__(172);
+
+var _api2 = _interopRequireDefault(_api);
 
 var _urls = __webpack_require__(21);
 
@@ -19627,7 +19632,7 @@ var Login = exports.Login = function (_React$Component) {
                 });
             };
 
-            _api.Api.post(_urls2.default.token, data, onSuccess, onError);
+            _api2.default.post(_urls2.default.token, data, onSuccess, onError);
         }
     }]);
 
@@ -19658,7 +19663,7 @@ var Logger = function () {
         key: 'error',
         value: function error(message) {
             if (true) {
-                console.warn('Logger message:');
+                console.warn('-- Logger --');
                 console.error(message);
             }
         }
