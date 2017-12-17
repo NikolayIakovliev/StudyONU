@@ -1,4 +1,4 @@
-﻿import { AuthorizationData } from './authorizationData';
+﻿import AuthorizationStorage from './authorizationStorage';
 import Logger from './logger';
 
 export class Api {
@@ -15,8 +15,8 @@ export class Api {
     }
 
     static postFormData(url, data, onSuccess, onError) {
-        let authorizationData = AuthorizationData.get();
-        let token = authorizationData.token;
+        let storage = AuthorizationStorage.get();
+        let token = storage.token;
 
         let formData = new FormData();
 
@@ -51,8 +51,8 @@ export class Api {
     }
 
     static putFormData(url, data, onSuccess, onError) {
-        let authorizationData = AuthorizationData.get();
-        let token = authorizationData.token;
+        let storage = AuthorizationStorage.get();
+        let token = storage.token;
 
         let formData = new FormData();
 
@@ -98,7 +98,7 @@ export class Api {
 
     static checkResponse(response, onError) {
         if (response.status == 401) {
-            AuthorizationData.clear();
+            AuthorizationStorage.clear();
             return;
         }
 
@@ -143,13 +143,13 @@ const createInit = (method, data) => {
 }
 
 const headers = () => {
-    let authorizationData = AuthorizationData.get();
+    let storage = AuthorizationStorage.get();
 
-    if (authorizationData && authorizationData.token) {
+    if (storage && storage.token) {
         return {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authorizationData.token}`
+            'Authorization': `Bearer ${storage.token}`
         }
     } else {
         return {

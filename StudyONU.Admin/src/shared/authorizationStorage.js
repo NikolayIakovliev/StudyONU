@@ -1,11 +1,11 @@
 ﻿const authorizationKey = 'authorization';
 
 let _subscribers = [];
-export class AuthorizationData {
+export default class AuthorizationStorage {
     static get subscribers() { return _subscribers; }
 
     static subscribe(subscriber) {
-        AuthorizationData.subscribers.push(subscriber);
+        AuthorizationStorage.subscribers.push(subscriber);
     }
 
     static any() {
@@ -26,18 +26,18 @@ export class AuthorizationData {
         let json = JSON.stringify(data);
         localStorage.setItem(authorizationKey, json);
 
-        AuthorizationData.notify();
+        AuthorizationStorage.notify();
     }
 
     static clear() {
         localStorage.clear();
 
-        AuthorizationData.notify();
+        AuthorizationStorage.notify();
     }
 
     static notify() {
-        for (let i = 0; i < AuthorizationData.subscribers.length; i++) {
-            let subscriber = AuthorizationData.subscribers[i];
+        for (let i = 0; i < AuthorizationStorage.subscribers.length; i++) {
+            let subscriber = AuthorizationStorage.subscribers[i];
             subscriber.update();
         }
     }

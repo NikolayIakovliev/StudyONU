@@ -4,7 +4,7 @@ import { AccountInfo } from './AccountInfo';
 import { ChangePassword } from './ChangePassword';
 
 import Urls from '../../../shared/urls';
-import { AuthorizationData } from '../../../shared/authorizationData';
+import AuthorizationStorage from '../../../shared/authorizationStorage';
 
 import './accountPanel.scss';
 
@@ -29,13 +29,13 @@ export class AccountPanel extends React.Component {
 
     onInfoChange(data) {
         this.props.put(Urls.account.info, data, () => {
-            let user = AuthorizationData.get();
+            let user = AuthorizationStorage.get();
             user.lastName = data.lastName;
             user.firstName = data.firstName;
             user.patronymic = data.patronymic;
             user.email = data.email;
 
-            AuthorizationData.save(user);
+            AuthorizationStorage.save(user);
             location.reload();
         });
     }

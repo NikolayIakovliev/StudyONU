@@ -1,9 +1,9 @@
 ﻿import * as React from 'react';
 import { Login } from './Login';
-import { AuthorizationData } from '../../shared/authorizationData';
 import { Api } from '../../shared/api';
 
 import Urls from '../../shared/urls';
+import AuthorizationStorage from '../../shared/authorizationStorage';
 
 export const Authentication = (WrappedComponent) => {
     return class WithAuthentication extends React.Component {
@@ -22,13 +22,13 @@ export const Authentication = (WrappedComponent) => {
                 }
             }
 
-            AuthorizationData.subscribe(this);
+            AuthorizationStorage.subscribe(this);
         }
 
         componentDidMount() {
             const onSuccess = () => this.update();
             const onError = () => {
-                AuthorizationData.clear();
+                AuthorizationStorage.clear();
                 this.update();
             }
 
@@ -47,11 +47,11 @@ export const Authentication = (WrappedComponent) => {
                     put={(url, data, onSuccess, onError) => this.put(url, data, onSuccess, onError)}
                     putFormData={(url, data, onSuccess, onError) => this.putFormData(url, data, onSuccess, onError)}
                     delete={(url, data, onSuccess, onError) => this.delete(url, data, onSuccess, onError)}
-                    onLogout={() => AuthorizationData.clear()}
+                    onLogout={() => AuthorizationStorage.clear()}
                 />
                 : <Login
                     onLoginSuccess={data => {
-                        AuthorizationData.save(data);
+                        AuthorizationStorage.save(data);
                         this.update();
                         this.props.history.push('/');
                     }} />;
@@ -110,16 +110,16 @@ export const Authentication = (WrappedComponent) => {
                 photoPath: ''
             };
 
-            let userLoggedIn = AuthorizationData.any();
+            let userLoggedIn = AuthorizationStorage.any();
             if (userLoggedIn) {
-                let authorizationData = AuthorizationData.get();
-                user.email = authorizationData.email;
-                user.role = authorizationData.role;
-                user.token = authorizationData.token;
-                user.firstName = authorizationData.firstName;
-                user.lastName = authorizationData.lastName;
-                user.patronymic = authorizationData.patronymic;
-                user.photoPath = authorizationData.photoPath;
+                let storage = AuthorizationStorage.get();
+                user.email = storage.email;
+                user.role = storage.role;
+                user.token = storage.token;
+                user.firstName = storage.firstName;
+                user.lastName = storage.lastName;
+                user.patronymic = storage.patronymic;
+                user.photoPath = storage.photoPath;
             }
             
             this.setState({ user });
