@@ -11,6 +11,11 @@ namespace StudyONU.Admin.Controllers
         protected const string LecturersImageUploadPath = "images\\uploads\\lecturers";
         protected const string GuidesUploadPath = "files\\uploads\\guides";
         protected const string TasksUploadPath = "files\\uploads\\tasks";
+        
+        protected string GetUserEmail()
+        {
+            return User.FindFirstValue(ClaimTypes.Email);
+        }
 
         protected IActionResult GenerateResponse<TData>(DataServiceMessage<TData> serviceMessage) where TData : class
         {
@@ -21,26 +26,7 @@ namespace StudyONU.Admin.Controllers
                 data = serviceMessage.Data
             };
 
-            IActionResult actionResult = null;
-            switch (serviceMessage.ActionResult)
-            {
-                case ServiceActionResult.Success:
-                    actionResult = Ok(response);
-                    break;
-                case ServiceActionResult.Error:
-                    actionResult = Ok(response);
-                    break;
-                case ServiceActionResult.Exception:
-                    actionResult = Ok(response);
-                    // TODO
-                    // implement logging
-                    break;
-                case ServiceActionResult.NotFound:
-                    actionResult = BadRequest(response);
-                    break;
-            }
-
-            return actionResult;
+            return GenerateResponse(response, serviceMessage.ActionResult);
         }
 
         protected IActionResult GenerateResponse(ServiceMessage serviceMessage)
@@ -51,31 +37,30 @@ namespace StudyONU.Admin.Controllers
                 errors = serviceMessage.Errors
             };
 
+            return GenerateResponse(response, serviceMessage.ActionResult);
+        }
+
+        protected IActionResult GenerateResponse(object obj, ServiceActionResult result)
+        {
             IActionResult actionResult = null;
-            switch (serviceMessage.ActionResult)
+
+            switch (result)
             {
                 case ServiceActionResult.Success:
-                    actionResult = Ok(response);
+                    actionResult = Ok(obj);
                     break;
                 case ServiceActionResult.Error:
-                    actionResult = Ok(response);
+                    actionResult = BadRequest(obj);
                     break;
                 case ServiceActionResult.Exception:
-                    actionResult = Ok(response);
-                    // TODO
-                    // implement logging
+                    actionResult = BadRequest(obj);
                     break;
                 case ServiceActionResult.NotFound:
-                    actionResult = BadRequest(response);
+                    actionResult = BadRequest(obj);
                     break;
             }
 
             return actionResult;
-        }
-
-        protected string GetUserEmail()
-        {
-            return User.FindFirstValue(ClaimTypes.Email);
         }
     }
 }

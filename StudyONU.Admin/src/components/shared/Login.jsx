@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { Api } from '../../shared/api';
+import Urls from '../../shared/urls';
 
 import './login.scss';
 
@@ -52,14 +53,16 @@ export class Login extends React.Component {
     }
 
     sendForm() {
-        let response = Api.token(this.state, response => {
-            if (response.success) {
-                this.props.onLoginSuccess(response.data);
-            } else {
-                this.setState({
-                    error: 'Неверно введена почта или пароль'
-                });
-            }
+        const data = {
+            email: this.state.email,
+            password: this.state.password
+        };
+
+        const onSuccess = data => this.props.onLoginSuccess(data);
+        const onError = () => this.setState({
+            error: 'Неверно введена почта или пароль'
         });
+        
+        Api.post(Urls.token, data, onSuccess, onError);
     }
 }

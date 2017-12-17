@@ -1,19 +1,19 @@
 ﻿import { AuthorizationData } from './authorizationData';
 
 export class Api {
-    static get(url) {
+    static get(url, onSuccess, onError) {
         let init = createInit('GET');
 
-        return fetch(url, init).catch(error => console.log(error));
+        Api.sendRequest(url, init, onSuccess, onError);
     }
 
-    static post(url, data) {
+    static post(url, data, onSuccess, onError) {
         let init = createInit('POST', data);
 
-        return fetch(url, init).catch(error => console.log(error));
+        Api.sendRequest(url, init, onSuccess, onError);
     }
 
-    static postFormData(url, data) {
+    static postFormData(url, data, onSuccess, onError) {
         let authorizationData = AuthorizationData.get();
         let token = authorizationData.token;
 
@@ -40,16 +40,16 @@ export class Api {
             body: formData
         }
 
-        return fetch(url, init).catch(error => console.log(error));
+        Api.sendRequest(url, init, onSuccess, onError);
     }
 
-    static put(url, data) {
+    static put(url, data, onSuccess, onError) {
         let init = createInit('PUT', data);
 
-        return fetch(url, init).catch(error => console.log(error));
+        Api.sendRequest(url, init, onSuccess, onError);
     }
 
-    static putFormData(url, data) {
+    static putFormData(url, data, onSuccess, onError) {
         let authorizationData = AuthorizationData.get();
         let token = authorizationData.token;
 
@@ -76,76 +76,60 @@ export class Api {
             body: formData
         }
 
-        return fetch(url, init).catch(error => console.log(error));
+        Api.sendRequest(url, init, onSuccess, onError);
     }
 
-    static delete(url, data) {
+    static delete(url, data, onSuccess, onError) {
         let init = createInit('DELETE', data);
 
-        return fetch(url, init).catch(error => console.log(error));
+        Api.sendRequest(url, init, onSuccess, onError);
     }
 
-    static token(data, onComplete) {
-        let init = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
+    static sendRequest(url, init, onSuccess, onError) {
+        let promise = fetch(url, init).then(response => Api.checkResponse(response, onError));
+        if (promise) {
+            promise
+                .then(response => response.json())
+                .then(result => Api.checkResult(result, onSuccess, onError))
+                .catch(Api.log);
+        }
+    }
+
+    static checkResponse(response, onError) {
+        if (response.status == 401) {
+            AuthorizationData.clear();
+            return;
         }
 
-        fetch(urls.token, init)
-            .then(checkStatus)
-            .then(res => res.json())
-            .then(res => onComplete(res))
-            .catch(error => console.log(error));
-    }
-}
-
-export const urls = {
-    check: '/api/check',
-    token: '/api/token',
-    account: {
-        password: '/api/account/password',
-        info: '/api/account'
-    },
-    lecturers: '/api/lecturers',
-    specialities: '/api/specialities',
-    courses: '/api/courses',
-    guides: '/api/guides',
-    tasks: {
-        common: '/api/tasks',
-        files: '/api/tasks/files'
-    },
-    studentQueue: {
-        list: '/api/studentQueue',
-        courses: (id) => `/api/studentQueue/${id}/courses`,
-        approve: '/api/studentQueue/approve',
-        disapprove: (id) => `/api/studentQueue/${id}/disapprove`
-    },
-    reports: {
-        sent: '/api/reports/sent',
-        onCheck: '/api/reports/oncheck',
-        check: (taskId, studentEmail) => `/api/reports/check?taskId=${taskId}&studentEmail=${studentEmail}`,
-        accept: (taskId, studentEmail, mark) => `/api/reports/accept?taskId=${taskId}&studentEmail=${studentEmail}&mark=${mark}`,
-        reject: (taskId, studentEmail) => `/api/reports/reject?taskId=${taskId}&studentEmail=${studentEmail}`
-    },
-    comments: {
-        create: '/api/comments',
-        list: (taskId, studentEmail) => `/api/comments?taskId=${taskId}&studentEmail=${studentEmail}`
-    },
-    courseProgress: (courseId) => `/api/courseReport/${courseId}`
-}
-
-const checkStatus = (response) => {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
+        if (response.ok) {
+            return response;
+        } else if (onError) {
+            onError(response, false);
+        } else {
+            let error = new Error(response.statusText);
+            error.response = response;
+            throw error;
+        }
     }
 
-    let error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    static checkResult(result, onSuccess, onError) {
+        if (result.success) {
+            if (onSuccess) {
+                let data = result.data || result;
+                onSuccess(data);
+            }
+        } else {
+            if (onError) {
+                onError(result.errors, true);
+            }
+            Api.log(result.errors);
+        }
+    }
+
+    static log(error) {
+        // TODO implement logging
+        console.error(error);
+    }
 }
 
 const createInit = (method, data) => {
@@ -160,11 +144,17 @@ const createInit = (method, data) => {
 
 const headers = () => {
     let authorizationData = AuthorizationData.get();
-    let token = authorizationData.token;
 
-    return {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+    if (authorizationData && authorizationData.token) {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authorizationData.token}`
+        }
+    } else {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     }
 }

@@ -84,17 +84,13 @@ export class OnCheckReportBox extends React.Component {
     }
 
     accept(report, mark) {
-        let self = this;
         let url = Urls.reports.accept(report.taskId, report.studentEmail, mark);
-
-        this.props.put(url, null, result => self.load());
+        this.props.put(url, null, () => this.load());
     }
 
     reject(report) {
-        let self = this;
         let url = Urls.reports.reject(report.taskId, report.studentEmail);
-
-        this.props.put(url, null, result => self.load());
+        this.props.put(url, null, () => this.load());
     }
 
     download(report) {
@@ -116,9 +112,8 @@ export class OnCheckReportBox extends React.Component {
             studentEmail: studentEmail,
             taskId: taskId
         }
-
-        let self = this;
-        this.props.post(Urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+        
+        this.props.post(Urls.comments.create, data, () => this.loadComments(taskId, studentEmail));
     }
 
     openFile(filePath) {
@@ -126,26 +121,23 @@ export class OnCheckReportBox extends React.Component {
     }
 
     load() {
-        let self = this;
-        this.props.get(Urls.reports.onCheck, result => {
-            self.setState({
-                items: result.data,
-                loaded: true,
-                acceptItem: null,
-                comments: [],
-                openComments: false,
-                taskId: null,
-                studentEmail: null
-            });
-        });
+        this.props.get(Urls.reports.onCheck, data => this.setState({
+            items: data,
+            loaded: true,
+            acceptItem: null,
+            comments: [],
+            openComments: false,
+            taskId: null,
+            studentEmail: null
+        }));
     }
 
     loadComments(taskId, studentEmail) {
         let self = this;
         let url = Urls.comments.list(taskId, studentEmail);
 
-        this.props.get(url, result => {
-            let comments = result.data.map(comment => {
+        this.props.get(url, data => {
+            let comments = data.map(comment => {
                 comment.dateCreated = DateHelper.toDate(comment.dateCreated, '.');
                 comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 

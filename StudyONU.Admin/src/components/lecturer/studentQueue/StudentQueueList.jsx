@@ -17,8 +17,7 @@ export class StudentQueueList extends React.Component {
 
         this.state = {
             loaded: false,
-            items: [],
-            errors: []
+            items: []
         };
     }
 
@@ -29,16 +28,13 @@ export class StudentQueueList extends React.Component {
     render() {
         const {
             loaded,
-            items,
-            errors
+            items
         } = this.state;
 
         let render;
 
         if (!loaded) {
             render = <Loading />;
-        } else if (errors.length) {
-            render = <div>Возникла ошибка!</div>;
         } else {
             const getCourses = (studentId, callback) => this.props.get(Urls.studentQueue.courses(studentId), result => callback(result));
 
@@ -84,40 +80,15 @@ export class StudentQueueList extends React.Component {
     }
 
     modify(url, data) {
-        let reload = () => this.load();
-        this.props.post(url, data, result => {
-            if (result.success === true) {
-                reload();
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        this.props.post(url, data, () => this.load());
     }
 
     load() {
-        let self = this;
-
-        this.props.get(Urls.studentQueue.list, result => {
-            let newState = {
-                loaded: true,
-                itemActionRequest: null,
-                approve: null,
-                errors: result.errors,
-                items: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            if (result.success != true) {
-                // TODO
-                // implement error display
-                console.log(result);
-            }
-
-            self.setState(newState);
-        });
+        this.props.get(Urls.studentQueue.list, data => this.setState({
+            loaded: true,
+            itemActionRequest: null,
+            approve: null,
+            items: data
+        }));
     }
 }

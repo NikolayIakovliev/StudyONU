@@ -21,7 +21,6 @@ export class GuideList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null,
             sortCourses: [],
@@ -37,7 +36,6 @@ export class GuideList extends React.Component {
         const {
             loaded,
             items,
-            errors,
             itemEditRequest,
             itemDeleteRequest,
             sortCourses,
@@ -51,8 +49,6 @@ export class GuideList extends React.Component {
 
         if (!loaded) {
             render = <Loading />;
-        } else if (errors.length) {
-            render = <div>Возникла ошибка!</div>;
         } else {
             render = (
                 <div>
@@ -111,53 +107,21 @@ export class GuideList extends React.Component {
     }
 
     getCourses(callback) {
-        this.props.get(Urls.courses, result => {
-            if (result.success === true) {
-                callback(result.data);
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        this.props.get(Urls.courses, data => callback(data));
     }
 
     modifyItem(method, data) {
-        let reload = () => this.load();
-        method(Urls.guides, data, result => {
-            if (result.success === true) {
-                reload();
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        method(Urls.guides, data, () => this.load());
     }
 
     load() {
+        this.props.get(Urls.courses, data => this.setState({
+            sortCourses: data
+        }));
+
         let self = this;
-
-        this.props.get(Urls.courses, result => {
-            self.setState({
-                sortCourses: result.data
-            });
-        });
-
-        this.props.get(Urls.guides, result => {
-            let newState = {
-                loaded: true,
-                itemEditRequest: null,
-                itemDeleteRequest: null,
-                errors: result.errors,
-                items: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            newState.items = newState.items.map(item => {
+        this.props.get(Urls.guides, data => {
+            const items = data.map(item => {
                 if (item.dateAvailable) {
                     item.dateAvailable = DateHelper.toDate(item.dateAvailable, '.');
                 }
@@ -165,13 +129,12 @@ export class GuideList extends React.Component {
                 return item;
             });
 
-            if (result.success != true) {
-                // TODO
-                // implement error display
-                console.log(result);
-            }
-
-            self.setState(newState);
+            self.setState({
+                loaded: true,
+                itemEditRequest: null,
+                itemDeleteRequest: null,
+                items: items
+            });
         });
     }
 }

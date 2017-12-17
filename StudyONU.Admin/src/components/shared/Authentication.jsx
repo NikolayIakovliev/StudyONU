@@ -21,18 +21,18 @@ export const Authentication = (WrappedComponent) => {
                     photoPath: ''
                 }
             }
+
+            AuthorizationData.subscribe(this);
         }
 
         componentDidMount() {
-            let self = this;
-            Api.post(Urls.check, null)
-                .then(response => {
-                    if (response.status == 401) {
-                        AuthorizationData.clear();
-                    }
+            const onSuccess = () => this.update();
+            const onError = () => {
+                AuthorizationData.clear();
+                this.update();
+            }
 
-                    self.update();
-                });
+            Api.post(Urls.check, null, onSuccess, onError);
         }
 
         render() {
@@ -41,16 +41,14 @@ export const Authentication = (WrappedComponent) => {
             let renderedComponent = user.role
                 ? <WrappedComponent
                     user={user}
-                    get={(url, callback) => this.get(url, callback)}
-                    post={(url, data, callback) => this.post(url, data, callback)}
-                    postFormData={(url, data, callback) => this.postFormData(url, data, callback)}
-                    put={(url, data, callback) => this.put(url, data, callback)}
-                    putFormData={(url, data, callback) => this.putFormData(url, data, callback)}
-                    delete={(url, data, callback) => this.delete(url, data, callback)}
-                    onLogout={() => {
-                        AuthorizationData.clear();
-                        this.update();
-                    }} />
+                    get={(url, onSuccess, onError) => this.get(url, onSuccess, onError)}
+                    post={(url, data, onSuccess, onError) => this.post(url, data, onSuccess, onError)}
+                    postFormData={(url, data, onSuccess, onError) => this.postFormData(url, data, onSuccess, onError)}
+                    put={(url, data, onSuccess, onError) => this.put(url, data, onSuccess, onError)}
+                    putFormData={(url, data, onSuccess, onError) => this.putFormData(url, data, onSuccess, onError)}
+                    delete={(url, data, onSuccess, onError) => this.delete(url, data, onSuccess, onError)}
+                    onLogout={() => AuthorizationData.clear()}
+                />
                 : <Login
                     onLoginSuccess={data => {
                         AuthorizationData.save(data);
@@ -61,60 +59,44 @@ export const Authentication = (WrappedComponent) => {
             return renderedComponent;
         }
 
-        get(url, callback) {
-            const method = () => Api.get(url);
-            this.callApi(method, callback);
+        get(url, onSuccess, onError) {
+            const _onError = onError || (errors => this.onError(errors));
+            Api.get(url, onSuccess, _onError);
         }
 
-        post(url, data, callback) {
-            const method = () => Api.post(url, data);
-            this.callApi(method, callback);
+        post(url, data, onSuccess, onError) {
+            const _onError = onError || (errors => this.onError(errors));
+            Api.post(url, data, onSuccess, _onError);
         }
 
-        postFormData(url, data, callback) {
-            const method = () => Api.postFormData(url, data);
-            this.callApi(method, callback);
+        postFormData(url, data, onSuccess, onError) {
+            const _onError = onError || (errors => this.onError(errors));
+            Api.postFormData(url, data, onSuccess, _onError);
         }
 
-        put(url, data, callback) {
-            const method = () => Api.put(url, data);
-            this.callApi(method, callback);
+        put(url, data, onSuccess, onError) {
+            const _onError = onError || (errors => this.onError(errors));
+            Api.put(url, data, onSuccess, _onError);
         }
 
-        putFormData(url, data, callback) {
-            const method = () => Api.putFormData(url, data);
-            this.callApi(method, callback);
+        putFormData(url, data, onSuccess, onError) {
+            const _onError = onError || (errors => this.onError(errors));
+            Api.putFormData(url, data, onSuccess, _onError);
         }
 
-        delete(url, data, callback) {
-            const method = () => Api.delete(url, data);
-            this.callApi(method, callback);
+        delete(url, data, onSuccess, onError) {
+            const _onError = onError || (errors => this.onError(errors));
+            Api.delete(url, data, onSuccess, _onError);
         }
 
-        callApi(method, callback) {
-            let self = this;
-            method()
-                .then(response => this.checkUnauthorized(response))
-                .then(result => {
-                    if (!result.isAuthOk) {
-                        AuthorizationData.clear();
-                        self.update();
-                    } else if (result.exception) {
-                        console.error(result.response);
-                    } else {
-                        result.response.json().then(r => callback(r));
-                    }
-                });
-        }
+        onError(errors) {
+            // TODO
+            //let errorMessage = errors.common != undefined
+            //    ? 'Неправильно введены данные'
+            //    : 'Возникла ошибка при соединении. Перезагрузите страницу';
 
-        checkUnauthorized(response) {
-            let result = {
-                response: response,
-                isAuthOk: response.status != 401,
-                exception: response.status != 200 && response.status != 400
-            }
-
-            return result
+            //this.setState({ errorMessage });
+            alert('Error');
         }
 
         update() {
@@ -139,9 +121,8 @@ export const Authentication = (WrappedComponent) => {
                 user.patronymic = authorizationData.patronymic;
                 user.photoPath = authorizationData.photoPath;
             }
-
-            let state = { user: user };
-            this.setState(state);
+            
+            this.setState({ user });
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿export default Urls = {
+﻿const Urls = {
     check: '/api/check',
     token: '/api/token',
     account: {
@@ -32,3 +32,5 @@
     },
     courseProgress: (courseId) => `/api/courseReport/${courseId}`
 }
+
+export default Urls;

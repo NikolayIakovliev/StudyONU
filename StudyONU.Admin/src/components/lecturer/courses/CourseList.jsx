@@ -19,7 +19,6 @@ export class CourseList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null
         };
@@ -33,7 +32,6 @@ export class CourseList extends React.Component {
         const {
             loaded,
             items,
-            errors,
             itemEditRequest,
             itemDeleteRequest
         } = this.state;
@@ -42,8 +40,6 @@ export class CourseList extends React.Component {
 
         if (!loaded) {
             render = <Loading />;
-        } else if (errors.length) {
-            render = <div>Возникла ошибка!</div>;
         } else {
             render = (
                 <div>
@@ -96,52 +92,19 @@ export class CourseList extends React.Component {
     }
 
     getSpecialities(callback) {
-        this.props.get(Urls.specialities, result => {
-            if (result.success === true) {
-                callback(result.data);
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-            }
-        });
+        this.props.get(Urls.specialities, data => callback(data));
     }
 
     modifyItem(method, data) {
-        let reload = () => this.load();
-        method(Urls.courses, data, result => {
-            if (result.success === true) {
-                reload();
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        method(Urls.courses, data, () => this.load());
     }
 
     load() {
-        let self = this;
-
-        this.props.get(Urls.courses, result => {
-            let newState = {
-                loaded: true,
-                itemEditRequest: null,
-                itemDeleteRequest: null,
-                errors: result.errors,
-                items: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            if (result.success != true) {
-                // TODO
-                // implement error display
-                console.log(result);
-            }
-
-            self.setState(newState);
-        });
+        this.props.get(Urls.courses, data => this.setState({
+            loaded: true,
+            itemEditRequest: null,
+            itemDeleteRequest: null,
+            items: data
+        }));
     }
 }

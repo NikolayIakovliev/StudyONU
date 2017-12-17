@@ -67,8 +67,7 @@ export class SentReportBox extends React.Component {
     }
 
     startChecking(report) {
-        let self = this;
-        this.props.put(Urls.reports.check(report.taskId, report.studentEmail), null, result => self.load());
+        this.props.put(Urls.reports.check(report.taskId, report.studentEmail), null, () => this.load());
     }
 
     sendComment(text) {
@@ -80,9 +79,8 @@ export class SentReportBox extends React.Component {
             studentEmail: studentEmail,
             taskId: taskId
         }
-
-        let self = this;
-        this.props.post(Urls.comments.create, data, result => self.loadComments(taskId, studentEmail));
+        
+        this.props.post(Urls.comments.create, data, () => this.loadComments(taskId, studentEmail));
     }
 
     openFile(filePath) {
@@ -90,25 +88,22 @@ export class SentReportBox extends React.Component {
     }
 
     load() {
-        let self = this;
-        this.props.get(Urls.reports.sent, result => {
-            self.setState({
-                items: result.data,
-                loaded: true,
-                comments: [],
-                openComments: false,
-                taskId: null,
-                studentEmail: null
-            });
-        });
+        this.props.get(Urls.reports.sent, data => this.setState({
+            items: data,
+            loaded: true,
+            comments: [],
+            openComments: false,
+            taskId: null,
+            studentEmail: null
+        }));
     }
 
     loadComments(taskId, studentEmail) {
         let self = this;
         let url = Urls.comments.list(taskId, studentEmail);
 
-        this.props.get(url, result => {
-            let comments = result.data.map(comment => {
+        this.props.get(url, data => {
+            let comments = data.map(comment => {
                 comment.dateCreated = DateHelper.toDate(comment.dateCreated, '.');
                 comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 

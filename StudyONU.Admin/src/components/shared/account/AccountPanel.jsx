@@ -41,12 +41,6 @@ export class AccountPanel extends React.Component {
     }
 
     onPasswordChange(data, onSuccess, onError) {
-        this.props.post(Urls.account.password, data, result => {
-            if (result.success === true) {
-                onSuccess();
-            } else {
-                onError();
-            }
-        });
+        this.props.post(Urls.account.password, data, onSuccess, onError);
     }
 }

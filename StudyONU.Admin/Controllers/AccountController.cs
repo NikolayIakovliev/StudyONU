@@ -43,7 +43,14 @@ namespace StudyONU.Admin.Controllers
 
         [HttpPost]
         [Route("/api/check")]
-        public IActionResult IsTokenValid() => Ok();
+        public IActionResult IsTokenValid()
+        {
+            return GenerateResponse(new ServiceMessage
+            {
+                ActionResult = ServiceActionResult.Success,
+                Errors = new ErrorCollection()
+            });
+        }
 
         [HttpPost]
         [Route("/api/account/password")]

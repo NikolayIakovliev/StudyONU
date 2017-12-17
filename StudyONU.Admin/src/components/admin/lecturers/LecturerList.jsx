@@ -18,7 +18,6 @@ export class LecturerList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null
         };
@@ -32,7 +31,6 @@ export class LecturerList extends React.Component {
         const {
             loaded,
             items,
-            errors,
             itemEditRequest,
             itemDeleteRequest
         } = this.state;
@@ -41,8 +39,6 @@ export class LecturerList extends React.Component {
 
         if (!loaded) {
             render = <Loading />;
-        } else if (errors.length > 0) {
-            render = <div>Возникла ошибка!</div>;
         } else {
             render = (
                 <div>
@@ -95,40 +91,15 @@ export class LecturerList extends React.Component {
     }
 
     modifyItem(method, data) {
-        let reload = () => this.load();
-        method(Urls.lecturers, data, result => {
-            if (result.success === true) {
-                reload();
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        method(Urls.lecturers, data, () => this.load());
     }
 
     load() {
-        let self = this;
-
-        this.props.get(Urls.lecturers, response => {
-            let newState = {
-                loaded: true,
-                itemEditRequest: null,
-                itemDeleteRequest: null,
-                errors: response.errors,
-                items: response.success === true
-                    ? response.data
-                    : []
-            }
-
-            if (response.success != true) {
-                // TODO
-                // implement error display
-                console.log(result);
-            }
-
-            self.setState(newState);
-        });
+        this.props.get(Urls.lecturers, data => this.setState({
+            loaded: true,
+            itemEditRequest: null,
+            itemDeleteRequest: null,
+            items: data
+        }));
     }
 }

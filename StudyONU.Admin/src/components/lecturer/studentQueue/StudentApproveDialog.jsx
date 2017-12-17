@@ -17,13 +17,9 @@ export class StudentApproveDialog extends React.Component {
     }
 
     componentDidMount() {
-        let self = this;
-
-        this.props.getCourses(this.state.studentId, result => {
-            self.setState({
-                recommendedItems: result.data.map(course => { return { course: course, checked: true } })
-            });
-        });
+        this.props.getCourses(this.state.studentId, data => this.setState({
+            recommendedItems: data.map(course => { return { course: course, checked: true } })
+        }));
     }
 
     render() {

@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import { urls } from '../../../shared/api';
 import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
@@ -22,7 +21,6 @@ export class TaskList extends React.Component {
         this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null,
             sortCourses: [],
@@ -52,8 +50,6 @@ export class TaskList extends React.Component {
 
         if (!loaded) {
             render = <Loading />;
-        } else if (errors.length) {
-            render = <div>Возникла ошибка!</div>;
         } else {
             render = (
                 <div>
@@ -128,53 +124,21 @@ export class TaskList extends React.Component {
     }
 
     getCourses(callback) {
-        this.props.get(Urls.courses, result => {
-            if (result.success === true) {
-                callback(result.data);
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        this.props.get(Urls.courses, data => callback(data));
     }
 
     modifyItem(method, data, url = Urls.tasks.common) {
-        let reload = () => this.load();
-        method(url, data, result => {
-            if (result.success === true) {
-                reload();
-            } else {
-                // TODO
-                // implement error display
-                alert('Error');
-                console.log(result);
-            }
-        });
+        method(url, data, () => this.load());
     }
 
     load() {
+        this.props.get(Urls.courses, data => this.setState({
+            sortCourses: data
+        }));
+
         let self = this;
-
-        this.props.get(Urls.courses, result => {
-            self.setState({
-                sortCourses: result.data
-            });
-        });
-
-        this.props.get(Urls.tasks.common, result => {
-            let newState = {
-                loaded: true,
-                itemEditRequest: null,
-                itemDeleteRequest: null,
-                errors: result.errors,
-                items: result.success === true
-                    ? result.data
-                    : []
-            }
-
-            newState.items = newState.items.map(item => {
+        this.props.get(Urls.tasks.common, data => {
+            const items = data.map(item => {
                 if (item.dateAvailable) {
                     item.dateAvailable = DateHelper.toDate(item.dateAvailable, '.');
                 }
@@ -185,13 +149,12 @@ export class TaskList extends React.Component {
                 return item;
             });
 
-            if (result.success != true) {
-                // TODO
-                // implement error display
-                console.log(result);
-            }
-
-            self.setState(newState);
+            self.setState({
+                loaded: true,
+                itemEditRequest: null,
+                itemDeleteRequest: null,
+                items: items
+            });
         });
     }
 }

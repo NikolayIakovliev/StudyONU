@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5f3156aebe7e62a5722a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5be4e769a625a50d65f9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1579,14 +1579,6 @@ exports.default = _List3.default;
 
 /***/ }),
 /* 21 */
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.5.1' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1595,7 +1587,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = Urls = {
+var Urls = {
     check: '/api/check',
     token: '/api/token',
     account: {
@@ -1643,6 +1635,16 @@ exports.default = Urls = {
         return '/api/courseReport/' + courseId;
     }
 };
+
+exports.default = Urls;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.1' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
 
 /***/ }),
 /* 23 */
@@ -2167,7 +2169,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(32);
-var core = __webpack_require__(21);
+var core = __webpack_require__(22);
 var ctx = __webpack_require__(107);
 var hide = __webpack_require__(48);
 var PROTOTYPE = 'prototype';
@@ -6477,7 +6479,7 @@ module.exports = identity;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.urls = exports.Api = undefined;
+exports.Api = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -6492,25 +6494,21 @@ var Api = exports.Api = function () {
 
     _createClass(Api, null, [{
         key: 'get',
-        value: function get(url) {
+        value: function get(url, onSuccess, onError) {
             var init = createInit('GET');
 
-            return fetch(url, init).catch(function (error) {
-                return console.log(error);
-            });
+            Api.sendRequest(url, init, onSuccess, onError);
         }
     }, {
         key: 'post',
-        value: function post(url, data) {
+        value: function post(url, data, onSuccess, onError) {
             var init = createInit('POST', data);
 
-            return fetch(url, init).catch(function (error) {
-                return console.log(error);
-            });
+            Api.sendRequest(url, init, onSuccess, onError);
         }
     }, {
         key: 'postFormData',
-        value: function postFormData(url, data) {
+        value: function postFormData(url, data, onSuccess, onError) {
             var authorizationData = _authorizationData.AuthorizationData.get();
             var token = authorizationData.token;
 
@@ -6537,22 +6535,18 @@ var Api = exports.Api = function () {
                 body: formData
             };
 
-            return fetch(url, init).catch(function (error) {
-                return console.log(error);
-            });
+            Api.sendRequest(url, init, onSuccess, onError);
         }
     }, {
         key: 'put',
-        value: function put(url, data) {
+        value: function put(url, data, onSuccess, onError) {
             var init = createInit('PUT', data);
 
-            return fetch(url, init).catch(function (error) {
-                return console.log(error);
-            });
+            Api.sendRequest(url, init, onSuccess, onError);
         }
     }, {
         key: 'putFormData',
-        value: function putFormData(url, data) {
+        value: function putFormData(url, data, onSuccess, onError) {
             var authorizationData = _authorizationData.AuthorizationData.get();
             var token = authorizationData.token;
 
@@ -6579,102 +6573,72 @@ var Api = exports.Api = function () {
                 body: formData
             };
 
-            return fetch(url, init).catch(function (error) {
-                return console.log(error);
-            });
+            Api.sendRequest(url, init, onSuccess, onError);
         }
     }, {
         key: 'delete',
-        value: function _delete(url, data) {
+        value: function _delete(url, data, onSuccess, onError) {
             var init = createInit('DELETE', data);
 
-            return fetch(url, init).catch(function (error) {
-                return console.log(error);
-            });
+            Api.sendRequest(url, init, onSuccess, onError);
         }
     }, {
-        key: 'token',
-        value: function token(data, onComplete) {
-            var init = {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            };
-
-            fetch(urls.token, init).then(checkStatus).then(function (res) {
-                return res.json();
-            }).then(function (res) {
-                return onComplete(res);
-            }).catch(function (error) {
-                return console.log(error);
+        key: 'sendRequest',
+        value: function sendRequest(url, init, onSuccess, onError) {
+            var promise = fetch(url, init).then(function (response) {
+                return Api.checkResponse(response, onError);
             });
+            if (promise) {
+                promise.then(function (response) {
+                    return response.json();
+                }).then(function (result) {
+                    return Api.checkResult(result, onSuccess, onError);
+                }).catch(Api.log);
+            }
+        }
+    }, {
+        key: 'checkResponse',
+        value: function checkResponse(response, onError) {
+            if (response.status == 401) {
+                _authorizationData.AuthorizationData.clear();
+                return;
+            }
+
+            if (response.ok) {
+                return response;
+            } else if (onError) {
+                onError(response, false);
+            } else {
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }
+    }, {
+        key: 'checkResult',
+        value: function checkResult(result, onSuccess, onError) {
+            if (result.success) {
+                if (onSuccess) {
+                    var data = result.data || result;
+                    onSuccess(data);
+                }
+            } else {
+                if (onError) {
+                    onError(result.errors, true);
+                }
+                Api.log(result.errors);
+            }
+        }
+    }, {
+        key: 'log',
+        value: function log(error) {
+            // TODO implement logging
+            console.error(error);
         }
     }]);
 
     return Api;
 }();
-
-var urls = exports.urls = {
-    check: '/api/check',
-    token: '/api/token',
-    account: {
-        password: '/api/account/password',
-        info: '/api/account'
-    },
-    lecturers: '/api/lecturers',
-    specialities: '/api/specialities',
-    courses: '/api/courses',
-    guides: '/api/guides',
-    tasks: {
-        common: '/api/tasks',
-        files: '/api/tasks/files'
-    },
-    studentQueue: {
-        list: '/api/studentQueue',
-        courses: function courses(id) {
-            return '/api/studentQueue/' + id + '/courses';
-        },
-        approve: '/api/studentQueue/approve',
-        disapprove: function disapprove(id) {
-            return '/api/studentQueue/' + id + '/disapprove';
-        }
-    },
-    reports: {
-        sent: '/api/reports/sent',
-        onCheck: '/api/reports/oncheck',
-        check: function check(taskId, studentEmail) {
-            return '/api/reports/check?taskId=' + taskId + '&studentEmail=' + studentEmail;
-        },
-        accept: function accept(taskId, studentEmail, mark) {
-            return '/api/reports/accept?taskId=' + taskId + '&studentEmail=' + studentEmail + '&mark=' + mark;
-        },
-        reject: function reject(taskId, studentEmail) {
-            return '/api/reports/reject?taskId=' + taskId + '&studentEmail=' + studentEmail;
-        }
-    },
-    comments: {
-        create: '/api/comments',
-        list: function list(taskId, studentEmail) {
-            return '/api/comments?taskId=' + taskId + '&studentEmail=' + studentEmail;
-        }
-    },
-    courseProgress: function courseProgress(courseId) {
-        return '/api/courseReport/' + courseId;
-    }
-};
-
-var checkStatus = function checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
-    }
-
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-};
 
 var createInit = function createInit(method, data) {
     var init = {
@@ -6688,13 +6652,19 @@ var createInit = function createInit(method, data) {
 
 var headers = function headers() {
     var authorizationData = _authorizationData.AuthorizationData.get();
-    var token = authorizationData.token;
 
-    return {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-    };
+    if (authorizationData && authorizationData.token) {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authorizationData.token
+        };
+    } else {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+    }
 };
 
 /***/ }),
@@ -6714,12 +6684,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var authorizationKey = 'authorization';
 
+var _subscribers = [];
+
 var AuthorizationData = exports.AuthorizationData = function () {
     function AuthorizationData() {
         _classCallCheck(this, AuthorizationData);
     }
 
     _createClass(AuthorizationData, null, [{
+        key: 'subscribe',
+        value: function subscribe(subscriber) {
+            AuthorizationData.subscribers.push(subscriber);
+        }
+    }, {
         key: 'any',
         value: function any() {
             var authorization = localStorage.getItem(authorizationKey);
@@ -6738,11 +6715,28 @@ var AuthorizationData = exports.AuthorizationData = function () {
         value: function save(data) {
             var json = JSON.stringify(data);
             localStorage.setItem(authorizationKey, json);
+
+            AuthorizationData.notify();
         }
     }, {
         key: 'clear',
         value: function clear() {
             localStorage.clear();
+
+            AuthorizationData.notify();
+        }
+    }, {
+        key: 'notify',
+        value: function notify() {
+            for (var i = 0; i < AuthorizationData.subscribers.length; i++) {
+                var subscriber = AuthorizationData.subscribers[i];
+                subscriber.update();
+            }
+        }
+    }, {
+        key: 'subscribers',
+        get: function get() {
+            return _subscribers;
         }
     }]);
 
@@ -6953,7 +6947,7 @@ exports.f = __webpack_require__(27);
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(32);
-var core = __webpack_require__(21);
+var core = __webpack_require__(22);
 var LIBRARY = __webpack_require__(110);
 var wksExt = __webpack_require__(115);
 var defineProperty = __webpack_require__(34).f;
@@ -9978,7 +9972,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(33);
-var core = __webpack_require__(21);
+var core = __webpack_require__(22);
 var fails = __webpack_require__(50);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
@@ -19258,7 +19252,7 @@ var _authorizationData = __webpack_require__(102);
 
 var _api = __webpack_require__(101);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -19292,139 +19286,135 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                     photoPath: ''
                 }
             };
+
+            _authorizationData.AuthorizationData.subscribe(_this);
             return _this;
         }
 
         _createClass(WithAuthentication, [{
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var self = this;
-                _api.Api.post(_urls2.default.check, null).then(function (response) {
-                    if (response.status == 401) {
-                        _authorizationData.AuthorizationData.clear();
-                    }
+                var _this2 = this;
 
-                    self.update();
-                });
+                var onSuccess = function onSuccess() {
+                    return _this2.update();
+                };
+                var onError = function onError() {
+                    _authorizationData.AuthorizationData.clear();
+                    _this2.update();
+                };
+
+                _api.Api.post(_urls2.default.check, null, onSuccess, onError);
             }
         }, {
             key: 'render',
             value: function render() {
-                var _this2 = this;
+                var _this3 = this;
 
                 var user = this.state.user;
 
                 var renderedComponent = user.role ? React.createElement(WrappedComponent, {
                     user: user,
-                    get: function get(url, callback) {
-                        return _this2.get(url, callback);
+                    get: function get(url, onSuccess, onError) {
+                        return _this3.get(url, onSuccess, onError);
                     },
-                    post: function post(url, data, callback) {
-                        return _this2.post(url, data, callback);
+                    post: function post(url, data, onSuccess, onError) {
+                        return _this3.post(url, data, onSuccess, onError);
                     },
-                    postFormData: function postFormData(url, data, callback) {
-                        return _this2.postFormData(url, data, callback);
+                    postFormData: function postFormData(url, data, onSuccess, onError) {
+                        return _this3.postFormData(url, data, onSuccess, onError);
                     },
-                    put: function put(url, data, callback) {
-                        return _this2.put(url, data, callback);
+                    put: function put(url, data, onSuccess, onError) {
+                        return _this3.put(url, data, onSuccess, onError);
                     },
-                    putFormData: function putFormData(url, data, callback) {
-                        return _this2.putFormData(url, data, callback);
+                    putFormData: function putFormData(url, data, onSuccess, onError) {
+                        return _this3.putFormData(url, data, onSuccess, onError);
                     },
-                    'delete': function _delete(url, data, callback) {
-                        return _this2.delete(url, data, callback);
+                    'delete': function _delete(url, data, onSuccess, onError) {
+                        return _this3.delete(url, data, onSuccess, onError);
                     },
                     onLogout: function onLogout() {
-                        _authorizationData.AuthorizationData.clear();
-                        _this2.update();
-                    } }) : React.createElement(_Login.Login, {
+                        return _authorizationData.AuthorizationData.clear();
+                    }
+                }) : React.createElement(_Login.Login, {
                     onLoginSuccess: function onLoginSuccess(data) {
                         _authorizationData.AuthorizationData.save(data);
-                        _this2.update();
-                        _this2.props.history.push('/');
+                        _this3.update();
+                        _this3.props.history.push('/');
                     } });
 
                 return renderedComponent;
             }
         }, {
             key: 'get',
-            value: function get(url, callback) {
-                var method = function method() {
-                    return _api.Api.get(url);
+            value: function get(url, onSuccess, onError) {
+                var _this4 = this;
+
+                var _onError = onError || function (errors) {
+                    return _this4.onError(errors);
                 };
-                this.callApi(method, callback);
+                _api.Api.get(url, onSuccess, _onError);
             }
         }, {
             key: 'post',
-            value: function post(url, data, callback) {
-                var method = function method() {
-                    return _api.Api.post(url, data);
+            value: function post(url, data, onSuccess, onError) {
+                var _this5 = this;
+
+                var _onError = onError || function (errors) {
+                    return _this5.onError(errors);
                 };
-                this.callApi(method, callback);
+                _api.Api.post(url, data, onSuccess, _onError);
             }
         }, {
             key: 'postFormData',
-            value: function postFormData(url, data, callback) {
-                var method = function method() {
-                    return _api.Api.postFormData(url, data);
+            value: function postFormData(url, data, onSuccess, onError) {
+                var _this6 = this;
+
+                var _onError = onError || function (errors) {
+                    return _this6.onError(errors);
                 };
-                this.callApi(method, callback);
+                _api.Api.postFormData(url, data, onSuccess, _onError);
             }
         }, {
             key: 'put',
-            value: function put(url, data, callback) {
-                var method = function method() {
-                    return _api.Api.put(url, data);
+            value: function put(url, data, onSuccess, onError) {
+                var _this7 = this;
+
+                var _onError = onError || function (errors) {
+                    return _this7.onError(errors);
                 };
-                this.callApi(method, callback);
+                _api.Api.put(url, data, onSuccess, _onError);
             }
         }, {
             key: 'putFormData',
-            value: function putFormData(url, data, callback) {
-                var method = function method() {
-                    return _api.Api.putFormData(url, data);
+            value: function putFormData(url, data, onSuccess, onError) {
+                var _this8 = this;
+
+                var _onError = onError || function (errors) {
+                    return _this8.onError(errors);
                 };
-                this.callApi(method, callback);
+                _api.Api.putFormData(url, data, onSuccess, _onError);
             }
         }, {
             key: 'delete',
-            value: function _delete(url, data, callback) {
-                var method = function method() {
-                    return _api.Api.delete(url, data);
+            value: function _delete(url, data, onSuccess, onError) {
+                var _this9 = this;
+
+                var _onError = onError || function (errors) {
+                    return _this9.onError(errors);
                 };
-                this.callApi(method, callback);
+                _api.Api.delete(url, data, onSuccess, _onError);
             }
         }, {
-            key: 'callApi',
-            value: function callApi(method, callback) {
-                var _this3 = this;
+            key: 'onError',
+            value: function onError(errors) {
+                // TODO
+                //let errorMessage = errors.common != undefined
+                //    ? 'Неправильно введены данные'
+                //    : 'Возникла ошибка при соединении. Перезагрузите страницу';
 
-                var self = this;
-                method().then(function (response) {
-                    return _this3.checkUnauthorized(response);
-                }).then(function (result) {
-                    if (!result.isAuthOk) {
-                        _authorizationData.AuthorizationData.clear();
-                        self.update();
-                    } else if (result.exception) {
-                        console.error(result.response);
-                    } else {
-                        result.response.json().then(function (r) {
-                            return callback(r);
-                        });
-                    }
-                });
-            }
-        }, {
-            key: 'checkUnauthorized',
-            value: function checkUnauthorized(response) {
-                var result = {
-                    response: response,
-                    isAuthOk: response.status != 401,
-                    exception: response.status != 200 && response.status != 400
-                };
-
-                return result;
+                //this.setState({ errorMessage });
+                alert('Error');
             }
         }, {
             key: 'update',
@@ -19451,8 +19441,7 @@ var Authentication = exports.Authentication = function Authentication(WrappedCom
                     user.photoPath = authorizationData.photoPath;
                 }
 
-                var state = { user: user };
-                this.setState(state);
+                this.setState({ user: user });
             }
         }]);
 
@@ -19480,7 +19469,13 @@ var React = _interopRequireWildcard(_react);
 
 var _api = __webpack_require__(101);
 
+var _urls = __webpack_require__(21);
+
+var _urls2 = _interopRequireDefault(_urls);
+
 __webpack_require__(340);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -19607,15 +19602,21 @@ var Login = exports.Login = function (_React$Component) {
         value: function sendForm() {
             var _this3 = this;
 
-            var response = _api.Api.token(this.state, function (response) {
-                if (response.success) {
-                    _this3.props.onLoginSuccess(response.data);
-                } else {
-                    _this3.setState({
-                        error: 'Неверно введена почта или пароль'
-                    });
-                }
-            });
+            var data = {
+                email: this.state.email,
+                password: this.state.password
+            };
+
+            var onSuccess = function onSuccess(data) {
+                return _this3.props.onLoginSuccess(data);
+            };
+            var onError = function onError() {
+                return _this3.setState({
+                    error: 'Неверно введена почта или пароль'
+                });
+            };
+
+            _api.Api.post(_urls2.default.token, data, onSuccess, onError);
         }
     }]);
 
@@ -20084,7 +20085,7 @@ exports.default = MuiThemeProvider;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(346);
-module.exports = __webpack_require__(21).Object.getPrototypeOf;
+module.exports = __webpack_require__(22).Object.getPrototypeOf;
 
 
 /***/ }),
@@ -20117,7 +20118,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(349);
-var $Object = __webpack_require__(21).Object;
+var $Object = __webpack_require__(22).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
@@ -20355,7 +20356,7 @@ __webpack_require__(364);
 __webpack_require__(369);
 __webpack_require__(370);
 __webpack_require__(371);
-module.exports = __webpack_require__(21).Symbol;
+module.exports = __webpack_require__(22).Symbol;
 
 
 /***/ }),
@@ -20746,7 +20747,7 @@ module.exports = { "default": __webpack_require__(373), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(374);
-module.exports = __webpack_require__(21).Object.setPrototypeOf;
+module.exports = __webpack_require__(22).Object.setPrototypeOf;
 
 
 /***/ }),
@@ -20800,7 +20801,7 @@ module.exports = { "default": __webpack_require__(377), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(378);
-var $Object = __webpack_require__(21).Object;
+var $Object = __webpack_require__(22).Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
@@ -21209,7 +21210,7 @@ function getMuiTheme(muiTheme) {
 
 __webpack_require__(178);
 __webpack_require__(381);
-module.exports = __webpack_require__(21).Array.from;
+module.exports = __webpack_require__(22).Array.from;
 
 
 /***/ }),
@@ -21310,7 +21311,7 @@ module.exports = function (object, index, value) {
 var classof = __webpack_require__(386);
 var ITERATOR = __webpack_require__(27)('iterator');
 var Iterators = __webpack_require__(64);
-module.exports = __webpack_require__(21).getIteratorMethod = function (it) {
+module.exports = __webpack_require__(22).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -25736,7 +25737,7 @@ function rtl(muiTheme) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(420);
-module.exports = __webpack_require__(21).Object.keys;
+module.exports = __webpack_require__(22).Object.keys;
 
 
 /***/ }),
@@ -26467,7 +26468,7 @@ var _LecturerForm = __webpack_require__(475);
 
 var _LecturerEditDialog = __webpack_require__(490);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -26492,7 +26493,6 @@ var LecturerList = exports.LecturerList = function (_React$Component) {
         _this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null
         };
@@ -26512,7 +26512,6 @@ var LecturerList = exports.LecturerList = function (_React$Component) {
             var _state = this.state,
                 loaded = _state.loaded,
                 items = _state.items,
-                errors = _state.errors,
                 itemEditRequest = _state.itemEditRequest,
                 itemDeleteRequest = _state.itemDeleteRequest;
 
@@ -26521,12 +26520,6 @@ var LecturerList = exports.LecturerList = function (_React$Component) {
 
             if (!loaded) {
                 render = React.createElement(_Loading.Loading, null);
-            } else if (errors.length > 0) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
-                );
             } else {
                 render = React.createElement(
                     'div',
@@ -26602,41 +26595,22 @@ var LecturerList = exports.LecturerList = function (_React$Component) {
         value: function modifyItem(method, data) {
             var _this3 = this;
 
-            var reload = function reload() {
+            method(_urls2.default.lecturers, data, function () {
                 return _this3.load();
-            };
-            method(_urls2.default.lecturers, data, function (result) {
-                if (result.success === true) {
-                    reload();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
             });
         }
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this4 = this;
 
-            this.props.get(_urls2.default.lecturers, function (response) {
-                var newState = {
+            this.props.get(_urls2.default.lecturers, function (data) {
+                return _this4.setState({
                     loaded: true,
                     itemEditRequest: null,
                     itemDeleteRequest: null,
-                    errors: response.errors,
-                    items: response.success === true ? response.data : []
-                };
-
-                if (response.success != true) {
-                    // TODO
-                    // implement error display
-                    console.log(result);
-                }
-
-                self.setState(newState);
+                    items: data
+                });
             });
         }
     }]);
@@ -26649,7 +26623,7 @@ var LecturerList = exports.LecturerList = function (_React$Component) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(436);
-module.exports = __webpack_require__(21).Object.assign;
+module.exports = __webpack_require__(22).Object.assign;
 
 
 /***/ }),
@@ -34862,7 +34836,7 @@ var _SpecialityForm = __webpack_require__(494);
 
 var _SpecialityEditDialog = __webpack_require__(496);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -34887,7 +34861,6 @@ var SpecialityList = exports.SpecialityList = function (_React$Component) {
         _this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null
         };
@@ -34907,7 +34880,6 @@ var SpecialityList = exports.SpecialityList = function (_React$Component) {
             var _state = this.state,
                 loaded = _state.loaded,
                 items = _state.items,
-                errors = _state.errors,
                 itemEditRequest = _state.itemEditRequest,
                 itemDeleteRequest = _state.itemDeleteRequest;
 
@@ -34916,12 +34888,6 @@ var SpecialityList = exports.SpecialityList = function (_React$Component) {
 
             if (!loaded) {
                 render = React.createElement(_Loading.Loading, null);
-            } else if (errors.length) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
-                );
             } else {
                 render = React.createElement(
                     'div',
@@ -34986,41 +34952,22 @@ var SpecialityList = exports.SpecialityList = function (_React$Component) {
         value: function modifyItem(method, data) {
             var _this3 = this;
 
-            var reload = function reload() {
+            method(_urls2.default.specialities, data, function () {
                 return _this3.load();
-            };
-            method(_urls2.default.specialities, data, function (result) {
-                if (result.success === true) {
-                    reload();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
             });
         }
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this4 = this;
 
-            this.props.get(_urls2.default.specialities, function (response) {
-                var newState = {
+            this.props.get(_urls2.default.specialities, function (data) {
+                return _this4.setState({
                     loaded: true,
                     itemEditRequest: null,
                     itemDeleteRequest: null,
-                    errors: response.errors,
-                    items: response.success === true ? response.data : []
-                };
-
-                if (response.success != true) {
-                    // TODO
-                    // implement error display
-                    console.log(result);
-                }
-
-                self.setState(newState);
+                    items: data
+                });
             });
         }
     }]);
@@ -35430,7 +35377,7 @@ var _CourseForm = __webpack_require__(502);
 
 var _CourseEditDialog = __webpack_require__(512);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -35455,7 +35402,6 @@ var CourseList = exports.CourseList = function (_React$Component) {
         _this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null
         };
@@ -35475,7 +35421,6 @@ var CourseList = exports.CourseList = function (_React$Component) {
             var _state = this.state,
                 loaded = _state.loaded,
                 items = _state.items,
-                errors = _state.errors,
                 itemEditRequest = _state.itemEditRequest,
                 itemDeleteRequest = _state.itemDeleteRequest;
 
@@ -35484,12 +35429,6 @@ var CourseList = exports.CourseList = function (_React$Component) {
 
             if (!loaded) {
                 render = React.createElement(_Loading.Loading, null);
-            } else if (errors.length) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
-                );
             } else {
                 render = React.createElement(
                     'div',
@@ -35567,14 +35506,8 @@ var CourseList = exports.CourseList = function (_React$Component) {
     }, {
         key: 'getSpecialities',
         value: function getSpecialities(callback) {
-            this.props.get(_urls2.default.specialities, function (result) {
-                if (result.success === true) {
-                    callback(result.data);
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                }
+            this.props.get(_urls2.default.specialities, function (data) {
+                return callback(data);
             });
         }
     }, {
@@ -35582,41 +35515,22 @@ var CourseList = exports.CourseList = function (_React$Component) {
         value: function modifyItem(method, data) {
             var _this3 = this;
 
-            var reload = function reload() {
+            method(_urls2.default.courses, data, function () {
                 return _this3.load();
-            };
-            method(_urls2.default.courses, data, function (result) {
-                if (result.success === true) {
-                    reload();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
             });
         }
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this4 = this;
 
-            this.props.get(_urls2.default.courses, function (result) {
-                var newState = {
+            this.props.get(_urls2.default.courses, function (data) {
+                return _this4.setState({
                     loaded: true,
                     itemEditRequest: null,
                     itemDeleteRequest: null,
-                    errors: result.errors,
-                    items: result.success === true ? result.data : []
-                };
-
-                if (result.success != true) {
-                    // TODO
-                    // implement error display
-                    console.log(result);
-                }
-
-                self.setState(newState);
+                    items: data
+                });
             });
         }
     }]);
@@ -37898,7 +37812,7 @@ var _GuideForm = __webpack_require__(521);
 
 var _GuideEditDialog = __webpack_require__(536);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -37927,7 +37841,6 @@ var GuideList = exports.GuideList = function (_React$Component) {
         _this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null,
             sortCourses: [],
@@ -37949,7 +37862,6 @@ var GuideList = exports.GuideList = function (_React$Component) {
             var _state = this.state,
                 loaded = _state.loaded,
                 items = _state.items,
-                errors = _state.errors,
                 itemEditRequest = _state.itemEditRequest,
                 itemDeleteRequest = _state.itemDeleteRequest,
                 sortCourses = _state.sortCourses,
@@ -37967,12 +37879,6 @@ var GuideList = exports.GuideList = function (_React$Component) {
 
             if (!loaded) {
                 render = React.createElement(_Loading.Loading, null);
-            } else if (errors.length) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
-                );
             } else {
                 render = React.createElement(
                     'div',
@@ -38058,15 +37964,8 @@ var GuideList = exports.GuideList = function (_React$Component) {
     }, {
         key: 'getCourses',
         value: function getCourses(callback) {
-            this.props.get(_urls2.default.courses, function (result) {
-                if (result.success === true) {
-                    callback(result.data);
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
+            this.props.get(_urls2.default.courses, function (data) {
+                return callback(data);
             });
         }
     }, {
@@ -38074,41 +37973,24 @@ var GuideList = exports.GuideList = function (_React$Component) {
         value: function modifyItem(method, data) {
             var _this3 = this;
 
-            var reload = function reload() {
+            method(_urls2.default.guides, data, function () {
                 return _this3.load();
-            };
-            method(_urls2.default.guides, data, function (result) {
-                if (result.success === true) {
-                    reload();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
             });
         }
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this4 = this;
 
-            this.props.get(_urls2.default.courses, function (result) {
-                self.setState({
-                    sortCourses: result.data
+            this.props.get(_urls2.default.courses, function (data) {
+                return _this4.setState({
+                    sortCourses: data
                 });
             });
 
-            this.props.get(_urls2.default.guides, function (result) {
-                var newState = {
-                    loaded: true,
-                    itemEditRequest: null,
-                    itemDeleteRequest: null,
-                    errors: result.errors,
-                    items: result.success === true ? result.data : []
-                };
-
-                newState.items = newState.items.map(function (item) {
+            var self = this;
+            this.props.get(_urls2.default.guides, function (data) {
+                var items = data.map(function (item) {
                     if (item.dateAvailable) {
                         item.dateAvailable = _date2.default.toDate(item.dateAvailable, '.');
                     }
@@ -38116,13 +37998,12 @@ var GuideList = exports.GuideList = function (_React$Component) {
                     return item;
                 });
 
-                if (result.success != true) {
-                    // TODO
-                    // implement error display
-                    console.log(result);
-                }
-
-                self.setState(newState);
+                self.setState({
+                    loaded: true,
+                    itemEditRequest: null,
+                    itemDeleteRequest: null,
+                    items: items
+                });
             });
         }
     }]);
@@ -42591,8 +42472,6 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _api = __webpack_require__(101);
-
 var _List = __webpack_require__(20);
 
 var _Subheader = __webpack_require__(18);
@@ -42621,7 +42500,7 @@ var _TaskForm = __webpack_require__(543);
 
 var _TaskEditDialog = __webpack_require__(545);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -42650,7 +42529,6 @@ var TaskList = exports.TaskList = function (_React$Component) {
         _this.state = {
             loaded: false,
             items: [],
-            errors: [],
             itemEditRequest: null,
             itemDeleteRequest: null,
             sortCourses: [],
@@ -42690,12 +42568,6 @@ var TaskList = exports.TaskList = function (_React$Component) {
 
             if (!loaded) {
                 render = React.createElement(_Loading.Loading, null);
-            } else if (errors.length) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
-                );
             } else {
                 render = React.createElement(
                     'div',
@@ -42795,15 +42667,8 @@ var TaskList = exports.TaskList = function (_React$Component) {
     }, {
         key: 'getCourses',
         value: function getCourses(callback) {
-            this.props.get(_urls2.default.courses, function (result) {
-                if (result.success === true) {
-                    callback(result.data);
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
+            this.props.get(_urls2.default.courses, function (data) {
+                return callback(data);
             });
         }
     }, {
@@ -42813,41 +42678,24 @@ var TaskList = exports.TaskList = function (_React$Component) {
 
             var url = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _urls2.default.tasks.common;
 
-            var reload = function reload() {
+            method(url, data, function () {
                 return _this3.load();
-            };
-            method(url, data, function (result) {
-                if (result.success === true) {
-                    reload();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
             });
         }
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this4 = this;
 
-            this.props.get(_urls2.default.courses, function (result) {
-                self.setState({
-                    sortCourses: result.data
+            this.props.get(_urls2.default.courses, function (data) {
+                return _this4.setState({
+                    sortCourses: data
                 });
             });
 
-            this.props.get(_urls2.default.tasks.common, function (result) {
-                var newState = {
-                    loaded: true,
-                    itemEditRequest: null,
-                    itemDeleteRequest: null,
-                    errors: result.errors,
-                    items: result.success === true ? result.data : []
-                };
-
-                newState.items = newState.items.map(function (item) {
+            var self = this;
+            this.props.get(_urls2.default.tasks.common, function (data) {
+                var items = data.map(function (item) {
                     if (item.dateAvailable) {
                         item.dateAvailable = _date2.default.toDate(item.dateAvailable, '.');
                     }
@@ -42858,13 +42706,12 @@ var TaskList = exports.TaskList = function (_React$Component) {
                     return item;
                 });
 
-                if (result.success != true) {
-                    // TODO
-                    // implement error display
-                    console.log(result);
-                }
-
-                self.setState(newState);
+                self.setState({
+                    loaded: true,
+                    itemEditRequest: null,
+                    itemDeleteRequest: null,
+                    items: items
+                });
             });
         }
     }]);
@@ -43905,7 +43752,7 @@ var _EmptyContent = __webpack_require__(55);
 
 var _StudentItem = __webpack_require__(548);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -43929,8 +43776,7 @@ var StudentQueueList = exports.StudentQueueList = function (_React$Component) {
 
         _this.state = {
             loaded: false,
-            items: [],
-            errors: []
+            items: []
         };
         return _this;
     }
@@ -43947,20 +43793,13 @@ var StudentQueueList = exports.StudentQueueList = function (_React$Component) {
 
             var _state = this.state,
                 loaded = _state.loaded,
-                items = _state.items,
-                errors = _state.errors;
+                items = _state.items;
 
 
             var render = void 0;
 
             if (!loaded) {
                 render = React.createElement(_Loading.Loading, null);
-            } else if (errors.length) {
-                render = React.createElement(
-                    'div',
-                    null,
-                    '\u0412\u043E\u0437\u043D\u0438\u043A\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430!'
-                );
             } else {
                 var getCourses = function getCourses(studentId, callback) {
                     return _this2.props.get(_urls2.default.studentQueue.courses(studentId), function (result) {
@@ -44027,41 +43866,22 @@ var StudentQueueList = exports.StudentQueueList = function (_React$Component) {
         value: function modify(url, data) {
             var _this3 = this;
 
-            var reload = function reload() {
+            this.props.post(url, data, function () {
                 return _this3.load();
-            };
-            this.props.post(url, data, function (result) {
-                if (result.success === true) {
-                    reload();
-                } else {
-                    // TODO
-                    // implement error display
-                    alert('Error');
-                    console.log(result);
-                }
             });
         }
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this4 = this;
 
-            this.props.get(_urls2.default.studentQueue.list, function (result) {
-                var newState = {
+            this.props.get(_urls2.default.studentQueue.list, function (data) {
+                return _this4.setState({
                     loaded: true,
                     itemActionRequest: null,
                     approve: null,
-                    errors: result.errors,
-                    items: result.success === true ? result.data : []
-                };
-
-                if (result.success != true) {
-                    // TODO
-                    // implement error display
-                    console.log(result);
-                }
-
-                self.setState(newState);
+                    items: data
+                });
             });
         }
     }]);
@@ -44328,11 +44148,11 @@ var StudentApproveDialog = exports.StudentApproveDialog = function (_React$Compo
     _createClass(StudentApproveDialog, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var self = this;
+            var _this2 = this;
 
-            this.props.getCourses(this.state.studentId, function (result) {
-                self.setState({
-                    recommendedItems: result.data.map(function (course) {
+            this.props.getCourses(this.state.studentId, function (data) {
+                return _this2.setState({
+                    recommendedItems: data.map(function (course) {
                         return { course: course, checked: true };
                     })
                 });
@@ -44341,7 +44161,7 @@ var StudentApproveDialog = exports.StudentApproveDialog = function (_React$Compo
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _state = this.state,
                 studentId = _state.studentId,
@@ -44357,13 +44177,13 @@ var StudentApproveDialog = exports.StudentApproveDialog = function (_React$Compo
                     }).map(function (item) {
                         return item.course.id;
                     });
-                    _this2.props.onApprove(courseIds);
+                    _this3.props.onApprove(courseIds);
                 }
             }), React.createElement(_FlatButton2.default, {
                 label: '\u041E\u0442\u043C\u0435\u043D\u0430',
                 primary: true,
                 onClick: function onClick() {
-                    return _this2.props.onRequestClose();
+                    return _this3.props.onRequestClose();
                 }
             })];
 
@@ -44374,7 +44194,7 @@ var StudentApproveDialog = exports.StudentApproveDialog = function (_React$Compo
                     actions: actions,
                     open: this.props.open,
                     onRequestClose: function onRequestClose() {
-                        return _this2.props.onRequestClose();
+                        return _this3.props.onRequestClose();
                     }
                 },
                 React.createElement(
@@ -44393,7 +44213,7 @@ var StudentApproveDialog = exports.StudentApproveDialog = function (_React$Compo
                         return React.createElement(_List.ListItem, {
                             key: item.course.id,
                             leftCheckbox: React.createElement(_Checkbox2.default, { checked: checked, onCheck: function onCheck(e, isChecked) {
-                                    return _this2.onCheck(item, isChecked);
+                                    return _this3.onCheck(item, isChecked);
                                 } }),
                             primaryText: course.name,
                             secondaryText: course.specialityName + ', ' + course.courseNumber + ' \u043A\u0443\u0440\u0441'
@@ -44442,7 +44262,7 @@ var React = _interopRequireWildcard(_react);
 
 var _EmptyContent = __webpack_require__(55);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -44545,14 +44365,17 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
     }, {
         key: 'startChecking',
         value: function startChecking(report) {
-            var self = this;
-            this.props.put(_urls2.default.reports.check(report.taskId, report.studentEmail), null, function (result) {
-                return self.load();
+            var _this3 = this;
+
+            this.props.put(_urls2.default.reports.check(report.taskId, report.studentEmail), null, function () {
+                return _this3.load();
             });
         }
     }, {
         key: 'sendComment',
         value: function sendComment(text) {
+            var _this4 = this;
+
             var studentEmail = this.state.studentEmail;
             var taskId = this.state.taskId;
 
@@ -44562,9 +44385,8 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
                 taskId: taskId
             };
 
-            var self = this;
-            this.props.post(_urls2.default.comments.create, data, function (result) {
-                return self.loadComments(taskId, studentEmail);
+            this.props.post(_urls2.default.comments.create, data, function () {
+                return _this4.loadComments(taskId, studentEmail);
             });
         }
     }, {
@@ -44575,10 +44397,11 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
-            this.props.get(_urls2.default.reports.sent, function (result) {
-                self.setState({
-                    items: result.data,
+            var _this5 = this;
+
+            this.props.get(_urls2.default.reports.sent, function (data) {
+                return _this5.setState({
+                    items: data,
                     loaded: true,
                     comments: [],
                     openComments: false,
@@ -44593,8 +44416,8 @@ var SentReportBox = exports.SentReportBox = function (_React$Component) {
             var self = this;
             var url = _urls2.default.comments.list(taskId, studentEmail);
 
-            this.props.get(url, function (result) {
-                var comments = result.data.map(function (comment) {
+            this.props.get(url, function (data) {
+                var comments = data.map(function (comment) {
                     comment.dateCreated = _date2.default.toDate(comment.dateCreated, '.');
                     comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
@@ -44938,7 +44761,7 @@ var _EmptyContent = __webpack_require__(55);
 
 var _download = __webpack_require__(556);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -45064,21 +44887,21 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
     }, {
         key: 'accept',
         value: function accept(report, mark) {
-            var self = this;
-            var url = _urls2.default.reports.accept(report.taskId, report.studentEmail, mark);
+            var _this3 = this;
 
-            this.props.put(url, null, function (result) {
-                return self.load();
+            var url = _urls2.default.reports.accept(report.taskId, report.studentEmail, mark);
+            this.props.put(url, null, function () {
+                return _this3.load();
             });
         }
     }, {
         key: 'reject',
         value: function reject(report) {
-            var self = this;
-            var url = _urls2.default.reports.reject(report.taskId, report.studentEmail);
+            var _this4 = this;
 
-            this.props.put(url, null, function (result) {
-                return self.load();
+            var url = _urls2.default.reports.reject(report.taskId, report.studentEmail);
+            this.props.put(url, null, function () {
+                return _this4.load();
             });
         }
     }, {
@@ -45095,6 +44918,8 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
     }, {
         key: 'sendComment',
         value: function sendComment(text) {
+            var _this5 = this;
+
             var studentEmail = this.state.studentEmail;
             var taskId = this.state.taskId;
 
@@ -45104,9 +44929,8 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
                 taskId: taskId
             };
 
-            var self = this;
-            this.props.post(_urls2.default.comments.create, data, function (result) {
-                return self.loadComments(taskId, studentEmail);
+            this.props.post(_urls2.default.comments.create, data, function () {
+                return _this5.loadComments(taskId, studentEmail);
             });
         }
     }, {
@@ -45117,10 +44941,11 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
-            this.props.get(_urls2.default.reports.onCheck, function (result) {
-                self.setState({
-                    items: result.data,
+            var _this6 = this;
+
+            this.props.get(_urls2.default.reports.onCheck, function (data) {
+                return _this6.setState({
+                    items: data,
                     loaded: true,
                     acceptItem: null,
                     comments: [],
@@ -45136,8 +44961,8 @@ var OnCheckReportBox = exports.OnCheckReportBox = function (_React$Component) {
             var self = this;
             var url = _urls2.default.comments.list(taskId, studentEmail);
 
-            this.props.get(url, function (result) {
-                var comments = result.data.map(function (comment) {
+            this.props.get(url, function (data) {
+                var comments = data.map(function (comment) {
                     comment.dateCreated = _date2.default.toDate(comment.dateCreated, '.');
                     comment.text = comment.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
@@ -45347,7 +45172,7 @@ var _Loading = __webpack_require__(44);
 
 var _Filter = __webpack_require__(137);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -45418,11 +45243,11 @@ var CourseProgress = exports.CourseProgress = function (_React$Component) {
     }, {
         key: 'load',
         value: function load() {
-            var self = this;
+            var _this2 = this;
 
-            this.props.get(_urls2.default.courses, function (result) {
-                self.setState({
-                    courses: result.data,
+            this.props.get(_urls2.default.courses, function (data) {
+                return _this2.setState({
+                    courses: data,
                     loaded: true
                 });
             });
@@ -45430,14 +45255,14 @@ var CourseProgress = exports.CourseProgress = function (_React$Component) {
     }, {
         key: 'getFilter',
         value: function getFilter(value) {
-            var _this2 = this;
+            var _this3 = this;
 
             return React.createElement(_Filter.Filter, {
                 value: value,
                 items: this.getCourses(),
                 defaultText: '\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0443\u0440\u0441',
                 onChange: function onChange(courseId) {
-                    return _this2.loadCourseProgress(courseId);
+                    return _this3.loadCourseProgress(courseId);
                 }
             });
         }
@@ -45456,9 +45281,9 @@ var CourseProgress = exports.CourseProgress = function (_React$Component) {
         value: function loadCourseProgress(courseId) {
             if (courseId) {
                 var self = this;
-                this.props.get(_urls2.default.courseProgress(courseId), function (result) {
-                    var tasks = result.data.tasks;
-                    var students = result.data.students;
+                this.props.get(_urls2.default.courseProgress(courseId), function (data) {
+                    var tasks = data.tasks;
+                    var students = data.students;
 
                     self.setState({
                         tasks: tasks,
@@ -47294,7 +47119,7 @@ var _AccountInfo = __webpack_require__(567);
 
 var _ChangePassword = __webpack_require__(568);
 
-var _urls = __webpack_require__(22);
+var _urls = __webpack_require__(21);
 
 var _urls2 = _interopRequireDefault(_urls);
 
@@ -47359,13 +47184,7 @@ var AccountPanel = exports.AccountPanel = function (_React$Component) {
     }, {
         key: 'onPasswordChange',
         value: function onPasswordChange(data, onSuccess, onError) {
-            this.props.post(_urls2.default.account.password, data, function (result) {
-                if (result.success === true) {
-                    onSuccess();
-                } else {
-                    onError();
-                }
-            });
+            this.props.post(_urls2.default.account.password, data, onSuccess, onError);
         }
     }]);
 

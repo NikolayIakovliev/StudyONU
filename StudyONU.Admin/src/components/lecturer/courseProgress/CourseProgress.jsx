@@ -53,14 +53,10 @@ export class CourseProgress extends React.Component {
     }
 
     load() {
-        let self = this;
-
-        this.props.get(Urls.courses, result => {
-            self.setState({
-                courses: result.data,
-                loaded: true
-            });
-        });
+        this.props.get(Urls.courses, data => this.setState({
+            courses: data,
+            loaded: true
+        }));
     }
 
     getFilter(value) {
@@ -84,9 +80,9 @@ export class CourseProgress extends React.Component {
     loadCourseProgress(courseId) {
         if (courseId) {
             let self = this;
-            this.props.get(Urls.courseProgress(courseId), result => {
-                const tasks = result.data.tasks;
-                const students = result.data.students;
+            this.props.get(Urls.courseProgress(courseId), data => {
+                const tasks = data.tasks;
+                const students = data.students;
 
                 self.setState({
                     tasks,
