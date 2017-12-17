@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Comment;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Web.Helpers;
 using StudyONU.Web.Models.Comment;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,11 +14,17 @@ namespace StudyONU.Web.Controllers
     {
         private readonly ICommentService service;
         private readonly IMapper mapper;
+        private readonly DomainHelper domainHelper;
 
-        public CommentsController(ICommentService service, IMapper mapper)
+        public CommentsController(
+            ICommentService service, 
+            IMapper mapper,
+            DomainHelper domainHelper
+            )
         {
             this.service = service;
             this.mapper = mapper;
+            this.domainHelper = domainHelper;
         }
 
         [HttpPost]
@@ -40,6 +47,14 @@ namespace StudyONU.Web.Controllers
             string email = GetUserEmail();
 
             DataServiceMessage<IEnumerable<CommentListDTO>> serviceMessage = await service.GetByTaskAndStudentAsync(taskId, email);
+
+            if (serviceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                foreach (var item in serviceMessage.Data)
+                {
+                    item.SenderPhoto = domainHelper.PrependDomain(item.SenderPhoto);
+                }
+            }
 
             return GenerateResponse(serviceMessage);
         }
