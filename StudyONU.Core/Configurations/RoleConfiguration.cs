@@ -12,10 +12,10 @@ namespace StudyONU.Core.Configurations
 
             builder.Property(entity => entity.Name)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(50);
             builder.Property(entity => entity.DisplayName)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(50);
         }
     }
 }

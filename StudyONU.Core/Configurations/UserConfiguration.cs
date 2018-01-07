@@ -12,13 +12,13 @@ namespace StudyONU.Core.Configurations
 
             builder.Property(entity => entity.FirstName)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(40);
             builder.Property(entity => entity.LastName)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(40);
             builder.Property(entity => entity.Patronymic)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(40);
             builder.Property(entity => entity.Email)
                 .IsRequired()
                 .HasMaxLength(254);

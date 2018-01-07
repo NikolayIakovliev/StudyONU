@@ -12,13 +12,13 @@ namespace StudyONU.Core.Configurations
 
             builder.Property(entity => entity.Name)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(200);
             builder.Property(entity => entity.FilePath)
                 .IsRequired()
                 .HasMaxLength(400);
             builder.Property(entity => entity.DateCreated)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.HasOne(entity => entity.Course)
                 .WithMany(entity => entity.Guides)

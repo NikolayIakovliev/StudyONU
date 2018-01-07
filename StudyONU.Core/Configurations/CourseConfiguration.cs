@@ -12,10 +12,10 @@ namespace StudyONU.Core.Configurations
 
             builder.Property(entity => entity.Name)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(200);
             builder.Property(entity => entity.DateCreated)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(entity => entity.CourseNumber)
                 .HasColumnType("tinyint")
                 .HasMaxLength(1);

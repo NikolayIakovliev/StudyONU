@@ -12,7 +12,7 @@ namespace StudyONU.Core.Configurations
 
             builder.Property(entity => entity.Text)
                 .IsRequired()
-                .HasMaxLength(600);
+                .HasMaxLength(1000);
 
             builder.HasOne(entity => entity.Sender)
                 .WithMany(entity => entity.Comments)
@@ -30,7 +30,7 @@ namespace StudyONU.Core.Configurations
 
             builder.Property(entity => entity.DateCreated)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

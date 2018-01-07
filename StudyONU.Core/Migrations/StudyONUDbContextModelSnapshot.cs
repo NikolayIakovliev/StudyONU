@@ -3,8 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
+using MySql.Data.EntityFrameworkCore.Storage.Internal;
 using StudyONU.Core;
 using StudyONU.Core.Infrastructure;
 using System;
@@ -18,8 +17,7 @@ namespace StudyONU.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("StudyONU.Core.Entities.AdminEntity", b =>
                 {
@@ -42,7 +40,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("SenderId");
 
@@ -52,7 +50,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(600);
+                        .HasMaxLength(1000);
 
                     b.HasKey("Id");
 
@@ -76,7 +74,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<bool>("IsPublished");
 
@@ -84,7 +82,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(200);
 
                     b.Property<int>("SpecialityId");
 
@@ -108,7 +106,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
@@ -116,7 +114,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -149,11 +147,11 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime>("DateModified")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("FilePaths")
                         .IsRequired();
@@ -176,11 +174,11 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(50);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -251,7 +249,7 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -259,15 +257,15 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<string>("PhotoPath")
                         .IsRequired()
@@ -319,17 +317,17 @@ namespace StudyONU.Core.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<string>("PhotoPath")
                         .IsRequired()

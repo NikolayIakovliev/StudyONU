@@ -11,7 +11,7 @@ namespace StudyONU.Logic.Extensions
         {
             string connectionString = configuration.GetConnectionString("Development");
 
-            services.AddDbContext<StudyONUDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<StudyONUDbContext>(options => options.UseMySQL(connectionString, x => x.MigrationsHistoryTable("efmigrationshistory")));
 
             return services;
         }

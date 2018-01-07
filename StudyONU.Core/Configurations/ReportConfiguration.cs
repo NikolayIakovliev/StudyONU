@@ -18,10 +18,10 @@ namespace StudyONU.Core.Configurations
                 .IsRequired();
             builder.Property(entity => entity.DateCreated)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(entity => entity.DateModified)
                 .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.HasOne(entity => entity.Task)
                 .WithMany(entity => entity.Reports)

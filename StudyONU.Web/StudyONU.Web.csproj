@@ -26,7 +26,7 @@
       <DependentUpon>webpack.config.common.js</DependentUpon>
     </None>
   </ItemGroup>
-
+  
   <Target Name="WebpackBuildVendor" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
@@ -13,9 +12,10 @@ namespace StudyONU.Core.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    DisplayName = table.Column<string>(maxLength: 50, nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,9 +26,9 @@ namespace StudyONU.Core.Migrations
                 name: "Specialities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,36 +36,18 @@ namespace StudyONU.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentQueue",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourseNumber = table.Column<int>(type: "tinyint", maxLength: 1, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(254)", maxLength: 254, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Patronymic = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PhotoPath = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentQueue", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Email = table.Column<string>(type: "nvarchar(254)", maxLength: 254, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Patronymic = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PhotoPath = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Email = table.Column<string>(maxLength: 254, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 40, nullable: false),
+                    LastName = table.Column<string>(maxLength: 40, nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    Patronymic = table.Column<string>(maxLength: 40, nullable: false),
+                    PhotoPath = table.Column<string>(maxLength: 200, nullable: false),
+                    RoleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,12 +61,40 @@ namespace StudyONU.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StudentQueue",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Approved = table.Column<bool>(nullable: true),
+                    CourseNumber = table.Column<byte>(type: "tinyint", maxLength: 1, nullable: false),
+                    DateApproved = table.Column<DateTime>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    Email = table.Column<string>(maxLength: 254, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 40, nullable: false),
+                    LastName = table.Column<string>(maxLength: 40, nullable: false),
+                    Patronymic = table.Column<string>(maxLength: 40, nullable: false),
+                    PhotoPath = table.Column<string>(maxLength: 200, nullable: false),
+                    SpecialityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentQueue", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentQueue_Specialities_SpecialityId",
+                        column: x => x.SpecialityId,
+                        principalTable: "Specialities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,9 +111,9 @@ namespace StudyONU.Core.Migrations
                 name: "Lecturers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,14 +130,21 @@ namespace StudyONU.Core.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourseNumber = table.Column<int>(type: "tinyint", maxLength: 1, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    CourseNumber = table.Column<byte>(type: "tinyint", maxLength: 1, nullable: false),
+                    SpecialityId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Students_Specialities_SpecialityId",
+                        column: x => x.SpecialityId,
+                        principalTable: "Specialities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Students_Users_UserId",
                         column: x => x.UserId,
@@ -140,14 +157,14 @@ namespace StudyONU.Core.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourseNumber = table.Column<int>(type: "tinyint", maxLength: 1, nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    LecturerId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SpecialityId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    CourseNumber = table.Column<byte>(type: "tinyint", maxLength: 1, nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    LecturerId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    SpecialityId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,13 +187,13 @@ namespace StudyONU.Core.Migrations
                 name: "Guides",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    DateAvailable = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    FilePath = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    CourseId = table.Column<int>(nullable: false),
+                    DateAvailable = table.Column<DateTime>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    FilePath = table.Column<string>(maxLength: 400, nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,17 +207,41 @@ namespace StudyONU.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StudentsInCourses",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(nullable: false),
+                    CourseId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentsInCourses", x => new { x.StudentId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_StudentsInCourses_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudentsInCourses_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tasks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    DateAvailable = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateOverdue = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FilePaths = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    CourseId = table.Column<int>(nullable: false),
+                    DateAvailable = table.Column<DateTime>(nullable: true),
+                    DateOverdue = table.Column<DateTime>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    FilePaths = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,11 +258,13 @@ namespace StudyONU.Core.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    SenderId = table.Column<int>(type: "int", nullable: false),
-                    TaskId = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(600)", maxLength: 600, nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    SenderId = table.Column<int>(nullable: false),
+                    StudentId = table.Column<int>(nullable: false),
+                    TaskId = table.Column<int>(nullable: false),
+                    Text = table.Column<string>(maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,6 +275,12 @@ namespace StudyONU.Core.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Tasks_TaskId",
                         column: x => x.TaskId,
@@ -244,14 +293,14 @@ namespace StudyONU.Core.Migrations
                 name: "Reports",
                 columns: table => new
                 {
-                    TaskId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    DateAccepted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    FilePath = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
-                    Mark = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
-                    State = table.Column<int>(type: "int", nullable: false)
+                    TaskId = table.Column<int>(nullable: false),
+                    StudentId = table.Column<int>(nullable: false),
+                    DateAccepted = table.Column<DateTime>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    DateModified = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    FilePaths = table.Column<string>(nullable: false),
+                    Mark = table.Column<decimal>(nullable: true),
+                    State = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,6 +328,11 @@ namespace StudyONU.Core.Migrations
                 name: "IX_Comments_SenderId",
                 table: "Comments",
                 column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_StudentId",
+                table: "Comments",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_TaskId",
@@ -311,9 +365,24 @@ namespace StudyONU.Core.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StudentQueue_SpecialityId",
+                table: "StudentQueue",
+                column: "SpecialityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_SpecialityId",
+                table: "Students",
+                column: "SpecialityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Students_UserId",
                 table: "Students",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentsInCourses_CourseId",
+                table: "StudentsInCourses",
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_CourseId",
@@ -344,10 +413,13 @@ namespace StudyONU.Core.Migrations
                 name: "StudentQueue");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "StudentsInCourses");
 
             migrationBuilder.DropTable(
                 name: "Tasks");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Courses");
