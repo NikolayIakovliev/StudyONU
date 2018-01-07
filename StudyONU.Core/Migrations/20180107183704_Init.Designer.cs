@@ -11,7 +11,7 @@ using System;
 namespace StudyONU.Core.Migrations
 {
     [DbContext(typeof(StudyONUDbContext))]
-    [Migration("20180106224617_Init")]
+    [Migration("20180107183704_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -361,12 +361,12 @@ namespace StudyONU.Core.Migrations
                     b.HasOne("StudyONU.Core.Entities.StudentEntity", "Student")
                         .WithMany("Comments")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudyONU.Core.Entities.TaskEntity", "Task")
                         .WithMany("Comments")
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StudyONU.Core.Entities.CourseEntity", b =>
@@ -403,7 +403,7 @@ namespace StudyONU.Core.Migrations
                     b.HasOne("StudyONU.Core.Entities.StudentEntity", "Student")
                         .WithMany("Reports")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudyONU.Core.Entities.TaskEntity", "Task")
                         .WithMany("Reports")
@@ -416,12 +416,12 @@ namespace StudyONU.Core.Migrations
                     b.HasOne("StudyONU.Core.Entities.CourseEntity", "Course")
                         .WithMany("Students")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudyONU.Core.Entities.StudentEntity", "Student")
                         .WithMany("Courses")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StudyONU.Core.Entities.StudentEntity", b =>

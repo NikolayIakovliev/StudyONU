@@ -16,13 +16,11 @@ namespace StudyONU.Core.Configurations
 
             builder.HasOne(entity => entity.Student)
                 .WithMany(entity => entity.Courses)
-                .HasForeignKey(entity => entity.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(entity => entity.StudentId);
 
             builder.HasOne(entity => entity.Course)
                 .WithMany(entity => entity.Students)
-                .HasForeignKey(entity => entity.CourseId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(entity => entity.CourseId);
         }
     }
 }

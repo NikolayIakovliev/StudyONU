@@ -11,7 +11,7 @@ namespace StudyONU.Logic.Infrastructure
         public static string AdminDisplayName = "Админ";
 
         public static string HeadLecturer = "HeadLecturer";
-        public static string HeadLecturerDisplayName = "Закафедры";
+        public static string HeadLecturerDisplayName = "Завкафедры";
 
         public static string Lecturer = "Lecturer";
         public static string LecturerDisplayName = "Преподаватель";

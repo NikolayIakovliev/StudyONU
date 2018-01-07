@@ -20,13 +20,11 @@ namespace StudyONU.Core.Configurations
 
             builder.HasOne(entity => entity.Student)
                 .WithMany(entity => entity.Comments)
-                .HasForeignKey(entity => entity.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(entity => entity.StudentId);
 
             builder.HasOne(entity => entity.Task)
                 .WithMany(entity => entity.Comments)
-                .HasForeignKey(entity => entity.TaskId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(entity => entity.TaskId);
 
             builder.Property(entity => entity.DateCreated)
                 .IsRequired()
