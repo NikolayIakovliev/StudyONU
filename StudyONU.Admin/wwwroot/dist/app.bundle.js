@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "27cc45b49f36ad14e466"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1f3d33d1b89e497e106d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -727,13 +727,13 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(47))(7);
+module.exports = (__webpack_require__(48))(7);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(47))(10);
+module.exports = (__webpack_require__(48))(10);
 
 /***/ }),
 /* 2 */
@@ -991,7 +991,7 @@ var _shouldUpdate = __webpack_require__(458);
 
 var _shouldUpdate2 = _interopRequireDefault(_shouldUpdate);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -1484,7 +1484,7 @@ function updateLink (link, options, obj) {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(47))(116);
+module.exports = (__webpack_require__(48))(116);
 
 /***/ }),
 /* 17 */
@@ -1670,7 +1670,7 @@ exports.default = _FlatButton2.default;
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(47))(6);
+module.exports = (__webpack_require__(48))(6);
 
 /***/ }),
 /* 25 */
@@ -2171,7 +2171,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 var global = __webpack_require__(32);
 var core = __webpack_require__(21);
 var ctx = __webpack_require__(105);
-var hide = __webpack_require__(49);
+var hide = __webpack_require__(50);
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -2235,12 +2235,12 @@ module.exports = $export;
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(50);
+var anObject = __webpack_require__(51);
 var IE8_DOM_DEFINE = __webpack_require__(176);
 var toPrimitive = __webpack_require__(106);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(39) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(40) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -2281,11 +2281,75 @@ exports.default = _RaisedButton2.default;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.EmptyContent = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+__webpack_require__(473);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EmptyContent = exports.EmptyContent = function (_React$Component) {
+    _inherits(EmptyContent, _React$Component);
+
+    function EmptyContent() {
+        _classCallCheck(this, EmptyContent);
+
+        return _possibleConstructorReturn(this, (EmptyContent.__proto__ || Object.getPrototypeOf(EmptyContent)).apply(this, arguments));
+    }
+
+    _createClass(EmptyContent, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                { className: 'empty-content-wrapper' },
+                React.createElement(
+                    'div',
+                    { className: 'empty-content-title-container' },
+                    React.createElement(
+                        'h3',
+                        null,
+                        this.props.title
+                    )
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'empty-content-message' },
+                    this.props.message
+                )
+            );
+        }
+    }]);
+
+    return EmptyContent;
+}(React.Component);
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = undefined;
 
-var _MenuItem = __webpack_require__(130);
+var _MenuItem = __webpack_require__(131);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -2294,7 +2358,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _MenuItem2.default;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsNative = __webpack_require__(238),
@@ -2317,7 +2381,7 @@ module.exports = getNative;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -2327,17 +2391,17 @@ module.exports = function (it, key) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(51)(function () {
+module.exports = !__webpack_require__(52)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2585,7 +2649,7 @@ function lighten(color, coefficient) {
 }
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2602,7 +2666,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shallowEqual2.default;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2830,7 +2894,7 @@ EventListener.propTypes =  true ? {
 exports.default = EventListener;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2884,7 +2948,7 @@ var _events = __webpack_require__(89);
 
 var _events2 = _interopRequireDefault(_events);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -3233,7 +3297,7 @@ EnhancedButton.propTypes =  true ? {
 exports.default = EnhancedButton;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 // Source: http://jsfiddle.net/vWx8V/
@@ -3385,7 +3449,7 @@ for (var alias in aliases) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3442,7 +3506,7 @@ var Loading = exports.Loading = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3453,7 +3517,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _Avatar = __webpack_require__(474);
+var _Avatar = __webpack_require__(475);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -3462,13 +3526,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Avatar2.default;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = vendor_38c0445cee7671038006;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /**
@@ -3503,12 +3567,12 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(34);
 var createDesc = __webpack_require__(63);
-module.exports = __webpack_require__(39) ? function (object, key, value) {
+module.exports = __webpack_require__(40) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -3517,7 +3581,7 @@ module.exports = __webpack_require__(39) ? function (object, key, value) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(62);
@@ -3528,7 +3592,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -3541,7 +3605,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
@@ -3553,7 +3617,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3572,7 +3636,7 @@ function getPrefixedValue(prefixedValue, value, keepUnprefixed) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3590,70 +3654,6 @@ var _IconButton2 = _interopRequireDefault(_IconButton);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _IconButton2.default;
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.EmptyContent = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-__webpack_require__(500);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var EmptyContent = exports.EmptyContent = function (_React$Component) {
-    _inherits(EmptyContent, _React$Component);
-
-    function EmptyContent() {
-        _classCallCheck(this, EmptyContent);
-
-        return _possibleConstructorReturn(this, (EmptyContent.__proto__ || Object.getPrototypeOf(EmptyContent)).apply(this, arguments));
-    }
-
-    _createClass(EmptyContent, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                { className: 'empty-content-wrapper' },
-                React.createElement(
-                    'div',
-                    { className: 'empty-content-title-container' },
-                    React.createElement(
-                        'h3',
-                        null,
-                        this.props.title
-                    )
-                ),
-                React.createElement(
-                    'p',
-                    { className: 'empty-content-message' },
-                    this.props.message
-                )
-            );
-        }
-    }]);
-
-    return EmptyContent;
-}(React.Component);
 
 /***/ }),
 /* 56 */
@@ -3781,7 +3781,7 @@ module.exports = isArrayLike;
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(47))(202);
+module.exports = (__webpack_require__(48))(202);
 
 /***/ }),
 /* 61 */
@@ -3977,27 +3977,27 @@ var React = _interopRequireWildcard(_react);
 
 var _colors = __webpack_require__(28);
 
-var _IconButton = __webpack_require__(54);
+var _IconButton = __webpack_require__(55);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _moreVert = __webpack_require__(126);
+var _moreVert = __webpack_require__(127);
 
 var _moreVert2 = _interopRequireDefault(_moreVert);
 
-var _IconMenu = __webpack_require__(127);
+var _IconMenu = __webpack_require__(128);
 
 var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _modeEdit = __webpack_require__(480);
+var _modeEdit = __webpack_require__(481);
 
 var _modeEdit2 = _interopRequireDefault(_modeEdit);
 
-var _delete = __webpack_require__(481);
+var _delete = __webpack_require__(482);
 
 var _delete2 = _interopRequireDefault(_delete);
 
@@ -4052,8 +4052,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(483);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_styles__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(484);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_styles__ = __webpack_require__(486);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -4677,15 +4677,15 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _FloatingActionButton = __webpack_require__(486);
+var _FloatingActionButton = __webpack_require__(487);
 
 var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 
-var _add = __webpack_require__(488);
+var _add = __webpack_require__(489);
 
 var _add2 = _interopRequireDefault(_add);
 
-__webpack_require__(489);
+__webpack_require__(490);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5144,7 +5144,7 @@ module.exports = g;
 /* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37);
+var getNative = __webpack_require__(38);
 
 /* Built-in method references that are verified to be native. */
 var nativeCreate = getNative(Object, 'create');
@@ -5252,7 +5252,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(56),
-    isObjectLike = __webpack_require__(48);
+    isObjectLike = __webpack_require__(49);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -5807,7 +5807,7 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
@@ -5823,11 +5823,11 @@ var _Paper = __webpack_require__(11);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _lodash = __webpack_require__(477);
+var _lodash = __webpack_require__(478);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _PopoverAnimationDefault = __webpack_require__(478);
+var _PopoverAnimationDefault = __webpack_require__(479);
 
 var _PopoverAnimationDefault2 = _interopRequireDefault(_PopoverAnimationDefault);
 
@@ -6327,7 +6327,7 @@ exports.default = _DatePicker2.default;
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37),
+var getNative = __webpack_require__(38),
     root = __webpack_require__(30);
 
 /* Built-in method references that are verified to be native. */
@@ -6379,7 +6379,7 @@ module.exports = MapCache;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsArguments = __webpack_require__(272),
-    isObjectLike = __webpack_require__(48);
+    isObjectLike = __webpack_require__(49);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -6649,7 +6649,7 @@ module.exports = true;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(50);
+var anObject = __webpack_require__(51);
 var dPs = __webpack_require__(351);
 var enumBugKeys = __webpack_require__(111);
 var IE_PROTO = __webpack_require__(103)('IE_PROTO');
@@ -6717,7 +6717,7 @@ module.exports = (
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(34).f;
-var has = __webpack_require__(38);
+var has = __webpack_require__(39);
 var TAG = __webpack_require__(27)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -7004,6 +7004,20 @@ exports.push([module.i, ".loading-progress-container {\n  display: -webkit-box;\
 /* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(14)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".empty-content-wrapper {\n  text-align: center;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  /*TODO - remove*/ }\n  .empty-content-wrapper .empty-content-title-container {\n    font-size: 24px;\n    border-bottom: 1px solid black; }\n  .empty-content-wrapper .empty-content-message {\n    font-size: 24px; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -7039,7 +7053,7 @@ NavigationMoreVert.muiName = 'SvgIcon';
 exports.default = NavigationMoreVert;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7050,11 +7064,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.MenuItem = exports.IconMenu = undefined;
 
-var _IconMenu2 = __webpack_require__(475);
+var _IconMenu2 = __webpack_require__(476);
 
 var _IconMenu3 = _interopRequireDefault(_IconMenu2);
 
-var _MenuItem2 = __webpack_require__(130);
+var _MenuItem2 = __webpack_require__(131);
 
 var _MenuItem3 = _interopRequireDefault(_MenuItem2);
 
@@ -7065,7 +7079,7 @@ exports.MenuItem = _MenuItem3.default;
 exports.default = _IconMenu3.default;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7123,15 +7137,15 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-var _ClickAwayListener = __webpack_require__(129);
+var _ClickAwayListener = __webpack_require__(130);
 
 var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -7143,7 +7157,7 @@ var _List = __webpack_require__(124);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _menuUtils = __webpack_require__(476);
+var _menuUtils = __webpack_require__(477);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7780,7 +7794,7 @@ Menu.propTypes =  true ? {
 exports.default = Menu;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7915,7 +7929,7 @@ ClickAwayListener.propTypes =  true ? {
 exports.default = ClickAwayListener;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7969,7 +7983,7 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -7977,7 +7991,7 @@ var _Popover = __webpack_require__(92);
 
 var _Popover2 = _interopRequireDefault(_Popover);
 
-var _check = __webpack_require__(479);
+var _check = __webpack_require__(480);
 
 var _check2 = _interopRequireDefault(_check);
 
@@ -7985,7 +7999,7 @@ var _ListItem = __webpack_require__(199);
 
 var _ListItem2 = _interopRequireDefault(_ListItem);
 
-var _Menu = __webpack_require__(128);
+var _Menu = __webpack_require__(129);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -8327,7 +8341,7 @@ MenuItem.propTypes =  true ? {
 exports.default = MenuItem;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(undefined);
@@ -8341,7 +8355,7 @@ exports.push([module.i, ".btn-float-add {\n  position: fixed;\n  top: auto;\n  r
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(undefined);
@@ -8355,7 +8369,7 @@ exports.push([module.i, ".form-lecturer-container {\n  margin-left: 30px; }\n  .
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(undefined);
@@ -8369,20 +8383,6 @@ exports.push([module.i, ".text-field {\n  margin-top: -20px; }\n", ""]);
 
 
 /***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".form {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 30px;\n  padding: 16px; }\n  .form .btn-group {\n    float: right; }\n  .form .btn-group .btn-item {\n      margin-right: 10px; }\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8391,7 +8391,7 @@ exports = module.exports = __webpack_require__(14)(undefined);
 
 
 // module
-exports.push([module.i, ".empty-content-wrapper {\n  text-align: center;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  /*TODO - remove*/ }\n  .empty-content-wrapper .empty-content-title-container {\n    font-size: 24px;\n    border-bottom: 1px solid black; }\n  .empty-content-wrapper .empty-content-message {\n    font-size: 24px; }\n", ""]);
+exports.push([module.i, ".form {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 30px;\n  padding: 16px; }\n  .form .btn-group {\n    float: right; }\n  .form .btn-group .btn-item {\n      margin-right: 10px; }\n", ""]);
 
 // exports
 
@@ -8430,7 +8430,7 @@ var React = _interopRequireWildcard(_react);
 
 var _Toolbar = __webpack_require__(515);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -9311,7 +9311,7 @@ module.exports = toSource;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqualDeep = __webpack_require__(256),
-    isObjectLike = __webpack_require__(48);
+    isObjectLike = __webpack_require__(49);
 
 /**
  * The base implementation of `_.isEqual` which supports partial comparisons
@@ -9859,7 +9859,7 @@ module.exports = baseAssignValue;
 /* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37);
+var getNative = __webpack_require__(38);
 
 var defineProperty = (function() {
   try {
@@ -10096,7 +10096,7 @@ module.exports = Html5Entities;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(38);
+var has = __webpack_require__(39);
 var toObject = __webpack_require__(61);
 var IE_PROTO = __webpack_require__(103)('IE_PROTO');
 var ObjectProto = Object.prototype;
@@ -10117,7 +10117,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(33);
 var core = __webpack_require__(21);
-var fails = __webpack_require__(51);
+var fails = __webpack_require__(52);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -10130,7 +10130,7 @@ module.exports = function (KEY, exec) {
 /* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(39) && !__webpack_require__(51)(function () {
+module.exports = !__webpack_require__(40) && !__webpack_require__(52)(function () {
   return Object.defineProperty(__webpack_require__(177)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -10187,8 +10187,8 @@ __webpack_require__(180)(String, 'String', function (iterated) {
 var LIBRARY = __webpack_require__(108);
 var $export = __webpack_require__(33);
 var redefine = __webpack_require__(181);
-var hide = __webpack_require__(49);
-var has = __webpack_require__(38);
+var hide = __webpack_require__(50);
+var has = __webpack_require__(39);
 var Iterators = __webpack_require__(64);
 var $iterCreate = __webpack_require__(350);
 var setToStringTag = __webpack_require__(112);
@@ -10259,15 +10259,15 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 /* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(49);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
 /* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(38);
-var toIObject = __webpack_require__(52);
+var has = __webpack_require__(39);
+var toIObject = __webpack_require__(53);
 var arrayIndexOf = __webpack_require__(352)(false);
 var IE_PROTO = __webpack_require__(103)('IE_PROTO');
 
@@ -10328,13 +10328,13 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 var pIE = __webpack_require__(88);
 var createDesc = __webpack_require__(63);
-var toIObject = __webpack_require__(52);
+var toIObject = __webpack_require__(53);
 var toPrimitive = __webpack_require__(106);
-var has = __webpack_require__(38);
+var has = __webpack_require__(39);
 var IE8_DOM_DEFINE = __webpack_require__(176);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(39) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(40) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -10457,7 +10457,7 @@ module.exports = { "default": __webpack_require__(433), __esModule: true };
 /* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(47))(51);
+module.exports = (__webpack_require__(48))(51);
 
 /***/ }),
 /* 195 */
@@ -10506,7 +10506,7 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -11085,21 +11085,21 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
 var _transitions = __webpack_require__(10);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-var _IconButton = __webpack_require__(54);
+var _IconButton = __webpack_require__(55);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
@@ -12325,7 +12325,7 @@ var _DropDownMenu2 = __webpack_require__(505);
 
 var _DropDownMenu3 = _interopRequireDefault(_DropDownMenu2);
 
-var _MenuItem2 = __webpack_require__(130);
+var _MenuItem2 = __webpack_require__(131);
 
 var _MenuItem3 = _interopRequireDefault(_MenuItem2);
 
@@ -12539,11 +12539,11 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -13086,7 +13086,7 @@ var _Subheader = __webpack_require__(18);
 
 var _Subheader2 = _interopRequireDefault(_Subheader);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -13281,19 +13281,19 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _IconButton = __webpack_require__(54);
+var _IconButton = __webpack_require__(55);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _moreVert = __webpack_require__(126);
+var _moreVert = __webpack_require__(127);
 
 var _moreVert2 = _interopRequireDefault(_moreVert);
 
-var _IconMenu = __webpack_require__(127);
+var _IconMenu = __webpack_require__(128);
 
 var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -15966,7 +15966,7 @@ module.exports = baseTimes;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(56),
-    isObjectLike = __webpack_require__(48);
+    isObjectLike = __webpack_require__(49);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]';
@@ -16015,7 +16015,7 @@ module.exports = stubFalse;
 
 var baseGetTag = __webpack_require__(56),
     isLength = __webpack_require__(99),
-    isObjectLike = __webpack_require__(48);
+    isObjectLike = __webpack_require__(49);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -16241,7 +16241,7 @@ module.exports = getTag;
 /* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37),
+var getNative = __webpack_require__(38),
     root = __webpack_require__(30);
 
 /* Built-in method references that are verified to be native. */
@@ -16254,7 +16254,7 @@ module.exports = DataView;
 /* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37),
+var getNative = __webpack_require__(38),
     root = __webpack_require__(30);
 
 /* Built-in method references that are verified to be native. */
@@ -16267,7 +16267,7 @@ module.exports = Promise;
 /* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37),
+var getNative = __webpack_require__(38),
     root = __webpack_require__(30);
 
 /* Built-in method references that are verified to be native. */
@@ -16280,7 +16280,7 @@ module.exports = Set;
 /* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(37),
+var getNative = __webpack_require__(38),
     root = __webpack_require__(30);
 
 /* Built-in method references that are verified to be native. */
@@ -17931,7 +17931,7 @@ module.exports = isFlattenable;
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(59),
-    isObjectLike = __webpack_require__(48);
+    isObjectLike = __webpack_require__(49);
 
 /**
  * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -19447,11 +19447,11 @@ var _Home = __webpack_require__(453);
 
 var _LecturerList = __webpack_require__(454);
 
-var _SpecialityList = __webpack_require__(493);
+var _SpecialityList = __webpack_require__(494);
 
-var _Home2 = __webpack_require__(498);
+var _Home2 = __webpack_require__(499);
 
-var _CourseList = __webpack_require__(499);
+var _CourseList = __webpack_require__(500);
 
 var _GuideList = __webpack_require__(514);
 
@@ -19899,7 +19899,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 var $export = __webpack_require__(33);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(39), 'Object', { defineProperty: __webpack_require__(34).f });
+$export($export.S + $export.F * !__webpack_require__(40), 'Object', { defineProperty: __webpack_require__(34).f });
 
 
 /***/ }),
@@ -19952,7 +19952,7 @@ var setToStringTag = __webpack_require__(112);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(49)(IteratorPrototype, __webpack_require__(27)('iterator'), function () { return this; });
+__webpack_require__(50)(IteratorPrototype, __webpack_require__(27)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -19965,10 +19965,10 @@ module.exports = function (Constructor, NAME, next) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(34);
-var anObject = __webpack_require__(50);
+var anObject = __webpack_require__(51);
 var getKeys = __webpack_require__(65);
 
-module.exports = __webpack_require__(39) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(40) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -19985,7 +19985,7 @@ module.exports = __webpack_require__(39) ? Object.defineProperties : function de
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(52);
+var toIObject = __webpack_require__(53);
 var toLength = __webpack_require__(184);
 var toAbsoluteIndex = __webpack_require__(353);
 module.exports = function (IS_INCLUDES) {
@@ -20035,7 +20035,7 @@ module.exports = document && document.documentElement;
 
 __webpack_require__(356);
 var global = __webpack_require__(32);
-var hide = __webpack_require__(49);
+var hide = __webpack_require__(50);
 var Iterators = __webpack_require__(64);
 var TO_STRING_TAG = __webpack_require__(27)('toStringTag');
 
@@ -20063,7 +20063,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 var addToUnscopables = __webpack_require__(357);
 var step = __webpack_require__(358);
 var Iterators = __webpack_require__(64);
-var toIObject = __webpack_require__(52);
+var toIObject = __webpack_require__(53);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -20136,12 +20136,12 @@ module.exports = __webpack_require__(21).Symbol;
 
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(32);
-var has = __webpack_require__(38);
-var DESCRIPTORS = __webpack_require__(39);
+var has = __webpack_require__(39);
+var DESCRIPTORS = __webpack_require__(40);
 var $export = __webpack_require__(33);
 var redefine = __webpack_require__(181);
 var META = __webpack_require__(362).KEY;
-var $fails = __webpack_require__(51);
+var $fails = __webpack_require__(52);
 var shared = __webpack_require__(104);
 var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(86);
@@ -20150,8 +20150,8 @@ var wksExt = __webpack_require__(113);
 var wksDefine = __webpack_require__(114);
 var enumKeys = __webpack_require__(363);
 var isArray = __webpack_require__(364);
-var anObject = __webpack_require__(50);
-var toIObject = __webpack_require__(52);
+var anObject = __webpack_require__(51);
+var toIObject = __webpack_require__(53);
 var toPrimitive = __webpack_require__(106);
 var createDesc = __webpack_require__(63);
 var _create = __webpack_require__(109);
@@ -20360,7 +20360,7 @@ $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
 });
 
 // 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(49)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(50)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
 // 19.4.3.5 Symbol.prototype[@@toStringTag]
 setToStringTag($Symbol, 'Symbol');
 // 20.2.1.9 Math[@@toStringTag]
@@ -20375,13 +20375,13 @@ setToStringTag(global.JSON, 'JSON', true);
 
 var META = __webpack_require__(86)('meta');
 var isObject = __webpack_require__(62);
-var has = __webpack_require__(38);
+var has = __webpack_require__(39);
 var setDesc = __webpack_require__(34).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(51)(function () {
+var FREEZE = !__webpack_require__(52)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -20465,7 +20465,7 @@ module.exports = Array.isArray || function isArray(arg) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(52);
+var toIObject = __webpack_require__(53);
 var gOPN = __webpack_require__(185).f;
 var toString = {}.toString;
 
@@ -20535,7 +20535,7 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(372).set });
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = __webpack_require__(62);
-var anObject = __webpack_require__(50);
+var anObject = __webpack_require__(51);
 var check = function (O, proto) {
   anObject(O);
   if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
@@ -20606,7 +20606,7 @@ var _lodash = __webpack_require__(385);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
 var _lightBaseTheme = __webpack_require__(386);
 
@@ -21031,7 +21031,7 @@ $export($export.S + $export.F * !__webpack_require__(384)(function (iter) { Arra
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(50);
+var anObject = __webpack_require__(51);
 module.exports = function (iterator, fn, value, entries) {
   try {
     return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -23371,7 +23371,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _colors = __webpack_require__(28);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
 var _spacing = __webpack_require__(387);
 
@@ -24672,7 +24672,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = calc;
 
-var _getPrefixedValue = __webpack_require__(53);
+var _getPrefixedValue = __webpack_require__(54);
 
 var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 
@@ -24702,7 +24702,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = flex;
 
-var _getPrefixedValue = __webpack_require__(53);
+var _getPrefixedValue = __webpack_require__(54);
 
 var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 
@@ -24736,7 +24736,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = flexboxIE;
 
-var _getPrefixedValue = __webpack_require__(53);
+var _getPrefixedValue = __webpack_require__(54);
 
 var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 
@@ -24797,7 +24797,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = flexboxOld;
 
-var _getPrefixedValue = __webpack_require__(53);
+var _getPrefixedValue = __webpack_require__(54);
 
 var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 
@@ -24871,7 +24871,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = gradient;
 
-var _getPrefixedValue = __webpack_require__(53);
+var _getPrefixedValue = __webpack_require__(54);
 
 var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 
@@ -24902,7 +24902,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = sizing;
 
-var _getPrefixedValue = __webpack_require__(53);
+var _getPrefixedValue = __webpack_require__(54);
 
 var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 
@@ -26707,7 +26707,7 @@ var IObject = __webpack_require__(183);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(51)(function () {
+module.exports = !$assign || __webpack_require__(52)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -26956,7 +26956,7 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -27549,7 +27549,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
@@ -28249,9 +28249,9 @@ var _transitions = __webpack_require__(10);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -29173,7 +29173,7 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqual = __webpack_require__(41);
+var _shallowEqual = __webpack_require__(42);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -29620,13 +29620,15 @@ var _Paper2 = _interopRequireDefault(_Paper);
 
 var _Dialog = __webpack_require__(68);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
-var _LecturerItem = __webpack_require__(473);
+var _EmptyContent = __webpack_require__(36);
 
-var _LecturerForm = __webpack_require__(482);
+var _LecturerItem = __webpack_require__(474);
 
-var _LecturerEditDialog = __webpack_require__(491);
+var _LecturerForm = __webpack_require__(483);
+
+var _LecturerEditDialog = __webpack_require__(492);
 
 var _urls = __webpack_require__(22);
 
@@ -29676,79 +29678,75 @@ var LecturerList = exports.LecturerList = function (_React$Component) {
                 itemDeleteRequest = _state.itemDeleteRequest;
 
 
-            var render = void 0;
-
             if (!loaded) {
-                render = React.createElement(_Loading.Loading, null);
-            } else {
-                render = React.createElement(
-                    'div',
-                    null,
-                    itemEditRequest != null && React.createElement(_LecturerEditDialog.LecturerEditDialog, {
-                        message: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0435 \u0434\u0430\u043D\u043D\u044B\u0435',
-                        open: true,
-                        item: itemEditRequest,
-                        onClose: function onClose() {
-                            return _this2.setState({ itemEditRequest: null });
-                        },
-                        onSubmit: function onSubmit(item) {
-                            return _this2.modifyItem(_this2.props.put, item);
-                        } }),
-                    itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
-                        title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
-                        message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
-                        open: true,
-                        actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
-                        onClose: function onClose() {
-                            return _this2.setState({ itemDeleteRequest: null });
-                        },
-                        onSubmit: function onSubmit() {
-                            return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
-                        } }),
-                    items.length == 0 && React.createElement(
-                        'div',
-                        null,
-                        React.createElement(EmptyContent, { title: '\u041F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u0435\u0439 \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0433\u043E \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F' }),
-                        React.createElement(_LecturerForm.LecturerForm, { createItem: function createItem(data) {
-                                return _this2.modifyItem(_this2.props.postFormData, data);
-                            } })
-                    ),
-                    items.length > 0 && React.createElement(
-                        'div',
-                        { className: 'list-form-container' },
-                        React.createElement(
-                            _Paper2.default,
-                            { zDepth: 3, className: 'flex-grow-1' },
-                            React.createElement(
-                                _List.List,
-                                null,
-                                React.createElement(
-                                    _Subheader2.default,
-                                    null,
-                                    '\u041F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u0438'
-                                ),
-                                React.createElement(_Divider2.default, null),
-                                items.map(function (item, index) {
-                                    return React.createElement(_LecturerItem.LecturerItem, {
-                                        key: item.id,
-                                        item: item,
-                                        onEdit: function onEdit(item) {
-                                            return _this2.setState({ itemEditRequest: item });
-                                        },
-                                        onDelete: function onDelete(item) {
-                                            return _this2.setState({ itemDeleteRequest: item });
-                                        } });
-                                })
-                            )
-                        ),
-                        React.createElement(_LecturerForm.LecturerForm, { createItem: function createItem(data) {
-                                return _this2.modifyItem(_this2.props.postFormData, data);
-                            } })
-                    )
-                );
+                return React.createElement(_Loading.Loading, null);
             }
 
-            return render;
+            return React.createElement(
+                'div',
+                null,
+                itemEditRequest != null && React.createElement(_LecturerEditDialog.LecturerEditDialog, {
+                    message: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0435 \u0434\u0430\u043D\u043D\u044B\u0435',
+                    open: true,
+                    item: itemEditRequest,
+                    onClose: function onClose() {
+                        return _this2.setState({ itemEditRequest: null });
+                    },
+                    onSubmit: function onSubmit(item) {
+                        return _this2.modifyItem(_this2.props.put, item);
+                    } }),
+                itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
+                    title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
+                    message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
+                    open: true,
+                    actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
+                    onClose: function onClose() {
+                        return _this2.setState({ itemDeleteRequest: null });
+                    },
+                    onSubmit: function onSubmit() {
+                        return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
+                    } }),
+                items.length == 0 && React.createElement(
+                    'div',
+                    null,
+                    React.createElement(_EmptyContent.EmptyContent, { title: '\u041F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u0435\u0439 \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0433\u043E \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F' }),
+                    React.createElement(_LecturerForm.LecturerForm, { createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        } })
+                ),
+                items.length > 0 && React.createElement(
+                    'div',
+                    { className: 'list-form-container' },
+                    React.createElement(
+                        _Paper2.default,
+                        { zDepth: 3, className: 'flex-grow-1' },
+                        React.createElement(
+                            _List.List,
+                            null,
+                            React.createElement(
+                                _Subheader2.default,
+                                null,
+                                '\u041F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u0438'
+                            ),
+                            React.createElement(_Divider2.default, null),
+                            items.map(function (item, index) {
+                                return React.createElement(_LecturerItem.LecturerItem, {
+                                    key: item.id,
+                                    item: item,
+                                    onEdit: function onEdit(item) {
+                                        return _this2.setState({ itemEditRequest: item });
+                                    },
+                                    onDelete: function onDelete(item) {
+                                        return _this2.setState({ itemDeleteRequest: item });
+                                    } });
+                            })
+                        )
+                    ),
+                    React.createElement(_LecturerForm.LecturerForm, { createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        } })
+                )
+            );
         }
     }, {
         key: 'modifyItem',
@@ -29837,7 +29835,7 @@ var _propTypes3 = __webpack_require__(29);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -30791,7 +30789,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30972,11 +30970,11 @@ var _reactDom = __webpack_require__(16);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -31865,9 +31863,9 @@ var _transitions = __webpack_require__(10);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -32590,6 +32588,37 @@ if(true) {
 /* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(126);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(15)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(126, function() {
+			var newContent = __webpack_require__(126);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 474 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -32604,7 +32633,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -32660,7 +32689,7 @@ var LecturerItem = exports.LecturerItem = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 474 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32836,7 +32865,7 @@ Avatar.propTypes =  true ? {
 exports.default = Avatar;
 
 /***/ }),
-/* 475 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32898,7 +32927,7 @@ var _propTypes3 = __webpack_require__(29);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
-var _Menu = __webpack_require__(128);
+var _Menu = __webpack_require__(129);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -33257,7 +33286,7 @@ IconMenu.propTypes =  true ? {
 exports.default = IconMenu;
 
 /***/ }),
-/* 476 */
+/* 477 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33302,7 +33331,7 @@ var HotKeyHolder = exports.HotKeyHolder = function () {
 }();
 
 /***/ }),
-/* 477 */
+/* 478 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -33748,7 +33777,7 @@ module.exports = throttle;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(79)))
 
 /***/ }),
-/* 478 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33926,7 +33955,7 @@ PopoverAnimationDefault.propTypes =  true ? {
 exports.default = PopoverAnimationDefault;
 
 /***/ }),
-/* 479 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33964,7 +33993,7 @@ NavigationCheck.muiName = 'SvgIcon';
 exports.default = NavigationCheck;
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34002,7 +34031,7 @@ EditorModeEdit.muiName = 'SvgIcon';
 exports.default = EditorModeEdit;
 
 /***/ }),
-/* 481 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34040,7 +34069,7 @@ ActionDelete.muiName = 'SvgIcon';
 exports.default = ActionDelete;
 
 /***/ }),
-/* 482 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34083,7 +34112,7 @@ var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
 var _FloatButton = __webpack_require__(71);
 
-__webpack_require__(490);
+__webpack_require__(491);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34350,7 +34379,7 @@ var LecturerForm = exports.LecturerForm = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 483 */
+/* 484 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34360,7 +34389,7 @@ var LecturerForm = exports.LecturerForm = function (_React$Component) {
 /* harmony export (immutable) */ __webpack_exports__["c"] = fileMatchSize;
 /* harmony export (immutable) */ __webpack_exports__["a"] = allFilesAccepted;
 /* harmony export (immutable) */ __webpack_exports__["e"] = onDocumentDragOver;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_attr_accept__ = __webpack_require__(484);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_attr_accept__ = __webpack_require__(485);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_attr_accept___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_attr_accept__);
 
 
@@ -34406,13 +34435,13 @@ function onDocumentDragOver(evt) {
 }
 
 /***/ }),
-/* 484 */
+/* 485 */
 /***/ (function(module, exports) {
 
 module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={exports:{},id:e,loaded:!1};return t[e].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var r={};return n.m=t,n.c=r,n.p="",n(0)}([function(t,n,r){"use strict";n.__esModule=!0,r(8),r(9),n["default"]=function(t,n){if(t&&n){var r=function(){var r=Array.isArray(n)?n:n.split(","),e=t.name||"",o=t.type||"",i=o.replace(/\/.*$/,"");return{v:r.some(function(t){var n=t.trim();return"."===n.charAt(0)?e.toLowerCase().endsWith(n.toLowerCase()):/\/\*$/.test(n)?i===n.replace(/\/.*$/,""):o===n})}}();if("object"==typeof r)return r.v}return!0},t.exports=n["default"]},function(t,n){var r=t.exports={version:"1.2.2"};"number"==typeof __e&&(__e=r)},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(2),o=r(1),i=r(4),u=r(19),c="prototype",f=function(t,n){return function(){return t.apply(n,arguments)}},s=function(t,n,r){var a,p,l,y,d=t&s.G,h=t&s.P,v=d?e:t&s.S?e[n]||(e[n]={}):(e[n]||{})[c],x=d?o:o[n]||(o[n]={});d&&(r=n);for(a in r)p=!(t&s.F)&&v&&a in v,l=(p?v:r)[a],y=t&s.B&&p?f(l,e):h&&"function"==typeof l?f(Function.call,l):l,v&&!p&&u(v,a,l),x[a]!=l&&i(x,a,y),h&&((x[c]||(x[c]={}))[a]=l)};e.core=o,s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},function(t,n,r){var e=r(5),o=r(18);t.exports=r(22)?function(t,n,r){return e.setDesc(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n){var r=Object;t.exports={create:r.create,getProto:r.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:r.getOwnPropertyDescriptor,setDesc:r.defineProperty,setDescs:r.defineProperties,getKeys:r.keys,getNames:r.getOwnPropertyNames,getSymbols:r.getOwnPropertySymbols,each:[].forEach}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20)("wks"),o=r(2).Symbol;t.exports=function(t){return e[t]||(e[t]=o&&o[t]||(o||r(6))("Symbol."+t))}},function(t,n,r){r(26),t.exports=r(1).Array.some},function(t,n,r){r(25),t.exports=r(1).String.endsWith},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(10);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r(7)("match")]=!1,!"/./"[t](n)}catch(o){}}return!0}},function(t,n){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n,r){var e=r(16),o=r(11),i=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[i])?!!n:"RegExp"==o(t))}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(2),o=r(4),i=r(6)("src"),u="toString",c=Function[u],f=(""+c).split(u);r(1).inspectSource=function(t){return c.call(t)},(t.exports=function(t,n,r,u){"function"==typeof r&&(o(r,i,t[n]?""+t[n]:f.join(String(n))),"name"in r||(r.name=n)),t===e?t[n]=r:(u||delete t[n],o(t,n,r))})(Function.prototype,u,function(){return"function"==typeof this&&this[i]||c.call(this)})},function(t,n,r){var e=r(2),o="__core-js_shared__",i=e[o]||(e[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n,r){var e=r(17),o=r(13);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(o(t))}},function(t,n,r){t.exports=!r(15)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(23),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(3),o=r(24),i=r(21),u="endsWith",c=""[u];e(e.P+e.F*r(14)(u),"String",{endsWith:function(t){var n=i(this,t,u),r=arguments,e=r.length>1?r[1]:void 0,f=o(n.length),s=void 0===e?f:Math.min(o(e),f),a=String(t);return c?c.call(n,a,s):n.slice(s-a.length,s)===a}})},function(t,n,r){var e=r(5),o=r(3),i=r(1).Array||Array,u={},c=function(t,n){e.each.call(t.split(","),function(t){void 0==n&&t in i?u[t]=i[t]:t in[]&&(u[t]=r(12)(Function.call,[][t],n))})};c("pop,reverse,shift,keys,values,entries",1),c("indexOf,every,some,forEach,map,filter,find,findIndex,includes",3),c("join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill"),o(o.S,"Array",u)}]);
 
 /***/ }),
-/* 485 */
+/* 486 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34441,7 +34470,7 @@ module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]=
 });
 
 /***/ }),
-/* 486 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34452,7 +34481,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _FloatingActionButton = __webpack_require__(487);
+var _FloatingActionButton = __webpack_require__(488);
 
 var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
 
@@ -34461,7 +34490,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _FloatingActionButton2.default;
 
 /***/ }),
-/* 487 */
+/* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34515,9 +34544,9 @@ var _transitions = __webpack_require__(10);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _colorManipulator = __webpack_require__(40);
+var _colorManipulator = __webpack_require__(41);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -34859,7 +34888,7 @@ FloatingActionButton.propTypes =  true ? {
 exports.default = FloatingActionButton;
 
 /***/ }),
-/* 488 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34897,37 +34926,6 @@ ContentAdd.muiName = 'SvgIcon';
 exports.default = ContentAdd;
 
 /***/ }),
-/* 489 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(131);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(15)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(131, function() {
-			var newContent = __webpack_require__(131);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
 /* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34962,6 +34960,37 @@ if(true) {
 /* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(133);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(15)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(133, function() {
+			var newContent = __webpack_require__(133);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 492 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -34988,7 +35017,7 @@ var _TextField = __webpack_require__(19);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
-__webpack_require__(492);
+__webpack_require__(493);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35145,13 +35174,13 @@ var LecturerEditDialog = exports.LecturerEditDialog = function (_React$Component
 }(React.Component);
 
 /***/ }),
-/* 492 */
+/* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(133);
+var content = __webpack_require__(134);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -35165,8 +35194,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(133, function() {
-			var newContent = __webpack_require__(133);
+		module.hot.accept(134, function() {
+			var newContent = __webpack_require__(134);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -35176,7 +35205,7 @@ if(true) {
 }
 
 /***/ }),
-/* 493 */
+/* 494 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35209,13 +35238,15 @@ var _Paper2 = _interopRequireDefault(_Paper);
 
 var _Dialog = __webpack_require__(68);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
-var _SpecialityItem = __webpack_require__(494);
+var _EmptyContent = __webpack_require__(36);
 
-var _SpecialityForm = __webpack_require__(495);
+var _SpecialityItem = __webpack_require__(495);
 
-var _SpecialityEditDialog = __webpack_require__(497);
+var _SpecialityForm = __webpack_require__(496);
+
+var _SpecialityEditDialog = __webpack_require__(498);
 
 var _urls = __webpack_require__(22);
 
@@ -35265,68 +35296,75 @@ var SpecialityList = exports.SpecialityList = function (_React$Component) {
                 itemDeleteRequest = _state.itemDeleteRequest;
 
 
-            var render = void 0;
-
             if (!loaded) {
-                render = React.createElement(_Loading.Loading, null);
-            } else {
-                render = React.createElement(
+                return React.createElement(_Loading.Loading, null);
+            }
+
+            if (items.length == 0) {
+                return React.createElement(
                     'div',
                     null,
-                    itemEditRequest != null && React.createElement(_SpecialityEditDialog.SpecialityEditDialog, {
-                        message: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u043E\u0432\u043E\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435',
-                        open: true,
-                        value: itemEditRequest.name,
-                        onClose: function onClose() {
-                            return _this2.setState({ itemEditRequest: null });
-                        },
-                        onSubmit: function onSubmit(newValue) {
-                            _this2.state.itemEditRequest.name = newValue;
-                            _this2.modifyItem(_this2.props.put, itemEditRequest);
-                        } }),
-                    itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
-                        title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
-                        message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
-                        open: true,
-                        actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
-                        onClose: function onClose() {
-                            return _this2.setState({ itemDeleteRequest: null });
-                        },
-                        onSubmit: function onSubmit() {
-                            return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
-                        } }),
+                    React.createElement(_EmptyContent.EmptyContent, { title: '\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0435\u0439 \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438' }),
                     React.createElement(_SpecialityForm.SpecialityForm, { createItem: function createItem(data) {
                             return _this2.modifyItem(_this2.props.post, data);
-                        } }),
-                    items.length && React.createElement(
-                        _Paper2.default,
-                        { zDepth: 3 },
-                        React.createElement(
-                            _List.List,
-                            null,
-                            React.createElement(
-                                _Subheader2.default,
-                                null,
-                                '\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438'
-                            ),
-                            React.createElement(_Divider2.default, null),
-                            items.map(function (item, index) {
-                                return React.createElement(_SpecialityItem.SpecialityItem, {
-                                    key: item.id,
-                                    item: item,
-                                    onEdit: function onEdit(item) {
-                                        return _this2.setState({ itemEditRequest: item });
-                                    },
-                                    onDelete: function onDelete(item) {
-                                        return _this2.setState({ itemDeleteRequest: item });
-                                    } });
-                            })
-                        )
-                    )
+                        } })
                 );
             }
 
-            return render;
+            return React.createElement(
+                'div',
+                null,
+                itemEditRequest != null && React.createElement(_SpecialityEditDialog.SpecialityEditDialog, {
+                    message: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u043E\u0432\u043E\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435',
+                    open: true,
+                    value: itemEditRequest.name,
+                    onClose: function onClose() {
+                        return _this2.setState({ itemEditRequest: null });
+                    },
+                    onSubmit: function onSubmit(newValue) {
+                        _this2.state.itemEditRequest.name = newValue;
+                        _this2.modifyItem(_this2.props.put, itemEditRequest);
+                    } }),
+                itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
+                    title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
+                    message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
+                    open: true,
+                    actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
+                    onClose: function onClose() {
+                        return _this2.setState({ itemDeleteRequest: null });
+                    },
+                    onSubmit: function onSubmit() {
+                        return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
+                    } }),
+                React.createElement(_SpecialityForm.SpecialityForm, { createItem: function createItem(data) {
+                        return _this2.modifyItem(_this2.props.post, data);
+                    } }),
+                items.length && React.createElement(
+                    _Paper2.default,
+                    { zDepth: 3 },
+                    React.createElement(
+                        _List.List,
+                        null,
+                        React.createElement(
+                            _Subheader2.default,
+                            null,
+                            '\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u0438'
+                        ),
+                        React.createElement(_Divider2.default, null),
+                        items.map(function (item, index) {
+                            return React.createElement(_SpecialityItem.SpecialityItem, {
+                                key: item.id,
+                                item: item,
+                                onEdit: function onEdit(item) {
+                                    return _this2.setState({ itemEditRequest: item });
+                                },
+                                onDelete: function onDelete(item) {
+                                    return _this2.setState({ itemDeleteRequest: item });
+                                } });
+                        })
+                    )
+                )
+            );
         }
     }, {
         key: 'modifyItem',
@@ -35357,7 +35395,7 @@ var SpecialityList = exports.SpecialityList = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 494 */
+/* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35415,7 +35453,7 @@ var SpecialityItem = exports.SpecialityItem = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 495 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35446,7 +35484,7 @@ var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
 var _FloatButton = __webpack_require__(71);
 
-__webpack_require__(496);
+__webpack_require__(497);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35545,13 +35583,13 @@ var SpecialityForm = exports.SpecialityForm = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 496 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(134);
+var content = __webpack_require__(135);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -35565,8 +35603,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(134, function() {
-			var newContent = __webpack_require__(134);
+		module.hot.accept(135, function() {
+			var newContent = __webpack_require__(135);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -35576,7 +35614,7 @@ if(true) {
 }
 
 /***/ }),
-/* 497 */
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35666,7 +35704,7 @@ var SpecialityEditDialog = exports.SpecialityEditDialog = function (_React$Compo
 }(React.Component);
 
 /***/ }),
-/* 498 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35715,7 +35753,7 @@ var LecturerHome = exports.LecturerHome = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 499 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35748,9 +35786,9 @@ var _Paper2 = _interopRequireDefault(_Paper);
 
 var _Dialog = __webpack_require__(68);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
-var _EmptyContent = __webpack_require__(55);
+var _EmptyContent = __webpack_require__(36);
 
 var _CourseItem = __webpack_require__(501);
 
@@ -35920,37 +35958,6 @@ var CourseList = exports.CourseList = function (_React$Component) {
 }(React.Component);
 
 /***/ }),
-/* 500 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(135);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(15)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(135, function() {
-			var newContent = __webpack_require__(135);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
 /* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35972,7 +35979,7 @@ var _List = __webpack_require__(20);
 
 var _RightIcon = __webpack_require__(69);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -36123,7 +36130,7 @@ var _SelectField = __webpack_require__(93);
 
 var _SelectField2 = _interopRequireDefault(_SelectField);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -36750,7 +36757,7 @@ var _arrowDropDown = __webpack_require__(506);
 
 var _arrowDropDown2 = _interopRequireDefault(_arrowDropDown);
 
-var _Menu = __webpack_require__(128);
+var _Menu = __webpack_require__(129);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -36766,7 +36773,7 @@ var _PopoverAnimationVertical = __webpack_require__(207);
 
 var _PopoverAnimationVertical2 = _interopRequireDefault(_PopoverAnimationVertical);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -36774,7 +36781,7 @@ var _events = __webpack_require__(89);
 
 var _events2 = _interopRequireDefault(_events);
 
-var _IconButton = __webpack_require__(54);
+var _IconButton = __webpack_require__(55);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
@@ -37996,7 +38003,7 @@ var _SelectField = __webpack_require__(93);
 
 var _SelectField2 = _interopRequireDefault(_SelectField);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -38181,11 +38188,11 @@ var _Paper2 = _interopRequireDefault(_Paper);
 
 var _Dialog = __webpack_require__(68);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
 var _Filter = __webpack_require__(137);
 
-var _EmptyContent = __webpack_require__(55);
+var _EmptyContent = __webpack_require__(36);
 
 var _GuideItem = __webpack_require__(521);
 
@@ -38256,91 +38263,90 @@ var GuideList = exports.GuideList = function (_React$Component) {
                 return sortCourseId == null || item.courseId == sortCourseId;
             });
 
-            var render = void 0;
-
             if (!loaded) {
-                render = React.createElement(_Loading.Loading, null);
-            } else {
-                render = React.createElement(
+                return React.createElement(_Loading.Loading, null);
+            }
+
+            if (items.length == 0) {
+                return React.createElement(
                     'div',
                     null,
-                    React.createElement(_Filter.Filter, {
-                        value: sortCourseId,
-                        items: courses,
-                        defaultText: '\u0412\u0441\u0435 \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438',
-                        onChange: function onChange(sortCourseId) {
-                            return _this2.setState({ sortCourseId: sortCourseId });
-                        }
-                    }),
-                    itemEditRequest != null && React.createElement(_GuideEditDialog.GuideEditDialog, {
-                        title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438',
-                        open: true,
-                        item: itemEditRequest,
-                        onClose: function onClose() {
-                            return _this2.setState({ itemEditRequest: null });
-                        },
-                        onSubmit: function onSubmit(item) {
-                            return _this2.modifyItem(_this2.props.putFormData, item);
-                        } }),
-                    itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
-                        title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
-                        message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0443? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
-                        open: true,
-                        actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
-                        onClose: function onClose() {
-                            return _this2.setState({ itemDeleteRequest: null });
-                        },
-                        onSubmit: function onSubmit() {
-                            return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
-                        } }),
-                    items.length == 0 && React.createElement(
-                        'div',
-                        null,
-                        React.createElement(_EmptyContent.EmptyContent, { title: '\u041C\u0435\u0442\u043E\u0434\u0438\u0447\u0435\u043A \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438' }),
-                        React.createElement(_GuideForm.GuideForm, { createItem: function createItem(data) {
-                                return _this2.modifyItem(_this2.props.postFormData, data);
-                            }, getCourses: function getCourses(callback) {
-                                return _this2.getCourses(callback);
-                            } })
-                    ),
-                    items.length > 0 && React.createElement(
-                        'div',
-                        { className: 'list-form-container' },
-                        React.createElement(
-                            _Paper2.default,
-                            { zDepth: 3, className: 'flex-grow-1' },
-                            React.createElement(
-                                _List.List,
-                                null,
-                                React.createElement(
-                                    _Subheader2.default,
-                                    null,
-                                    '\u041C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438'
-                                ),
-                                React.createElement(_Divider2.default, null),
-                                sortedItems.map(function (item, index) {
-                                    return React.createElement(_GuideItem.GuideItem, {
-                                        key: item.id,
-                                        item: item,
-                                        onEdit: function onEdit(item) {
-                                            return _this2.setState({ itemEditRequest: item });
-                                        },
-                                        onDelete: function onDelete(item) {
-                                            return _this2.setState({ itemDeleteRequest: item });
-                                        } });
-                                })
-                            )
-                        ),
-                        React.createElement(_GuideForm.GuideForm, { createItem: function createItem(data) {
-                                return _this2.modifyItem(_this2.props.postFormData, data);
-                            }, getCourses: function getCourses(callback) {
-                                return _this2.getCourses(callback);
-                            } })
-                    )
+                    React.createElement(_EmptyContent.EmptyContent, { title: '\u041C\u0435\u0442\u043E\u0434\u0438\u0447\u0435\u043A \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438' }),
+                    React.createElement(_GuideForm.GuideForm, { createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        }, getCourses: function getCourses(callback) {
+                            return _this2.getCourses(callback);
+                        } })
                 );
             }
 
-            return render;
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(_Filter.Filter, {
+                    value: sortCourseId,
+                    items: courses,
+                    defaultText: '\u0412\u0441\u0435 \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438',
+                    onChange: function onChange(sortCourseId) {
+                        return _this2.setState({ sortCourseId: sortCourseId });
+                    }
+                }),
+                itemEditRequest != null && React.createElement(_GuideEditDialog.GuideEditDialog, {
+                    title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438',
+                    open: true,
+                    item: itemEditRequest,
+                    onClose: function onClose() {
+                        return _this2.setState({ itemEditRequest: null });
+                    },
+                    onSubmit: function onSubmit(item) {
+                        return _this2.modifyItem(_this2.props.putFormData, item);
+                    } }),
+                itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
+                    title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
+                    message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0443? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
+                    open: true,
+                    actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
+                    onClose: function onClose() {
+                        return _this2.setState({ itemDeleteRequest: null });
+                    },
+                    onSubmit: function onSubmit() {
+                        return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
+                    } }),
+                React.createElement(
+                    'div',
+                    { className: 'list-form-container' },
+                    React.createElement(
+                        _Paper2.default,
+                        { zDepth: 3, className: 'flex-grow-1' },
+                        React.createElement(
+                            _List.List,
+                            null,
+                            React.createElement(
+                                _Subheader2.default,
+                                null,
+                                '\u041C\u0435\u0442\u043E\u0434\u0438\u0447\u043A\u0438'
+                            ),
+                            React.createElement(_Divider2.default, null),
+                            sortedItems.map(function (item, index) {
+                                return React.createElement(_GuideItem.GuideItem, {
+                                    key: item.id,
+                                    item: item,
+                                    onEdit: function onEdit(item) {
+                                        return _this2.setState({ itemEditRequest: item });
+                                    },
+                                    onDelete: function onDelete(item) {
+                                        return _this2.setState({ itemDeleteRequest: item });
+                                    } });
+                            })
+                        )
+                    ),
+                    React.createElement(_GuideForm.GuideForm, { createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        }, getCourses: function getCourses(callback) {
+                            return _this2.getCourses(callback);
+                        } })
+                )
+            );
         }
     }, {
         key: 'getCourses',
@@ -39064,7 +39070,7 @@ var _List = __webpack_require__(20);
 
 var _RightIcon = __webpack_require__(69);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -39234,7 +39240,7 @@ var _SelectField = __webpack_require__(93);
 
 var _SelectField2 = _interopRequireDefault(_SelectField);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -39985,11 +39991,11 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -40243,11 +40249,11 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-var _keycode = __webpack_require__(44);
+var _keycode = __webpack_require__(45);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -41028,7 +41034,7 @@ var _transitions2 = _interopRequireDefault(_transitions);
 
 var _dateUtils = __webpack_require__(75);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -41425,7 +41431,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _EnhancedButton = __webpack_require__(43);
+var _EnhancedButton = __webpack_require__(44);
 
 var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
@@ -41585,7 +41591,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _IconButton = __webpack_require__(54);
+var _IconButton = __webpack_require__(55);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
@@ -42871,9 +42877,9 @@ var _Filter = __webpack_require__(137);
 
 var _Dialog = __webpack_require__(68);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
-var _EmptyContent = __webpack_require__(55);
+var _EmptyContent = __webpack_require__(36);
 
 var _TaskItem = __webpack_require__(540);
 
@@ -42945,105 +42951,104 @@ var TaskList = exports.TaskList = function (_React$Component) {
                 return sortCourseId == null || item.courseId == sortCourseId;
             });
 
-            var render = void 0;
-
             if (!loaded) {
-                render = React.createElement(_Loading.Loading, null);
-            } else {
-                render = React.createElement(
+                return React.createElement(_Loading.Loading, null);
+            }
+
+            if (items.length == 0) {
+                return React.createElement(
                     'div',
                     null,
-                    React.createElement(_Filter.Filter, {
-                        value: sortCourseId,
-                        items: courses,
-                        defaultText: '\u0412\u0441\u0435 \u0437\u0430\u0434\u0430\u0447\u0438',
-                        onChange: function onChange(sortCourseId) {
-                            return _this2.setState({ sortCourseId: sortCourseId });
-                        }
-                    }),
-                    itemEditRequest != null && React.createElement(_TaskEditDialog.TaskEditDialog, {
-                        title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0437\u0430\u0434\u0430\u0447\u0438',
-                        open: true,
-                        item: itemEditRequest,
-                        onClose: function onClose() {
-                            return _this2.setState({ itemEditRequest: null });
-                        },
-                        onSubmit: function onSubmit(item, updateFiles) {
-                            var data = {
-                                id: item.id,
-                                title: item.title,
-                                description: item.description,
-                                dateAvailable: item.dateAvailable,
-                                dateOverdue: item.dateOverdue
-                            };
-                            _this2.modifyItem(_this2.props.put, data);
-                            if (updateFiles) {
-                                var filesData = {
-                                    id: item.id,
-                                    files: item.files
-                                };
-                                _this2.modifyItem(_this2.props.putFormData, filesData, _urls2.default.tasks.files);
-                            }
-                        } }),
-                    itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
-                        title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
-                        message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
-                        open: true,
-                        actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
-                        onClose: function onClose() {
-                            return _this2.setState({ itemDeleteRequest: null });
-                        },
-                        onSubmit: function onSubmit() {
-                            return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
-                        } }),
-                    items.length == 0 && React.createElement(
-                        'div',
-                        null,
-                        React.createElement(_EmptyContent.EmptyContent, { title: '\u0417\u0430\u0434\u0430\u0447 \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438' }),
-                        React.createElement(_TaskForm.TaskForm, { getCourses: function getCourses(callback) {
-                                return _this2.getCourses(callback);
-                            }, createItem: function createItem(data) {
-                                return _this2.modifyItem(_this2.props.postFormData, data);
-                            } })
-                    ),
-                    items.length > 0 && React.createElement(
-                        'div',
-                        { className: 'list-form-container' },
-                        React.createElement(
-                            _Paper2.default,
-                            { zDepth: 3, className: 'flex-grow-1' },
-                            React.createElement(
-                                _List.List,
-                                null,
-                                React.createElement(
-                                    _Subheader2.default,
-                                    null,
-                                    '\u0417\u0430\u0434\u0430\u0447\u0438'
-                                ),
-                                React.createElement(_Divider2.default, null),
-                                sortedItems.map(function (item, index) {
-                                    return React.createElement(_TaskItem.TaskItem, {
-                                        key: item.id,
-                                        item: item,
-                                        onEdit: function onEdit(item) {
-                                            return _this2.setState({ itemEditRequest: item });
-                                        },
-                                        onDelete: function onDelete(item) {
-                                            return _this2.setState({ itemDeleteRequest: item });
-                                        } });
-                                })
-                            )
-                        ),
-                        React.createElement(_TaskForm.TaskForm, { getCourses: function getCourses(callback) {
-                                return _this2.getCourses(callback);
-                            }, createItem: function createItem(data) {
-                                return _this2.modifyItem(_this2.props.postFormData, data);
-                            } })
-                    )
+                    React.createElement(_EmptyContent.EmptyContent, { title: '\u0417\u0430\u0434\u0430\u0447 \u043D\u0435\u0442', message: '\u0415\u0449\u0451 \u043D\u0435 \u0441\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0438' }),
+                    React.createElement(_TaskForm.TaskForm, { getCourses: function getCourses(callback) {
+                            return _this2.getCourses(callback);
+                        }, createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        } })
                 );
             }
 
-            return render;
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(_Filter.Filter, {
+                    value: sortCourseId,
+                    items: courses,
+                    defaultText: '\u0412\u0441\u0435 \u0437\u0430\u0434\u0430\u0447\u0438',
+                    onChange: function onChange(sortCourseId) {
+                        return _this2.setState({ sortCourseId: sortCourseId });
+                    }
+                }),
+                itemEditRequest != null && React.createElement(_TaskEditDialog.TaskEditDialog, {
+                    title: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u0437\u0430\u0434\u0430\u0447\u0438',
+                    open: true,
+                    item: itemEditRequest,
+                    onClose: function onClose() {
+                        return _this2.setState({ itemEditRequest: null });
+                    },
+                    onSubmit: function onSubmit(item, updateFiles) {
+                        var data = {
+                            id: item.id,
+                            title: item.title,
+                            description: item.description,
+                            dateAvailable: item.dateAvailable,
+                            dateOverdue: item.dateOverdue
+                        };
+                        _this2.modifyItem(_this2.props.put, data);
+                        if (updateFiles) {
+                            var filesData = {
+                                id: item.id,
+                                files: item.files
+                            };
+                            _this2.modifyItem(_this2.props.putFormData, filesData, _urls2.default.tasks.files);
+                        }
+                    } }),
+                itemDeleteRequest != null && React.createElement(_Dialog.Dialog, {
+                    title: '\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
+                    message: '\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443? \u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043E\u0431\u0440\u0430\u0442\u0438\u043C\u043E',
+                    open: true,
+                    actionLabel: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
+                    onClose: function onClose() {
+                        return _this2.setState({ itemDeleteRequest: null });
+                    },
+                    onSubmit: function onSubmit() {
+                        return _this2.modifyItem(_this2.props.delete, itemDeleteRequest);
+                    } }),
+                React.createElement(
+                    'div',
+                    { className: 'list-form-container' },
+                    React.createElement(
+                        _Paper2.default,
+                        { zDepth: 3, className: 'flex-grow-1' },
+                        React.createElement(
+                            _List.List,
+                            null,
+                            React.createElement(
+                                _Subheader2.default,
+                                null,
+                                '\u0417\u0430\u0434\u0430\u0447\u0438'
+                            ),
+                            React.createElement(_Divider2.default, null),
+                            sortedItems.map(function (item, index) {
+                                return React.createElement(_TaskItem.TaskItem, {
+                                    key: item.id,
+                                    item: item,
+                                    onEdit: function onEdit(item) {
+                                        return _this2.setState({ itemEditRequest: item });
+                                    },
+                                    onDelete: function onDelete(item) {
+                                        return _this2.setState({ itemDeleteRequest: item });
+                                    } });
+                            })
+                        )
+                    ),
+                    React.createElement(_TaskForm.TaskForm, { getCourses: function getCourses(callback) {
+                            return _this2.getCourses(callback);
+                        }, createItem: function createItem(data) {
+                            return _this2.modifyItem(_this2.props.postFormData, data);
+                        } })
+                )
+            );;
         }
     }, {
         key: 'getCourses',
@@ -43122,7 +43127,7 @@ var _List = __webpack_require__(20);
 
 var _RightIcon = __webpack_require__(69);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -43425,7 +43430,7 @@ var _SelectField = __webpack_require__(93);
 
 var _SelectField2 = _interopRequireDefault(_SelectField);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -44127,9 +44132,9 @@ var _FlatButton = __webpack_require__(23);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
-var _EmptyContent = __webpack_require__(55);
+var _EmptyContent = __webpack_require__(36);
 
 var _StudentItem = __webpack_require__(549);
 
@@ -44290,25 +44295,25 @@ var React = _interopRequireWildcard(_react);
 
 var _List = __webpack_require__(20);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
 var _colors = __webpack_require__(28);
 
-var _IconMenu = __webpack_require__(127);
+var _IconMenu = __webpack_require__(128);
 
 var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-var _MenuItem = __webpack_require__(36);
+var _MenuItem = __webpack_require__(37);
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _IconButton = __webpack_require__(54);
+var _IconButton = __webpack_require__(55);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _moreVert = __webpack_require__(126);
+var _moreVert = __webpack_require__(127);
 
 var _moreVert2 = _interopRequireDefault(_moreVert);
 
@@ -44641,7 +44646,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _EmptyContent = __webpack_require__(55);
+var _EmptyContent = __webpack_require__(36);
 
 var _urls = __webpack_require__(22);
 
@@ -44836,7 +44841,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _Avatar = __webpack_require__(46);
+var _Avatar = __webpack_require__(47);
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
@@ -45138,7 +45143,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _EmptyContent = __webpack_require__(55);
+var _EmptyContent = __webpack_require__(36);
 
 var _download = __webpack_require__(557);
 
@@ -45549,7 +45554,7 @@ var _react = __webpack_require__(0);
 
 var React = _interopRequireWildcard(_react);
 
-var _Loading = __webpack_require__(45);
+var _Loading = __webpack_require__(46);
 
 var _Filter = __webpack_require__(137);
 
@@ -46285,7 +46290,7 @@ var _TableRowColumn = __webpack_require__(145);
 
 var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
 
-var _ClickAwayListener = __webpack_require__(129);
+var _ClickAwayListener = __webpack_require__(130);
 
 var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
@@ -47920,7 +47925,7 @@ var _transitions = __webpack_require__(10);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _ClickAwayListener = __webpack_require__(129);
+var _ClickAwayListener = __webpack_require__(130);
 
 var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
@@ -48402,7 +48407,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactEventListener = __webpack_require__(42);
+var _reactEventListener = __webpack_require__(43);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 

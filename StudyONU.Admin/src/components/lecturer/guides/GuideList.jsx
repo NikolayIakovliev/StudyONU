@@ -45,65 +45,62 @@ export class GuideList extends React.Component {
         const courses = sortCourses.map(course => { return { id: course.id, label: course.name } });
         const sortedItems = items.filter(item => sortCourseId == null || item.courseId == sortCourseId);
 
-        let render;
-
         if (!loaded) {
-            render = <Loading />;
-        } else {
-            render = (
+            return <Loading />;
+        }
+
+        if (items.length == 0) {
+            return (
                 <div>
-                    <Filter
-                        value={sortCourseId}
-                        items={courses}
-                        defaultText="Все методички"
-                        onChange={sortCourseId => this.setState({ sortCourseId })}
-                    />
-                    {itemEditRequest != null &&
-                        <GuideEditDialog
-                            title="Редактирование методички"
-                            open={true}
-                            item={itemEditRequest}
-                            onClose={() => this.setState({ itemEditRequest: null })}
-                            onSubmit={item => this.modifyItem(this.props.putFormData, item)} />
-                    }
-                    {itemDeleteRequest != null &&
-                        <Dialog
-                            title="Подтвердите действие"
-                            message="Вы уверены, что хотите удалить методичку? Данное действие необратимо"
-                            open={true}
-                            actionLabel="Удалить"
-                            onClose={() => this.setState({ itemDeleteRequest: null })}
-                            onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
-                    }
-                    {items.length == 0 &&
-                        <div>
-                            <EmptyContent title="Методичек нет" message="Ещё не создано ни одной методички" />
-                            <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
-                        </div>
-                    }
-                    {items.length > 0 &&
-                        <div className="list-form-container">
-                            <Paper zDepth={3} className="flex-grow-1">
-                                <List>
-                                    <Subheader>Методички</Subheader>
-                                    <Divider />
-                                    {sortedItems.map((item, index) => {
-                                        return <GuideItem
-                                            key={item.id}
-                                            item={item}
-                                            onEdit={item => this.setState({ itemEditRequest: item })}
-                                            onDelete={item => this.setState({ itemDeleteRequest: item })} />
-                                    })}
-                                </List>
-                            </Paper>
-                            <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
-                        </div>
-                    }
+                    <EmptyContent title="Методичек нет" message="Ещё не создано ни одной методички" />
+                    <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
                 </div>
             );
         }
 
-        return render;
+        return (
+            <div>
+                <Filter
+                    value={sortCourseId}
+                    items={courses}
+                    defaultText="Все методички"
+                    onChange={sortCourseId => this.setState({ sortCourseId })}
+                />
+                {itemEditRequest != null &&
+                    <GuideEditDialog
+                        title="Редактирование методички"
+                        open={true}
+                        item={itemEditRequest}
+                        onClose={() => this.setState({ itemEditRequest: null })}
+                        onSubmit={item => this.modifyItem(this.props.putFormData, item)} />
+                }
+                {itemDeleteRequest != null &&
+                    <Dialog
+                        title="Подтвердите действие"
+                        message="Вы уверены, что хотите удалить методичку? Данное действие необратимо"
+                        open={true}
+                        actionLabel="Удалить"
+                        onClose={() => this.setState({ itemDeleteRequest: null })}
+                        onSubmit={() => this.modifyItem(this.props.delete, itemDeleteRequest)} />
+                }
+                <div className="list-form-container">
+                    <Paper zDepth={3} className="flex-grow-1">
+                        <List>
+                            <Subheader>Методички</Subheader>
+                            <Divider />
+                            {sortedItems.map((item, index) => {
+                                return <GuideItem
+                                    key={item.id}
+                                    item={item}
+                                    onEdit={item => this.setState({ itemEditRequest: item })}
+                                    onDelete={item => this.setState({ itemDeleteRequest: item })} />
+                            })}
+                        </List>
+                    </Paper>
+                    <GuideForm createItem={data => this.modifyItem(this.props.postFormData, data)} getCourses={callback => this.getCourses(callback)} />
+                </div>
+            </div>
+        );
     }
 
     getCourses(callback) {
