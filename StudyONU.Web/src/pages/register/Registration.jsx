@@ -1,6 +1,4 @@
 ﻿import * as React from 'react';
-import { Header } from '../shared/Header';
-import { urls } from '../../shared/api';
 import {
     Step,
     Stepper,
@@ -18,6 +16,9 @@ import MenuItem from 'material-ui/MenuItem';
 import Dropzone from 'react-dropzone';
 import Avatar from 'material-ui/Avatar';
 import ActionDone from 'material-ui/svg-icons/action/done';
+
+import { Header } from '../shared/Header';
+import { urls } from '../../shared/api';
 
 export class Registration extends React.Component {
     constructor(props) {
@@ -239,18 +240,59 @@ export class Registration extends React.Component {
     getNextHandler(stepIndex) {
         switch (stepIndex) {
             case 0:
+                const validateEmailProvider = () => {
+                    let valid = true;
+                    let error = '';
+
+                    let domains = [
+                        'mail.ru',
+                        'rambler.ru',
+                        'mvrht.net',
+                        'aegde.com',
+                        'arockee.com',
+                        '10minutemail.co.uk',
+                        'kuiqa.com',
+                        'wimsg.com',
+                        '10minutemail.be',
+                        'my10minutemail.com',
+                        '20email.eu',
+                        'qocya.com'
+                    ];
+
+                    for (let i = 0; i < domains.length; i++) {
+                        let domain = domains[i];
+
+                        if (this.state.email.endsWith(`@${domain}`)) {
+                            valid = false;
+                            error = `Домен ${domain} запрещен`;
+                            break;
+                        }
+                    }
+
+                    return {
+                        success: valid,
+                        error: error
+                    };
+                }
+
                 return () => {
-                    let self = this;
+                    let validation = validateEmailProvider();
+                    if (validation.success) {
+                        let self = this;
 
-                    this.props.post(`${urls.account.checkEmail}?email=${this.state.email}`, null, result => {
-                        let stepIndex = this.state.stepIndex + 1;
-                        let errors = { email: '' };
+                        this.props.post(`${urls.account.checkEmail}?email=${this.state.email}`, null, result => {
+                            let stepIndex = this.state.stepIndex + 1;
+                            let errors = { email: '' };
 
-                        self.setState({ allowNextStep: true, stepIndex: stepIndex, errors: errors });
-                    }, result => {
-                        let errors = { email: 'Почта уже используется' };
-                        self.setState({ errors });
-                    });
+                            self.setState({ allowNextStep: true, stepIndex: stepIndex, errors: errors });
+                        }, result => {
+                            let errors = { email: 'Почта уже используется' };
+                            self.setState({ errors });
+                        });
+                    } else {
+                        let errors = { email: validation.error };
+                        this.setState({ errors });
+                    }
                 }
             case 1:
                 return () => {

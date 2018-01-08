@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StudyONU.Admin.Filters;
 using StudyONU.Admin.Models.Comment;
+using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Comment;
 using StudyONU.Logic.Infrastructure;
@@ -14,11 +15,17 @@ namespace StudyONU.Admin.Controllers
     public class CommentsController : ApiController
     {
         private readonly ICommentService service;
+        private readonly IEmailSender emailSender;
         private readonly IMapper mapper;
 
-        public CommentsController(ICommentService service, IMapper mapper)
+        public CommentsController(
+            ICommentService service,
+            IEmailSender emailSender,
+            IMapper mapper
+            )
         {
             this.service = service;
+            this.emailSender = emailSender;
             this.mapper = mapper;
         }
 
@@ -28,9 +35,16 @@ namespace StudyONU.Admin.Controllers
             CommentCreateDTO comment = mapper.Map<CommentCreateDTO>(model);
             comment.SenderEmail = GetUserEmail();
 
-            ServiceMessage serviceMessage = await service.CreateAsync(comment);
+            DataServiceMessage<CommentInfoDTO> dataServiceMessage = await service.CreateAsync(comment);
+            if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                CommentInfoDTO info = dataServiceMessage.Data;
+                ServiceMessage serviceMessage = await emailSender.SendEmailAsync(info.StudentEmail, $"{info.CourseName} - {info.TaskName}", "Преподаватель оставил комментарий");
 
-            return GenerateResponse(serviceMessage);
+                return GenerateResponse(serviceMessage);
+            }
+
+            return GenerateResponse(dataServiceMessage);
         }
 
         [HttpGet]

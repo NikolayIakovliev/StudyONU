@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Report;
 using StudyONU.Logic.Infrastructure;
+using StudyONU.Web.Helpers;
 using StudyONU.Web.Models.Report;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,29 +16,29 @@ namespace StudyONU.Web.Controllers
     public class ReportsController : ApiController
     {
         private readonly IReportService service;
-        private readonly IFileHelper fileHelper;
         private readonly IMapper mapper;
+        private readonly ProxyHelper proxyHelper;
 
         public ReportsController(
             IReportService service,
-            IFileHelper fileHelper,
-            IMapper mapper
+            IMapper mapper,
+            ProxyHelper proxyHelper
             )
         {
             this.service = service;
-            this.fileHelper = fileHelper;
             this.mapper = mapper;
+            this.proxyHelper = proxyHelper;
         }
 
         [HttpPost]
         public async Task<IActionResult> Send([FromForm] ReportCreateBindingModel model)
         {
-            DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(model.Files, ReportsUploadPath);
+            IEnumerable<string> paths = await proxyHelper.SendFilesAsync(model.Files);
 
-            if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
+            if (paths != null)
             {
                 ReportCreateDTO reportCreateDTO = mapper.Map<ReportCreateDTO>(model);
-                reportCreateDTO.FilePaths = dataServiceMessage.Data;
+                reportCreateDTO.FilePaths = paths;
                 string email = GetUserEmail();
 
                 ServiceMessage serviceMessage = await service.SendAsync(reportCreateDTO, email);
@@ -45,7 +46,7 @@ namespace StudyONU.Web.Controllers
                 return GenerateResponse(serviceMessage);
             }
 
-            return GenerateResponse(dataServiceMessage);
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPut]

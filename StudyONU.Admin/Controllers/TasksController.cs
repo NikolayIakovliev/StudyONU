@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudyONU.Admin.Filters;
+using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.Task;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
@@ -39,7 +40,7 @@ namespace StudyONU.Admin.Controllers
 
             if (files != null && files.Any())
             {
-                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, TasksUploadPath);
+                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, Paths.TasksUploadPath);
                 switch (dataServiceMessage.ActionResult)
                 {
                     case ServiceActionResult.Success:
@@ -77,7 +78,7 @@ namespace StudyONU.Admin.Controllers
 
             if (files != null && files.Any())
             {
-                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, TasksUploadPath);
+                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, Paths.TasksUploadPath);
                 switch (dataServiceMessage.ActionResult)
                 {
                     case ServiceActionResult.Success:

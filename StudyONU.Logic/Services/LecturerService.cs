@@ -37,7 +37,7 @@ namespace StudyONU.Logic.Services
                 UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(lecturerCreateDTO.Email);
                 if (userEntity == null)
                 {
-                    string password = lecturerCreateDTO.Email;// passwordHasher.HashPassword(lecturerCreateDTO.Email);
+                    string password = passwordHasher.HashPassword(lecturerCreateDTO.Email);
 
                     userEntity = mapper.Map<UserEntity>(lecturerCreateDTO);
                     userEntity.PasswordHash = passwordHasher.HashPassword(password);

@@ -31,6 +31,7 @@ namespace StudyONU.Web.Controllers
         public async Task<IActionResult> Register(StudentQueueCreateBindingModel model)
         {
             string path = await proxyHelper.SendFileAsync(model.Photo);
+
             if (path != null)
             {
                 StudentQueueCreateDTO studentQueueCreateDTO = mapper.Map<StudentQueueCreateDTO>(model);

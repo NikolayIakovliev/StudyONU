@@ -62,7 +62,7 @@ namespace StudyONU.Web.Helpers
         /// </summary>
         /// <param name="files"></param>
         /// <returns>Returns paths of saved files. If operation was unsuccessful returns null</returns>
-        public async Task<IEnumerable<string>> SendFileAsync(IEnumerable<IFormFile> files)
+        public async Task<IEnumerable<string>> SendFilesAsync(IEnumerable<IFormFile> files)
         {
             IEnumerable<string> paths = null;
 

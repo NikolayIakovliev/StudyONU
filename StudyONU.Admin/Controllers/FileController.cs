@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeMapping;
+using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.File;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Infrastructure;
@@ -15,9 +16,6 @@ namespace StudyONU.Admin.Controllers
 {
     public class FileController : Controller
     {
-        private const string StudentsImageUploadPath = "\\images\\uploads\\students";
-        private const string ReportsUploadPath = "\\files\\uploads\\reports";
-
         private readonly IHostingEnvironment env;
         private readonly IFileHelper fileHelper;
         private readonly ILogger logger;
@@ -67,7 +65,7 @@ namespace StudyONU.Admin.Controllers
             {
                 IFormCollection form = Request.Form;
                 IFormFile file = form.Files.FirstOrDefault();
-                DataServiceMessage<string> serviceMessage = await fileHelper.SaveFileAsync(file, StudentsImageUploadPath);
+                DataServiceMessage<string> serviceMessage = await fileHelper.SaveFileAsync(file, Paths.StudentsImageUploadPath);
 
                 if (serviceMessage.ActionResult == ServiceActionResult.Success)
                 {
@@ -90,7 +88,7 @@ namespace StudyONU.Admin.Controllers
             {
                 IFormCollection form = Request.Form;
                 IEnumerable<IFormFile> files = form.Files;
-                DataServiceMessage<IEnumerable<string>> serviceMessage = await fileHelper.SaveFilesAsync(files, ReportsUploadPath);
+                DataServiceMessage<IEnumerable<string>> serviceMessage = await fileHelper.SaveFilesAsync(files, Paths.ReportsUploadPath);
 
                 if (serviceMessage.ActionResult == ServiceActionResult.Success)
                 {

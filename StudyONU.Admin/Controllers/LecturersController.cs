@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudyONU.Admin.Filters;
+using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.Lecturer;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
@@ -35,7 +36,7 @@ namespace StudyONU.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] LecturerCreateBindingModel model)
         {
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.Photo, LecturersImageUploadPath);
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.Photo, Paths.LecturersImageUploadPath);
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 LecturerCreateDTO lecturerCreateDTO = mapper.Map<LecturerCreateDTO>(model);

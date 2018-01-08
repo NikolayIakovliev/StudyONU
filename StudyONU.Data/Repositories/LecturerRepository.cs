@@ -38,5 +38,12 @@ namespace StudyONU.Data.Repositories
                 .ThenInclude(user => user.Role)
                 .FirstOrDefaultAsync(lecturer => lecturer.User.Email == email);
         }
+
+        public Task<LecturerEntity> GetByTaskAsync(int taskId)
+        {
+            return context.Lecturers
+                .Include(lecturer => lecturer.User)
+                .FirstOrDefaultAsync(lecturer => lecturer.Courses.Any(course => course.Tasks.Any(task => task.Id == taskId)));
+        }
     }
 }

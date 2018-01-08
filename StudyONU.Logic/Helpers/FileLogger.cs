@@ -16,6 +16,11 @@ namespace StudyONU.Logic.Helpers
         {
             this.options = options.Value;
             this.env = env;
+
+            // TODO
+            // Implement file path without separator replacement
+            this.options.InfoFileName = this.options.InfoFileName.Replace('\\', Path.DirectorySeparatorChar);
+            this.options.ErrorFileName = this.options.ErrorFileName.Replace('\\', Path.DirectorySeparatorChar);
         }
 
         public void Fatal(Exception exception)

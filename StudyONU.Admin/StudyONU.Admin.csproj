@@ -1,6 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeIdentifiers>win7-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
@@ -23,8 +29,12 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="wwwroot\files\uploads\guides\" />
     <Folder Include="wwwroot\files\uploads\reports\" />
+    <Folder Include="wwwroot\files\uploads\tasks\" />
+    
     <Folder Include="wwwroot\images\uploads\lecturers\" />
+    <Folder Include="wwwroot\images\uploads\students\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,11 +7,7 @@ namespace StudyONU.Admin.Controllers
     [Route("api/[controller]")]
     [Produces("application/json")]
     public class ApiController : Controller
-    {
-        protected const string LecturersImageUploadPath = "images\\uploads\\lecturers";
-        protected const string GuidesUploadPath = "files\\uploads\\guides";
-        protected const string TasksUploadPath = "files\\uploads\\tasks";
-        
+    {        
         protected string GetUserEmail()
         {
             return User.FindFirstValue(ClaimTypes.Email);

@@ -128,7 +128,7 @@ export class ReportBox extends React.Component {
 
         let dropzoneContent = files.length > 0
             ? <p>Загружено файлов: {files.length}</p>
-            : <p>Прикрепить файлы</p>;
+            : <p>Прикрепить файлы (pdf)</p>;
 
         const disabled = files.length == 0;
         return (
@@ -137,7 +137,7 @@ export class ReportBox extends React.Component {
                     className="dropzone"
                     multiple={true}
                     onDrop={files => this.setState({ files: files })}
-                    accept=".docx,.doc,.pdf,.txt">
+                    accept=".pdf">
                     {dropzoneContent}
                 </Dropzone>
                 <RaisedButton

@@ -17,15 +17,25 @@
         height: 280px;
         background-color: $blue-dark;
 
-        .logo {
-            margin-top: -35px;
-        }
+        .content {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            height: 100%;
+            padding: 20px 0;
+            box-sizing: border-box;
 
-        .title {
-            font-size: 36px;
-            text-align: center;
-            color: #ffffff;
-            line-height: 0.2;
+            .logo {
+                align-self: flex-end;
+            }
+
+            .title {
+                align-self: flex-start;
+                text-align: center;
+                color: #ffffff;
+                font-size: 30px;
+                line-height: 0.5;
+            }
         }
 
         .form-box {

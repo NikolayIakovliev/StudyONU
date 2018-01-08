@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudyONU.Admin.Filters;
+using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.Guide;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
@@ -32,7 +33,7 @@ namespace StudyONU.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] GuideCreateBindingModel model)
         {
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, GuidesUploadPath);
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, Paths.GuidesUploadPath);
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 GuideCreateDTO guideCreateDTO = mapper.Map<GuideCreateDTO>(model);
@@ -52,7 +53,7 @@ namespace StudyONU.Admin.Controllers
             string filePath = null;
             if (model.File != null)
             {
-                DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, GuidesUploadPath);
+                DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, Paths.GuidesUploadPath);
                 if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
                 {
                     filePath = dataServiceMessage.Data;

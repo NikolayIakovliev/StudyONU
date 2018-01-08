@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Comment;
 using StudyONU.Logic.Infrastructure;
@@ -13,16 +14,19 @@ namespace StudyONU.Web.Controllers
     public class CommentsController : ApiController
     {
         private readonly ICommentService service;
+        private readonly IEmailSender emailSender;
         private readonly IMapper mapper;
         private readonly DomainHelper domainHelper;
 
         public CommentsController(
             ICommentService service, 
+            IEmailSender emailSender,
             IMapper mapper,
             DomainHelper domainHelper
             )
         {
             this.service = service;
+            this.emailSender = emailSender;
             this.mapper = mapper;
             this.domainHelper = domainHelper;
         }
@@ -36,9 +40,16 @@ namespace StudyONU.Web.Controllers
             comment.SenderEmail = email;
             comment.StudentEmail = email;
 
-            ServiceMessage serviceMessage = await service.CreateAsync(comment);
+            DataServiceMessage<CommentInfoDTO> dataServiceMessage = await service.CreateAsync(comment);
+            if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
+            {
+                CommentInfoDTO info = dataServiceMessage.Data;
+                ServiceMessage serviceMessage = await emailSender.SendEmailAsync(info.LecturerEmail, $"{info.CourseName} - {info.TaskName}", "Студент оставил комментарий");
 
-            return GenerateResponse(serviceMessage);
+                return GenerateResponse(serviceMessage);
+            }
+
+            return GenerateResponse(dataServiceMessage);
         }
 
         [HttpGet]

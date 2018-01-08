@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eceabcba19f6cfa89694"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ca286bd20dfe6eed5665"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -733,7 +733,7 @@ module.exports = (__webpack_require__(48))(7);
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(48))(10);
+module.exports = (__webpack_require__(48))(9);
 
 /***/ }),
 /* 2 */
@@ -1484,7 +1484,7 @@ function updateLink (link, options, obj) {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(48))(116);
+module.exports = (__webpack_require__(48))(111);
 
 /***/ }),
 /* 17 */
@@ -3529,7 +3529,7 @@ exports.default = _Avatar2.default;
 /* 48 */
 /***/ (function(module, exports) {
 
-module.exports = vendor_38c0445cee7671038006;
+module.exports = vendor_dfa615fd1846a6a4a857;
 
 /***/ }),
 /* 49 */
@@ -3781,7 +3781,7 @@ module.exports = isArrayLike;
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(48))(202);
+module.exports = (__webpack_require__(48))(188);
 
 /***/ }),
 /* 61 */
@@ -9124,7 +9124,7 @@ exports = module.exports = __webpack_require__(14)(undefined);
 
 
 // module
-exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.login-page {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-family: Georgia;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 100%;\n  min-height: 100%; }\n.login-page .line-centered {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n    height: 280px;\n    background-color: #0a1944; }\n.login-page .line-centered .logo {\n      margin-top: -35px; }\n.login-page .line-centered .title {\n      font-size: 36px;\n      text-align: center;\n      color: #ffffff;\n      line-height: 0.2; }\n.login-page .line-centered .form-box {\n      background-color: white;\n      padding: 40px 20px;\n      text-align: center; }\n.login-page .line-centered .form-box .form-title {\n        font-size: 48px;\n        color: #010000;\n        margin: 0; }\n.login-page .line-centered .form-box .form-group {\n        margin: 40px 0; }\n.login-page .line-centered .form-box .form-group .form-label {\n          font-size: 30px;\n          margin-right: 15px; }\n.login-page .line-centered .form-box .form-group .form-input {\n          border: none;\n          border-bottom: solid 1px black;\n          font-size: 24px;\n          text-align: center;\n          width: 260px; }\n.login-page .line-centered .form-box .form-group .form-input:focus {\n            outline: none; }\n.login-page .line-centered .form-box .submit-btn {\n        border-radius: 10px;\n        background-color: #0a1944;\n        border: none;\n        color: white;\n        font-size: 30px;\n        padding: 10px 50px; }\n.login-page .line-centered .form-box .submit-btn:hover {\n          background-color: #505F8A; }\n.login-page .line-centered .form-box .submit-btn:active {\n          background-color: rgba(118, 132, 172, .5); }\n.login-page .line-centered .form-box .submit-btn:focus {\n          outline: none; }\n.login-page .line-centered .form-box .extra-info {\n        margin-top: 15px; }\n.login-page .line-centered .form-box .extra-info .forgot-password {\n          font-size: 24px;\n          font-style: italic;\n          text-align: center;\n          color: #3c4f6d; }\n.login-page .line-centered .form-box .extra-info .login-error {\n          margin-top: 20px;\n          font-size: 22px;\n          font-style: italic;\n          color: #ef2626; }\n", ""]);
+exports.push([module.i, "/*colors*/\n/*colors end*/\n/*sidebar*/\n/*sidebar end*/\n/*header*/\n/*header end*/\n.login-page {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  font-family: Georgia;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 100%;\n  min-height: 100%; }\n.login-page .line-centered {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n    height: 280px;\n    background-color: #0a1944; }\n.login-page .line-centered .content {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: reverse;\n          -ms-flex-direction: row-reverse;\n              flex-direction: row-reverse;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      height: 100%;\n      padding: 20px 0;\n      -webkit-box-sizing: border-box;\n              box-sizing: border-box; }\n.login-page .line-centered .content .logo {\n        -ms-flex-item-align: end;\n            align-self: flex-end; }\n.login-page .line-centered .content .title {\n        -ms-flex-item-align: start;\n            align-self: flex-start;\n        text-align: center;\n        color: #ffffff;\n        font-size: 30px;\n        line-height: 0.5; }\n.login-page .line-centered .form-box {\n      background-color: white;\n      padding: 40px 20px;\n      text-align: center; }\n.login-page .line-centered .form-box .form-title {\n        font-size: 48px;\n        color: #010000;\n        margin: 0; }\n.login-page .line-centered .form-box .form-group {\n        margin: 40px 0; }\n.login-page .line-centered .form-box .form-group .form-label {\n          font-size: 30px;\n          margin-right: 15px; }\n.login-page .line-centered .form-box .form-group .form-input {\n          border: none;\n          border-bottom: solid 1px black;\n          font-size: 24px;\n          text-align: center;\n          width: 260px; }\n.login-page .line-centered .form-box .form-group .form-input:focus {\n            outline: none; }\n.login-page .line-centered .form-box .submit-btn {\n        border-radius: 10px;\n        background-color: #0a1944;\n        border: none;\n        color: white;\n        font-size: 30px;\n        padding: 10px 50px; }\n.login-page .line-centered .form-box .submit-btn:hover {\n          background-color: #505F8A; }\n.login-page .line-centered .form-box .submit-btn:active {\n          background-color: rgba(118, 132, 172, .5); }\n.login-page .line-centered .form-box .submit-btn:focus {\n          outline: none; }\n.login-page .line-centered .form-box .extra-info {\n        margin-top: 15px; }\n.login-page .line-centered .form-box .extra-info .forgot-password {\n          font-size: 24px;\n          font-style: italic;\n          text-align: center;\n          color: #3c4f6d; }\n.login-page .line-centered .form-box .extra-info .login-error {\n          margin-top: 20px;\n          font-size: 22px;\n          font-style: italic;\n          color: #ef2626; }\n", ""]);
 
 // exports
 
@@ -10457,7 +10457,7 @@ module.exports = { "default": __webpack_require__(433), __esModule: true };
 /* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(48))(51);
+module.exports = (__webpack_require__(48))(47);
 
 /***/ }),
 /* 195 */
@@ -13698,24 +13698,24 @@ var Login = function (_React$Component) {
                     { className: 'line-centered' },
                     React.createElement(
                         'div',
-                        null,
+                        { className: 'content' },
                         React.createElement(
                             'div',
                             { className: 'title' },
                             React.createElement(
                                 'p',
                                 null,
-                                '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0439 \u043F\u043E\u0440\u0442\u0430\u043B \u041E\u0434\u0435\u0441\u0441\u043A\u043E\u0433\u043E'
+                                '\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0439 \u043F\u043E\u0440\u0442\u0430\u043B'
                             ),
                             React.createElement(
                                 'p',
                                 null,
-                                '\u043D\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u0443\u043D\u0438\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442\u0430'
+                                '\u041A\u0430\u0444\u0435\u0434\u0440\u044B \u043C\u0435\u0442\u043E\u0434\u043E\u0432'
                             ),
                             React.createElement(
                                 'p',
                                 null,
-                                '\u0438\u043C\u0435\u043D\u0438 \u0418. \u0418. \u041C\u0435\u0447\u043D\u0438\u043A\u043E\u0432\u0430'
+                                '\u043C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u043E\u0439 \u0444\u0438\u0437\u0438\u043A\u0438'
                             )
                         ),
                         React.createElement('img', { src: '/images/logo.png', className: 'logo' })

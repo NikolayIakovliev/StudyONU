@@ -86,7 +86,7 @@ namespace StudyONU.Logic.Services
                     studentQueueEntity.Approved = true;
                     studentQueueEntity.DateApproved = DateTime.Now;
                     
-                    string password = Guid.NewGuid().ToString();
+                    string password = passwordHasher.HashPassword(studentQueueEntity.Email);
                     string passwordHash = passwordHasher.HashPassword(password);
 
                     UserEntity userEntity = mapper.Map<UserEntity>(studentQueueEntity);
@@ -192,8 +192,7 @@ namespace StudyONU.Logic.Services
 
         public Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetAllAsync()
         {
-            Func<Task<IEnumerable<StudentQueueEntity>>> factory =
-                () => unitOfWork.StudentQueue.GetAllOrderedAsync(
+            Task<IEnumerable<StudentQueueEntity>> factory() => unitOfWork.StudentQueue.GetAllOrderedAsync(
                     studentEntity => true,
                     studentEntity => studentEntity.DateCreated
                     );
@@ -203,8 +202,7 @@ namespace StudyONU.Logic.Services
 
         public Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetUnapprovedAsync()
         {
-            Func<Task<IEnumerable<StudentQueueEntity>>> factory =
-                () => unitOfWork.StudentQueue.GetAllOrderedAsync(
+            Task<IEnumerable<StudentQueueEntity>> factory() => unitOfWork.StudentQueue.GetAllOrderedAsync(
                     studentEntity => !studentEntity.Approved.HasValue,
                     studentEntity => studentEntity.DateCreated
                     );

@@ -15,6 +15,13 @@ namespace StudyONU.Data.Repositories
         public TaskRepository(StudyONUDbContext context)
             : base(context) { }
 
+        public override Task<TaskEntity> GetAsync(int id)
+        {
+            return context.Tasks
+                .Include(task => task.Course)
+                .FirstOrDefaultAsync(task => task.Id == id);
+        }
+
         public Task<TaskEntity> GetDetailedAsync(int id)
         {
             return context.Tasks

@@ -19,20 +19,23 @@ namespace StudyONU.Logic.Services
             ILogger logger) 
             : base(unitOfWork, mapper, logger) { }
 
-        public async Task<ServiceMessage> CreateAsync(CommentCreateDTO commentDTO)
+        public async Task<DataServiceMessage<CommentInfoDTO>> CreateAsync(CommentCreateDTO commentDTO)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
+            CommentInfoDTO data = null;
 
             try
             {
                 TaskEntity taskEntity = await unitOfWork.Tasks.GetAsync(commentDTO.TaskId);
                 UserEntity sender = await unitOfWork.Users.GetByEmailAsync(commentDTO.SenderEmail);
+                LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetByTaskAsync(commentDTO.TaskId);
                 StudentEntity studentEntity = await unitOfWork.Students.GetByEmailAsync(commentDTO.StudentEmail);
 
                 bool ok =
                     taskEntity != null &&
                     sender != null &&
+                    lecturerEntity != null &&
                     studentEntity != null;
 
                 if (ok)
@@ -43,6 +46,17 @@ namespace StudyONU.Logic.Services
 
                     await unitOfWork.Comments.AddAsync(commentEntity);
                     await unitOfWork.CommitAsync();
+
+                    data = new CommentInfoDTO
+                    {
+                        TaskId = taskEntity.Id,
+                        TaskName = taskEntity.Title,
+                        CourseId = taskEntity.CourseId,
+                        CourseName = taskEntity.Course.Name,
+                        DateCreated = DateTime.Now,
+                        StudentEmail = commentDTO.StudentEmail,
+                        LecturerEmail = lecturerEntity.User.Email
+                    };
                 }
                 else
                 {
@@ -57,10 +71,11 @@ namespace StudyONU.Logic.Services
                 errors.AddExceptionError();
             }
 
-            return new ServiceMessage
+            return new DataServiceMessage<CommentInfoDTO>
             {
                 ActionResult = actionResult,
-                Errors = errors
+                Errors = errors,
+                Data = data
             };
         }
 

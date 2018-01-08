@@ -20,11 +20,11 @@ export default class Login extends React.Component {
         return (
             <div className="login-page">
                 <div className="line-centered">
-                    <div>
+                    <div className="content">
                         <div className="title">
-                            <p>Информационный портал Одесского</p>
-                            <p>национального университета</p>
-                            <p>имени И. И. Мечникова</p>
+                            <p>Информационный портал</p>
+                            <p>Кафедры методов</p>
+                            <p>математической физики</p>
                         </div>
                         <img src="/images/logo.png" className="logo" />
                     </div>
