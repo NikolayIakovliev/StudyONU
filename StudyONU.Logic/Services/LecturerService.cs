@@ -120,7 +120,7 @@ namespace StudyONU.Logic.Services
                 LecturerEntity lecturerEntity = await unitOfWork.Lecturers.GetAsync(id);
                 if (lecturerEntity != null)
                 {
-                    unitOfWork.Lecturers.Remove(lecturerEntity);
+                    unitOfWork.Users.Remove(lecturerEntity.User);
                     await unitOfWork.CommitAsync();
                 }
                 else

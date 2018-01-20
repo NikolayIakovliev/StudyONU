@@ -17,6 +17,7 @@ import { StudentQueueList } from './components/lecturer/studentQueue/StudentQueu
 import { SentReportBox } from './components/lecturer/reports/SentReportBox';
 import { OnCheckReportBox } from './components/lecturer/reports/OnCheckReportBox';
 import { CourseProgress } from './components/lecturer/courseProgress/CourseProgress';
+import Feedback from './components/lecturer/feedback/Feedback';
 
 import DeveloperHome from './components/developer/home/Home';
 
@@ -118,6 +119,11 @@ export default class Routes extends React.Component {
                 {
                     title: 'Успеваемость',
                     to: '/course/progress'
+                },
+                {
+                    title: 'Я хочу помочь',
+                    to: '/feedback',
+                    important: true
                 }
             ];
             routes = (
@@ -131,6 +137,7 @@ export default class Routes extends React.Component {
                     <Route path='/reports/oncheck' component={PropsApiWrapper(OnCheckReportBox)} />
                     <Route path='/course/progress' component={PropsApiWrapper(CourseProgress)} />
                     <Route path='/account/info' component={PropsApiWrapper(AccountPanel)} />
+                    <Route path='/feedback' component={PropsApiWrapper(Feedback)} />
                     <Route path='/' component={NotFound} />
                 </Switch>
             );

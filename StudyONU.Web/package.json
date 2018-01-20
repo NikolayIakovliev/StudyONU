@@ -3,9 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "react-dom": "15.6.1",
-    "react-dropzone": "4.2.1",
-    "react-router-dom": "4.1.1",
     "es6-promise": "^4.1.1",
     "css-loader": "0.28.5",
     "url-loader": "^0.5.9"

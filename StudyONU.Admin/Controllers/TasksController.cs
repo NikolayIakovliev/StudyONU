@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using StudyONU.Admin.Filters;
-using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.Task;
+using StudyONU.Admin.Options;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Task;
@@ -20,16 +21,19 @@ namespace StudyONU.Admin.Controllers
         private readonly ITaskService service;
         private readonly IFileHelper fileHelper;
         private readonly IMapper mapper;
+        private readonly UploadOptions options;
 
         public TasksController(
             ITaskService service,
             IFileHelper fileHelper,
-            IMapper mapper
+            IMapper mapper,
+            IOptions<UploadOptions> options
             )
         {
             this.service = service;
             this.fileHelper = fileHelper;
             this.mapper = mapper;
+            this.options = options.Value;
         }
 
         [HttpPost]
@@ -40,7 +44,7 @@ namespace StudyONU.Admin.Controllers
 
             if (files != null && files.Any())
             {
-                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, Paths.TasksUploadPath);
+                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, options.Task);
                 switch (dataServiceMessage.ActionResult)
                 {
                     case ServiceActionResult.Success:
@@ -78,7 +82,7 @@ namespace StudyONU.Admin.Controllers
 
             if (files != null && files.Any())
             {
-                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, Paths.TasksUploadPath);
+                DataServiceMessage<IEnumerable<string>> dataServiceMessage = await fileHelper.SaveFilesAsync(files, options.Task);
                 switch (dataServiceMessage.ActionResult)
                 {
                     case ServiceActionResult.Success:

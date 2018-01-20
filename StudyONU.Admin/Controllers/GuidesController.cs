@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using StudyONU.Admin.Filters;
-using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.Guide;
+using StudyONU.Admin.Options;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Guide;
@@ -18,22 +19,25 @@ namespace StudyONU.Admin.Controllers
         private readonly IGuideService service;
         private readonly IFileHelper fileHelper;
         private readonly IMapper mapper;
+        private readonly UploadOptions options;
 
         public GuidesController(
             IGuideService service,
             IFileHelper fileHelper,
-            IMapper mapper
+            IMapper mapper,
+            IOptions<UploadOptions> options
             )
         {
             this.service = service;
             this.fileHelper = fileHelper;
             this.mapper = mapper;
+            this.options = options.Value;
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] GuideCreateBindingModel model)
         {
-            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, Paths.GuidesUploadPath);
+            DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, options.Guide);
             if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
             {
                 GuideCreateDTO guideCreateDTO = mapper.Map<GuideCreateDTO>(model);
@@ -53,7 +57,7 @@ namespace StudyONU.Admin.Controllers
             string filePath = null;
             if (model.File != null)
             {
-                DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, Paths.GuidesUploadPath);
+                DataServiceMessage<string> dataServiceMessage = await fileHelper.SaveFileAsync(model.File, options.Guide);
                 if (dataServiceMessage.ActionResult == ServiceActionResult.Success)
                 {
                     filePath = dataServiceMessage.Data;

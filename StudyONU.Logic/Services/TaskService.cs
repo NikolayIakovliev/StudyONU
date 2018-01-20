@@ -5,7 +5,6 @@ using StudyONU.Core.Infrastructure;
 using StudyONU.Data.Contracts;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
-using StudyONU.Logic.DTO.Comment;
 using StudyONU.Logic.DTO.Task;
 using StudyONU.Logic.Infrastructure;
 using System;

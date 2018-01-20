@@ -69,7 +69,7 @@ namespace StudyONU.Logic.Services
 
             try
             {
-                AdminEntity adminEntity = await unitOfWork.Admins.GetAsync(admin => true);
+                AdminEntity adminEntity = await unitOfWork.Admins.GetByEmailAsync(adminDTO.Email);
                 if (adminEntity == null)
                 {
                     adminEntity = new AdminEntity

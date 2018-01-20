@@ -30,7 +30,8 @@
         create: '/api/comments',
         list: (taskId, studentEmail) => `/api/comments?taskId=${taskId}&studentEmail=${studentEmail}`
     },
-    courseProgress: (courseId) => `/api/courseReport/${courseId}`
+    courseProgress: (courseId) => `/api/courseReport/${courseId}`,
+    feedbacks: '/api/feedbacks'
 }
 
 export default Urls;

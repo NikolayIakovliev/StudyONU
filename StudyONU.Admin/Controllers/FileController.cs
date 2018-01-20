@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using MimeMapping;
-using StudyONU.Admin.Insrastructure;
 using StudyONU.Admin.Models.File;
+using StudyONU.Admin.Options;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Infrastructure;
 using System;
@@ -19,16 +20,19 @@ namespace StudyONU.Admin.Controllers
         private readonly IHostingEnvironment env;
         private readonly IFileHelper fileHelper;
         private readonly ILogger logger;
+        private readonly UploadOptions options;
 
         public FileController(
             IHostingEnvironment env,
             IFileHelper fileHelper,
-            ILogger logger
+            ILogger logger,
+            IOptions<UploadOptions> options
             )
         {
             this.env = env;
             this.fileHelper = fileHelper;
             this.logger = logger;
+            this.options = options.Value;
         }
 
         [HttpPost]
@@ -65,7 +69,7 @@ namespace StudyONU.Admin.Controllers
             {
                 IFormCollection form = Request.Form;
                 IFormFile file = form.Files.FirstOrDefault();
-                DataServiceMessage<string> serviceMessage = await fileHelper.SaveFileAsync(file, Paths.StudentsImageUploadPath);
+                DataServiceMessage<string> serviceMessage = await fileHelper.SaveFileAsync(file, options.Student);
 
                 if (serviceMessage.ActionResult == ServiceActionResult.Success)
                 {
@@ -88,7 +92,7 @@ namespace StudyONU.Admin.Controllers
             {
                 IFormCollection form = Request.Form;
                 IEnumerable<IFormFile> files = form.Files;
-                DataServiceMessage<IEnumerable<string>> serviceMessage = await fileHelper.SaveFilesAsync(files, Paths.ReportsUploadPath);
+                DataServiceMessage<IEnumerable<string>> serviceMessage = await fileHelper.SaveFilesAsync(files, options.Report);
 
                 if (serviceMessage.ActionResult == ServiceActionResult.Success)
                 {

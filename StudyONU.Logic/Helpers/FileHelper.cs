@@ -92,15 +92,14 @@ namespace StudyONU.Logic.Helpers
             string fileName = Guid.NewGuid().ToString();
             string extension = Path.GetExtension(file.FileName);
             string fullFileName = $"{fileName}{extension}";
-            string trimmedServerFolderPath = serverFolderPath.TrimStart(Path.DirectorySeparatorChar);
 
-            string path = Path.Combine(env.WebRootPath, trimmedServerFolderPath, fullFileName);
+            string path = Path.Combine(env.WebRootPath, serverFolderPath, fullFileName);
             using (Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return Path.Combine(serverFolderPath, fullFileName);
+            return Path.Combine("/" + serverFolderPath, fullFileName);
         }
     }
 }

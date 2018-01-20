@@ -37,7 +37,7 @@ export class Sidebar extends React.Component {
                             <li key={index} className="nav-item">
                                 <NavLink
                                     to={link.to}
-                                    exact className="nav-link"
+                                    exact className={`nav-link${link.important ? ' important' : ''}`}
                                     activeClassName="nav-link-active">
                                     {link.title}
                                 </NavLink>

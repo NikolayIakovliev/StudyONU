@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
 using StudyONU.Admin.Builder;
 using StudyONU.Admin.Mappings;
+using StudyONU.Admin.Options;
 using StudyONU.Logic.Extensions;
 using System;
 
@@ -28,6 +29,9 @@ namespace StudyONU.Admin
                 config.AddProfile<BindingModelProfile>();
             });
             services.AddLogic(configuration);
+
+            services.Configure<UploadOptions>(configuration.GetSection("Upload"));
+            services.Configure<FeedbackOptions>(configuration.GetSection("Feedback"));
 
             services.AddMvc()
                 .AddJsonOptions(options =>
