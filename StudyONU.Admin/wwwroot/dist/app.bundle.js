@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c53c4d1b69bcabae44c7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9c708b6823e84985b352"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -47574,7 +47574,7 @@ var Feedback = function (_React$Component) {
                     React.createElement(
                         'i',
                         null,
-                        '"\u0412\u0441\u0435 \u043C\u044B \u043D\u0435 \u0438\u0434\u0435\u0430\u043B\u044C\u043D\u044B"'
+                        '\u0412\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u043E\u043C\u043E\u0447\u044C \u0441\u0430\u0439\u0442\u0443 \u0441\u0442\u0430\u0442\u044C \u043B\u0443\u0447\u0448\u0435'
                     )
                 ),
                 React.createElement(
@@ -47585,7 +47585,7 @@ var Feedback = function (_React$Component) {
                 React.createElement(
                     'p',
                     null,
-                    '\u0415\u0441\u043B\u0438 \u0432\u044B \u0437\u0430\u043C\u0435\u0442\u0438\u043B\u0438 \u043A\u0430\u043A\u0443\u044E-\u043B\u0438\u0431\u043E ',
+                    '\u0415\u0441\u043B\u0438 \u0412\u044B \u0437\u0430\u043C\u0435\u0442\u0438\u043B\u0438 \u043A\u0430\u043A\u0443\u044E-\u043B\u0438\u0431\u043E ',
                     React.createElement(
                         'b',
                         null,
