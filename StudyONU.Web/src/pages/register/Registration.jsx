@@ -1,4 +1,5 @@
 ﻿import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import {
     Step,
     Stepper,
@@ -61,6 +62,10 @@ export class Registration extends React.Component {
     }
 
     render() {
+        if (this.props.user.isLoggedIn) {
+            return <Redirect to='/account' />;
+        }
+
         const {
             success,
             stepIndex,

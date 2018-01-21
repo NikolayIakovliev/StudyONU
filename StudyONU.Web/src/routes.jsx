@@ -13,6 +13,8 @@ import { Course } from './pages/course/Course';
 import { Task } from './pages/task/Task';
 import { GuideList } from './pages/guides/GuideList';
 import { CourseProgress } from './pages/courseProgress/CourseProgress';
+import AccountInfo from './pages/account/AccountInfo';
+import ChangePassword from './pages/account/changePassword/ChangePassword';
 
 import { Api, urls } from './shared/api';
 
@@ -39,7 +41,7 @@ export class Routes extends React.Component {
         const user = this.state.user;
 
         let Api = ApiWrapper(user, (data) => AuthorizationStorage.save(data), () => AuthorizationStorage.clear());
-        
+
         return (
             <Switch>
                 <Route exact path='/' render={() => <Redirect to="/courses/public" />} />
@@ -50,6 +52,8 @@ export class Routes extends React.Component {
                 <Route exact path='/courses/:id(\d+)/guides' component={Api(GuideList)} />
                 <Route exact path='/courses/:id(\d+)/progress' component={Api(CourseProgress)} />
                 <Route exact path='/courses/:courseId(\d+)/tasks/:id(\d+)' component={Api(Task)} />
+                <Route exact path='/account' render={() => <Redirect to='/account/password' />} />
+                <Route exact path='/account/password' component={Api(ChangePassword)} />
                 <Route path='/404' component={NotFound} />
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>

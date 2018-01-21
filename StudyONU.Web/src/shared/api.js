@@ -93,7 +93,8 @@ export const urls = {
     check: '/api/check',
     token: '/api/token',
     account: {
-        checkEmail: '/api/account/checkemail'
+        checkEmail: '/api/account/checkemail',
+        password: '/api/account/password'
     },
     courses: {
         details: (id) => `/api/courses/${id}`,

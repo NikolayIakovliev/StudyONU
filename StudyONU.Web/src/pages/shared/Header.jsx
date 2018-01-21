@@ -65,9 +65,7 @@ export class Header extends React.Component {
                         <MenuItem onClick={() => history.push('/')}>
                             Домашняя страница
                         </MenuItem>
-                        <MenuItem onClick={() => history.push('/register')}>
-                            Регистрация
-                        </MenuItem>
+                        {this.getAccountTab(user)}
                     </Drawer>
                 }
             </div>
@@ -101,5 +99,11 @@ export class Header extends React.Component {
                     <button className="btn" onClick={() => this.props.history.push('/register')}>Регистрация</button>
                 </div>
             );
+    }
+
+    getAccountTab(user) {
+        return user.isLoggedIn
+            ? <MenuItem onClick={() => this.props.history.push('/account')}>Аккаунт</MenuItem>
+            : <MenuItem onClick={() => this.props.history.push('/register')}>Регистрация</MenuItem>;
     }
 }
