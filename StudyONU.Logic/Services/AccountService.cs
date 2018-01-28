@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using StudyONU.Core.Entities;
 using StudyONU.Data.Contracts;
+using StudyONU.Data.Contracts.Repositories;
 using StudyONU.Logic.Contracts;
 using StudyONU.Logic.Contracts.Services;
 using StudyONU.Logic.DTO.Account;
@@ -235,7 +236,27 @@ namespace StudyONU.Logic.Services
             };
         }
 
-        public async Task<ServiceMessage> IsUnique(string email)
+        public Task<ServiceMessage> IsStudentEmailUnique(string email)
+        {
+            return IsUnique(email, async () =>
+            {
+                StudentQueueEntity entity = await unitOfWork.StudentQueue.GetByEmailAsync(email);
+                return entity == null;
+            });
+        }
+
+        public Task<ServiceMessage> IsLecturerEmailUnique(string email)
+        {
+            return IsUnique(email, async () =>
+            {
+                IRepository<LecturerQueueEntity> repository = unitOfWork.GetRepository<LecturerQueueEntity>();
+                LecturerQueueEntity entity = await repository.GetAsync(e => e.Email == email);
+
+                return entity == null;
+            });
+        }
+
+        private async Task<ServiceMessage> IsUnique(string email, Func<Task<bool>> isUnique)
         {
             ServiceActionResult actionResult = ServiceActionResult.Success;
             ErrorCollection errors = new ErrorCollection();
@@ -243,8 +264,8 @@ namespace StudyONU.Logic.Services
             try
             {
                 UserEntity userEntity = await unitOfWork.Users.GetByEmailAsync(email);
-                StudentQueueEntity studentQueueEntity = await unitOfWork.StudentQueue.GetByEmailAsync(email);
-                if (userEntity != null || studentQueueEntity != null)
+                bool unique = await isUnique();
+                if (userEntity != null || !unique)
                 {
                     actionResult = ServiceActionResult.Error;
                     errors.AddCommonError("Email is already being used");

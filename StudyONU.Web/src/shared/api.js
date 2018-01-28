@@ -93,7 +93,8 @@ export const urls = {
     check: '/api/check',
     token: '/api/token',
     account: {
-        checkEmail: '/api/account/checkemail',
+        checkStudentEmail: '/api/account/checkemail/student',
+        checkLecturerEmail: '/api/account/checkemail/lecturer',
         password: '/api/account/password'
     },
     courses: {
@@ -103,6 +104,7 @@ export const urls = {
         taskList: (id) => `/api/courses/${id}/tasks`
     },
     students: '/api/students',
+    lecturers: '/api/lecturers',
     specialities: '/api/specialities',
     tasks: {
         details: (id) => `/api/tasks/${id}`

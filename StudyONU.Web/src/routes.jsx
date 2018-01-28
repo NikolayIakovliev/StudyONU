@@ -6,7 +6,9 @@ import { AuthorizationStorage } from './shared/authorizationStorage';
 import { ApiWrapper } from './pages/shared/ApiWrapper';
 import { NotFound } from './pages/shared/NotFound';
 
-import { Registration } from './pages/register/Registration';
+import Registration from './pages/register/Registration';
+import StudentRegistration from './pages/register/student/RegistrationForm';
+import LecturerRegistration from './pages/register/lecturer/RegistrationForm';
 import { PublicCourses } from './pages/courses/public/PublicCourses';
 import { MyCourses } from './pages/courses/my/MyCourses';
 import { Course } from './pages/course/Course';
@@ -46,6 +48,8 @@ export class Routes extends React.Component {
             <Switch>
                 <Route exact path='/' render={() => <Redirect to="/courses/public" />} />
                 <Route exact path='/register' component={Api(Registration)} />
+                <Route exact path='/register/student' component={Api(StudentRegistration)} />
+                <Route exact path='/register/lecturer' component={Api(LecturerRegistration)} />
                 <Route exact path='/courses/public' component={Api(PublicCourses)} />
                 <Route exact path='/courses/my' component={Api(MyCourses)} />
                 <Route exact path='/courses/:id(\d+)/tasks' component={Api(Course)} />

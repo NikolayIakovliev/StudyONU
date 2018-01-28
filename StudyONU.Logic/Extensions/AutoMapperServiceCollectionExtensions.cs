@@ -19,6 +19,7 @@ namespace StudyONU.Logic.Extensions
                 config.AddProfile<CommentProfile>();
                 config.AddProfile<ReportProfile>();
                 config.AddProfile<CourseReportProfile>();
+                config.AddProfile<LecturerQueueProfile>();
             });
 
             return services;

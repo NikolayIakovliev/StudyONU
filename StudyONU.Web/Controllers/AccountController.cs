@@ -66,11 +66,21 @@ namespace StudyONU.Web.Controllers
         }
 
         [HttpPost]
-        [Route("checkemail")]
+        [Route("checkemail/student")]
         [AllowAnonymous]
-        public async Task<IActionResult> CheckEmail([FromQuery] string email)
+        public async Task<IActionResult> CheckStudentEmail([FromQuery] string email)
         {
-            ServiceMessage serviceMessage = await accountService.IsUnique(email);
+            ServiceMessage serviceMessage = await accountService.IsStudentEmailUnique(email);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpPost]
+        [Route("checkemail/lecturer")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckLecturerEmail([FromQuery] string email)
+        {
+            ServiceMessage serviceMessage = await accountService.IsLecturerEmailUnique(email);
 
             return GenerateResponse(serviceMessage);
         }

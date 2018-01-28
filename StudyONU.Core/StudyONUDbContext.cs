@@ -16,6 +16,8 @@ namespace StudyONU.Core
 
         public DbSet<LecturerEntity> Lecturers { get; set; }
 
+        public DbSet<LecturerQueueEntity> LecturerQueue { get; set; }
+
         public DbSet<ReportEntity> Reports { get; set; }
 
         public DbSet<RoleEntity> Roles { get; set; }
@@ -44,6 +46,7 @@ namespace StudyONU.Core
             builder.ApplyConfiguration(new CourseConfiguration());
             builder.ApplyConfiguration(new GuideConfiguration());
             builder.ApplyConfiguration(new LecturerConfiguration());
+            builder.ApplyConfiguration(new LecturerQueueConfiguration());
             builder.ApplyConfiguration(new ReportConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new SpecialityConfiguration());

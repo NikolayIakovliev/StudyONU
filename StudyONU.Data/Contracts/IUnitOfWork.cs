@@ -6,6 +6,8 @@ namespace StudyONU.Data.Contracts
 {
     public interface IUnitOfWork : IDisposable
     {
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+
         IAdminRepository Admins { get; }
 
         ICommentRepository Comments { get; }

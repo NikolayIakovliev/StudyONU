@@ -17,6 +17,8 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<ServiceMessage> ChangePasswordAsync(ChangePasswordDTO changePasswordDTO);
 
-        Task<ServiceMessage> IsUnique(string email);
+        Task<ServiceMessage> IsStudentEmailUnique(string email);
+
+        Task<ServiceMessage> IsLecturerEmailUnique(string email);
     }
 }

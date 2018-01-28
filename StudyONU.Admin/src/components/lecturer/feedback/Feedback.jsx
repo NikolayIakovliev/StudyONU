@@ -3,7 +3,6 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import Api from '../../../shared/api';
 import Urls from '../../../shared/urls';
 
 export default class Feedback extends React.Component {
@@ -62,7 +61,7 @@ export default class Feedback extends React.Component {
 
         if (validation.success) {
             let self = this;
-            Api.post(Urls.feedbacks, this.state.text, () => self.setState({ text: 'Спасибо!' }));
+            this.props.post(Urls.feedbacks, this.state.text, () => self.setState({ text: 'Спасибо!' }));
         }
 
         this.setState({ error: validation.error });

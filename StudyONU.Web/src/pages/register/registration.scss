@@ -1,0 +1,66 @@
+﻿.registration-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > .registration-wrapper {
+        padding: 50px 0;
+        text-align: center;
+
+        & > .registration-title {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid black;
+        }
+
+        & > .registration-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & > .registration-card {
+                position: relative;
+                text-decoration: none;
+                color: black;
+                margin: 0 5px;
+                overflow: hidden;
+                transition: color 0.4s ease-out;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    background-color: #004d40;
+                    transform: scale(0);
+                    transition: transform 0.4s ease-out, border-radius 0.4s ease-out;
+                }
+
+                &:hover {
+                    color: white;
+
+                    &:after {
+                        transform: scale(1);
+                        border-radius: 20px;
+                    }
+                }
+
+                & > .registration-card-content {
+                    z-index: 2;
+                    position: relative;
+
+                    & > .registration-card-title {
+                        margin-bottom: 10px;
+                    }
+
+                    & > .registration-card-img {
+                        max-width: 20vw;
+                    }
+                }
+            }
+        }
+    }
+}

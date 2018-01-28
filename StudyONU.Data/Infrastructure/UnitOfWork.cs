@@ -1,6 +1,8 @@
-﻿using StudyONU.Core;
+﻿using Microsoft.Extensions.DependencyInjection;
+using StudyONU.Core;
 using StudyONU.Data.Contracts;
 using StudyONU.Data.Contracts.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace StudyONU.Data.Infrastructure
@@ -8,7 +10,7 @@ namespace StudyONU.Data.Infrastructure
     public class UnitOfWork : IUnitOfWork
     {
         private readonly StudyONUDbContext context;
-
+        private readonly IServiceProvider serviceProvider;
         private Lazier<IAdminRepository> admins;
         private Lazier<ICommentRepository> comments;
         private Lazier<ICourseRepository> courses;
@@ -51,6 +53,7 @@ namespace StudyONU.Data.Infrastructure
 
         public UnitOfWork(
             StudyONUDbContext context,
+            IServiceProvider serviceProvider,
             Lazier<IAdminRepository> admins,
             Lazier<ICommentRepository> comments,
             Lazier<ICourseRepository> courses,
@@ -67,6 +70,7 @@ namespace StudyONU.Data.Infrastructure
         {
             this.admins = admins;
             this.context = context;
+            this.serviceProvider = serviceProvider;
             this.users = users;
             this.comments = comments;
             this.courses = courses;
@@ -81,14 +85,11 @@ namespace StudyONU.Data.Infrastructure
             this.tasks = tasks;
         }
 
-        public Task CommitAsync()
-        {
-            return context.SaveChangesAsync();
-        }
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class =>
+            serviceProvider.GetService<IRepository<TEntity>>();
 
-        public void Dispose()
-        {
-            context.Dispose();
-        }
+        public Task CommitAsync() => context.SaveChangesAsync();
+
+        public void Dispose() => context.Dispose();
     }
 }

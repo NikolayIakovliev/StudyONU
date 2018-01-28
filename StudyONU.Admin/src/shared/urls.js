@@ -19,6 +19,11 @@
         approve: '/api/studentQueue/approve',
         disapprove: (id) => `/api/studentQueue/${id}/disapprove`
     },
+    lecturerQueue: {
+        list: '/api/lecturerQueue',
+        approve: id => `/api/lecturerQueue/${id}/approve`,
+        disapprove: id => `/api/lecturerQueue/${id}/disapprove`
+    },
     reports: {
         sent: '/api/reports/sent',
         onCheck: '/api/reports/oncheck',

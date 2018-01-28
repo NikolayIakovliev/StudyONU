@@ -16,7 +16,5 @@ namespace StudyONU.Data.Contracts.Repositories
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression);
 
         Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null);
-
-        Task<IEnumerable<TEntity>> GetAllAsync(int skip, int take, Expression<Func<TEntity, bool>> expression = null);
     }
 }

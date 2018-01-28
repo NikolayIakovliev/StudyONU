@@ -8,6 +8,7 @@ import { AccountPanel } from './components/shared/account/AccountPanel';
 import { AdminHome } from './components/admin/home/Home';
 import { LecturerList } from './components/admin/lecturers/LecturerList';
 import { SpecialityList } from './components/admin/specialities/SpecialityList';
+import LecturerQueue from './components/admin/lecturerQueue/LecturerQueue';
 
 import { LecturerHome } from './components/lecturer/home/Home';
 import { CourseList } from './components/lecturer/courses/CourseList';
@@ -75,12 +76,17 @@ export default class Routes extends React.Component {
                 {
                     title: 'Специальности',
                     to: '/specialities'
+                },
+                {
+                    title: 'Заявки на регистрацию',
+                    to: '/lecturerqueue'
                 }
             ];
             routes = (
                 <Switch>
                     <Route exact path='/' component={PropsApiWrapper(AdminHome)} />
                     <Route path='/lecturers' component={PropsApiWrapper(LecturerList)} />
+                    <Route path='/lecturerqueue' component={PropsApiWrapper(LecturerQueue)} />
                     <Route path='/specialities' component={PropsApiWrapper(SpecialityList)} />
                     <Route path='/account/info' component={PropsApiWrapper(AccountPanel)} />
                     <Route path='/' component={NotFound} />

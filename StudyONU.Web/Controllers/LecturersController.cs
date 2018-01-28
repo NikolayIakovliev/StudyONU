@@ -2,22 +2,22 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudyONU.Logic.Contracts.Services;
-using StudyONU.Logic.DTO.StudentQueue;
+using StudyONU.Logic.DTO.LecturerQueue;
 using StudyONU.Logic.Infrastructure;
 using StudyONU.Web.Helpers;
-using StudyONU.Web.Models.StudentQueue;
+using StudyONU.Web.Models.LecturerQueue;
 using System.Threading.Tasks;
 
 namespace StudyONU.Web.Controllers
 {
-    public class StudentsController : ApiController
+    public class LecturersController : ApiController
     {
-        private readonly IStudentQueueService service;
+        private readonly ILecturerQueueService service;
         private readonly IMapper mapper;
         private readonly ProxyHelper proxyHelper;
 
-        public StudentsController(
-            IStudentQueueService service,
+       public LecturersController(
+            ILecturerQueueService service,
             IMapper mapper,
             ProxyHelper proxyHelper
             )
@@ -28,16 +28,16 @@ namespace StudyONU.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(StudentQueueCreateBindingModel model)
+        public async Task<IActionResult> Register(LecturerQueueBindingModel model)
         {
-            string path = await proxyHelper.SendStudentFileAsync(model.Photo);
+            string path = await proxyHelper.SendLecturerFileAsync(model.Photo);
 
             if (path != null)
             {
-                StudentQueueCreateDTO studentQueueCreateDTO = mapper.Map<StudentQueueCreateDTO>(model);
-                studentQueueCreateDTO.PhotoPath = path;
+                LecturerQueueCreateDTO lecturerQueueCreateDTO = mapper.Map<LecturerQueueCreateDTO>(model);
+                lecturerQueueCreateDTO.PhotoPath = path;
 
-                ServiceMessage serviceMessage = await service.CreateAsync(studentQueueCreateDTO);
+                ServiceMessage serviceMessage = await service.CreateAsync(lecturerQueueCreateDTO);
                 
                 return GenerateResponse(serviceMessage);
             }

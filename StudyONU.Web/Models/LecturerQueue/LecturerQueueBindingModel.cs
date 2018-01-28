@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace StudyONU.Web.Models.StudentQueue
+namespace StudyONU.Web.Models.LecturerQueue
 {
-    public class StudentQueueCreateBindingModel
+    public class LecturerQueueBindingModel
     {
         public string FirstName { get; set; }
 
@@ -13,9 +13,5 @@ namespace StudyONU.Web.Models.StudentQueue
         public string Email { get; set; }
 
         public IFormFile Photo { get; set; }
-
-        public int CourseNumber { get; set; }
-
-        public int SpecialityId { get; set; }
     }
 }

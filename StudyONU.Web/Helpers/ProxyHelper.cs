@@ -13,6 +13,7 @@ namespace StudyONU.Web.Helpers
     public class ProxyHelper
     {
         private const string StudentApi = "api/files/student";
+        private const string LecturerApi = "api/files/lecturer";
         private const string ReportsApi = "api/files/reports";
 
         private readonly ILogger logger;
@@ -32,30 +33,14 @@ namespace StudyONU.Web.Helpers
         /// </summary>
         /// <param name="file"></param>
         /// <returns>Returns path of saved file. If operation was unsuccessful returns null</returns>
-        public async Task<string> SendFileAsync(IFormFile file)
-        {
-            string path = null;
-            
-            try
-            {
-                using (HttpClient client = CreateHttpClient())
-                {
-                    MultipartFormDataContent content = GetContent(file);
+        public Task<string> SendLecturerFileAsync(IFormFile file) => SendFileAsync(file, LecturerApi);
 
-                    HttpResponseMessage response = await client.PostAsync(StudentApi, content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        path = await response.Content.ReadAsStringAsync();
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                logger.Fatal(exception);
-            }
-
-            return path;
-        }
+        /// <summary>
+        /// Sends an IFormFile to the CMS server where the file should be saved
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>Returns path of saved file. If operation was unsuccessful returns null</returns>
+        public Task<string> SendStudentFileAsync(IFormFile file) => SendFileAsync(file, StudentApi);
 
         /// <summary>
         /// Sends IEnumerable<IFormFile> to the CMS server where the files should be saved
@@ -86,6 +71,31 @@ namespace StudyONU.Web.Helpers
             }
 
             return paths;
+        }
+
+        private async Task<string> SendFileAsync(IFormFile file, string api)
+        {
+            string path = null;
+
+            try
+            {
+                using (HttpClient client = CreateHttpClient())
+                {
+                    MultipartFormDataContent content = GetContent(file);
+
+                    HttpResponseMessage response = await client.PostAsync(api, content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        path = await response.Content.ReadAsStringAsync();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Fatal(exception);
+            }
+
+            return path;
         }
 
         private HttpClient CreateHttpClient()

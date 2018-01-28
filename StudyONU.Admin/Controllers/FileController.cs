@@ -63,26 +63,11 @@ namespace StudyONU.Admin.Controllers
 
         [HttpPost]
         [Route("/api/files/student")]
-        public async Task<IActionResult> SavePhoto()
-        {
-            if (Request.HasFormContentType)
-            {
-                IFormCollection form = Request.Form;
-                IFormFile file = form.Files.FirstOrDefault();
-                DataServiceMessage<string> serviceMessage = await fileHelper.SaveFileAsync(file, options.Student);
+        public Task<IActionResult> SaveStudentPhoto() => SavePhotoAsync(options.Student);
 
-                if (serviceMessage.ActionResult == ServiceActionResult.Success)
-                {
-                    return Ok(serviceMessage.Data);
-                }
-                else
-                {
-                    return BadRequest("File upload failed");
-                }
-            }
-
-            return BadRequest("No file uploaded");
-        }
+        [HttpPost]
+        [Route("/api/files/lecturer")]
+        public Task<IActionResult> SaveLecturerPhoto() => SavePhotoAsync(options.Lecturer);
 
         [HttpPost]
         [Route("/api/files/reports")]
@@ -101,6 +86,27 @@ namespace StudyONU.Admin.Controllers
                 else
                 {
                     return BadRequest("Files upload failed");
+                }
+            }
+
+            return BadRequest("No file uploaded");
+        }
+
+        private async Task<IActionResult> SavePhotoAsync(string path)
+        {
+            if (Request.HasFormContentType)
+            {
+                IFormCollection form = Request.Form;
+                IFormFile file = form.Files.FirstOrDefault();
+                DataServiceMessage<string> serviceMessage = await fileHelper.SaveFileAsync(file, path);
+
+                if (serviceMessage.ActionResult == ServiceActionResult.Success)
+                {
+                    return Ok(serviceMessage.Data);
+                }
+                else
+                {
+                    return BadRequest("File upload failed");
                 }
             }
 

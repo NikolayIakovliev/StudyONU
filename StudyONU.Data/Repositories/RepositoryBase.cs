@@ -48,14 +48,5 @@ namespace StudyONU.Data.Repositories
 
             return await entities.ToListAsync();
         }
-
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int skip, int take, Expression<Func<TEntity, bool>> expression = null)
-        {
-            IQueryable<TEntity> entities = expression != null
-                ? dbSet.Where(expression)
-                : dbSet;
-
-            return await entities.Skip(skip).Take(take).ToListAsync();
-        }
     }
 }
