@@ -230,34 +230,33 @@ namespace StudyONU.Logic.Services
             };
         }
 
+        public Task<DataServiceMessage<IEnumerable<CourseShortListDTO>>> GetByAsync(int specialityId, int courseNumber) =>
+            GetAllAsync<CourseShortListDTO, CourseEntity>(course => course.SpecialityId == specialityId && course.CourseNumber == courseNumber);
+
         public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByLecturerEmailAsync(string email)
         {
-            Func<Task<IEnumerable<CourseEntity>>> factory =
-                () => unitOfWork.Courses.GetAllByLecturerEmailAsync(email, course => course.Name);
+            Task<IEnumerable<CourseEntity>> factory() => unitOfWork.Courses.GetAllByLecturerEmailAsync(email, course => course.Name);
 
             return GetAllAsync(factory);
         }
 
         public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetByStudentEmailAsync(string email)
         {
-            Func<Task<IEnumerable<CourseEntity>>> factory =
-                () => unitOfWork.Courses.GetAllByStudentEmailAsync(email, course => course.Name);
+            Task<IEnumerable<CourseEntity>> factory() => unitOfWork.Courses.GetAllByStudentEmailAsync(email, course => course.Name);
 
             return GetAllAsync(factory);
         }
 
         public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetRecommendedAsync(int studentQueueId)
         {
-            Func<Task<IEnumerable<CourseEntity>>> factory =
-                () => unitOfWork.Courses.GetRecommendedAsync(studentQueueId);
+            Task<IEnumerable<CourseEntity>> factory() => unitOfWork.Courses.GetRecommendedAsync(studentQueueId);
 
             return GetAllAsync(factory);
         }
 
         public Task<DataServiceMessage<IEnumerable<CourseListDTO>>> GetPublishedAsync()
         {
-            Func<Task<IEnumerable<CourseEntity>>> factory =
-                () => unitOfWork.Courses.GetAllOrderedAsync(course => course.IsPublished, course => course.Name);
+            Task<IEnumerable<CourseEntity>> factory() => unitOfWork.Courses.GetAllOrderedAsync(course => course.IsPublished, course => course.Name);
 
             return GetAllAsync(factory);
         }

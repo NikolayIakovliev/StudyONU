@@ -17,6 +17,7 @@ namespace StudyONU.Logic.Mappings
                 .ForMember(dest => dest.SpecialityName, opts => opts.MapFrom(src => src.Speciality.Name))
                 .ForMember(dest => dest.LecturerFullName, opts => opts.MapFrom(src => GetFullName(src.Lecturer.User)))
                 .ForMember(dest => dest.LecturerPhotoPath, opts => opts.MapFrom(src => src.Lecturer.User.PhotoPath));
+            CreateMap<CourseEntity, CourseShortListDTO>();
         }
     }
 }

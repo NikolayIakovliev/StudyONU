@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StudyONU.Logic.DTO.StudentQueue
+﻿namespace StudyONU.Logic.DTO.StudentQueue
 {
     public class StudentQueueCreateDTO
     {
@@ -17,5 +15,7 @@ namespace StudyONU.Logic.DTO.StudentQueue
         public int CourseNumber { get; set; }
 
         public int SpecialityId { get; set; }
+
+        public int CourseId { get; set; }
     }
 }

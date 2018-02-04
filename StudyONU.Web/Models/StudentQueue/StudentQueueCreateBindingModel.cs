@@ -17,5 +17,7 @@ namespace StudyONU.Web.Models.StudentQueue
         public int CourseNumber { get; set; }
 
         public int SpecialityId { get; set; }
+
+        public int CourseId { get; set; }
     }
 }

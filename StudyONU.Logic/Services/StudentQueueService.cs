@@ -37,20 +37,10 @@ namespace StudyONU.Logic.Services
                 StudentQueueEntity studentQueueEntity = await unitOfWork.StudentQueue.GetByEmailAsync(studentQueueCreateDTO.Email);
                 if (userEntity == null && studentQueueEntity == null)
                 {
-                    SpecialityEntity specialityEntity = await unitOfWork.Specialities.GetAsync(studentQueueCreateDTO.SpecialityId);
-                    if (specialityEntity != null)
-                    {
-                        studentQueueEntity = mapper.Map<StudentQueueEntity>(studentQueueCreateDTO);
-                        studentQueueEntity.Speciality = specialityEntity;
+                    studentQueueEntity = mapper.Map<StudentQueueEntity>(studentQueueCreateDTO);
 
-                        await unitOfWork.StudentQueue.AddAsync(studentQueueEntity);
-                        await unitOfWork.CommitAsync();
-                    }
-                    else
-                    {
-                        actionResult = ServiceActionResult.NotFound;
-                        errors.AddCommonError("Speciality was not found");
-                    }
+                    await unitOfWork.StudentQueue.AddAsync(studentQueueEntity);
+                    await unitOfWork.CommitAsync();
                 }
                 else
                 {
@@ -200,14 +190,17 @@ namespace StudyONU.Logic.Services
             return GetAllAsync(factory);
         }
 
-        public Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetUnapprovedAsync()
+        public async Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetByLecturerAsync(string lecturerEmail)
         {
+            IEnumerable<CourseEntity> courses = await unitOfWork.Courses.GetAllAsync(course => course.Lecturer.User.Email == lecturerEmail);
+            IEnumerable<int> courseIds = courses.Select(course => course.Id);
+
             Task<IEnumerable<StudentQueueEntity>> factory() => unitOfWork.StudentQueue.GetAllOrderedAsync(
-                    studentEntity => !studentEntity.Approved.HasValue,
+                    studentEntity => !studentEntity.Approved.HasValue && courseIds.Contains(studentEntity.CourseId),
                     studentEntity => studentEntity.DateCreated
                     );
 
-            return GetAllAsync(factory);
+            return await GetAllAsync(factory);
         }
 
         private async Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetAllAsync(Func<Task<IEnumerable<StudentQueueEntity>>> factory)

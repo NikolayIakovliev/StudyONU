@@ -68,7 +68,9 @@ namespace StudyONU.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            DataServiceMessage<IEnumerable<StudentQueueListDTO>> serviceMessage = await studentService.GetUnapprovedAsync();
+            string email = GetUserEmail();
+
+            DataServiceMessage<IEnumerable<StudentQueueListDTO>> serviceMessage = await studentService.GetByLecturerAsync(email);
 
             return GenerateResponse(serviceMessage);
         }

@@ -28,6 +28,14 @@ namespace StudyONU.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> List(int specialityId, int courseNumber)
+        {
+            DataServiceMessage<IEnumerable<CourseShortListDTO>> serviceMessage = await courseService.GetByAsync(specialityId, courseNumber);
+
+            return GenerateResponse(serviceMessage);
+        }
+
+        [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> Details(int id)
         {

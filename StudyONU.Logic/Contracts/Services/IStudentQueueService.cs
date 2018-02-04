@@ -14,7 +14,7 @@ namespace StudyONU.Logic.Contracts.Services
 
         Task<DataServiceMessage<StudentRegisteredDTO>> DisapproveAsync(int id);
 
-        Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetUnapprovedAsync();
+        Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetByLecturerAsync(string lecturerEmail);
 
         Task<DataServiceMessage<IEnumerable<StudentQueueListDTO>>> GetAllAsync();
     }

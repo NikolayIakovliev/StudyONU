@@ -12,6 +12,7 @@ namespace StudyONU.Logic.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddDefaultRepository<LecturerQueueEntity>();
+            services.AddDefaultRepository<CourseEntity>();
 
             services.AddCustomRepository<IAdminRepository, AdminRepository>();
             services.AddCustomRepository<ICommentRepository, CommentRepository>();

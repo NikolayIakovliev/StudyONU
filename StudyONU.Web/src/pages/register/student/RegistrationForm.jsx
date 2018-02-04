@@ -36,13 +36,16 @@ export default class RegistrationForm extends React.Component {
             courseNumber: 1,
             speciality: null,
             specialities: [],
+            course: null,
+            courses: [],
             errors: {
                 firstName: '',
                 lastName: '',
                 patronymic: '',
-                photo: null,
+                photo: '',
                 email: '',
-                speciality: null
+                speciality: '',
+                course: ''
             },
             allowNextStep: false
         }
@@ -53,12 +56,7 @@ export default class RegistrationForm extends React.Component {
     }
 
     load() {
-        let self = this;
-        this.props.get(urls.specialities, result => {
-            this.setState({
-                specialities: result.data
-            });
-        });
+        this.props.get(urls.specialities, result => this.setState({ specialities: result.data }));
     }
 
     render() {
@@ -91,6 +89,9 @@ export default class RegistrationForm extends React.Component {
                             <StepLabel>Основные данные</StepLabel>
                         </Step>
                         <Step>
+                            <StepLabel>Выбор курса</StepLabel>
+                        </Step>
+                        <Step>
                             <StepLabel>Фотография</StepLabel>
                         </Step>
                     </Stepper>
@@ -105,7 +106,7 @@ export default class RegistrationForm extends React.Component {
                                     style={{ marginRight: 12 }}
                                 />
                                 <RaisedButton
-                                    label={stepIndex === 2 ? 'Отправить заявку' : 'Далее'}
+                                    label={stepIndex === 3 ? 'Отправить заявку' : 'Далее'}
                                     primary={true}
                                     onClick={handleNext}
                                     disabled={!allowNextStep}
@@ -136,6 +137,8 @@ export default class RegistrationForm extends React.Component {
             courseNumber,
             speciality,
             specialities,
+            courses,
+            course,
             errors
         } = this.state;
 
@@ -200,6 +203,20 @@ export default class RegistrationForm extends React.Component {
                     </div>
                 );
             case 2:
+                return (
+                    <div>
+                        <SelectField
+                            floatingLabelText="Курс"
+                            errorText={errors.course}
+                            value={course}
+                            onChange={(event, index, course) => this.setState({ course })}>
+                            {this.state.courses.map(item => {
+                                return <MenuItem key={item.id} value={item} primaryText={item.name} />;
+                            })}
+                        </SelectField><br />
+                    </div>
+                );
+            case 3:
                 const dropzoneContent = (
                     <div>
                         {photo && <p>Выбрать другую фотографию</p>}
@@ -302,7 +319,8 @@ export default class RegistrationForm extends React.Component {
                         firstName,
                         lastName,
                         patronymic,
-                        speciality
+                        speciality,
+                        courseNumber
                     } = this.state;
 
                     let errors = {
@@ -313,7 +331,6 @@ export default class RegistrationForm extends React.Component {
                     }
 
                     let valid = true;
-                    let stepIndex = this.state.stepIndex;
 
                     if (firstName.length < 1 || firstName.length > 20) {
                         valid = false;
@@ -333,14 +350,35 @@ export default class RegistrationForm extends React.Component {
                     }
 
                     if (valid) {
-                        stepIndex++;
+                        this.props.get(urls.courses.getBy(speciality.id, courseNumber), result =>
+                            this.setState({
+                                courses: result.data,
+                                course: null,
+                                stepIndex: stepIndex + 1,
+                                errors: errors
+                            })
+                        );
+                    } else {
+                        this.setState({ errors: errors });
                     }
-                    this.setState({
-                        errors: errors,
-                        stepIndex: stepIndex
-                    });
                 }
             case 2:
+                return () => {
+                    let errors = this.state.errors;
+
+                    if (!this.state.course) {
+                        errors.course = 'Выберите курс обучения';
+                    } else {
+                        errors.course = '';
+                        stepIndex = stepIndex + 1;
+                    }
+
+                    this.setState({
+                        errors,
+                        stepIndex
+                    });
+                }
+            case 3:
                 return () => {
                     const {
                         photo
@@ -378,7 +416,8 @@ export default class RegistrationForm extends React.Component {
             photo,
             email,
             courseNumber,
-            speciality
+            speciality,
+            course
         } = this.state;
 
         const data = {
@@ -388,7 +427,8 @@ export default class RegistrationForm extends React.Component {
             photo: photo,
             email: email,
             courseNumber: courseNumber,
-            specialityId: speciality.id
+            specialityId: speciality.id,
+            courseId: course.id
         }
 
         let self = this;

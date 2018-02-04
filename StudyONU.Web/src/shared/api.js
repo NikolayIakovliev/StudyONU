@@ -101,7 +101,8 @@ export const urls = {
         details: (id) => `/api/courses/${id}`,
         published: '/api/courses/published',
         my: '/api/courses/my',
-        taskList: (id) => `/api/courses/${id}/tasks`
+        taskList: (id) => `/api/courses/${id}/tasks`,
+        getBy: (specialityId, courseNumber) => `/api/courses?specialityId=${specialityId}&courseNumber=${courseNumber}`,
     },
     students: '/api/students',
     lecturers: '/api/lecturers',

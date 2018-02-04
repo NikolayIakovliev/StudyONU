@@ -35,6 +35,9 @@ namespace StudyONU.Core.Configurations
             builder.HasOne(entity => entity.Speciality)
                 .WithMany(entity => entity.StudentQueue)
                 .HasForeignKey(entity => entity.SpecialityId);
+            builder.HasOne(entity => entity.Course)
+                .WithMany()
+                .HasForeignKey(entity => entity.CourseId);
         }
     }
 }

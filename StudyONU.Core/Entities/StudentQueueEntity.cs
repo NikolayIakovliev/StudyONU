@@ -27,5 +27,9 @@ namespace StudyONU.Core.Entities
         public int SpecialityId { get; set; }
 
         public virtual SpecialityEntity Speciality { get; set; }
+
+        public int CourseId { get; set; }
+
+        public virtual CourseEntity Course { get; set; }
     }
 }

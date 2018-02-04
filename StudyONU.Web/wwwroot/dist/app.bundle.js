@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "28a28b5b751aade0ed62"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "eeef548d6c626b09cbec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1204,6 +1204,9 @@ var urls = exports.urls = {
         my: '/api/courses/my',
         taskList: function taskList(id) {
             return '/api/courses/' + id + '/tasks';
+        },
+        getBy: function getBy(specialityId, courseNumber) {
+            return '/api/courses?specialityId=' + specialityId + '&courseNumber=' + courseNumber;
         }
     },
     students: '/api/students',
@@ -31475,13 +31478,16 @@ var RegistrationForm = function (_React$Component) {
             courseNumber: 1,
             speciality: null,
             specialities: [],
+            course: null,
+            courses: [],
             errors: {
                 firstName: '',
                 lastName: '',
                 patronymic: '',
-                photo: null,
+                photo: '',
                 email: '',
-                speciality: null
+                speciality: '',
+                course: ''
             },
             allowNextStep: false
         };
@@ -31498,11 +31504,8 @@ var RegistrationForm = function (_React$Component) {
         value: function load() {
             var _this2 = this;
 
-            var self = this;
             this.props.get(_api.urls.specialities, function (result) {
-                _this2.setState({
-                    specialities: result.data
-                });
+                return _this2.setState({ specialities: result.data });
             });
         }
     }, {
@@ -31565,6 +31568,15 @@ var RegistrationForm = function (_React$Component) {
                             React.createElement(
                                 _Stepper.StepLabel,
                                 null,
+                                '\u0412\u044B\u0431\u043E\u0440 \u043A\u0443\u0440\u0441\u0430'
+                            )
+                        ),
+                        React.createElement(
+                            _Stepper.Step,
+                            null,
+                            React.createElement(
+                                _Stepper.StepLabel,
+                                null,
                                 '\u0424\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044F'
                             )
                         )
@@ -31585,7 +31597,7 @@ var RegistrationForm = function (_React$Component) {
                                 style: { marginRight: 12 }
                             }),
                             React.createElement(_RaisedButton2.default, {
-                                label: stepIndex === 2 ? 'Отправить заявку' : 'Далее',
+                                label: stepIndex === 3 ? 'Отправить заявку' : 'Далее',
                                 primary: true,
                                 onClick: handleNext,
                                 disabled: !allowNextStep
@@ -31615,6 +31627,8 @@ var RegistrationForm = function (_React$Component) {
                 courseNumber = _state2.courseNumber,
                 speciality = _state2.speciality,
                 specialities = _state2.specialities,
+                courses = _state2.courses,
+                course = _state2.course,
                 errors = _state2.errors;
 
 
@@ -31643,7 +31657,7 @@ var RegistrationForm = function (_React$Component) {
                         React.createElement('br', null)
                     );
                 case 1:
-                    var courses = [1, 2, 3, 4, 5, 6];
+                    var _courses = [1, 2, 3, 4, 5, 6];
 
                     return React.createElement(
                         'div',
@@ -31688,7 +31702,7 @@ var RegistrationForm = function (_React$Component) {
                                 onChange: function onChange(event, index, value) {
                                     return _this4.setState({ courseNumber: value });
                                 } },
-                            courses.map(function (item) {
+                            _courses.map(function (item) {
                                 return React.createElement(_MenuItem2.default, { key: item, value: item, primaryText: item + ' \u043A\u0443\u0440\u0441' });
                             })
                         ),
@@ -31710,6 +31724,25 @@ var RegistrationForm = function (_React$Component) {
                         React.createElement('br', null)
                     );
                 case 2:
+                    return React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            _SelectField2.default,
+                            {
+                                floatingLabelText: '\u041A\u0443\u0440\u0441',
+                                errorText: errors.course,
+                                value: course,
+                                onChange: function onChange(event, index, course) {
+                                    return _this4.setState({ course: course });
+                                } },
+                            this.state.courses.map(function (item) {
+                                return React.createElement(_MenuItem2.default, { key: item.id, value: item, primaryText: item.name });
+                            })
+                        ),
+                        React.createElement('br', null)
+                    );
+                case 3:
                     var dropzoneContent = React.createElement(
                         'div',
                         null,
@@ -31836,7 +31869,8 @@ var RegistrationForm = function (_React$Component) {
                             firstName = _state3.firstName,
                             lastName = _state3.lastName,
                             patronymic = _state3.patronymic,
-                            speciality = _state3.speciality;
+                            speciality = _state3.speciality,
+                            courseNumber = _state3.courseNumber;
 
 
                         var errors = {
@@ -31847,7 +31881,6 @@ var RegistrationForm = function (_React$Component) {
                         };
 
                         var valid = true;
-                        var stepIndex = _this5.state.stepIndex;
 
                         if (firstName.length < 1 || firstName.length > 20) {
                             valid = false;
@@ -31867,14 +31900,35 @@ var RegistrationForm = function (_React$Component) {
                         }
 
                         if (valid) {
-                            stepIndex++;
+                            _this5.props.get(_api.urls.courses.getBy(speciality.id, courseNumber), function (result) {
+                                return _this5.setState({
+                                    courses: result.data,
+                                    course: null,
+                                    stepIndex: stepIndex + 1,
+                                    errors: errors
+                                });
+                            });
+                        } else {
+                            _this5.setState({ errors: errors });
                         }
+                    };
+                case 2:
+                    return function () {
+                        var errors = _this5.state.errors;
+
+                        if (!_this5.state.course) {
+                            errors.course = 'Выберите курс обучения';
+                        } else {
+                            errors.course = '';
+                            stepIndex = stepIndex + 1;
+                        }
+
                         _this5.setState({
                             errors: errors,
                             stepIndex: stepIndex
                         });
                     };
-                case 2:
+                case 3:
                     return function () {
                         var photo = _this5.state.photo;
 
@@ -31912,7 +31966,8 @@ var RegistrationForm = function (_React$Component) {
                 photo = _state4.photo,
                 email = _state4.email,
                 courseNumber = _state4.courseNumber,
-                speciality = _state4.speciality;
+                speciality = _state4.speciality,
+                course = _state4.course;
 
 
             var data = {
@@ -31922,7 +31977,8 @@ var RegistrationForm = function (_React$Component) {
                 photo: photo,
                 email: email,
                 courseNumber: courseNumber,
-                specialityId: speciality.id
+                specialityId: speciality.id,
+                courseId: course.id
             };
 
             var self = this;
